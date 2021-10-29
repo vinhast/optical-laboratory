@@ -44,7 +44,7 @@ export default {
   config: {
     disk: {},
     s3: {
-      bucket: 'app-optical-laboratory',
+      bucket: 'app-optical_laboratory',
     },
   },
 } as IUploadConfig;

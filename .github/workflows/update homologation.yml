@@ -33,7 +33,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           source: ".,!node_modules"
-          target: "/usr/share/nginx/optical-laboratory/beta-api"
+          target: "/usr/share/nginx/optical_laboratory/beta-api"
       
       - name: Run production scripts
         uses: appleboy/ssh-action@master
@@ -43,7 +43,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: | 
-            cd /usr/share/nginx/optical-laboratory/beta-api
+            cd /usr/share/nginx/optical_laboratory/beta-api
             yarn
             ./node_modules/.bin/typeorm migration:run
             pm2 restart beta-api

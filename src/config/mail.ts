@@ -12,8 +12,8 @@ export default {
   driver: process.env.MAIL_DRIVER || 'ethereal',
   defaults: {
     from: {
-      email: 'noreply@optical-laboratory.com.br',
-      name: 'optical-laboratory',
+      email: 'noreply@optical_laboratory.com.br',
+      name: 'optical_laboratory',
     },
   },
 } as IMailConfig;

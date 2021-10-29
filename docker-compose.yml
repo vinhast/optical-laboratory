@@ -1,17 +1,17 @@
 version: '3'
 services:
   redis:
-    container_name: Redis-optical-laboratory
+    container_name: Redis-optical_laboratory
     image: redis
     ports:
       - '6379:6379'
   database:
-    container_name: Database-MySQL-optical-laboratory
+    container_name: Database-MySQL-optical_laboratory
     image: mysql:8.0
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: docker
-      MYSQL_DATABASE: optical-laboratory
+      MYSQL_DATABASE: optical_laboratory
     volumes:
       - /home/rafael/docker-volumes/mysql:/var/lib/mysql # ALTERA O VOLUME PARA ALGUMA PASTA ESPECIFICA, OU A PADRÂO .
     ports:
