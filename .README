@@ -1,0 +1,11 @@
+Projeto precisa de instalação do redis
+docker run --name redis -p 6379:6379 -d -t redis:alpine
+
+Projeto precisa de instalação do redis
+docker run --detach --name=nome_do_banco -p 3306:3306  --env="MYSQL_ROOT_PASSWORD=senha" mysql
+
+// Instalar dependências
+$ yarn
+
+// Iniciar projeto
+$ yarn dev:server
