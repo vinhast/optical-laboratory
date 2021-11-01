@@ -1,4 +1,3 @@
-import User from '@modules/users/infra/typeorm/entities/User';
 import {
   Entity,
   Column,
@@ -6,10 +5,10 @@ import {
   JoinColumn,
   CreateDateColumn,
   PrimaryGeneratedColumn,
-  OneToMany,
 } from 'typeorm';
-import Client from './Client';
-import OrderProduct from './OrderProduct';
+import FinancialMoviment from './FinancialMoviment';
+import Order from './Orders';
+import Product from './Product';
 
 @Entity('stocks_moviments')
 class StockMoviment {
@@ -43,16 +42,17 @@ class StockMoviment {
   @CreateDateColumn()
   created_at: Date;
 
-  @ManyToOne(() => User)
-  @JoinColumn({ name: 'user_id' })
-  user: User;
+  @ManyToOne(() => Order)
+  @JoinColumn({ name: 'order_id' })
+  order: Order;
 
-  @ManyToOne(() => Client)
-  @JoinColumn({ name: 'client_id' })
-  client: Client;
+  @ManyToOne(() => Product)
+  @JoinColumn({ name: 'product_id' })
+  product: Product;
 
-  @OneToMany(() => OrderProduct, orderProduct => orderProduct.order)
-  orders_products: OrderProduct[];
+  @ManyToOne(() => FinancialMoviment)
+  @JoinColumn({ name: 'financial_moviment_id' })
+  financialMoviment: FinancialMoviment;
 }
 
 export default StockMoviment;

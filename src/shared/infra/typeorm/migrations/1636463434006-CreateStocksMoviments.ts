@@ -5,7 +5,7 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export class CreateStocksMoviments1635463434006 implements MigrationInterface {
+export class CreateStocksMoviments1636463434006 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -83,18 +83,18 @@ export class CreateStocksMoviments1635463434006 implements MigrationInterface {
         onUpdate: 'CASCADE',
       }),
     );
-    /* 
+
     await queryRunner.createForeignKey(
       'stocks_moviments',
       new TableForeignKey({
-        name: 'fk_stocks_moviments_financials_moviments',
+        name: 'fk_stocks_moviments_financial_moviments',
         columnNames: ['financial_moviment_id'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'financials_moviments',
+        referencedTableName: 'financial_moviments',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       }),
-    ); */
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
@@ -106,11 +106,10 @@ export class CreateStocksMoviments1635463434006 implements MigrationInterface {
       'stocks_moviments',
       'fk_stocks_moviments_products',
     );
-    /*     await queryRunner.dropForeignKey(
+    await queryRunner.dropForeignKey(
       'stocks_moviments',
-      'fk_stocks_moviments_financials_moviments',
+      'fk_stocks_moviments_financial_moviments',
     );
- */
     await queryRunner.dropTable('stocks_moviments');
   }
 }
