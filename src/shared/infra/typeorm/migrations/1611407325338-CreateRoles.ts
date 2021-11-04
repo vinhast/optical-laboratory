@@ -33,11 +33,6 @@ export default class CreateRoles1611407325338 implements MigrationInterface {
               type: 'timestamp',
               default: 'now()',
             },
-            {
-              name: 'deleted_at',
-              type: 'timestamp',
-              isNullable: true,
-            },
           ],
         }),
       );
