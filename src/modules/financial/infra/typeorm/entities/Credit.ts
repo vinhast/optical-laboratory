@@ -1,4 +1,3 @@
-import User from '@modules/users/infra/typeorm/entities/User';
 import {
   Entity,
   Column,
@@ -8,6 +7,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
+import User from '@modules/users/infra/typeorm/entities/User';
 
 @Entity('credits')
 class Credit {

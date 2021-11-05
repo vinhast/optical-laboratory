@@ -8,7 +8,8 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
 } from 'typeorm';
-import OrderProduct from './OrderProduct';
+
+import OrderProduct from '@modules/comercial/infra/typeorm/entities/OrderProduct';
 import ProductCateory from './ProductCategory';
 
 @Entity('products')

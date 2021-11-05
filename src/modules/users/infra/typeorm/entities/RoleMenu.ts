@@ -1,4 +1,3 @@
-import Menu from '@modules/users/infra/typeorm/entities/Menu';
 import {
   Entity,
   Column,
@@ -6,6 +5,8 @@ import {
   JoinColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
+import Menu from '@modules/users/infra/typeorm/entities/Menu';
 
 @Entity('roles_menus')
 class RoleMenu {

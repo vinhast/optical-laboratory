@@ -6,8 +6,9 @@ import {
   CreateDateColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import FinancialMoviment from './FinancialMoviment';
-import Order from './Orders';
+
+import Order from '@modules/comercial/infra/typeorm/entities/Orders';
+import FinancialMoviment from '@modules/financial/infra/typeorm/entities/FinancialMoviment';
 import Product from './Product';
 
 @Entity('stocks_moviments')

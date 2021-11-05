@@ -7,9 +7,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
+import Client from '@modules/comercial/infra/typeorm/entities/Client';
+import Provider from '@modules/comercial/infra/typeorm/entities/Provider';
 import FinancialMovimentType from './FinancialMovimentType';
-import Provider from './Provider';
-import Client from './Client';
 
 @Entity('financial_moviments')
 class FinancialMoviment {

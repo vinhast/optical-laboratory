@@ -5,8 +5,9 @@ import {
   JoinColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
+import Order from '@modules/comercial/infra/typeorm/entities/Orders';
 import FinancialMoviment from './FinancialMoviment';
-import Order from './Orders';
 
 @Entity('financial_moviments_orders')
 class FinancialMovimentOrder {
