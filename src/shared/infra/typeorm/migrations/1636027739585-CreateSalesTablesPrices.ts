@@ -1,10 +1,12 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateSteels1635792629160 implements MigrationInterface {
+export class CreateSalesTablesPrices1636027739585
+  implements MigrationInterface
+{
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'steels',
+        name: 'sales_tables_prices',
         columns: [
           {
             name: 'id',
@@ -14,34 +16,34 @@ export class CreateSteels1635792629160 implements MigrationInterface {
             generationStrategy: 'increment',
           },
           {
-            name: 'parent_id',
+            name: 'product_category_id',
             type: 'int',
-            isNullable: true,
           },
           {
-            name: 'model',
-            type: 'varchar(255)',
-            isNullable: true,
-          },
-          {
-            name: 'foreign_key',
+            name: 'table_id',
             type: 'int',
-            isNullable: true,
           },
           {
-            name: 'alias',
-            type: 'varchar(255)',
-            isNullable: true,
+            name: 'unit_price',
+            type: 'varchar(10)',
           },
           {
-            name: 'lft',
+            name: 'wholesale_price',
+            type: 'varchar(10)',
+          },
+          {
+            name: 'user_id',
             type: 'int',
-            isNullable: true,
           },
           {
-            name: 'rght',
-            type: 'int',
-            isNullable: true,
+            name: 'created_at',
+            type: 'datetime',
+            default: 'now()',
+          },
+          {
+            name: 'updated_at',
+            type: 'datetime',
+            default: 'now()',
           },
         ],
       }),
@@ -49,6 +51,6 @@ export class CreateSteels1635792629160 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('steels');
+    await queryRunner.dropTable('sales_tables_prices');
   }
 }

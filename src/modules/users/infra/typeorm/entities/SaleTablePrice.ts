@@ -6,8 +6,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('table_groups')
-class TableGroup {
+@Entity('sales_tables_prices')
+class SaleTablePrice {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
@@ -33,4 +33,4 @@ class TableGroup {
   updated_at: Date;
 }
 
-export default TableGroup;
+export default SaleTablePrice;

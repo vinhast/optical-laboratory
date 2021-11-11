@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('tables')
-class Table {
+@Entity('sales_tables')
+class SaleTable {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
@@ -15,4 +15,4 @@ class Table {
   active: boolean;
 }
 
-export default Table;
+export default SaleTable;

@@ -6,8 +6,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('invoice_settings')
-class InvoiceSetting {
+@Entity('fiscal_settings')
+class FiscalSetting {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
@@ -60,4 +60,4 @@ class InvoiceSetting {
   updated_at: Date;
 }
 
-export default InvoiceSetting;
+export default FiscalSetting;
