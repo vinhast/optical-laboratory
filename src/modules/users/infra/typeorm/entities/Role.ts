@@ -19,7 +19,7 @@ class Role {
   name: string;
 
   @Column()
-  alias?: string;
+  description?: string;
 
   @CreateDateColumn()
   created_at?: Date;
