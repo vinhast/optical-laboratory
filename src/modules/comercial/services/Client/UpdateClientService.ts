@@ -42,7 +42,7 @@ class UpdateClientService {
     client.company_name = company_name;
     client.table_id = table_id;
 
-    await this.cacheProvider.invalidate(`client-list`);
+    await this.cacheProvider.invalidate(`clients-list`);
     await this.cacheProvider.invalidate(cacheKey);
 
     await this.clientsRepository.save(client);
