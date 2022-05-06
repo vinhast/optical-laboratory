@@ -22,6 +22,21 @@ export class CreateUnitTypes1635956125916 implements MigrationInterface {
             type: 'varchar(2)',
             isNullable: true,
           },
+          {
+            name: 'created_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
+          {
+            name: 'updated_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
+          {
+            name: 'deleted_at',
+            type: 'timestamp',
+            isNullable: true,
+          },
         ],
       }),
     );

@@ -28,6 +28,21 @@ export class CreateFiancialMovimentsTypesGroups1635776524326
             type: 'char(1)',
             default: '"S"',
           },
+          {
+            name: 'created_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
+          {
+            name: 'updated_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
+          {
+            name: 'deleted_at',
+            type: 'timestamp',
+            isNullable: true,
+          },
         ],
       }),
     );

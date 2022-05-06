@@ -16,12 +16,34 @@ export default class CreatePermissionsUsers1611522938020
           name: 'permissions_users',
           columns: [
             {
+              name: 'id',
+              type: 'int',
+              isPrimary: true,
+              isGenerated: true,
+              generationStrategy: 'increment',
+            },
+            {
               name: 'permission_id',
               type: 'int',
             },
             {
               name: 'user_id',
               type: 'int',
+            },
+            {
+              name: 'created_at',
+              type: 'timestamp',
+              default: 'now()',
+            },
+            {
+              name: 'updated_at',
+              type: 'timestamp',
+              default: 'now()',
+            },
+            {
+              name: 'deleted_at',
+              type: 'timestamp',
+              isNullable: true,
             },
           ],
         }),

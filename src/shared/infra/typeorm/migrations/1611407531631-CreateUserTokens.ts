@@ -35,6 +35,11 @@ export default class CreateUserTokens1611407531631
               type: 'timestamp',
               default: 'now()',
             },
+            {
+              name: 'deleted_at',
+              type: 'timestamp',
+              isNullable: true,
+            },
           ],
           foreignKeys: [
             {

@@ -48,6 +48,11 @@ export default class CreatePermissions1611407586945
               type: 'timestamp',
               default: 'now()',
             },
+            {
+              name: 'deleted_at',
+              type: 'timestamp',
+              isNullable: true,
+            },
           ],
         }),
       );

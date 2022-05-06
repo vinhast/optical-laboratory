@@ -16,12 +16,34 @@ export default class CreatePermissionsRoles1611522883147
           name: 'permissions_roles',
           columns: [
             {
+              name: 'id',
+              type: 'int',
+              isPrimary: true,
+              isGenerated: true,
+              generationStrategy: 'increment',
+            },
+            {
               name: 'permission_id',
               type: 'int',
             },
             {
               name: 'role_id',
               type: 'int',
+            },
+            {
+              name: 'created_at',
+              type: 'timestamp',
+              default: 'now()',
+            },
+            {
+              name: 'updated_at',
+              type: 'timestamp',
+              default: 'now()',
+            },
+            {
+              name: 'deleted_at',
+              type: 'timestamp',
+              isNullable: true,
             },
           ],
         }),

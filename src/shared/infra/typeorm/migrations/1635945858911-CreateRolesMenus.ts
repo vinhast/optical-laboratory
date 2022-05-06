@@ -26,6 +26,21 @@ export class CreateRolesMenus1635945858911 implements MigrationInterface {
             name: 'menu_id',
             type: 'int',
           },
+          {
+            name: 'created_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
+          {
+            name: 'updated_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
+          {
+            name: 'deleted_at',
+            type: 'timestamp',
+            isNullable: true,
+          },
         ],
       }),
     );
