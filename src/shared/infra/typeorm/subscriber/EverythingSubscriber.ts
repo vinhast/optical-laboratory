@@ -60,22 +60,23 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
           event.entity[key] = this.sanitizeValue(event.entity[key]);
         }
       });
-      if (nameEntity === 'OrderProduct') {
-        const client_id_aplication = 4;
+      if (nameEntity === 'Client') {
+        const client_application_id = 1;
         const lastRegister: any = await event.manager
           .getRepository(nameEntity)
           .findOne({
             where: {
-              client_id_aplication,
+              client_application_id,
             },
             order: {
               created_at: 'DESC',
             },
           });
+        event.entity.id = 0;
         if (lastRegister) {
           event.entity.id = lastRegister.id + 1;
         }
-        event.entity.client_id_aplication = client_id_aplication;
+        event.entity.client_application_id = client_application_id;
       }
     }
   }
