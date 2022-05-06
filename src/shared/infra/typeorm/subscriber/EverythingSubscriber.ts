@@ -44,7 +44,7 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
   /**
    * Called before entity insertion.
    */
-  beforeInsert(event: InsertEvent<any>) {
+  async beforeInsert(event: InsertEvent<any>) {
     const nameEntity = event.metadata.name;
     if (!notNormalizedEntities.includes(nameEntity)) {
       const keys = Object.keys(event.entity);
@@ -60,6 +60,23 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
           event.entity[key] = this.sanitizeValue(event.entity[key]);
         }
       });
+      if (nameEntity === 'OrderProduct') {
+        const client_id_aplication = 4;
+        const lastRegister: any = await event.manager
+          .getRepository(nameEntity)
+          .findOne({
+            where: {
+              client_id_aplication,
+            },
+            order: {
+              created_at: 'DESC',
+            },
+          });
+        if (lastRegister) {
+          event.entity.id = lastRegister.id + 1;
+        }
+        event.entity.client_id_aplication = client_id_aplication;
+      }
     }
   }
 
@@ -120,7 +137,6 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
         await ormRepository.save(auditLog);
       }
     }
-    // console.log(event.entity, '<- Entity depois da inserção');
   }
 
   /**
@@ -188,25 +204,11 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
    */
   afterLoad(entity: IEntity) {
     Object.keys(entity).forEach(function (key) {
-      // console.log(entity, '<- entity after load');
       const value = entity[key];
       if (value) {
         if (moment(value, moment.ISO_8601, true).isValid()) {
           if (value.toString().includes('GMT')) {
             const valueDate = new Date(value);
-            // console.log(key, '<- key after load');
-            // console.log(value, '<- Value after load');
-            // console.log(value.toString(), '<- Value to string after load');
-            // console.log(valueDate, '<- Value to string after load');
-            // moment.locale('pt-br');
-            // entity[key] =
-            //   value.length === 10
-            //     ? moment.utc(value).format('DD/MM/YYYY')
-            //     : moment.utc(value).format('DD/MM/YYYY HH:mm:ss');
-            // entity[key] =
-            //   value.length === 10
-            //     ? moment.utc(value).format('DD/MM/YYYY')
-            //     : moment.utc(value).format('DD/MM/YYYY HH:mm:ss');
             entity[key] = valueDate.toISOString().includes('00:00:00')
               ? moment.utc(value).format('DD/MM/YYYY')
               : moment.utc(value).format('DD/MM/YYYY HH:mm:ss');
