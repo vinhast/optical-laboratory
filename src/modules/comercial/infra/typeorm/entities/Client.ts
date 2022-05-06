@@ -1,16 +1,8 @@
-import {
-  Entity,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
+import { Entity, Column } from 'typeorm';
 
 @Entity('clients')
-class Client {
-  @PrimaryGeneratedColumn('increment')
-  id: number;
-
+class Client extends MainEntity {
   @Column()
   table_id: number;
 
@@ -79,12 +71,6 @@ class Client {
 
   @Column()
   active?: string;
-
-  @CreateDateColumn()
-  created_at?: Date;
-
-  @UpdateDateColumn()
-  updated_at?: Date;
 }
 
 export default Client;

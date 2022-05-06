@@ -5,6 +5,7 @@ import {
   ManyToOne,
   JoinTable,
   JoinColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
@@ -14,7 +15,10 @@ import Permission from './Permission';
 import Role from './Role';
 
 @Entity('users')
-class User extends MainEntity {
+class User {
+  @PrimaryGeneratedColumn('increment')
+  id: number;
+
   @Column()
   role_id: number;
 
