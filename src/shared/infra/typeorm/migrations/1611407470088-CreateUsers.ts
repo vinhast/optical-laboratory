@@ -17,9 +17,13 @@ export default class CreateUsers1611407470088 implements MigrationInterface {
               name: 'id',
               type: 'int',
               isPrimary: true,
-              isGenerated: true,
-              generationStrategy: 'increment',
             },
+            {
+              name: 'client_application_id',
+              type: 'int',
+              isPrimary: true,
+            },
+
             {
               name: 'role_id',
               type: 'int',
@@ -74,6 +78,28 @@ export default class CreateUsers1611407470088 implements MigrationInterface {
               isNullable: true,
             },
           ],
+        }),
+      );
+      await queryRunner.createForeignKey(
+        'users',
+        new TableForeignKey({
+          name: 'fk_users_clients_application',
+          columnNames: ['client_application_id'],
+          referencedColumnNames: ['id'],
+          referencedTableName: 'clients_application',
+          onDelete: 'NO ACTION',
+          onUpdate: 'CASCADE',
+        }),
+      );
+      await queryRunner.createForeignKey(
+        'users',
+        new TableForeignKey({
+          name: 'fk_users_clients_application',
+          columnNames: ['client_application_id'],
+          referencedColumnNames: ['id'],
+          referencedTableName: 'clients_application',
+          onDelete: 'NO ACTION',
+          onUpdate: 'CASCADE',
         }),
       );
       await queryRunner.createForeignKey(

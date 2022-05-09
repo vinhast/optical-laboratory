@@ -15,8 +15,11 @@ export class CreateRolesMenus1635945858911 implements MigrationInterface {
             name: 'id',
             type: 'int',
             isPrimary: true,
-            isGenerated: true,
-            generationStrategy: 'increment',
+          },
+          {
+            name: 'client_application_id',
+            type: 'int',
+            isPrimary: true,
           },
           {
             name: 'role_id',
@@ -42,6 +45,17 @@ export class CreateRolesMenus1635945858911 implements MigrationInterface {
             isNullable: true,
           },
         ],
+      }),
+    );
+    await queryRunner.createForeignKey(
+      'roles_menus',
+      new TableForeignKey({
+        name: 'fk_roles_menus_clients_application',
+        columnNames: ['client_application_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'clients_application',
+        onDelete: 'NO ACTION',
+        onUpdate: 'CASCADE',
       }),
     );
 

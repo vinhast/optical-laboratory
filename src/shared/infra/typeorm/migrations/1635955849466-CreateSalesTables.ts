@@ -1,4 +1,9 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from 'typeorm';
 
 export class CreatSalesTables1635955849466 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -10,8 +15,11 @@ export class CreatSalesTables1635955849466 implements MigrationInterface {
             name: 'id',
             type: 'int',
             isPrimary: true,
-            isGenerated: true,
-            generationStrategy: 'increment',
+          },
+          {
+            name: 'client_application_id',
+            type: 'int',
+            isPrimary: true,
           },
           {
             name: 'name',
@@ -41,6 +49,17 @@ export class CreatSalesTables1635955849466 implements MigrationInterface {
             isNullable: true,
           },
         ],
+      }),
+    );
+    await queryRunner.createForeignKey(
+      'sales_tables',
+      new TableForeignKey({
+        name: 'fk_sales_tables_clients_application',
+        columnNames: ['client_application_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'clients_application',
+        onDelete: 'NO ACTION',
+        onUpdate: 'CASCADE',
       }),
     );
   }

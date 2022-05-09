@@ -17,8 +17,11 @@ export class CreateFiancialMoviments1635780751957
             name: 'id',
             type: 'int',
             isPrimary: true,
-            isGenerated: true,
-            generationStrategy: 'increment',
+          },
+          {
+            name: 'client_application_id',
+            type: 'int',
+            isPrimary: true,
           },
           {
             name: 'client_id',
@@ -278,6 +281,17 @@ export class CreateFiancialMoviments1635780751957
             isNullable: true,
           },
         ],
+      }),
+    );
+    await queryRunner.createForeignKey(
+      'financial_moviments',
+      new TableForeignKey({
+        name: 'fk_financial_moviments_clients_application',
+        columnNames: ['client_application_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'clients_application',
+        onDelete: 'NO ACTION',
+        onUpdate: 'CASCADE',
       }),
     );
 

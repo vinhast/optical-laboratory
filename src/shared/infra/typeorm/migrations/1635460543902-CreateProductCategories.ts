@@ -17,8 +17,11 @@ export class CreateProductCategories1635460543902
             name: 'id',
             type: 'int',
             isPrimary: true,
-            isGenerated: true,
-            generationStrategy: 'increment',
+          },
+          {
+            name: 'client_application_id',
+            type: 'int',
+            isPrimary: true,
           },
           {
             name: 'parent_id',
@@ -105,6 +108,17 @@ export class CreateProductCategories1635460543902
             isNullable: true,
           },
         ],
+      }),
+    );
+    await queryRunner.createForeignKey(
+      'product_categories',
+      new TableForeignKey({
+        name: 'fk_product_categories_clients_application',
+        columnNames: ['client_application_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'clients_application',
+        onDelete: 'NO ACTION',
+        onUpdate: 'CASCADE',
       }),
     );
 

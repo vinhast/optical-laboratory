@@ -1,4 +1,9 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from 'typeorm';
 
 export default class CreateUserTokens1611407531631
   implements MigrationInterface
@@ -14,9 +19,13 @@ export default class CreateUserTokens1611407531631
               name: 'id',
               type: 'int',
               isPrimary: true,
-              isGenerated: true,
-              generationStrategy: 'increment',
             },
+            {
+              name: 'client_application_id',
+              type: 'int',
+              isPrimary: true,
+            },
+
             {
               name: 'user_id',
               type: 'int',
@@ -51,6 +60,17 @@ export default class CreateUserTokens1611407531631
               onUpdate: 'CASCADE',
             },
           ],
+        }),
+      );
+      await queryRunner.createForeignKey(
+        'user_tokens',
+        new TableForeignKey({
+          name: 'fk_user_tokens_clients_application',
+          columnNames: ['client_application_id'],
+          referencedColumnNames: ['id'],
+          referencedTableName: 'clients_application',
+          onDelete: 'NO ACTION',
+          onUpdate: 'CASCADE',
         }),
       );
     }

@@ -151,7 +151,6 @@ export class CreateClients1635444862016 implements MigrationInterface {
         ],
       }),
     );
-
     await queryRunner.createForeignKey(
       'clients',
       new TableForeignKey({

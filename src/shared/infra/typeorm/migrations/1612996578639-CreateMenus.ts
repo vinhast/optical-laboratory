@@ -67,7 +67,6 @@ export default class CreateMenus1612996578639 implements MigrationInterface {
           ],
         }),
       );
-
       await queryRunner.createForeignKey(
         'menus',
         new TableForeignKey({

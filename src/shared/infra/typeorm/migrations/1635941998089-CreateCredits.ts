@@ -15,8 +15,11 @@ export class CreateCredits1635941998089 implements MigrationInterface {
             name: 'id',
             type: 'int',
             isPrimary: true,
-            isGenerated: true,
-            generationStrategy: 'increment',
+          },
+          {
+            name: 'client_application_id',
+            type: 'int',
+            isPrimary: true,
           },
           {
             name: 'client_id',
@@ -71,6 +74,18 @@ export class CreateCredits1635941998089 implements MigrationInterface {
         ],
       }),
     );
+    await queryRunner.createForeignKey(
+      'credits',
+      new TableForeignKey({
+        name: 'fk_credits_clients_application',
+        columnNames: ['client_application_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'clients_application',
+        onDelete: 'NO ACTION',
+        onUpdate: 'CASCADE',
+      }),
+    );
+
     await queryRunner.createForeignKey(
       'credits',
       new TableForeignKey({

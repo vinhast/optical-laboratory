@@ -1,4 +1,9 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from 'typeorm';
 
 export class CreateFiancialMovimentsTypes1635776768742
   implements MigrationInterface
@@ -12,8 +17,11 @@ export class CreateFiancialMovimentsTypes1635776768742
             name: 'id',
             type: 'int',
             isPrimary: true,
-            isGenerated: true,
-            generationStrategy: 'increment',
+          },
+          {
+            name: 'client_application_id',
+            type: 'int',
+            isPrimary: true,
           },
           {
             name: 'financial_moviment_type_group_id',
@@ -39,6 +47,17 @@ export class CreateFiancialMovimentsTypes1635776768742
             isNullable: true,
           },
         ],
+      }),
+    );
+    await queryRunner.createForeignKey(
+      'financial_moviments_types',
+      new TableForeignKey({
+        name: 'fk_financial_moviments_types_clients_application',
+        columnNames: ['client_application_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'clients_application',
+        onDelete: 'NO ACTION',
+        onUpdate: 'CASCADE',
       }),
     );
   }

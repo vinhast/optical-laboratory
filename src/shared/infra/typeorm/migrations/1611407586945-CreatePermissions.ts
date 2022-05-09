@@ -1,4 +1,9 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from 'typeorm';
 
 export default class CreatePermissions1611407586945
   implements MigrationInterface
@@ -14,9 +19,13 @@ export default class CreatePermissions1611407586945
               name: 'id',
               type: 'int',
               isPrimary: true,
-              isGenerated: true,
-              generationStrategy: 'increment',
             },
+            {
+              name: 'client_application_id',
+              type: 'int',
+              isPrimary: true,
+            },
+
             {
               name: 'name',
               type: 'varchar',
@@ -54,6 +63,17 @@ export default class CreatePermissions1611407586945
               isNullable: true,
             },
           ],
+        }),
+      );
+      await queryRunner.createForeignKey(
+        'permissions',
+        new TableForeignKey({
+          name: 'fk_permissions_clients_application',
+          columnNames: ['client_application_id'],
+          referencedColumnNames: ['id'],
+          referencedTableName: 'clients_application',
+          onDelete: 'NO ACTION',
+          onUpdate: 'CASCADE',
         }),
       );
     }

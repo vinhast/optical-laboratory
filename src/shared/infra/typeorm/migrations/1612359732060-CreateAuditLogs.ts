@@ -19,9 +19,13 @@ export default class CreateAuditLogs1612359732060
               name: 'id',
               type: 'int',
               isPrimary: true,
-              isGenerated: true,
-              generationStrategy: 'increment',
             },
+            {
+              name: 'client_application_id',
+              type: 'int',
+              isPrimary: true,
+            },
+
             {
               name: 'type',
               type: 'varchar',
@@ -54,6 +58,17 @@ export default class CreateAuditLogs1612359732060
               default: 'now()',
             },
           ],
+        }),
+      );
+      await queryRunner.createForeignKey(
+        'audit_logs',
+        new TableForeignKey({
+          name: 'fk_audit_logs_clients_application',
+          columnNames: ['client_application_id'],
+          referencedColumnNames: ['id'],
+          referencedTableName: 'clients_application',
+          onDelete: 'NO ACTION',
+          onUpdate: 'CASCADE',
         }),
       );
 

@@ -19,9 +19,13 @@ export default class CreatePermissionsUsers1611522938020
               name: 'id',
               type: 'int',
               isPrimary: true,
-              isGenerated: true,
-              generationStrategy: 'increment',
             },
+            {
+              name: 'client_application_id',
+              type: 'int',
+              isPrimary: true,
+            },
+
             {
               name: 'permission_id',
               type: 'int',
@@ -46,6 +50,17 @@ export default class CreatePermissionsUsers1611522938020
               isNullable: true,
             },
           ],
+        }),
+      );
+      await queryRunner.createForeignKey(
+        'permissions_users',
+        new TableForeignKey({
+          name: 'fk_permissions_users_clients_application',
+          columnNames: ['client_application_id'],
+          referencedColumnNames: ['id'],
+          referencedTableName: 'clients_application',
+          onDelete: 'NO ACTION',
+          onUpdate: 'CASCADE',
         }),
       );
 

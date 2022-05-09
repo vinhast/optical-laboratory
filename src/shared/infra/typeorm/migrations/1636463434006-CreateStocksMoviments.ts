@@ -15,8 +15,11 @@ export class CreateStocksMoviments1636463434006 implements MigrationInterface {
             name: 'id',
             type: 'int',
             isPrimary: true,
-            isGenerated: true,
-            generationStrategy: 'increment',
+          },
+          {
+            name: 'client_application_id',
+            type: 'int',
+            isPrimary: true,
           },
           {
             name: 'order_id',
@@ -57,6 +60,17 @@ export class CreateStocksMoviments1636463434006 implements MigrationInterface {
             default: 'now()',
           },
         ],
+      }),
+    );
+    await queryRunner.createForeignKey(
+      'stocks_moviments',
+      new TableForeignKey({
+        name: 'fk_stocks_moviments_clients_application',
+        columnNames: ['client_application_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'clients_application',
+        onDelete: 'NO ACTION',
+        onUpdate: 'CASCADE',
       }),
     );
 

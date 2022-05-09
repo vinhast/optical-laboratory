@@ -15,8 +15,11 @@ export class CreateOrders1635445919165 implements MigrationInterface {
             name: 'id',
             type: 'int',
             isPrimary: true,
-            isGenerated: true,
-            generationStrategy: 'increment',
+          },
+          {
+            name: 'client_application_id',
+            type: 'int',
+            isPrimary: true,
           },
           {
             name: 'os',
@@ -127,7 +130,17 @@ export class CreateOrders1635445919165 implements MigrationInterface {
         ],
       }),
     );
-
+    await queryRunner.createForeignKey(
+      'orders',
+      new TableForeignKey({
+        name: 'fk_orders_clients_application',
+        columnNames: ['client_application_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'clients_application',
+        onDelete: 'NO ACTION',
+        onUpdate: 'CASCADE',
+      }),
+    );
     await queryRunner.createForeignKey(
       'orders',
       new TableForeignKey({
