@@ -50,18 +50,6 @@ export default class CreateRoles1611407325338 implements MigrationInterface {
         }),
       );
       await queryRunner.createForeignKey(
-        'users',
-        new TableForeignKey({
-          name: 'fk_users_clients_application',
-          columnNames: ['client_application_id'],
-          referencedColumnNames: ['id'],
-          referencedTableName: 'clients_application',
-          onDelete: 'NO ACTION',
-          onUpdate: 'CASCADE',
-        }),
-      );
-
-      await queryRunner.createForeignKey(
         'roles',
         new TableForeignKey({
           name: 'fk_roles_clients_application',
