@@ -1,16 +1,8 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
+import { Entity, Column } from 'typeorm';
 
 @Entity('fiscal_settings')
-class FiscalSetting {
-  @PrimaryGeneratedColumn('increment')
-  id: number;
-
+class FiscalSetting extends MainEntity {
   @Column()
   company_name: string;
 
@@ -52,12 +44,6 @@ class FiscalSetting {
 
   @Column()
   active: string;
-
-  @CreateDateColumn()
-  created_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
 }
 
 export default FiscalSetting;

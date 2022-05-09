@@ -1,10 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
+import { Entity, Column } from 'typeorm';
 
 @Entity('unit_types')
-class UnitType {
-  @PrimaryGeneratedColumn('increment')
-  id: number;
-
+class UnitType extends MainEntity {
   @Column()
   name: string;
 

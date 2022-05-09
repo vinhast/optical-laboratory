@@ -1,8 +1,20 @@
-import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
-import { Entity, Column, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  ManyToOne,
+  OneToMany,
+  JoinColumn,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
+} from 'typeorm';
 
 @Entity('menus')
-class Menu extends MainEntity {
+class Menu {
+  @PrimaryGeneratedColumn('increment')
+  id: number;
+
   @Column()
   parent_id?: number;
 
@@ -20,6 +32,15 @@ class Menu extends MainEntity {
 
   @Column()
   type: string;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
+
+  @DeleteDateColumn({ nullable: true })
+  deleted_at: Date;
 
   @ManyToOne(() => Menu, menu => menu.childMenus)
   @JoinColumn({ name: 'parent_id', referencedColumnName: 'id' })

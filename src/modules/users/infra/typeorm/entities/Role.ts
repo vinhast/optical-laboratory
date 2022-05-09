@@ -1,31 +1,15 @@
-import {
-  Entity,
-  Column,
-  ManyToMany,
-  JoinTable,
-  CreateDateColumn,
-  UpdateDateColumn,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
+import { Entity, Column, ManyToMany, JoinTable } from 'typeorm';
 
 import Permission from './Permission';
 
 @Entity('roles')
-class Role {
-  @PrimaryGeneratedColumn('increment')
-  id: number;
-
+class Role extends MainEntity {
   @Column()
   name: string;
 
   @Column()
   description?: string;
-
-  @CreateDateColumn()
-  created_at?: Date;
-
-  @UpdateDateColumn()
-  updated_at?: Date;
 
   @ManyToMany(() => Permission)
   @JoinTable({

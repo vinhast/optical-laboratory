@@ -1,29 +1,14 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-  Generated,
-} from 'typeorm';
+import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
+import { Entity, Column, Generated } from 'typeorm';
 
 @Entity('user_tokens')
-class UserToken {
-  @PrimaryGeneratedColumn('increment')
-  id: number;
-
+class UserToken extends MainEntity {
   @Column()
   @Generated('uuid')
   token: string;
 
   @Column()
   user_id: number;
-
-  @CreateDateColumn()
-  created_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
 }
 
 export default UserToken;

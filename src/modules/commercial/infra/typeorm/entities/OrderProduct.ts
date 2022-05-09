@@ -1,27 +1,11 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  JoinColumn,
-  ManyToOne,
-  CreateDateColumn,
-  PrimaryColumn,
-} from 'typeorm';
+import { Entity, Column, JoinColumn, ManyToOne } from 'typeorm';
 
+import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
 import Product from '@modules/warehouse/infra/typeorm/entities/Product';
 import Order from './Order';
 
 @Entity('orders_products')
-class OrderProduct {
-  @PrimaryGeneratedColumn()
-  id_key: number;
-  
-  @Column()
-  id: number;
-
-  @Column()
-  client_id_aplication: number;
-
+class OrderProduct extends MainEntity {
   @Column()
   order_id: number;
 
@@ -65,9 +49,6 @@ class OrderProduct {
   @ManyToOne(() => Product)
   @JoinColumn({ name: 'product_id' })
   product: Product;
-
-  @CreateDateColumn()
-  created_at: Date;
 }
 
 export default OrderProduct;

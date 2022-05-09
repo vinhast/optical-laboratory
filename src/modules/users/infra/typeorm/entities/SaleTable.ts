@@ -1,10 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
+import { Entity, Column } from 'typeorm';
 
 @Entity('sales_tables')
-class SaleTable {
-  @PrimaryGeneratedColumn('increment')
-  id: number;
-
+class SaleTable extends MainEntity {
   @Column()
   name: string;
 

@@ -1,19 +1,8 @@
-import {
-  Entity,
-  Column,
-  ManyToOne,
-  JoinColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-  PrimaryGeneratedColumn,
-  OneToMany,
-} from 'typeorm';
+import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
+import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 
 @Entity('product_categories')
-class ProductCategory {
-  @PrimaryGeneratedColumn('increment')
-  id: number;
-
+class ProductCategory extends MainEntity {
   @Column()
   parent_id?: number;
 
@@ -55,12 +44,6 @@ class ProductCategory {
 
   @Column()
   cylindrical_end?: number;
-
-  @CreateDateColumn()
-  created_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
 
   @ManyToOne(
     () => ProductCategory,

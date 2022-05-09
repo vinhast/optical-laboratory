@@ -1,22 +1,12 @@
-import {
-  Entity,
-  Column,
-  ManyToOne,
-  JoinColumn,
-  CreateDateColumn,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
+import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 
 import Client from '@modules/commercial/infra/typeorm/entities/Client';
 import Provider from '@modules/commercial/infra/typeorm/entities/Provider';
 import FinancialMovimentType from './FinancialMovimentType';
 
 @Entity('financial_moviments')
-class FinancialMoviment {
-  @PrimaryGeneratedColumn('increment')
-  id: number;
-
+class FinancialMoviment extends MainEntity {
   @Column()
   client_id?: number;
 
@@ -151,12 +141,6 @@ class FinancialMoviment {
 
   @Column()
   downloaded_at?: Date;
-
-  @CreateDateColumn()
-  created_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
 
   @ManyToOne(() => Provider)
   @JoinColumn({ name: 'provider_id' })

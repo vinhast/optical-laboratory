@@ -1,18 +1,10 @@
-import {
-  Entity,
-  Column,
-  ManyToOne,
-  JoinColumn,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 
 import Menu from '@modules/users/infra/typeorm/entities/Menu';
+import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
 
 @Entity('roles_menus')
-class RoleMenu {
-  @PrimaryGeneratedColumn('increment')
-  id: number;
-
+class RoleMenu extends MainEntity {
   @Column()
   role_id: number;
 

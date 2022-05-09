@@ -1,16 +1,8 @@
-import {
-  Entity,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
+import { Entity, Column } from 'typeorm';
 
 @Entity('providers')
-class Provider {
-  @PrimaryGeneratedColumn('increment')
-  id: number;
-
+class Provider extends MainEntity {
   @Column()
   company_social_name: string;
 
@@ -58,12 +50,6 @@ class Provider {
 
   @Column()
   active: string;
-
-  @CreateDateColumn()
-  created_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
 }
 
 export default Provider;

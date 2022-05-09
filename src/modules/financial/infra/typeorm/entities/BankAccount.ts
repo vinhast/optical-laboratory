@@ -1,16 +1,8 @@
-import {
-  Entity,
-  Column,
-  CreateDateColumn,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
+import { Entity, Column } from 'typeorm';
 
 @Entity('bank_accounts')
-class BankAccount {
-  @PrimaryGeneratedColumn('increment')
-  id: number;
-
+class BankAccount extends MainEntity {
   @Column()
   name: string;
 
@@ -79,12 +71,6 @@ class BankAccount {
 
   @Column()
   active: string;
-
-  @CreateDateColumn()
-  created_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
 }
 
 export default BankAccount;

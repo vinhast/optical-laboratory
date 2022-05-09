@@ -1,23 +1,12 @@
-import {
-  Entity,
-  Column,
-  ManyToOne,
-  JoinColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-  PrimaryGeneratedColumn,
-  OneToMany,
-} from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 
+import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
 import User from '@modules/users/infra/typeorm/entities/User';
 import Client from './Client';
 import OrderProduct from './OrderProduct';
 
 @Entity('orders')
-class Order {
-  @PrimaryGeneratedColumn('increment')
-  id: number;
-
+class Order extends MainEntity {
   @Column()
   os?: string;
 
@@ -71,12 +60,6 @@ class Order {
 
   @Column()
   user_id?: number;
-
-  @CreateDateColumn()
-  created_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })

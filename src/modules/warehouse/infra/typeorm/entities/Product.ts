@@ -1,22 +1,11 @@
-import {
-  Entity,
-  Column,
-  ManyToOne,
-  JoinColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-  PrimaryGeneratedColumn,
-  OneToMany,
-} from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 
+import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
 import OrderProduct from '@modules/commercial/infra/typeorm/entities/OrderProduct';
 import ProductCateory from './ProductCategory';
 
 @Entity('products')
-class Product {
-  @PrimaryGeneratedColumn('increment')
-  id: number;
-
+class Product extends MainEntity {
   @Column()
   product_category_id: number;
 
@@ -37,12 +26,6 @@ class Product {
 
   @Column()
   active: string;
-
-  @CreateDateColumn()
-  created_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
 
   @ManyToOne(() => ProductCateory)
   @JoinColumn({ name: 'product_category_id' })

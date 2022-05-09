@@ -1,19 +1,11 @@
-import {
-  Entity,
-  Column,
-  ManyToOne,
-  JoinColumn,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 
+import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
 import Order from '@modules/commercial/infra/typeorm/entities/Order';
 import FinancialMoviment from './FinancialMoviment';
 
 @Entity('financial_moviments_orders')
-class FinancialMovimentOrder {
-  @PrimaryGeneratedColumn('increment')
-  id: number;
-
+class FinancialMovimentOrder extends MainEntity {
   @Column()
   financial_moviment_id: number;
 

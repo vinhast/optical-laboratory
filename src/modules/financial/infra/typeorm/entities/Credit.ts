@@ -1,20 +1,10 @@
-import {
-  Entity,
-  Column,
-  ManyToOne,
-  JoinColumn,
-  CreateDateColumn,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 
 import User from '@modules/users/infra/typeorm/entities/User';
+import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
 
 @Entity('credits')
-class Credit {
-  @PrimaryGeneratedColumn('increment')
-  id: number;
-
+class Credit extends MainEntity {
   @Column()
   client_id: number;
 
@@ -38,12 +28,6 @@ class Credit {
 
   @Column()
   used_at?: Date;
-
-  @CreateDateColumn()
-  created_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })

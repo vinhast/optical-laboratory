@@ -1,10 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
+import { Entity, Column } from 'typeorm';
 
 @Entity('financial_moviments_types')
-class FinancialMovimentType {
-  @PrimaryGeneratedColumn('increment')
-  id: number;
-
+class FinancialMovimentType extends MainEntity {
   @Column()
   product_id: number;
 

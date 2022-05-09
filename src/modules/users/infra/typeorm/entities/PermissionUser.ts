@@ -1,10 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
+import { Entity, Column } from 'typeorm';
 
 @Entity('permissions_users')
-class PermissionUser {
-  @PrimaryGeneratedColumn('increment')
-  id: number;
-
+class PermissionUser extends MainEntity {
   @Column()
   permission_id: number;
 
