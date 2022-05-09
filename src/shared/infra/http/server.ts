@@ -10,7 +10,9 @@ import 'express-async-errors';
 import uploadConfig from '@config/upload';
 import AppError from '@shared/errors/AppError';
 import rateLimit from '@shared/infra/http/middlewares/rateLimiter';
+import swaggerUI from 'swagger-ui-express';
 import routes from './routes';
+import swaggerDocs from './swagger.json';
 
 import '@shared/infra/typeorm';
 import '@shared/contanier';
@@ -21,6 +23,7 @@ app.use(cors());
 app.use(express.json());
 app.use(rateLimit);
 app.use(httpContext.middleware);
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 app.use('/files', express.static(uploadConfig.uploadsFolder));
 app.use(routes);
 

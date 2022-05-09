@@ -8,8 +8,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import Client from '@modules/comercial/infra/typeorm/entities/Client';
-import Provider from '@modules/comercial/infra/typeorm/entities/Provider';
+import Client from '@modules/commercial/infra/typeorm/entities/Client';
+import Provider from '@modules/commercial/infra/typeorm/entities/Provider';
 import FinancialMovimentType from './FinancialMovimentType';
 
 @Entity('financial_moviments')
