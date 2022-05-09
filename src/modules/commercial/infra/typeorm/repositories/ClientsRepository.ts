@@ -3,21 +3,15 @@ import { getRepository, Repository } from 'typeorm';
 import IClientsRepository from '@modules/commercial/repositories/IClientsRepository';
 import Client from '@modules/commercial/infra/typeorm/entities/Client';
 import ICreateClientDTO from '@modules/commercial/dtos/ICreateClientDTO';
+import MainRepository from '@shared/infra/typeorm/repositories/MainRepository';
 
-class ClientsRepository implements IClientsRepository {
+class ClientsRepository extends MainRepository implements IClientsRepository {
   private ormRepository: Repository<Client>;
 
   constructor() {
-    this.ormRepository = getRepository(Client);
-  }
-  public async findById(id: number): Promise<Client | undefined> {
-    const client = await this.ormRepository.findOne(id);
-    return client;
-  }
-
-  public async findAll(): Promise<Client[]> {
-    const clients = await this.ormRepository.find();
-    return clients;
+    const repository = getRepository(Client);
+    super(repository);
+    this.ormRepository = repository;
   }
 
   public async create(clientData: ICreateClientDTO): Promise<Client> {

@@ -21,8 +21,8 @@ class GetService {
       OrderProduct | undefined
     >(cacheKey);
 
-    orderProduct = await this.orderProductsRepository.findById(id);
     if (!orderProduct) {
+      orderProduct = await this.orderProductsRepository.findById(id);
       this.cacheProvider.save(cacheKey, classToClass(orderProduct));
     }
 
