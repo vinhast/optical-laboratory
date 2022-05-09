@@ -2,23 +2,26 @@ import { getRepository, Repository } from 'typeorm';
 
 import IOrderRepository from '@modules/commercial/repositories/IOrderRepository';
 import ICreateOrderDTO from '@modules/commercial/dtos/ICreateOrderDTO';
+import MainRepository from '@shared/infra/typeorm/repositories/MainRepository';
 import Order from '../entities/Order';
 
-class OrderRepository implements IOrderRepository {
+class OrderRepository extends MainRepository implements IOrderRepository {
   private ormRepository: Repository<Order>;
 
   constructor() {
-    this.ormRepository = getRepository(Order);
+    const repository = getRepository(Order);
+    super(repository);
+    this.ormRepository = repository;
   }
 
-  public async findAll(): Promise<Order[]> {
-    const order = await this.ormRepository.find({
-      where: {
-        status: 'A',
-      },
-    });
-    return order;
-  }
+  // public async findAll(): Promise<Order[]> {
+  //   const order = await this.ormRepository.find({
+  //     where: {
+  //       status: 'A',
+  //     },
+  //   });
+  //   return order;
+  // }
 
   public async setEmailSituation(id: number, value: number): Promise<void> {
     await this.ormRepository.save({
@@ -27,12 +30,12 @@ class OrderRepository implements IOrderRepository {
     });
   }
 
-  public async findById(id: number): Promise<Order | undefined> {
-    const order = await this.ormRepository.findOne(id, {
-      relations: ['client', 'orders_products'],
-    });
-    return order;
-  }
+  // public async findById(id: number): Promise<Order | undefined> {
+  //   const order = await this.ormRepository.findOne(id, {
+  //     relations: ['client', 'orders_products'],
+  //   });
+  //   return order;
+  // }
 
   public async findByParentId(parent_id: number): Promise<Order[]> {
     const order = await this.ormRepository.find({

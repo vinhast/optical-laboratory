@@ -3,6 +3,7 @@ declare namespace Express {
     user: {
       id: number;
       role_id: number;
+      client_application_id: number;
     };
   }
 }

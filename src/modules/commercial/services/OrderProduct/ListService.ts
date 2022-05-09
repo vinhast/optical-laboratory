@@ -19,8 +19,8 @@ class ListService {
     let orderProduct = await this.cacheProvider.recover<OrderProduct[]>(
       cacheKey,
     );
-    orderProduct = await this.orderProductsRepository.findAll();
     if (!orderProduct) {
+      orderProduct = await this.orderProductsRepository.findAll();
       await this.cacheProvider.save(cacheKey, classToClass(orderProduct));
     }
 

@@ -2,23 +2,19 @@ import { getRepository, Repository } from 'typeorm';
 
 import IOrderProductsRepository from '@modules/commercial/repositories/IOrderProductsRepository';
 import ICreateOrderProductsDTO from '@modules/commercial/dtos/ICreateOrderProductDTO';
+import MainRepository from '@shared/infra/typeorm/repositories/MainRepository';
 import OrderProducts from '../entities/OrderProduct';
 
-class OrderProductsRepository implements IOrderProductsRepository {
+class OrderProductsRepository
+  extends MainRepository
+  implements IOrderProductsRepository
+{
   private ormRepository: Repository<OrderProducts>;
 
   constructor() {
-    this.ormRepository = getRepository(OrderProducts);
-  }
-
-  public async findAll(): Promise<OrderProducts[]> {
-    const orderProducts = await this.ormRepository.find();
-    return orderProducts;
-  }
-
-  public async findById(id: number): Promise<OrderProducts | undefined> {
-    const orderProducts = await this.ormRepository.findOne(id);
-    return orderProducts;
+    const repository = getRepository(OrderProducts);
+    super(repository);
+    this.ormRepository = repository;
   }
 
   public async findByOrder(

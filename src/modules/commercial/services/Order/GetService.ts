@@ -19,8 +19,8 @@ class GetService {
     const cacheKey = `order-get-${id}`;
     let order = await this.cacheProvider.recover<Order | undefined>(cacheKey);
 
-    order = await this.orderRepository.findById(id);
     if (!order) {
+      order = await this.orderRepository.findById(id);
       this.cacheProvider.save(cacheKey, classToClass(order));
     }
 

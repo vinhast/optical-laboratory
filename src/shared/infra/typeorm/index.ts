@@ -8,5 +8,3 @@ getConnectionOptions().then(connectionOptions => {
     }),
   );
 });
-
-// createConnection();

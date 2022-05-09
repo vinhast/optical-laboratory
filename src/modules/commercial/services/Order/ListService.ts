@@ -18,8 +18,8 @@ class ListService {
     const cacheKey = `order-list`;
     let order = await this.cacheProvider.recover<Order[]>(cacheKey);
 
-    order = await this.orderRepository.findAll();
     if (!order) {
+      order = await this.orderRepository.findAll();
       await this.cacheProvider.save(cacheKey, classToClass(order));
     }
 
