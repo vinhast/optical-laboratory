@@ -1,4 +1,5 @@
 import { getRepository, Repository } from 'typeorm';
+import httpContext from 'express-http-context';
 
 import IOrderProductsRepository from '@modules/commercial/repositories/IOrderProductsRepository';
 import ICreateOrderProductsDTO from '@modules/commercial/dtos/ICreateOrderProductDTO';
@@ -10,11 +11,17 @@ class OrderProductsRepository
   implements IOrderProductsRepository
 {
   private ormRepository: Repository<OrderProducts>;
+  private userData: {
+    id: number;
+    client_application_id: number;
+    role_id: number;
+  };
 
   constructor() {
     const repository = getRepository(OrderProducts);
     super(repository);
     this.ormRepository = repository;
+    this.userData = httpContext.get('user');
   }
 
   public async findByOrder(
@@ -23,6 +30,7 @@ class OrderProductsRepository
     const orderProducts = await this.ormRepository.find({
       where: {
         order_id,
+        client_application_id: this.userData.client_application_id,
       },
       relations: ['product'],
     });

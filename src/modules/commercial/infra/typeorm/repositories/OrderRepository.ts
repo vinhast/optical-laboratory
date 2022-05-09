@@ -1,4 +1,5 @@
 import { getRepository, Repository } from 'typeorm';
+import httpContext from 'express-http-context';
 
 import IOrderRepository from '@modules/commercial/repositories/IOrderRepository';
 import ICreateOrderDTO from '@modules/commercial/dtos/ICreateOrderDTO';
@@ -7,21 +8,18 @@ import Order from '../entities/Order';
 
 class OrderRepository extends MainRepository implements IOrderRepository {
   private ormRepository: Repository<Order>;
+  private userData: {
+    id: number;
+    client_application_id: number;
+    role_id: number;
+  };
 
   constructor() {
     const repository = getRepository(Order);
     super(repository);
     this.ormRepository = repository;
+    this.userData = httpContext.get('user');
   }
-
-  // public async findAll(): Promise<Order[]> {
-  //   const order = await this.ormRepository.find({
-  //     where: {
-  //       status: 'A',
-  //     },
-  //   });
-  //   return order;
-  // }
 
   public async setEmailSituation(id: number, value: number): Promise<void> {
     await this.ormRepository.save({
@@ -30,22 +28,13 @@ class OrderRepository extends MainRepository implements IOrderRepository {
     });
   }
 
-  // public async findById(id: number): Promise<Order | undefined> {
-  //   const order = await this.ormRepository.findOne(id, {
-  //     relations: ['client', 'orders_products'],
-  //   });
-  //   return order;
-  // }
-
   public async findByParentId(parent_id: number): Promise<Order[]> {
     const order = await this.ormRepository.find({
-      where: { parent_id },
+      where: {
+        parent_id,
+        client_application_id: this.userData.client_application_id,
+      },
     });
-    return order;
-  }
-
-  public async findByName(name: string): Promise<Order | undefined> {
-    const order = await this.ormRepository.findOne(name);
     return order;
   }
 

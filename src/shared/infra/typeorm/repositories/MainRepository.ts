@@ -32,6 +32,16 @@ class MainRepository {
     });
     return items;
   }
+
+  public async findByName(name: string): Promise<any | undefined> {
+    const item = await this.ormMainRepository.findOne({
+      where: {
+        name,
+        client_application_id: this.user.client_application_id,
+      },
+    });
+    return item;
+  }
 }
 
 export default MainRepository;
