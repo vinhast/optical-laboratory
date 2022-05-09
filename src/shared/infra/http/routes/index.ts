@@ -10,7 +10,9 @@ import profileRouter from '@modules/users/infra/http/routes/profile.routes';
 import ensureAuthenticated from '@shared/infra/http/middlewares/ensureAuthenticated';
 import checkPermission from '@modules/users/infra/http/routes/checkPermission.route';
 import cacheRouter from '@modules/cache/infra/http/routes/cache.route';
-import clientsRouter from '@modules/comercial/infra/http/routes/clients.routes';
+import clientsRouter from '@modules/commercial/infra/http/routes/clients.routes';
+import orderProductsRouter from '@modules/commercial/infra/http/routes/orderProducts.routes';
+import ordersRouter from '@modules/commercial/infra/http/routes/orders.routes';
 import dataTableRouter from './dataTable.routes';
 
 const routes = Router();
@@ -30,5 +32,7 @@ routes.use('/menus', menusRouter);
 routes.use('/profile', profileRouter);
 
 routes.use('/clients', clientsRouter);
+routes.use('/orderProducts', orderProductsRouter);
+routes.use('/orders', ordersRouter);
 
 export default routes;

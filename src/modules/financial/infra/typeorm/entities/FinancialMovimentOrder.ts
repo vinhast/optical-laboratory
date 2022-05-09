@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import Order from '@modules/comercial/infra/typeorm/entities/Orders';
+import Order from '@modules/commercial/infra/typeorm/entities/Order';
 import FinancialMoviment from './FinancialMoviment';
 
 @Entity('financial_moviments_orders')

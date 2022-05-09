@@ -9,7 +9,7 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import OrderProduct from '@modules/comercial/infra/typeorm/entities/OrderProduct';
+import OrderProduct from '@modules/commercial/infra/typeorm/entities/OrderProduct';
 import ProductCateory from './ProductCategory';
 
 @Entity('products')

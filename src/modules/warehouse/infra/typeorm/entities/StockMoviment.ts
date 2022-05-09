@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import Order from '@modules/comercial/infra/typeorm/entities/Orders';
+import Order from '@modules/commercial/infra/typeorm/entities/Order';
 import FinancialMoviment from '@modules/financial/infra/typeorm/entities/FinancialMoviment';
 import Product from './Product';
 
