@@ -734,6 +734,322 @@
           }
         ]
       }
+    },
+    "/financial/financialMoviments": {
+      "get": {
+        "tags": [
+          "FinancialMoviment"
+        ],
+        "description": "List all financialMoviments",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "FinancialMoviment"
+        ],
+        "description": "Create financialMoviment",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FinancialMoviment"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/financial/financialMoviments/view/{id}": {
+      "get": {
+        "tags": [
+          "FinancialMoviment"
+        ],
+        "description": "View financialMoviment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found financialMoviment"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/financial/financialMoviments/update": {
+      "put": {
+        "tags": [
+          "FinancialMoviment"
+        ],
+        "description": "Update financialMoviment",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FinancialMoviment"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/financial/financialMoviments/{id}": {
+      "delete": {
+        "tags": [
+          "FinancialMoviment"
+        ],
+        "description": "Delete financialMoviment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found financialMoviment"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/financial/financialMovimentsOrders": {
+      "get": {
+        "tags": [
+          "FinancialMovimentOrder"
+        ],
+        "description": "List all financialMovimentsOrders",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "FinancialMovimentOrder"
+        ],
+        "description": "Create financialMovimentOrder",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FinancialMovimentOrder"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/financial/financialMovimentsOrders/view/{id}": {
+      "get": {
+        "tags": [
+          "FinancialMovimentOrder"
+        ],
+        "description": "View financialMovimentOrder",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found financialMovimentOrder"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/financial/financialMovimentsOrders/update": {
+      "put": {
+        "tags": [
+          "FinancialMovimentOrder"
+        ],
+        "description": "Update financialMovimentOrder",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FinancialMovimentOrder"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/financial/financialMovimentsOrders/{id}": {
+      "delete": {
+        "tags": [
+          "FinancialMovimentOrder"
+        ],
+        "description": "Delete financialMovimentOrder",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found financialMovimentOrder"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -1381,6 +1697,429 @@
                 "example": "Date"
               }
             }
+          }
+        }
+      },
+      "FinancialMoviment": {
+        "type": "object",
+        "properties": {
+          "client_id": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "number"
+              }
+            }
+          },
+          "provider_id": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "number"
+              }
+            }
+          },
+          "financial_moviment_type_id": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "number"
+              }
+            }
+          },
+          "bank_account_id": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "number"
+              }
+            }
+          },
+          "shipment_file_id": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "number"
+              }
+            }
+          },
+          "description": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "due_date": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "Date"
+              }
+            }
+          },
+          "value": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "products_value": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "services_value": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "credits_value": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "fees_fines_value": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "nf_code": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "nf_receipt": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "nf_receipt_date": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "Date"
+              }
+            }
+          },
+          "nf_issue_date": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "Date"
+              }
+            }
+          },
+          "nf_cStat_receipt": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "nf_xmotivo_receipt": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "nf_number": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "number"
+              }
+            }
+          },
+          "nf_key": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "nf_protocoll": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "nf_protocoll_date": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "nf_protocoll_menssage": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "nf_year_month": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "nf_lot": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "nf_canceled": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "nf_canceled_protocoll": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "nf_canceled_date": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "nf_canceled_reason": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "nf_status": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "nfse_number": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "nfse_verification_code": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "nfse_issue_date": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "Date"
+              }
+            }
+          },
+          "nfse_rps_number": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "number"
+              }
+            }
+          },
+          "nfse_canceled": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "nfse_status": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "finished": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "payment_method": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "invoice_status": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "invoice_registered": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "invoice_bank_downloaded": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "operation_type": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "generated_user_id": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "number"
+              }
+            }
+          },
+          "downloaded_user_id": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "number"
+              }
+            }
+          },
+          "downloaded_at": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "Date"
+              }
+            }
+          }
+        }
+      },
+      "FinancialMovimentOrder": {
+        "type": "object",
+        "properties": {
+          "financial_moviment_id": {
+            "type": "number",
+            "example": 1
+          },
+          "order_id": {
+            "type": "number",
+            "example": 1
           }
         }
       }
