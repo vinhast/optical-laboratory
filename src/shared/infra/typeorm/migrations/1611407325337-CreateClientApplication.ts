@@ -108,17 +108,6 @@ export default class CreateClientAccounts1611407325337
           ],
         }),
       );
-      await queryRunner.createForeignKey(
-        'users',
-        new TableForeignKey({
-          name: 'fk_users_clients_application',
-          columnNames: ['client_application_id'],
-          referencedColumnNames: ['id'],
-          referencedTableName: 'clients_application',
-          onDelete: 'NO ACTION',
-          onUpdate: 'CASCADE',
-        }),
-      );
     }
   }
 
