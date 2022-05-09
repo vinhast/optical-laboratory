@@ -129,6 +129,16 @@ const doc = {
         username: { type: 'string' },
         active: { type: 'string' },
       },
+      Credit: {
+        client_id: { type: 'number' },
+        order_id: { type: 'number' },
+        user_id: { type: 'number' },
+        description: { type: 'string' },
+        value: { type: 'string' },
+        date: { type: 'Date' },
+        used: { type: 'string' },
+        used_at: { type: 'Date' },
+      },
     },
   },
   security: [
@@ -146,6 +156,7 @@ const endpointsFiles = [
   './src/modules/commercial/infra/http/routes/orderProducts.routes.ts',
   './src/modules/commercial/infra/http/routes/orders.routes.ts',
   './src/modules/financial/infra/http/routes/bankAccounts.routes.ts',
+  './src/modules/financial/infra/http/routes/credits.routes.ts',
 ];
 
 swaggerAutogen({

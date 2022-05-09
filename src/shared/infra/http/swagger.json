@@ -576,6 +576,164 @@
           }
         ]
       }
+    },
+    "/financial/credits": {
+      "get": {
+        "tags": [
+          "Credit"
+        ],
+        "description": "List all credits",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Credit"
+        ],
+        "description": "Create credit",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Credit"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/financial/credits/view/{id}": {
+      "get": {
+        "tags": [
+          "Credit"
+        ],
+        "description": "View credit",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found credit"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/financial/credits/update": {
+      "put": {
+        "tags": [
+          "Credit"
+        ],
+        "description": "Update credit",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Credit"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/financial/credits/{id}": {
+      "delete": {
+        "tags": [
+          "Credit"
+        ],
+        "description": "Delete credit",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found credit"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -1144,6 +1302,83 @@
               "type": {
                 "type": "string",
                 "example": "string"
+              }
+            }
+          }
+        }
+      },
+      "Credit": {
+        "type": "object",
+        "properties": {
+          "client_id": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "number"
+              }
+            }
+          },
+          "order_id": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "number"
+              }
+            }
+          },
+          "user_id": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "number"
+              }
+            }
+          },
+          "description": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "value": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "date": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "Date"
+              }
+            }
+          },
+          "used": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "string"
+              }
+            }
+          },
+          "used_at": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "Date"
               }
             }
           }

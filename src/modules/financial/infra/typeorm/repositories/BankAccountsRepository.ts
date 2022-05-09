@@ -3,21 +3,18 @@ import { getRepository, Repository } from 'typeorm';
 import BankAccount from '@modules/financial/infra/typeorm/entities/BankAccount';
 import ICreateBankAccountDTO from '@modules/financial/dtos/ICreateBankAccountDTO';
 import IBankAccountsRepository from '@modules/financial/repositories/IBankAccountsRepository';
+import MainRepository from '@shared/infra/typeorm/repositories/MainRepository';
 
-class BankAccountsRepository implements IBankAccountsRepository {
+class BankAccountsRepository
+  extends MainRepository
+  implements IBankAccountsRepository
+{
   private ormRepository: Repository<BankAccount>;
 
   constructor() {
-    this.ormRepository = getRepository(BankAccount);
-  }
-  public async findById(id: number): Promise<BankAccount | undefined> {
-    const bankAccount = await this.ormRepository.findOne(id);
-    return bankAccount;
-  }
-
-  public async findAll(): Promise<BankAccount[]> {
-    const BankAccounts = await this.ormRepository.find();
-    return BankAccounts;
+    const repository = getRepository(BankAccount);
+    super(repository);
+    this.ormRepository = repository;
   }
 
   public async create(
