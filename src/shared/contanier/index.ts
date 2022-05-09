@@ -1,3 +1,3 @@
 import '@shared/contanier/providers';
 import '@modules/users/providers';
-import '@modules/comercial/providers';
+import '@modules/commercial/providers';
