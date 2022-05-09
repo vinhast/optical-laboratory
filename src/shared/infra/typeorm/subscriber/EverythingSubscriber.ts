@@ -61,7 +61,7 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
         }
       });
       if (nameEntity === 'Client') {
-        const client_application_id = 1;
+        const client_application_id = 2;
         const lastRegister: any = await event.manager
           .getRepository(nameEntity)
           .findOne({
@@ -124,7 +124,7 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
         const userData = httpContext.get('user');
         const user = await event.manager
           .getRepository(User)
-          .findOne({ id: userData.id, client_application_id: 2 });
+          .findOne({ id: userData.id, client_application_id: 1 });
         const type = 'create';
         const ormRepository = event.manager.getRepository(AuditLog);
         const descriptions = `Registro criado por ${user?.name}`;
@@ -134,8 +134,9 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
           entity,
           entity_id,
           user_id: userData.id,
+          client_application_id: 1,
         });
-        await ormRepository.save(auditLog);
+        // await ormRepository.save(auditLog);
       }
     }
   }
@@ -184,8 +185,9 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
           entity_id,
           changes: JSON.stringify(changes),
           user_id: user.id,
+          client_application_id: 1,
         });
-        await ormRepository.save(auditLog);
+        // await ormRepository.save(auditLog);
       }
     }
   }

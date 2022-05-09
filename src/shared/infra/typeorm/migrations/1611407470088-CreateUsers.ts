@@ -94,17 +94,6 @@ export default class CreateUsers1611407470088 implements MigrationInterface {
       await queryRunner.createForeignKey(
         'users',
         new TableForeignKey({
-          name: 'fk_users_clients_application',
-          columnNames: ['client_application_id'],
-          referencedColumnNames: ['id'],
-          referencedTableName: 'clients_application',
-          onDelete: 'NO ACTION',
-          onUpdate: 'CASCADE',
-        }),
-      );
-      await queryRunner.createForeignKey(
-        'users',
-        new TableForeignKey({
           name: 'fk_users_roles',
           columnNames: ['role_id'],
           referencedColumnNames: ['id'],
