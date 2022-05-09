@@ -124,7 +124,7 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
         const userData = httpContext.get('user');
         const user = await event.manager
           .getRepository(User)
-          .findOne(userData.id);
+          .findOne({ id: userData.id, client_application_id: 2 });
         const type = 'create';
         const ormRepository = event.manager.getRepository(AuditLog);
         const descriptions = `Registro criado por ${user?.name}`;
