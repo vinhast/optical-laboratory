@@ -104,6 +104,31 @@ const doc = {
         note: { type: 'string' },
         user_id: { type: 'number' },
       },
+      BankAccount: {
+        name: { type: 'string' },
+        registry: { type: 'string' },
+        agency: { type: 'string' },
+        account: { type: 'string' },
+        account_dv: { type: 'number' },
+        client_code: { type: 'number' },
+        assignor_code: { type: 'number' },
+        assignor_code_dv: { type: 'number' },
+        document: { type: 'string' },
+        transmission_code: { type: 'string' },
+        currency: { type: 'string' },
+        invoice_value: { type: 'number' },
+        delay_fines: { type: 'number' },
+        delay_taxes: { type: 'number' },
+        message_1: { type: 'string' },
+        message_2: { type: 'string' },
+        message_3: { type: 'string' },
+        instruction_1: { type: 'string' },
+        instruction_2: { type: 'string' },
+        instruction_3: { type: 'string' },
+        user_id: { type: 'number' },
+        username: { type: 'string' },
+        active: { type: 'string' },
+      },
     },
   },
   security: [
@@ -120,6 +145,7 @@ const outputFile = './src/shared/infra/http/swagger.json';
 const endpointsFiles = [
   './src/modules/commercial/infra/http/routes/orderProducts.routes.ts',
   './src/modules/commercial/infra/http/routes/orders.routes.ts',
+  './src/modules/financial/infra/http/routes/bankAccounts.routes.ts',
 ];
 
 swaggerAutogen({
