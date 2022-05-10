@@ -1182,6 +1182,176 @@
           }
         ]
       }
+    },
+    "/stockMoviments": {
+      "get": {
+        "tags": [
+          "StockMoviments"
+        ],
+        "description": "List stock moviments",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "StockMoviments"
+        ],
+        "description": "Create stock moviment",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StockMoviment"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stockMoviments/view/{id}": {
+      "get": {
+        "tags": [
+          "StockMoviments"
+        ],
+        "description": "View stock moviment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/stockMoviments/update/{id}": {
+      "put": {
+        "tags": [
+          "StockMoviments"
+        ],
+        "description": "Update stock moviment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StockMoviment"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stockMoviments/{id}": {
+      "delete": {
+        "tags": [
+          "StockMoviments"
+        ],
+        "description": "Delete stock moviment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -1780,6 +1950,43 @@
             "example": 1
           },
           "cylindrical_end": {
+            "type": "number",
+            "example": 1
+          }
+        }
+      },
+      "StockMoviment": {
+        "type": "object",
+        "properties": {
+          "product_id": {
+            "type": "number",
+            "example": 1
+          },
+          "order_id": {
+            "type": "number",
+            "example": 1
+          },
+          "financial_moviment_id": {
+            "type": "number",
+            "example": 1
+          },
+          "user_id": {
+            "type": "number",
+            "example": 1
+          },
+          "description": {
+            "type": "string",
+            "example": "test"
+          },
+          "type": {
+            "type": "string",
+            "example": "A"
+          },
+          "origin": {
+            "type": "string",
+            "example": "AB"
+          },
+          "quantity": {
             "type": "number",
             "example": 1
           }

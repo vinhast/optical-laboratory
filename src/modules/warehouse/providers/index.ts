@@ -18,8 +18,8 @@ import ProductsRepository from '@modules/warehouse/infra/typeorm/repositories/Pr
 // import IStocksRepository from '@modules/warehouse/repositories/IStocksRepository';
 // import StocksRepository from '@modules/warehouse/infra/typeorm/repositories/StocksRepository';
 
-// import IStockMoviments from '@modules/warehouse/repositories/IStockMoviments';
-// import StockMovimentsRepository from '@modules/warehouse/infra/typeorm/repositories/StockMovimentsRepository';
+import IStockMovimentsRepository from '@modules/warehouse/repositories/IStockMovimentsRepository';
+import StockMovimentsRepository from '@modules/warehouse/infra/typeorm/repositories/StockMovimentsRepository';
 
 // import IWarehousesRepository from '@modules/warehouse/repositories/IWarehouseRepository';
 // import WarehousesRepository from '@modules/warehouse/infra/typeorm/repositories/WarehouseRepository';
@@ -57,10 +57,10 @@ container.registerSingleton<IProductsRepository>(
 //   StocksRepository,
 // );
 
-// container.registerSingleton<IStockMoviments>(
-//   'StockMovimentsRepository',
-//   StockMovimentsRepository,
-// );
+container.registerSingleton<IStockMovimentsRepository>(
+  'StockMovimentsRepository',
+  StockMovimentsRepository,
+);
 
 // container.registerSingleton<IWarehousesRepository>(
 //   'WarehousesRepository',

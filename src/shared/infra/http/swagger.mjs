@@ -153,6 +153,16 @@ const doc = {
         cylindrical_start: 1,
         cylindrical_end: 1,
       },
+      StockMoviment: {
+        product_id: 1,
+        order_id: 1,
+        financial_moviment_id: 1,
+        user_id: 1,
+        description: 'test',
+        type: 'A',
+        origin: 'AB',
+        quantity: 1,
+      },
     },
   },
   security: [
@@ -174,6 +184,7 @@ const endpointsFiles = [
   './src/modules/financial/infra/http/routes/bankAccounts.routes.ts',
   './src/modules/warehouse/infra/http/routes/products.routes.ts',
   './src/modules/warehouse/infra/http/routes/productCategories.routes.ts',
+  './src/modules/warehouse/infra/http/routes/stockMoviments.routes.ts',
 ];
 
 swaggerAutogen({

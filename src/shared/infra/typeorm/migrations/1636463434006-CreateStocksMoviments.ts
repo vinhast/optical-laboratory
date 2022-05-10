@@ -56,8 +56,18 @@ export class CreateStocksMoviments1636463434006 implements MigrationInterface {
           },
           {
             name: 'created_at',
-            type: 'datetime',
+            type: 'timestamp',
             default: 'now()',
+          },
+          {
+            name: 'updated_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
+          {
+            name: 'deleted_at',
+            type: 'timestamp',
+            isNullable: true,
           },
         ],
       }),

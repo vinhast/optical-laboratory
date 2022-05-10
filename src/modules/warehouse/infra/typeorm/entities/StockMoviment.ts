@@ -1,21 +1,12 @@
-import {
-  Entity,
-  Column,
-  ManyToOne,
-  JoinColumn,
-  CreateDateColumn,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 
 import Order from '@modules/commercial/infra/typeorm/entities/Order';
 import FinancialMoviment from '@modules/financial/infra/typeorm/entities/FinancialMoviment';
+import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
 import Product from './Product';
 
 @Entity('stocks_moviments')
-class StockMoviment {
-  @PrimaryGeneratedColumn('increment')
-  id: number;
-
+class StockMoviment extends MainEntity {
   @Column()
   product_id: number;
 
@@ -39,9 +30,6 @@ class StockMoviment {
 
   @Column()
   quantity: number;
-
-  @CreateDateColumn()
-  created_at: Date;
 
   @ManyToOne(() => Order)
   @JoinColumn({ name: 'order_id' })
