@@ -9,7 +9,7 @@ const providersController = new ProvidersController();
 providersRouter.get('/', providersController.list, () => {
   /*  
         #swagger.path = '/providers'
-        #swagger.tags = ['Providers']
+        #swagger.tags = ['Provider']
         #swagger.description = "List Providers"
         #swagger.security = [{
           "bearerAuth": []
@@ -34,7 +34,7 @@ providersRouter.get(
   () => {
     /*  
         #swagger.path = '/providers/view/{id}'
-        #swagger.tags = ['Providers']
+        #swagger.tags = ['Provider']
         #swagger.description = "View Provider "
         #swagger.security = [{
           "bearerAuth": []
@@ -78,7 +78,7 @@ providersRouter.post(
   () => {
     /*  
         #swagger.path = '/providers'
-        #swagger.tags = ['Providers']
+        #swagger.tags = ['Provider']
         #swagger.description = "Create Provider "
         #swagger.security = [{
           "bearerAuth": []
@@ -133,7 +133,7 @@ providersRouter.put(
   () => {
     /*  
         #swagger.path = '/providers/update/{id}'
-        #swagger.tags = ['Providers']
+        #swagger.tags = ['Provider']
         #swagger.description = "Update Provider"
         #swagger.security = [{
           "bearerAuth": []
@@ -173,7 +173,7 @@ providersRouter.delete(
   () => {
     /*  
         #swagger.path = '/providers/{id}'
-        #swagger.tags = ['Providers']
+        #swagger.tags = ['Provider']
         #swagger.description = "Delete Provider"
         #swagger.security = [{
           "bearerAuth": []

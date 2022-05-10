@@ -8,7 +8,7 @@ const stockMovimentsController = new StockMovimentsController();
 
 stockMovimentsRouter.get('/', stockMovimentsController.list, () => {
   /* 
-     #swagger.tags = ['StockMoviments']
+     #swagger.tags = ['StockMoviment']
      #swagger.path = '/stockMoviments'
      #swagger.description = "List stock moviments"
          #swagger.security = [{
@@ -33,7 +33,7 @@ stockMovimentsRouter.get(
   stockMovimentsController.get,
   () => {
     /* 
-     #swagger.tags = ['StockMoviments']
+     #swagger.tags = ['StockMoviment']
      #swagger.path = '/stockMoviments/view/{id}'
      #swagger.description = "View stock moviment"
          #swagger.security = [{
@@ -68,7 +68,7 @@ stockMovimentsRouter.post(
   stockMovimentsController.create,
   () => {
     /* 
-     #swagger.tags = ['StockMoviments']
+     #swagger.tags = ['StockMoviment']
      #swagger.path = '/stockMoviments'
      #swagger.description = "Create stock moviment"
          #swagger.security = [{
@@ -115,7 +115,7 @@ stockMovimentsRouter.put(
   stockMovimentsController.update,
   () => {
     /* 
-     #swagger.tags = ['StockMoviments']
+     #swagger.tags = ['StockMoviment']
      #swagger.path = '/stockMoviments/update/{id}'
      #swagger.description = "Update stock moviment"
          #swagger.security = [{
@@ -156,7 +156,7 @@ stockMovimentsRouter.delete(
   stockMovimentsController.delete,
   () => {
     /* 
-     #swagger.tags = ['StockMoviments']
+     #swagger.tags = ['StockMoviment']
      #swagger.path = '/stockMoviments/{id}'
      #swagger.description = "Delete stock moviment"
          #swagger.security = [{

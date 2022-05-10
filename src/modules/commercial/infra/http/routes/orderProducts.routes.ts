@@ -9,7 +9,7 @@ const orderProductsController = new OrderProductsController();
 orderProductsRouter.get('/', orderProductsController.list, () => {
   /*  
       #swagger.path = '/orderProducts'
-      #swagger.tags = ['OrderProducts']
+      #swagger.tags = ['OrderProduct']
       #swagger.description = "List order products"
       #swagger.security = [{
         "bearerAuth": []
@@ -33,7 +33,7 @@ orderProductsRouter.get(
   () => {
     /*  
         #swagger.path = '/orderProducts/view/{id}'
-        #swagger.tags = ['OrderProducts']
+        #swagger.tags = ['OrderProduct']
         #swagger.description = "View order product"
         #swagger.security = [{
           "bearerAuth": []
@@ -73,7 +73,7 @@ orderProductsRouter.post(
   () => {
     /*  
         #swagger.path = '/orderProducts'
-        #swagger.tags = ['OrderProducts']
+        #swagger.tags = ['OrderProduct']
         #swagger.description = "Create order product"
         #swagger.security = [{
           "bearerAuth": []
@@ -123,7 +123,7 @@ orderProductsRouter.put(
   () => {
     /*  
         #swagger.path = '/orderProducts/update/{id}'
-        #swagger.tags = ['OrderProducts']
+        #swagger.tags = ['OrderProduct']
         #swagger.description = "Update order product"
         #swagger.security = [{
           "bearerAuth": []
@@ -163,7 +163,7 @@ orderProductsRouter.delete(
   () => {
     /*  
         #swagger.path = '/orderProducts/{id}'
-        #swagger.tags = ['OrderProducts']
+        #swagger.tags = ['OrderProduct']
         #swagger.description = "Delete order product"
         #swagger.security = [{
           "bearerAuth": []

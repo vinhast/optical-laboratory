@@ -9,7 +9,7 @@ const clientsController = new ClientsController();
 clientsRouter.get('/', clientsController.list, () => {
   /*  
         #swagger.path = '/clients'
-        #swagger.tags = ['Clients']
+        #swagger.tags = ['Client']
         #swagger.description = "List clients"
         #swagger.security = [{
           "bearerAuth": []
@@ -36,7 +36,7 @@ clientsRouter.post(
   () => {
     /*  
         #swagger.path = '/clients'
-        #swagger.tags = ['Clients']
+        #swagger.tags = ['Client']
         #swagger.description = "Create client"
         #swagger.security = [{
           "bearerAuth": []
@@ -77,7 +77,7 @@ clientsRouter.get(
   () => {
     /*  
         #swagger.path = '/clients/view/{id}'
-        #swagger.tags = ['Clients']
+        #swagger.tags = ['Client']
         #swagger.description = "View client"
         #swagger.security = [{
           "bearerAuth": []
@@ -108,7 +108,7 @@ clientsRouter.put(
   () => {
     /*  
       #swagger.path = '/clients/update/{id}'
-      #swagger.tags = ['Clients']
+      #swagger.tags = ['Client']
       #swagger.description = "Update client"
       #swagger.security = [{
         "bearerAuth": []
@@ -149,7 +149,7 @@ clientsRouter.delete(
   () => {
     /*  
         #swagger.path = '/clients/{id}'
-        #swagger.tags = ['Clients']
+        #swagger.tags = ['Client']
         #swagger.description = "Delete client"
         #swagger.security = [{
           "bearerAuth": []
