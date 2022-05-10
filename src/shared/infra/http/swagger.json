@@ -11,10 +11,1193 @@
     }
   ],
   "paths": {
+    "/sessions": {
+      "post": {
+        "tags": [
+          "Sessions"
+        ],
+        "description": "Create session",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "example": "test"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "test"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sessions/createuser": {
+      "post": {
+        "tags": [
+          "Sessions"
+        ],
+        "description": "Create user",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "role_id": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "test"
+                  },
+                  "username": {
+                    "type": "string",
+                    "example": "test"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "test"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "test@test.com"
+                  },
+                  "active": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "old_role_id": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "old_user_id": {
+                    "type": "number",
+                    "example": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "description": "Create user",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "role_id": 1,
+                    "name": "Test",
+                    "username": "Test",
+                    "email": "test@test.com",
+                    "password": "teste",
+                    "active": true,
+                    "remote_access": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/view/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "description": "View user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users/update/{id}": {
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "description": "Update user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "role_id": 1,
+                    "name": "Test_update",
+                    "username": "Test_update",
+                    "email": "test_update@test.com",
+                    "password": "teste",
+                    "active": true,
+                    "remote_access": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "description": "Delete user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users/avatar": {
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "description": "Update avatar user",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found user"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "avatar": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/roles/": {
+      "get": {
+        "tags": [
+          "Roles"
+        ],
+        "description": "List roles",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Roles"
+        ],
+        "description": "Create role",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "test_role"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "test description role"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/roles/view/{id}": {
+      "get": {
+        "tags": [
+          "Roles"
+        ],
+        "description": "View role",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found role"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users/roles/update/{id}": {
+      "put": {
+        "tags": [
+          "Roles"
+        ],
+        "description": "Update role",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "test_update_role"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "test update description role"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/roles/{id}": {
+      "delete": {
+        "tags": [
+          "Roles"
+        ],
+        "description": "Delete role",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found role"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users/profile/show": {
+      "get": {
+        "tags": [
+          "Profile"
+        ],
+        "description": "Show profile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users/profile/": {
+      "put": {
+        "tags": [
+          "Profile"
+        ],
+        "description": "Update profile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "test"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "teste@teste.com"
+                  },
+                  "old_password": {
+                    "type": "string",
+                    "example": "test_old"
+                  },
+                  "username": {
+                    "type": "string",
+                    "example": "test"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "test"
+                  },
+                  "password_confirmation": {
+                    "type": "string",
+                    "example": "test"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/permissions": {
+      "post": {
+        "tags": [
+          "Permissions"
+        ],
+        "description": "Create permission",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "test"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "test description"
+                  },
+                  "method": {
+                    "type": "string",
+                    "example": "GET"
+                  },
+                  "base_url": {
+                    "type": "string",
+                    "example": "test"
+                  },
+                  "path": {
+                    "type": "string",
+                    "example": "test"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Permissions"
+        ],
+        "description": "List permissions",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/permissions/view/{id}": {
+      "get": {
+        "tags": [
+          "Permissions"
+        ],
+        "description": "View permission",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found permission"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/permissions/update/{id}": {
+      "put": {
+        "tags": [
+          "Permissions"
+        ],
+        "description": "Update permision",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "test_update"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "test update description"
+                  },
+                  "base_url": {
+                    "type": "string",
+                    "example": "test_update"
+                  },
+                  "method": {
+                    "type": "string",
+                    "example": "POST"
+                  },
+                  "path": {
+                    "type": "string",
+                    "example": "test_update"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/permissions/{id}": {
+      "delete": {
+        "tags": [
+          "Permissions"
+        ],
+        "description": "Delete permission",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found permission"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/checkPermission": {
+      "post": {
+        "tags": [
+          "CheckPermission"
+        ],
+        "description": "Check if user has permission",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "method": {
+                    "type": "string",
+                    "example": "GET"
+                  },
+                  "originalUrl": {
+                    "type": "string",
+                    "example": "/users"
+                  },
+                  "role_id": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "user_id": {
+                    "type": "number",
+                    "example": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/menus": {
+      "get": {
+        "tags": [
+          "Menus"
+        ],
+        "description": "List menus",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Menus"
+        ],
+        "description": "Create menu",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "test"
+                  },
+                  "parent_id": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "controller": {
+                    "type": "string",
+                    "example": "test_route"
+                  },
+                  "action": {
+                    "type": "string",
+                    "example": "test_path"
+                  },
+                  "method": {
+                    "type": "string",
+                    "example": "POST"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "front or cake"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/menus/view/{id}": {
+      "get": {
+        "tags": [
+          "Menus"
+        ],
+        "description": "View menu",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found menu"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/menus/update/{id}": {
+      "put": {
+        "tags": [
+          "Menus"
+        ],
+        "description": "Update menu",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "test_update"
+                  },
+                  "parent_id": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "controller": {
+                    "type": "string",
+                    "example": "test_update_route"
+                  },
+                  "action": {
+                    "type": "string",
+                    "example": "test_update_path"
+                  },
+                  "method": {
+                    "type": "string",
+                    "example": "POST"
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "front or cake"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/menus/{id}": {
+      "delete": {
+        "tags": [
+          "Menus"
+        ],
+        "description": "Delete menu",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found menu"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/password/forgot": {
+      "post": {
+        "tags": [
+          "Password"
+        ],
+        "description": "Forgot password",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "test@test.com"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/password/reset": {
+      "post": {
+        "tags": [
+          "Password"
+        ],
+        "description": "Update password",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "type": "string",
+                    "example": "test_token_uuid"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "test"
+                  },
+                  "password_confirmation": {
+                    "type": "string",
+                    "example": "test"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/orderProducts": {
       "get": {
         "tags": [
-          "OrderProducts"
+          "OrderProduct"
         ],
         "description": "List order products",
         "parameters": [],
@@ -34,7 +1217,7 @@
       },
       "post": {
         "tags": [
-          "OrderProducts"
+          "OrderProduct"
         ],
         "description": "Create order product",
         "parameters": [],
@@ -69,7 +1252,7 @@
     "/orderProducts/view/{id}": {
       "get": {
         "tags": [
-          "OrderProducts"
+          "OrderProduct"
         ],
         "description": "View order product",
         "parameters": [
@@ -103,7 +1286,7 @@
     "/orderProducts/update/{id}": {
       "put": {
         "tags": [
-          "OrderProducts"
+          "OrderProduct"
         ],
         "description": "Update order product",
         "parameters": [
@@ -147,7 +1330,7 @@
     "/orderProducts/{id}": {
       "delete": {
         "tags": [
-          "OrderProducts"
+          "OrderProduct"
         ],
         "description": "Delete order product",
         "parameters": [
@@ -546,7 +1729,7 @@
         "tags": [
           "Client"
         ],
-        "description": "List clients",
+        "description": "Create client",
         "parameters": [],
         "responses": {
           "200": {
@@ -581,7 +1764,7 @@
         "tags": [
           "Client"
         ],
-        "description": "List clients",
+        "description": "View client",
         "parameters": [
           {
             "name": "id",
@@ -615,7 +1798,7 @@
         "tags": [
           "Client"
         ],
-        "description": "List clients",
+        "description": "Update client",
         "parameters": [
           {
             "name": "id",
@@ -659,7 +1842,7 @@
         "tags": [
           "Client"
         ],
-        "description": "List clients",
+        "description": "Delete client",
         "parameters": [
           {
             "name": "id",
@@ -682,6 +1865,674 @@
           },
           "404": {
             "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/products": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "description": "List products",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Create product",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/view/{id}": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "description": "View product",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/products/update/{id}": {
+      "put": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Update product",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "delete": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Delete product",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/productCategories": {
+      "get": {
+        "tags": [
+          "ProductCategory"
+        ],
+        "description": "List categories",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "ProductCategory"
+        ],
+        "description": "Create category",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductCategory"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/productCategories/view/{id}": {
+      "get": {
+        "tags": [
+          "ProductCategory"
+        ],
+        "description": "View category",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/productCategories/update/{id}": {
+      "put": {
+        "tags": [
+          "ProductCategory"
+        ],
+        "description": "Update category",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductCategory"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/productCategories/{id}": {
+      "delete": {
+        "tags": [
+          "ProductCategory"
+        ],
+        "description": "Delete category",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/stockMoviments": {
+      "get": {
+        "tags": [
+          "StockMoviment"
+        ],
+        "description": "List stock moviments",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "StockMoviment"
+        ],
+        "description": "Create stock moviment",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StockMoviment"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stockMoviments/view/{id}": {
+      "get": {
+        "tags": [
+          "StockMoviment"
+        ],
+        "description": "View stock moviment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/stockMoviments/update/{id}": {
+      "put": {
+        "tags": [
+          "StockMoviment"
+        ],
+        "description": "Update stock moviment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StockMoviment"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stockMoviments/{id}": {
+      "delete": {
+        "tags": [
+          "StockMoviment"
+        ],
+        "description": "Delete stock moviment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/unitTypes": {
+      "get": {
+        "tags": [
+          "UnitType"
+        ],
+        "description": "List unit types",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "UnitType"
+        ],
+        "description": "Create unit type",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UnitType"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/unitTypes/view/{id}": {
+      "get": {
+        "tags": [
+          "UnitType"
+        ],
+        "description": "View unit type",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/unitTypes/update/{id}": {
+      "put": {
+        "tags": [
+          "UnitType"
+        ],
+        "description": "Update unit type",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UnitType"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/unitTypes/{id}": {
+      "delete": {
+        "tags": [
+          "UnitType"
+        ],
+        "description": "Delete unit type",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         },
         "security": [
@@ -780,13 +2631,22 @@
         ]
       }
     },
-    "/financial/bankAccounts/update": {
+    "/financial/bankAccounts/update/{id}": {
       "put": {
         "tags": [
           "BankAccount"
         ],
         "description": "Update bank account",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -849,12 +2709,12 @@
         ]
       }
     },
-    "/products": {
+    "/financial/credits": {
       "get": {
         "tags": [
-          "Products"
+          "Credit"
         ],
-        "description": "List products",
+        "description": "List all credits",
         "parameters": [],
         "responses": {
           "200": {
@@ -872,9 +2732,9 @@
       },
       "post": {
         "tags": [
-          "Products"
+          "Credit"
         ],
-        "description": "Create product",
+        "description": "Create credit",
         "parameters": [],
         "responses": {
           "200": {
@@ -897,19 +2757,19 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Product"
+                "$ref": "#/components/schemas/Credit"
               }
             }
           }
         }
       }
     },
-    "/products/view/{id}": {
+    "/financial/credits/view/{id}": {
       "get": {
         "tags": [
-          "Products"
+          "Credit"
         ],
-        "description": "View product",
+        "description": "View credit",
         "parameters": [
           {
             "name": "id",
@@ -928,7 +2788,7 @@
             "description": "Unauthorized"
           },
           "404": {
-            "description": "Not found"
+            "description": "Not found credit"
           }
         },
         "security": [
@@ -938,12 +2798,12 @@
         ]
       }
     },
-    "/products/update/{id}": {
+    "/financial/credits/update/{id}": {
       "put": {
         "tags": [
-          "Products"
+          "Credit"
         ],
-        "description": "Update product",
+        "description": "Update credit",
         "parameters": [
           {
             "name": "id",
@@ -975,19 +2835,19 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Product"
+                "$ref": "#/components/schemas/Credit"
               }
             }
           }
         }
       }
     },
-    "/products/{id}": {
+    "/financial/credits/{id}": {
       "delete": {
         "tags": [
-          "Products"
+          "Credit"
         ],
-        "description": "Delete product",
+        "description": "Delete credit",
         "parameters": [
           {
             "name": "id",
@@ -1000,13 +2860,13 @@
         ],
         "responses": {
           "204": {
-            "description": "OK"
+            "description": "No Content"
           },
           "401": {
             "description": "Unauthorized"
           },
           "404": {
-            "description": "Not found"
+            "description": "Not found credit"
           }
         },
         "security": [
@@ -1016,12 +2876,12 @@
         ]
       }
     },
-    "/productCategories": {
+    "/financial/financialMoviments": {
       "get": {
         "tags": [
-          "ProductCategories"
+          "FinancialMoviment"
         ],
-        "description": "List categories",
+        "description": "List all financialMoviments",
         "parameters": [],
         "responses": {
           "200": {
@@ -1039,9 +2899,9 @@
       },
       "post": {
         "tags": [
-          "ProductCategories"
+          "FinancialMoviment"
         ],
-        "description": "Create category",
+        "description": "Create financialMoviment",
         "parameters": [],
         "responses": {
           "200": {
@@ -1064,19 +2924,19 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProductCategory"
+                "$ref": "#/components/schemas/FinancialMoviment"
               }
             }
           }
         }
       }
     },
-    "/productCategories/view/{id}": {
+    "/financial/financialMoviments/view/{id}": {
       "get": {
         "tags": [
-          "ProductCategories"
+          "FinancialMoviment"
         ],
-        "description": "View category",
+        "description": "View financialMoviment",
         "parameters": [
           {
             "name": "id",
@@ -1095,7 +2955,7 @@
             "description": "Unauthorized"
           },
           "404": {
-            "description": "Not found"
+            "description": "Not found financialMoviment"
           }
         },
         "security": [
@@ -1105,12 +2965,12 @@
         ]
       }
     },
-    "/productCategories/update/{id}": {
+    "/financial/financialMoviments/update/{id}": {
       "put": {
         "tags": [
-          "ProductCategories"
+          "FinancialMoviment"
         ],
-        "description": "Update category",
+        "description": "Update financialMoviment",
         "parameters": [
           {
             "name": "id",
@@ -1142,19 +3002,19 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProductCategory"
+                "$ref": "#/components/schemas/FinancialMoviment"
               }
             }
           }
         }
       }
     },
-    "/productCategories/{id}": {
+    "/financial/financialMoviments/{id}": {
       "delete": {
         "tags": [
-          "ProductCategories"
+          "FinancialMoviment"
         ],
-        "description": "Delete category",
+        "description": "Delete financialMoviment",
         "parameters": [
           {
             "name": "id",
@@ -1167,13 +3027,13 @@
         ],
         "responses": {
           "204": {
-            "description": "OK"
+            "description": "No Content"
           },
           "401": {
             "description": "Unauthorized"
           },
           "404": {
-            "description": "Not found"
+            "description": "Not found financialMoviment"
           }
         },
         "security": [
@@ -1183,12 +3043,12 @@
         ]
       }
     },
-    "/stockMoviments": {
+    "/financial/financialMovimentsOrders": {
       "get": {
         "tags": [
-          "StockMoviments"
+          "FinancialMovimentOrder"
         ],
-        "description": "List stock moviments",
+        "description": "List all financialMovimentsOrders",
         "parameters": [],
         "responses": {
           "200": {
@@ -1206,9 +3066,9 @@
       },
       "post": {
         "tags": [
-          "StockMoviments"
+          "FinancialMovimentOrder"
         ],
-        "description": "Create stock moviment",
+        "description": "Create financialMovimentOrder",
         "parameters": [],
         "responses": {
           "200": {
@@ -1231,19 +3091,19 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StockMoviment"
+                "$ref": "#/components/schemas/FinancialMovimentOrder"
               }
             }
           }
         }
       }
     },
-    "/stockMoviments/view/{id}": {
+    "/financial/financialMovimentsOrders/view/{id}": {
       "get": {
         "tags": [
-          "StockMoviments"
+          "FinancialMovimentOrder"
         ],
-        "description": "View stock moviment",
+        "description": "View financialMovimentOrder",
         "parameters": [
           {
             "name": "id",
@@ -1262,7 +3122,7 @@
             "description": "Unauthorized"
           },
           "404": {
-            "description": "Not found"
+            "description": "Not found financialMovimentOrder"
           }
         },
         "security": [
@@ -1272,12 +3132,12 @@
         ]
       }
     },
-    "/stockMoviments/update/{id}": {
+    "/financial/financialMovimentsOrders/update/{id}": {
       "put": {
         "tags": [
-          "StockMoviments"
+          "FinancialMovimentOrder"
         ],
-        "description": "Update stock moviment",
+        "description": "Update financialMovimentOrder",
         "parameters": [
           {
             "name": "id",
@@ -1309,19 +3169,108 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StockMoviment"
+                "$ref": "#/components/schemas/FinancialMovimentOrder"
               }
             }
           }
         }
       }
     },
-    "/stockMoviments/{id}": {
+    "/financial/financialMovimentsOrders/{id}": {
       "delete": {
         "tags": [
-          "StockMoviments"
+          "FinancialMovimentOrder"
         ],
-        "description": "Delete stock moviment",
+        "description": "Delete financialMovimentOrder",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found financialMovimentOrder"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/financial/financialMovimentsTypes": {
+      "get": {
+        "tags": [
+          "FinancialMovimentType"
+        ],
+        "description": "List all financialMovimentsTypes",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "FinancialMovimentType"
+        ],
+        "description": "Create financialMovimentType",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FinancialMovimentType"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/financial/financialMovimentsTypes/view/{id}": {
+      "get": {
+        "tags": [
+          "FinancialMovimentType"
+        ],
+        "description": "View financialMovimentType",
         "parameters": [
           {
             "name": "id",
@@ -1336,6 +3285,81 @@
           "200": {
             "description": "OK"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found financialMovimentType"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/financial/financialMovimentsTypes/update/{id}": {
+      "put": {
+        "tags": [
+          "FinancialMovimentType"
+        ],
+        "description": "Update financialMovimentType",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FinancialMovimentType"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/financial/financialMovimentsTypes/{id}": {
+      "delete": {
+        "tags": [
+          "FinancialMovimentType"
+        ],
+        "description": "Delete financialMovimentType",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
           "204": {
             "description": "No Content"
           },
@@ -1343,7 +3367,7 @@
             "description": "Unauthorized"
           },
           "404": {
-            "description": "Not found"
+            "description": "Not found financialMovimentType"
           }
         },
         "security": [
@@ -1353,12 +3377,12 @@
         ]
       }
     },
-    "/unitTypes": {
+    "/financial/financialMovimentsTypesGroups": {
       "get": {
         "tags": [
-          "UnitTypes"
+          "FinancialMovimentTypeGroup"
         ],
-        "description": "List unit types",
+        "description": "List all financialMovimentsTypesGroups",
         "parameters": [],
         "responses": {
           "200": {
@@ -1376,9 +3400,9 @@
       },
       "post": {
         "tags": [
-          "UnitTypes"
+          "FinancialMovimentTypeGroup"
         ],
-        "description": "Create unit type",
+        "description": "Create financialMovimentTypeGroup",
         "parameters": [],
         "responses": {
           "200": {
@@ -1401,19 +3425,19 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UnitType"
+                "$ref": "#/components/schemas/FinancialMovimentTypeGroup"
               }
             }
           }
         }
       }
     },
-    "/unitTypes/view/{id}": {
+    "/financial/financialMovimentsTypesGroups/view/{id}": {
       "get": {
         "tags": [
-          "UnitTypes"
+          "FinancialMovimentTypeGroup"
         ],
-        "description": "View unit type",
+        "description": "View financialMovimentTypeGroup",
         "parameters": [
           {
             "name": "id",
@@ -1432,7 +3456,7 @@
             "description": "Unauthorized"
           },
           "404": {
-            "description": "Not found"
+            "description": "Not found financialMovimentTypeGroup"
           }
         },
         "security": [
@@ -1442,12 +3466,12 @@
         ]
       }
     },
-    "/unitTypes/update/{id}": {
+    "/financial/financialMovimentsTypesGroups/update/{id}": {
       "put": {
         "tags": [
-          "UnitTypes"
+          "FinancialMovimentTypeGroup"
         ],
-        "description": "Update unit type",
+        "description": "Update financialMovimentTypeGroup",
         "parameters": [
           {
             "name": "id",
@@ -1479,19 +3503,19 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UnitType"
+                "$ref": "#/components/schemas/FinancialMovimentTypeGroup"
               }
             }
           }
         }
       }
     },
-    "/unitTypes/{id}": {
+    "/financial/financialMovimentsTypesGroups/{id}": {
       "delete": {
         "tags": [
-          "UnitTypes"
+          "FinancialMovimentTypeGroup"
         ],
-        "description": "Delete unit type",
+        "description": "Delete financialMovimentTypeGroup",
         "parameters": [
           {
             "name": "id",
@@ -1504,10 +3528,180 @@
         ],
         "responses": {
           "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found financialMovimentTypeGroup"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/financial/fiscalSettings": {
+      "get": {
+        "tags": [
+          "FiscalSetting"
+        ],
+        "description": "List all fiscalSettings",
+        "parameters": [],
+        "responses": {
+          "200": {
             "description": "OK"
           },
           "401": {
             "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "FiscalSetting"
+        ],
+        "description": "Create fiscalSetting",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FiscalSetting"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/financial/fiscalSettings/view/{id}": {
+      "get": {
+        "tags": [
+          "FiscalSetting"
+        ],
+        "description": "View fiscalSetting",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found fiscalSetting"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/financial/fiscalSettings/update/{id}": {
+      "put": {
+        "tags": [
+          "FiscalSetting"
+        ],
+        "description": "Update fiscalSetting",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FiscalSetting"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/financial/fiscalSettings/{id}": {
+      "delete": {
+        "tags": [
+          "FiscalSetting"
+        ],
+        "description": "Delete fiscalSetting",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found fiscalSetting"
           }
         },
         "security": [
@@ -1731,211 +3925,426 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "registry": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "agency": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "account": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "account_dv": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "client_code": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "assignor_code": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "assignor_code_dv": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "document": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "transmission_code": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "currency": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "invoice_value": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "delay_fines": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "delay_taxes": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "message_1": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "message_2": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "message_3": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "instruction_1": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "instruction_2": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "instruction_3": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "user_id": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "username": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "active": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
+          }
+        }
+      },
+      "Credit": {
+        "type": "object",
+        "properties": {
+          "client_id": {
+            "type": "number",
+            "example": 1
+          },
+          "order_id": {
+            "type": "number",
+            "example": 1
+          },
+          "user_id": {
+            "type": "number",
+            "example": 1
+          },
+          "description": {
+            "type": "string",
+            "example": "string"
+          },
+          "value": {
+            "type": "string",
+            "example": "string"
+          },
+          "date": {
+            "type": "string",
+            "example": "10/05/2022"
+          },
+          "used": {
+            "type": "string",
+            "example": "string"
+          },
+          "used_at": {
+            "type": "string",
+            "example": "10/05/2022"
+          }
+        }
+      },
+      "FinancialMoviment": {
+        "type": "object",
+        "properties": {
+          "client_id": {
+            "type": "number",
+            "example": 1
+          },
+          "provider_id": {
+            "type": "number",
+            "example": 1
+          },
+          "financial_moviment_type_id": {
+            "type": "number",
+            "example": 1
+          },
+          "bank_account_id": {
+            "type": "number",
+            "example": 1
+          },
+          "shipment_file_id": {
+            "type": "number",
+            "example": 1
+          },
+          "description": {
+            "type": "string",
+            "example": "string"
+          },
+          "due_date": {
+            "type": "string",
+            "example": "10/05/2022"
+          },
+          "value": {
+            "type": "string",
+            "example": "string"
+          },
+          "products_value": {
+            "type": "string",
+            "example": "string"
+          },
+          "services_value": {
+            "type": "string",
+            "example": "string"
+          },
+          "credits_value": {
+            "type": "string",
+            "example": "string"
+          },
+          "fees_fines_value": {
+            "type": "string",
+            "example": "string"
+          },
+          "nf_code": {
+            "type": "string",
+            "example": "string"
+          },
+          "nf_receipt": {
+            "type": "string",
+            "example": "string"
+          },
+          "nf_receipt_date": {
+            "type": "string",
+            "example": "10/05/2022"
+          },
+          "nf_issue_date": {
+            "type": "string",
+            "example": "10/05/2022"
+          },
+          "nf_cStat_receipt": {
+            "type": "string",
+            "example": "string"
+          },
+          "nf_xmotivo_receipt": {
+            "type": "string",
+            "example": "string"
+          },
+          "nf_number": {
+            "type": "number",
+            "example": 1
+          },
+          "nf_key": {
+            "type": "string",
+            "example": "string"
+          },
+          "nf_protocoll": {
+            "type": "string",
+            "example": "string"
+          },
+          "nf_protocoll_date": {
+            "type": "string",
+            "example": "string"
+          },
+          "nf_protocoll_menssage": {
+            "type": "string",
+            "example": "string"
+          },
+          "nf_year_month": {
+            "type": "string",
+            "example": "string"
+          },
+          "nf_lot": {
+            "type": "string",
+            "example": "string"
+          },
+          "nf_canceled": {
+            "type": "string",
+            "example": "string"
+          },
+          "nf_canceled_protocoll": {
+            "type": "string",
+            "example": "string"
+          },
+          "nf_canceled_date": {
+            "type": "string",
+            "example": "string"
+          },
+          "nf_canceled_reason": {
+            "type": "string",
+            "example": "string"
+          },
+          "nf_status": {
+            "type": "string",
+            "example": "string"
+          },
+          "nfse_number": {
+            "type": "string",
+            "example": "string"
+          },
+          "nfse_verification_code": {
+            "type": "string",
+            "example": "string"
+          },
+          "nfse_issue_date": {
+            "type": "string",
+            "example": "10/05/2022"
+          },
+          "nfse_rps_number": {
+            "type": "number",
+            "example": 1
+          },
+          "nfse_canceled": {
+            "type": "string",
+            "example": "string"
+          },
+          "nfse_status": {
+            "type": "string",
+            "example": "string"
+          },
+          "finished": {
+            "type": "string",
+            "example": "string"
+          },
+          "payment_method": {
+            "type": "string",
+            "example": "string"
+          },
+          "invoice_status": {
+            "type": "string",
+            "example": "string"
+          },
+          "invoice_registered": {
+            "type": "string",
+            "example": "string"
+          },
+          "invoice_bank_downloaded": {
+            "type": "string",
+            "example": "string"
+          },
+          "operation_type": {
+            "type": "string",
+            "example": "string"
+          },
+          "generated_user_id": {
+            "type": "number",
+            "example": 1
+          },
+          "downloaded_user_id": {
+            "type": "number",
+            "example": 1
+          },
+          "downloaded_at": {
+            "type": "string",
+            "example": "10/05/2022"
+          }
+        }
+      },
+      "FinancialMovimentOrder": {
+        "type": "object",
+        "properties": {
+          "financial_moviment_id": {
+            "type": "number",
+            "example": 1
+          },
+          "order_id": {
+            "type": "number",
+            "example": 1
+          }
+        }
+      },
+      "FinancialMovimentType": {
+        "type": "object",
+        "properties": {
+          "product_id": {
+            "type": "number",
+            "example": 1
+          },
+          "financial_moviment_type_group_id": {
+            "type": "number",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "name"
+          }
+        }
+      },
+      "FinancialMovimentTypeGroup": {
+        "type": "object",
+        "properties": {
+          "operation_type": {
+            "type": "string",
+            "example": "string"
+          },
+          "active": {
+            "type": "number",
+            "example": 0
+          },
+          "name": {
+            "type": "string",
+            "example": "string"
+          }
+        }
+      },
+      "FiscalSetting": {
+        "type": "object",
+        "properties": {
+          "company_name": {
+            "type": "string",
+            "example": "string"
+          },
+          "cnpj": {
+            "type": "string",
+            "example": "string"
+          },
+          "city_registration": {
+            "type": "string",
+            "example": "string"
+          },
+          "state_registration": {
+            "type": "string",
+            "example": "string"
+          },
+          "address": {
+            "type": "string",
+            "example": "string"
+          },
+          "nfse_env": {
+            "type": "boolean",
+            "example": false
+          },
+          "nfse_rps_number": {
+            "type": "number",
+            "example": 0
+          },
+          "certified_file": {
+            "type": "string",
+            "example": "string"
+          },
+          "certified_validate": {
+            "type": "string",
+            "example": "10/05/2022"
+          },
+          "certified_password": {
+            "type": "string",
+            "example": "string"
+          },
+          "nf_emission_due": {
+            "type": "number",
+            "example": 0
+          },
+          "dir": {
+            "type": "number",
+            "example": 0
+          },
+          "invoice_email_copy": {
+            "type": "string",
+            "example": "string"
+          },
+          "active": {
+            "type": "string",
+            "example": "string"
           }
         }
       },
@@ -2165,7 +4574,7 @@
           },
           "abbreviation": {
             "type": "string",
-            "example": "test"
+            "example": "A"
           }
         }
       }
