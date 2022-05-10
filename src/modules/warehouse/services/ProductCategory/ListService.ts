@@ -3,28 +3,7 @@ import { inject, injectable } from 'tsyringe';
 import ProductCategory from '@modules/warehouse/infra/typeorm/entities/ProductCategory';
 import IProductCategoriesRepository from '@modules/warehouse/repositories/IProductCategoriesRepository';
 import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICacheProvider';
-
-interface IRequest {
-  page: number;
-  keyword: string;
-  perPage: number;
-  orderByField: string;
-  orderBySort: string;
-}
-
-interface IHeader {
-  name: string;
-  field: string;
-  sortable: boolean;
-}
-
-interface IResponse {
-  items: ProductCategory[];
-  headers: IHeader[];
-  itensPerPage: number;
-  totalItens: number;
-  page: number;
-}
+import { classToClass } from 'class-transformer';
 
 @injectable()
 class ListService {
@@ -35,37 +14,18 @@ class ListService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute({
-    page,
-    keyword,
-    perPage,
-    orderByField,
-    orderBySort,
-  }: IRequest): Promise<IResponse> {
-    const {
-      productCategories,
-      count,
-    } = await this.productCategoriesRepository.findAllWithPaginationAndSearch({
-      page,
-      keyword,
-      perPage,
-      orderByField,
-      orderBySort,
-    });
+  public async execute(): Promise<ProductCategory[]> {
+    const cacheKey = `product-categories-list`;
+    let productCategories = await this.cacheProvider.recover<ProductCategory[]>(
+      cacheKey,
+    );
 
-    const headers = [
-      { name: 'Cód.', field: 'id', sortable: true },
-      { name: 'Nome', field: 'name', sortable: true },
-      { name: 'Ações', field: 'actions', sortable: false },
-    ];
+    if (!productCategories) {
+      productCategories = await this.productCategoriesRepository.findAll();
+      await this.cacheProvider.save(cacheKey, classToClass(productCategories));
+    }
 
-    return {
-      items: productCategories,
-      headers,
-      itensPerPage: perPage,
-      totalItens: count,
-      page,
-    };
+    return productCategories;
   }
 }
 

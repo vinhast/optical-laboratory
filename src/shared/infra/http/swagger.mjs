@@ -137,6 +137,22 @@ const doc = {
         bars_code: '1234567891011',
         active: 'S',
       },
+      ProductCategory: {
+        parent_id: 1,
+        user_id: 1,
+        name: 'test',
+        description: 'test',
+        type: 'A',
+        ncm: 1,
+        cst: 1,
+        cfop: 1,
+        unit_type_id: 1,
+        price: '100',
+        spherical_start: 1,
+        spherical_end: 1,
+        cylindrical_start: 1,
+        cylindrical_end: 1,
+      },
     },
   },
   security: [
@@ -157,6 +173,7 @@ const endpointsFiles = [
   './src/modules/commercial/infra/http/routes/clients.routes.ts',
   './src/modules/financial/infra/http/routes/bankAccounts.routes.ts',
   './src/modules/warehouse/infra/http/routes/products.routes.ts',
+  './src/modules/warehouse/infra/http/routes/productCategories.routes.ts',
 ];
 
 swaggerAutogen({

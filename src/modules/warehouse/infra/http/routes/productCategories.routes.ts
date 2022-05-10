@@ -20,88 +20,9 @@ productCategoriesRouter.get('/', productCategoriesController.list, () => {
       #swagger.responses[200] = {
         description: "OK",
       }
-      page, keyword, perPage, orderByField, orderBySort
-      #swagger.parameters['page'] = {
-        description: 'Current page',
-        required: true,
-        type: 'number',
-        schema: 'number',
-        
-        example: 1
-      }
-      #swagger.parameters['keyword'] = {
-        description: 'word search',
-        required: true,
-        type: 'string',
-        schema: 'string',
-        
-        example: 'test'
-      }
-      #swagger.parameters['perPage'] = {
-        description: 'Quantity items per page',
-        required: true,
-        type: 'number',
-        schema:  'number',
-        
-        example: 5
-      }
-      #swagger.parameters['orderByField'] = {
-        description: 'Order by field',
-        required: false,
-        type: 'string',
-        schema: 'string',
-        
-        example: 'test'
-      }
-      #swagger.parameters['orderBySort'] = {
-        description: 'Order by sort',
-        required: false,
-        type: 'string',
-        schema: 'string',
-        example: 'ASC'
-      }
     */
 });
-productCategoriesRouter.get(
-  '/list',
-  productCategoriesController.listAll,
-  () => {
-    /* 
-     #swagger.tags = ['ProductCategories']
-     #swagger.path = '/productCategories/list'
-     #swagger.description = "List categories with relation"
-         #swagger.security = [{
-        "bearerAuth": []
-    }]
-      #swagger.responses[401] = {
-        description: "Unauthorized"
-      }
-      #swagger.responses[200] = {
-        description: "OK",
-      }
-    */
-  },
-);
-productCategoriesRouter.get(
-  '/listGenerateRevenue',
-  productCategoriesController.listGenerateRevenue,
-  () => {
-    /* 
-     #swagger.tags = ['ProductCategories']
-     #swagger.path = '/productCategories/listGenerateRevenue'
-     #swagger.description = "List category with generate revenue"
-         #swagger.security = [{
-        "bearerAuth": []
-    }]
-      #swagger.responses[401] = {
-        description: "Unauthorized"
-      }
-      #swagger.responses[200] = {
-        description: "OK",
-      }
-    */
-  },
-);
+
 productCategoriesRouter.get(
   '/view/:id',
   celebrate({
@@ -122,7 +43,7 @@ productCategoriesRouter.get(
         description: "Unauthorized"
       }
       #swagger.responses[404] = {
-        description: "Not found category"
+        description: "Not found"
       }
       #swagger.responses[200] = {
         description: "OK",
@@ -134,9 +55,20 @@ productCategoriesRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
-      name: Joi.string().required(),
       parent_id: Joi.number().integer().allow(null),
-      generate_revenue: Joi.boolean(),
+      user_id: Joi.number(),
+      name: Joi.string().required(),
+      description: Joi.string(),
+      type: Joi.string(),
+      ncm: Joi.number(),
+      cst: Joi.number(),
+      cfop: Joi.number(),
+      unit_type_id: Joi.number(),
+      price: Joi.string(),
+      spherical_start: Joi.number(),
+      spherical_end: Joi.number(),
+      cylindrical_start: Joi.number(),
+      cylindrical_end: Joi.number(),
     },
   }),
   productCategoriesController.create,
@@ -157,30 +89,17 @@ productCategoriesRouter.post(
       #swagger.responses[200] = {
         description: "OK",
       }
-        #swagger.requestBody = {
-          required: true,
-          content: {
-              "application/json": {
-                  schema: { 
-                    type: 'object',
-                    properties: {
-                      name: {
-                        type: 'string',
-                        example: 'test'
-                      },
-                      parent_id: {
-                        type: 'number',
-                        example: 1
-                      },
-                      generate_revenue: {
-                        type: 'boolean',
-                        example: true
-                      },
-                    },
-                  },
-                  
-              }
+      #swagger.requestBody = {
+      required: true,
+      content: {
+        "application/json": {
+          schema: { 
+            "$ref": "#/components/schemas/ProductCategory"
           }
+          
+        }
+      }
+      }
       }
     */
   },
@@ -189,9 +108,20 @@ productCategoriesRouter.put(
   '/update/:id',
   celebrate({
     [Segments.BODY]: {
-      name: Joi.string().required(),
       parent_id: Joi.number().integer().allow(null),
-      generate_revenue: Joi.boolean(),
+      user_id: Joi.number(),
+      name: Joi.string().required(),
+      description: Joi.string(),
+      type: Joi.string(),
+      ncm: Joi.number(),
+      cst: Joi.number(),
+      cfop: Joi.number(),
+      unit_type_id: Joi.number(),
+      price: Joi.string(),
+      spherical_start: Joi.number(),
+      spherical_end: Joi.number(),
+      cylindrical_start: Joi.number(),
+      cylindrical_end: Joi.number(),
     },
   }),
   productCategoriesController.update,
@@ -212,30 +142,17 @@ productCategoriesRouter.put(
       #swagger.responses[200] = {
         description: "OK",
       }
-        #swagger.requestBody = {
-          required: true,
-          content: {
-              "application/json": {
-                  schema: { 
-                    type: 'object',
-                    properties: {
-                      name: {
-                        type: 'string',
-                        example: 'test_update'
-                      },
-                      parent_id: {
-                        type: 'number',
-                        example: 1
-                      },
-                      generate_revenue: {
-                        type: 'boolean',
-                        example: false
-                      },
-                    },
-                  },
-                  
-              }
+      #swagger.requestBody = {
+      required: true,
+      content: {
+        "application/json": {
+          schema: { 
+            "$ref": "#/components/schemas/ProductCategory"
           }
+          
+        }
+      }
+      }
       }
     */
   },
@@ -261,9 +178,9 @@ productCategoriesRouter.delete(
         description: "Unauthorized"
       }
       #swagger.responses[404] = {
-        description: "Not found category"
+        description: "Not found"
       }
-      #swagger.responses[200] = {
+      #swagger.responses[204] = {
         description: "OK",
       }
     */

@@ -4,52 +4,51 @@ import { classToClass } from 'class-transformer';
 
 import ListService from '@modules/warehouse/services/ProductCategory/ListService';
 import CreateService from '@modules/warehouse/services/ProductCategory/CreateService';
-import FindAllService from '@modules/warehouse/services/ProductCategory/FindAllService';
-import ListGenerateRevenue from '@modules/warehouse/services/ProductCategory/ListGenerateRevenue';
 import UpdateService from '@modules/warehouse/services/ProductCategory/UpdateService';
 import GetService from '@modules/warehouse/services/ProductCategory/GetService';
 import DeleteService from '@modules/warehouse/services/ProductCategory/DeleteService';
 
 export default class ProductCategoriesController {
-  public async listAll(
-    request: Request,
-    response: Response,
-  ): Promise<Response> {
-    const findAllService = container.resolve(FindAllService);
-    const listAllResult = await findAllService.execute();
-    return response.json(classToClass(listAllResult));
-  }
-
-  public async listGenerateRevenue(
-    request: Request,
-    response: Response,
-  ): Promise<Response> {
-    const findAllService = container.resolve(ListGenerateRevenue);
-    const listAllResult = await findAllService.execute();
-    return response.json(classToClass(listAllResult));
-  }
-
   public async list(request: Request, response: Response): Promise<Response> {
-    const listCategories = container.resolve(ListService);
-    const { page, keyword, perPage, orderByField, orderBySort } = request.query;
-    const categories = await listCategories.execute({
-      page: Number(page),
-      keyword: String(keyword),
-      perPage: Number(perPage),
-      orderByField: String(orderByField),
-      orderBySort: String(orderBySort),
-    });
+    const listProductCategories = container.resolve(ListService);
+    const productCategories = await listProductCategories.execute();
 
-    return response.json(classToClass(categories));
+    return response.json(classToClass(productCategories));
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { parent_id, name, generate_revenue } = request.body;
+    const {
+      parent_id,
+      user_id,
+      name,
+      description,
+      type,
+      ncm,
+      cst,
+      cfop,
+      unit_type_id,
+      price,
+      spherical_start,
+      spherical_end,
+      cylindrical_start,
+      cylindrical_end,
+    } = request.body;
     const createCategory = container.resolve(CreateService);
     const category = await createCategory.execute({
       parent_id,
+      user_id,
       name,
-      generate_revenue,
+      description,
+      type,
+      ncm,
+      cst,
+      cfop,
+      unit_type_id,
+      price,
+      spherical_start,
+      spherical_end,
+      cylindrical_start,
+      cylindrical_end,
     });
 
     return response.json(classToClass(category));
@@ -65,13 +64,39 @@ export default class ProductCategoriesController {
 
   public async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
-    const { parent_id, name, generate_revenue } = request.body;
+    const {
+      parent_id,
+      user_id,
+      name,
+      description,
+      type,
+      ncm,
+      cst,
+      cfop,
+      unit_type_id,
+      price,
+      spherical_start,
+      spherical_end,
+      cylindrical_start,
+      cylindrical_end,
+    } = request.body;
     const updateCategory = container.resolve(UpdateService);
     const category = await updateCategory.execute({
       id: Number(id),
       parent_id,
+      user_id,
       name,
-      generate_revenue,
+      description,
+      type,
+      ncm,
+      cst,
+      cfop,
+      unit_type_id,
+      price,
+      spherical_start,
+      spherical_end,
+      cylindrical_start,
+      cylindrical_end,
     });
 
     return response.json(classToClass(category));

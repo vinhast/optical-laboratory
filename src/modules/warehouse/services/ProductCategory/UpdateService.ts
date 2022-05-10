@@ -8,8 +8,19 @@ import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICa
 interface IRequest {
   id: number;
   parent_id?: number;
+  user_id?: number;
   name: string;
-  generate_revenue: boolean;
+  description?: string;
+  type?: string;
+  ncm?: number;
+  cst?: number;
+  cfop?: number;
+  unit_type_id?: number;
+  price?: string;
+  spherical_start?: number;
+  spherical_end?: number;
+  cylindrical_start?: number;
+  cylindrical_end?: number;
 }
 
 @injectable()
@@ -21,12 +32,11 @@ class UpdateService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute({
-    id,
-    name,
-    parent_id,
-    generate_revenue,
-  }: IRequest): Promise<ProductCategory> {
+  public async execute(
+    productCategoryUpdate: IRequest,
+  ): Promise<ProductCategory> {
+    const id = productCategoryUpdate.id;
+    const parent_id = productCategoryUpdate.parent_id;
     const cacheKey = `product-category-get-${id}`;
     let category = await this.cacheProvider.recover<
       ProductCategory | undefined
@@ -40,9 +50,10 @@ class UpdateService {
       throw new AppError('Category not found.', 404);
     }
 
-    category.name = name;
-    category.generate_revenue = generate_revenue;
-    category.parent_id = parent_id;
+    category = {
+      ...category,
+      ...productCategoryUpdate,
+    };
 
     await this.cacheProvider.invalidate('product-category-list');
     await this.cacheProvider.invalidate(cacheKey);

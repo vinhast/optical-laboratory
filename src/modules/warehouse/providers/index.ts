@@ -1,7 +1,7 @@
 import { container } from 'tsyringe';
 
-// import IProductCategoriesRepository from '@modules/warehouse/repositories/IProductCategoriesRepository';
-// import ProductCategoriesRepository from '@modules/warehouse/infra/typeorm/repositories/ProductCategoriesRepository';
+import IProductCategoriesRepository from '@modules/warehouse/repositories/IProductCategoriesRepository';
+import ProductCategoriesRepository from '@modules/warehouse/infra/typeorm/repositories/ProductCategoriesRepository';
 
 // import IProductAttributesRepository from '@modules/warehouse/repositories/IProductAttributesRepository';
 // import ProductAttributesRepository from '@modules/warehouse/infra/typeorm/repositories/ProductAttributesRepository';
@@ -27,10 +27,10 @@ import ProductsRepository from '@modules/warehouse/infra/typeorm/repositories/Pr
 // import IPickOrderRepository from '@modules/warehouse/repositories/IPickOrderRepository';
 // import PickOrderRepository from '@modules/warehouse/infra/typeorm/repositories/PickOrderRepository';
 
-// container.registerSingleton<IProductCategoriesRepository>(
-//   'ProductCategoriesRepository',
-//   ProductCategoriesRepository,
-// );
+container.registerSingleton<IProductCategoriesRepository>(
+  'ProductCategoriesRepository',
+  ProductCategoriesRepository,
+);
 
 // container.registerSingleton<IProductAttributesRepository>(
 //   'ProductAttributesRepository',

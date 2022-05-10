@@ -25,7 +25,7 @@ class DeleteService {
       throw new AppError('Category not found.', 404);
     }
 
-    await this.cacheProvider.invalidate(`product-category-list`);
+    await this.cacheProvider.invalidate(`product-categories-list`);
     await this.cacheProvider.invalidate(cacheKey);
     if (category.parent_id) {
       await this.cacheProvider.invalidate(
@@ -33,7 +33,7 @@ class DeleteService {
       );
     }
 
-    await this.productCategoriesRepository.delete(category);
+    await this.productCategoriesRepository.delete(id);
 
     return true;
   }
