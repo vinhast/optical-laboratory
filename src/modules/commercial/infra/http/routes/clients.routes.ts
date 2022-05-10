@@ -37,7 +37,7 @@ clientsRouter.post(
     /*  
         #swagger.path = '/clients'
         #swagger.tags = ['Client']
-        #swagger.description = "List clients"
+        #swagger.description = "Create client"
         #swagger.security = [{
           "bearerAuth": []
         }]
@@ -78,7 +78,7 @@ clientsRouter.get(
     /*  
         #swagger.path = '/clients/view/{id}'
         #swagger.tags = ['Client']
-        #swagger.description = "List clients"
+        #swagger.description = "View client"
         #swagger.security = [{
           "bearerAuth": []
         }]
@@ -109,7 +109,7 @@ clientsRouter.put(
     /*  
       #swagger.path = '/clients/update/{id}'
       #swagger.tags = ['Client']
-      #swagger.description = "List clients"
+      #swagger.description = "Update client"
       #swagger.security = [{
         "bearerAuth": []
       }]
@@ -150,7 +150,7 @@ clientsRouter.delete(
     /*  
         #swagger.path = '/clients/{id}'
         #swagger.tags = ['Client']
-        #swagger.description = "List clients"
+        #swagger.description = "Delete client"
         #swagger.security = [{
           "bearerAuth": []
         }]
