@@ -8,7 +8,7 @@ const productCategoriesController = new ProductCategoriesController();
 
 productCategoriesRouter.get('/', productCategoriesController.list, () => {
   /* 
-     #swagger.tags = ['ProductCategorie']
+     #swagger.tags = ['ProductCategory']
      #swagger.path = '/productCategories'
      #swagger.description = "List categories"
          #swagger.security = [{
@@ -33,7 +33,7 @@ productCategoriesRouter.get(
   productCategoriesController.get,
   () => {
     /* 
-     #swagger.tags = ['ProductCategorie']
+     #swagger.tags = ['ProductCategory']
      #swagger.path = '/productCategories/view/{id}'
      #swagger.description = "View category"
          #swagger.security = [{
@@ -74,7 +74,7 @@ productCategoriesRouter.post(
   productCategoriesController.create,
   () => {
     /* 
-     #swagger.tags = ['ProductCategorie']
+     #swagger.tags = ['ProductCategory']
      #swagger.path = '/productCategories'
      #swagger.description = "Create category"
          #swagger.security = [{
@@ -127,7 +127,7 @@ productCategoriesRouter.put(
   productCategoriesController.update,
   () => {
     /* 
-     #swagger.tags = ['ProductCategorie']
+     #swagger.tags = ['ProductCategory']
      #swagger.path = '/productCategories/update/{id}'
      #swagger.description = "Update category"
          #swagger.security = [{
@@ -168,7 +168,7 @@ productCategoriesRouter.delete(
   productCategoriesController.delete,
   () => {
     /* 
-     #swagger.tags = ['ProductCategorie']
+     #swagger.tags = ['ProductCategory']
      #swagger.path = '/productCategories/{id}'
      #swagger.description = "Delete category"
          #swagger.security = [{
