@@ -28,10 +28,6 @@ class ProvidersRepository
   public save(provider: Provider): Promise<Provider> {
     return this.ormRepository.save(provider);
   }
-
-  public async delete(id: number): Promise<void> {
-    await this.ormRepository.delete(id);
-  }
 }
 
 export default ProvidersRepository;

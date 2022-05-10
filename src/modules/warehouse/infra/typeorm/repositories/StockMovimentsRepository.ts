@@ -28,9 +28,7 @@ class StockMovimentsRepository
     return this.ormRepository.save(stockMoviment);
   }
 
-  public async delete(id: number): Promise<void> {
-    await this.ormRepository.delete(id);
-  }
+
 }
 
 export default StockMovimentsRepository;

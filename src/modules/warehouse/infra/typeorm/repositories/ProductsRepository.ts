@@ -40,9 +40,7 @@ class ProductsRepository extends MainRepository implements IProductsRepository {
     return this.ormRepository.save(product);
   }
 
-  public async delete(id: number): Promise<void> {
-    await this.ormRepository.delete(id);
-  }
+
 }
 
 export default ProductsRepository;
