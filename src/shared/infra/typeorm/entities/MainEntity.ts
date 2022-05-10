@@ -5,12 +5,16 @@ import {
   PrimaryColumn,
   ManyToOne,
   JoinColumn,
+  Column,
 } from 'typeorm';
 import ClientApplication from './ClientApplication';
 
 export class MainEntity {
-  @PrimaryColumn()
+  @Column()
   id: number;
+
+  @PrimaryColumn()
+  id_key: number;
 
   @PrimaryColumn()
   client_application_id: number;

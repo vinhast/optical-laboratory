@@ -18,6 +18,10 @@ export default class CreateAuditLogs1612359732060
             {
               name: 'id',
               type: 'int',
+            },
+            {
+              name: 'id_key',
+              type: 'int',
               isPrimary: true,
             },
             {

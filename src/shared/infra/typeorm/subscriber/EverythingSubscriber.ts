@@ -8,6 +8,8 @@ import {
   InsertEvent,
   RemoveEvent,
   UpdateEvent,
+  Not,
+  IsNull,
 } from 'typeorm';
 
 import User from '@modules/users/infra/typeorm/entities/User';
@@ -60,25 +62,10 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
           event.entity[key] = this.sanitizeValue(event.entity[key]);
         }
       });
-      if (nameEntity === 'Client') {
-        const client_application_id = 2;
-        const lastRegister: any = await event.manager
-          .getRepository(nameEntity)
-          .findOne({
-            where: {
-              client_application_id,
-            },
-            order: {
-              created_at: 'DESC',
-            },
-          });
-        event.entity.id = 0;
-        if (lastRegister) {
-          event.entity.id = lastRegister.id + 1;
-        }
-        event.entity.client_application_id = client_application_id;
-      }
     }
+    const client_application_id = 2;
+    event.entity.client_application_id = client_application_id;
+    event.entity.id_key = Math.random() * 9999;
   }
 
   /**
@@ -120,23 +107,83 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
     const entity = event.metadata.name;
     if (entity !== 'AuditLog' && entity !== 'UserToken') {
       if (event.entity) {
-        const entity_id = event.entity.id;
         const userData = httpContext.get('user');
-        const user = await event.manager
-          .getRepository(User)
-          .findOne({ id: userData.id, client_application_id: 1 });
+
+        // const user = await event.manager
+        //   .getRepository(User)
+        //   .findOne({ id: userData.id, client_application_id: 2 });
+        const client_application_id = 2;
+        const lastRegister: any = await event.manager
+          .getRepository(entity)
+          .find({
+            where: {
+              client_application_id,
+            },
+            order: {
+              created_at: 'DESC',
+            },
+          });
+
+        const entity_id = event.entity.id_key;
+        if (lastRegister[1]) {
+          await event.manager.getRepository(entity).update(
+            { id_key: event.entity.id_key },
+            {
+              id: lastRegister[1].id + 1,
+            },
+          );
+        } else {
+          await event.manager.getRepository(entity).update(
+            { id_key: event.entity.id_key },
+            {
+              id: 1,
+            },
+          );
+        }
+        event.entity.client_application_id = client_application_id;
+
         const type = 'create';
         const ormRepository = event.manager.getRepository(AuditLog);
-        const descriptions = `Registro criado por ${user?.name}`;
+        const descriptions = `Registro criado por `;
         const auditLog = ormRepository.create({
           type,
           descriptions,
           entity,
           entity_id,
-          user_id: userData.id,
-          client_application_id: 1,
+          user_id: 1,
+          client_application_id: 2,
         });
-        // await ormRepository.save(auditLog);
+        await ormRepository.save(auditLog);
+      }
+    }
+    if (entity === 'AuditLog') {
+      const client_application_id = 2;
+      const lastRegister: any = await event.manager
+        .getRepository(entity)
+        .findOne({
+          where: {
+            client_application_id,
+            id: Not(IsNull()),
+          },
+          order: {
+            created_at: 'DESC',
+          },
+        });
+
+      if (lastRegister) {
+        await event.manager.getRepository(entity).update(
+          { id_key: Number(event.entity.id_key).toFixed(0) },
+          {
+            id: (lastRegister.id || 0) + 1,
+          },
+        );
+      } else {
+        await event.manager.getRepository(entity).update(
+          { id_key: Number(event.entity.id_key).toFixed(0) },
+          {
+            id: 1,
+          },
+        );
       }
     }
   }
@@ -144,53 +191,53 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
   /**
    * Called after entity insertion.
    */
-  async afterUpdate(event: UpdateEvent<any>) {
-    if (event.entity) {
-      const entity = event.metadata.name;
-      const entityDataBase = event.databaseEntity;
-      const user = httpContext.get('user');
-      const entity_id = entityDataBase.id;
-      const changes: ILogChanges[] = [];
-      let type = 'update';
-      if (event.updatedColumns.length > 0) {
-        event.updatedColumns.forEach(value => {
-          if (value.propertyName !== 'password') {
-            const field = value.propertyName;
-            const valueBefore = value.getEntityValue(event.databaseEntity);
-            const valueAfter = value.getEntityValue(event.entity);
-            if (changes.filter(item => item.field === field).length === 0) {
-              changes.push({
-                field,
-                valueAfter,
-                valueBefore,
-              });
-            }
-          }
-        });
-      } else if (
-        entityDataBase.deleted_at !== undefined &&
-        entityDataBase.deleted_at === null
-      ) {
-        const ormRepository = event.manager.getRepository(entity);
-        const recordExists = await ormRepository.count(entity_id);
-        if (!recordExists) {
-          type = 'delete';
-        }
-      }
-      if (changes.length > 0 || type === 'delete') {
-        const ormRepository = event.manager.getRepository(AuditLog);
-        const auditLog = ormRepository.create({
-          type,
-          entity,
-          entity_id,
-          changes: JSON.stringify(changes),
-          user_id: user.id,
-          client_application_id: 1,
-        });
-        // await ormRepository.save(auditLog);
-      }
-    }
-  }
+  // async afterUpdate(event: UpdateEvent<any>) {
+  //   if (event.entity) {
+  //     const entity = event.metadata.name;
+  //     const entityDataBase = event.databaseEntity;
+  //     const user = httpContext.get('user');
+  //     const entity_id = entityDataBase.id;
+  //     const changes: ILogChanges[] = [];
+  //     let type = 'update';
+  //     if (event.updatedColumns.length > 0) {
+  //       event.updatedColumns.forEach(value => {
+  //         if (value.propertyName !== 'password') {
+  //           const field = value.propertyName;
+  //           const valueBefore = value.getEntityValue(event.databaseEntity);
+  //           const valueAfter = value.getEntityValue(event.entity);
+  //           if (changes.filter(item => item.field === field).length === 0) {
+  //             changes.push({
+  //               field,
+  //               valueAfter,
+  //               valueBefore,
+  //             });
+  //           }
+  //         }
+  //       });
+  //     } else if (
+  //       entityDataBase.deleted_at !== undefined &&
+  //       entityDataBase.deleted_at === null
+  //     ) {
+  //       const ormRepository = event.manager.getRepository(entity);
+  //       const recordExists = await ormRepository.count(entity_id);
+  //       if (!recordExists) {
+  //         type = 'delete';
+  //       }
+  //     }
+  //     if (changes.length > 0 || type === 'delete') {
+  //       const ormRepository = event.manager.getRepository(AuditLog);
+  //       const auditLog = ormRepository.create({
+  //         type,
+  //         entity,
+  //         entity_id,
+  //         changes: JSON.stringify(changes),
+  //         user_id: user.id,
+  //         client_application_id: 1,
+  //       });
+  //       // await ormRepository.save(auditLog);
+  //     }
+  //   }
+  // }
 
   /**
    * Called after entity insertion.

@@ -17,7 +17,7 @@ class MainRepository {
   public async findById(id: number): Promise<any | undefined> {
     const item = await this.ormMainRepository.findOne({
       where: {
-        id,
+        id_key: id,
         client_application_id: this.user.client_application_id,
       },
     });
@@ -31,6 +31,10 @@ class MainRepository {
       },
     });
     return items;
+  }
+
+  public async delete(id: number): Promise<void> {
+    await this.ormMainRepository.delete(id);
   }
 }
 

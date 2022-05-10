@@ -12,8 +12,11 @@ import ClientApplication from './ClientApplication';
 
 @Entity('audit_logs')
 class AuditLog {
-  @PrimaryColumn()
+  @Column()
   id: number;
+
+  @PrimaryColumn()
+  id_key: number;
 
   @PrimaryColumn()
   client_application_id: number;

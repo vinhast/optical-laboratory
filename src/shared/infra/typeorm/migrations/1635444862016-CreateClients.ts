@@ -14,6 +14,12 @@ export class CreateClients1635444862016 implements MigrationInterface {
           {
             name: 'id',
             type: 'int',
+            // isPrimary: true,
+            isNullable: true,
+          },
+          {
+            name: 'id_key',
+            type: 'int',
             isPrimary: true,
           },
           {
