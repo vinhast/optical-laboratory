@@ -24,7 +24,7 @@ class DeleteService {
       throw new AppError('Order product not found.', 404);
     }
 
-    await this.cacheProvider.invalidate(`order-product-list`);
+    await this.cacheProvider.invalidate(`order-products-list`);
 
     await this.orderProductsRepository.delete(id);
 

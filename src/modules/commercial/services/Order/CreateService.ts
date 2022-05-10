@@ -75,7 +75,7 @@ class CreateService {
       user_id,
     });
 
-    await this.cacheProvider.invalidatePrefix('order-list');
+    await this.cacheProvider.invalidatePrefix('orders-list');
 
     return order;
   }

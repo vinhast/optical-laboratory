@@ -87,7 +87,7 @@ class UpdateService {
     order.note = note;
     order.user_id = user_id;
 
-    await this.cacheProvider.invalidate(`order-list`);
+    await this.cacheProvider.invalidate(`orders-list`);
 
     await this.cacheProvider.invalidate(cacheKey);
 

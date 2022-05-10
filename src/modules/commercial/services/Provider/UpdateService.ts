@@ -54,7 +54,7 @@ class UpdateService {
       ...providerUpdate,
     };
 
-    await this.cacheProvider.invalidate(`provider-list`);
+    await this.cacheProvider.invalidate(`providers-list`);
 
     await this.cacheProvider.invalidate(cacheKey);
 

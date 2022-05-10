@@ -15,7 +15,7 @@ class ListService {
   ) {}
 
   public async execute(): Promise<OrderProduct[]> {
-    const cacheKey = `order-product-list`;
+    const cacheKey = `order-products-list`;
     let orderProduct = await this.cacheProvider.recover<OrderProduct[]>(
       cacheKey,
     );

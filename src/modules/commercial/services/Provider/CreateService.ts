@@ -69,7 +69,7 @@ class CreateService {
       active,
     });
 
-    await this.cacheProvider.invalidatePrefix('provider-list');
+    await this.cacheProvider.invalidatePrefix('providers-list');
 
     return provider;
   }

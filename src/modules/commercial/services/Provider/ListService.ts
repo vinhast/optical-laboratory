@@ -15,12 +15,12 @@ class ListService {
   ) {}
 
   public async execute(): Promise<Provider[]> {
-    const cacheKey = `provider-list`;
+    const cacheKey = `providers-list`;
     let provider = await this.cacheProvider.recover<Provider[]>(cacheKey);
 
     if (!provider) {
       provider = await this.providersRepository.findAll();
-      await this.cacheProvider.save(cacheKey, classToClass(Provider));
+      await this.cacheProvider.save(cacheKey, classToClass(provider));
     }
 
     return provider;

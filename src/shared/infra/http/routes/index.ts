@@ -14,6 +14,7 @@ import clientsRouter from '@modules/commercial/infra/http/routes/clients.routes'
 import orderProductsRouter from '@modules/commercial/infra/http/routes/orderProducts.routes';
 import ordersRouter from '@modules/commercial/infra/http/routes/orders.routes';
 import providersRouter from '@modules/commercial/infra/http/routes/providers.routes';
+import productsRouter from '@modules/warehouse/infra/http/routes/products.routes';
 import dataTableRouter from './dataTable.routes';
 
 const routes = Router();
@@ -36,5 +37,6 @@ routes.use('/clients', clientsRouter);
 routes.use('/orderProducts', orderProductsRouter);
 routes.use('/orders', ordersRouter);
 routes.use('/providers', providersRouter);
+routes.use('/products', productsRouter);
 
 export default routes;

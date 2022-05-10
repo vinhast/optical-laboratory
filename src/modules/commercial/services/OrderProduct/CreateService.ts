@@ -57,7 +57,7 @@ class CreateService {
       cfop,
     });
 
-    await this.cacheProvider.invalidatePrefix(`order-product-list`);
+    await this.cacheProvider.invalidatePrefix(`order-products-list`);
 
     return orderProduct;
   }

@@ -128,6 +128,15 @@ const doc = {
         company_name: 'test',
         table_id: 1,
       },
+      Product: {
+        product_category_id: 1,
+        side: 'L',
+        cylindrical: '100',
+        spherical: '100',
+        price: '100',
+        bars_code: '1234567891011',
+        active: 'S',
+      },
     },
   },
   security: [
@@ -147,6 +156,7 @@ const endpointsFiles = [
   './src/modules/commercial/infra/http/routes/providers.routes.ts',
   './src/modules/commercial/infra/http/routes/clients.routes.ts',
   './src/modules/financial/infra/http/routes/bankAccounts.routes.ts',
+  './src/modules/warehouse/infra/http/routes/products.routes.ts',
 ];
 
 swaggerAutogen({

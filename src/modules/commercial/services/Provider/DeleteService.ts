@@ -24,7 +24,7 @@ class DeleteService {
       throw new AppError('Provider not found.', 404);
     }
 
-    await this.cacheProvider.invalidate(`provider-list`);
+    await this.cacheProvider.invalidate(`providers-list`);
 
     await this.providersRepository.delete(id);
 

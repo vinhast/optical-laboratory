@@ -71,7 +71,7 @@ class UpdateService {
     orderProduct.wrap = wrap;
     orderProduct.released = released;
 
-    await this.cacheProvider.invalidate(`order-product-list`);
+    await this.cacheProvider.invalidate(`order-products-list`);
 
     await this.cacheProvider.invalidate(cacheKey);
 

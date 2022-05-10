@@ -60,20 +60,6 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/OrderProduct"
-              },
-              "example": {
-                "order_id": 1,
-                "product_id": 1,
-                "initial_price": "100",
-                "single_discount": "100",
-                "total_discount": "100",
-                "charged_value": "100",
-                "cashback_value": "100",
-                "taxes": "100",
-                "quantity": 1,
-                "wrap": true,
-                "released": true,
-                "cfop": 1
               }
             }
           }
@@ -152,20 +138,6 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/OrderProduct"
-              },
-              "example": {
-                "order_id": 1,
-                "product_id": 1,
-                "initial_price": "100",
-                "single_discount": "100",
-                "total_discount": "100",
-                "charged_value": "100",
-                "cashback_value": "100",
-                "taxes": "100",
-                "quantity": 1,
-                "wrap": true,
-                "released": true,
-                "cfop": 1
               }
             }
           }
@@ -258,26 +230,6 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/Order"
-              },
-              "example": {
-                "os": "test_os",
-                "client_id": 1,
-                "products_value": "100",
-                "service_value": "100",
-                "lenses_value": "100",
-                "charged_value": "100",
-                "credit_value": "100",
-                "shipping_method": "credit",
-                "shipping_value": "100",
-                "shipping_time": "90",
-                "payment_method": "card",
-                "payment_date": "2022-04-05",
-                "installments": 1,
-                "status": 1,
-                "type": "V",
-                "profit": "N",
-                "note": "test_note",
-                "user_id": 1
               }
             }
           }
@@ -356,26 +308,6 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/Order"
-              },
-              "example": {
-                "os": "test_os",
-                "client_id": 1,
-                "products_value": "100",
-                "service_value": "100",
-                "lenses_value": "100",
-                "charged_value": "100",
-                "credit_value": "100",
-                "shipping_method": "credit",
-                "shipping_value": "100",
-                "shipping_time": "90",
-                "payment_method": "card",
-                "payment_date": "2022-04-05",
-                "installments": 1,
-                "status": 1,
-                "type": "V",
-                "profit": "N",
-                "note": "test_update_note",
-                "user_id": 1
               }
             }
           }
@@ -916,6 +848,173 @@
           }
         ]
       }
+    },
+    "/products": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "description": "List products",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Products"
+        ],
+        "description": "Create product",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/view/{id}": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "description": "View product",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/products/update/{id}": {
+      "put": {
+        "tags": [
+          "Products"
+        ],
+        "description": "Update product",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "delete": {
+        "tags": [
+          "Products"
+        ],
+        "description": "Delete product",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -1001,112 +1100,52 @@
         "type": "object",
         "properties": {
           "order_id": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "product_id": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "initial_price": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "100"
           },
           "single_discount": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "100"
           },
           "total_discount": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "100"
           },
           "charged_value": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "100"
           },
           "cashback_value": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "100"
           },
           "taxes": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "100"
           },
           "quantity": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "wrap": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "boolean"
-              }
-            }
+            "type": "boolean",
+            "example": true
           },
           "released": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "boolean"
-              }
-            }
+            "type": "boolean",
+            "example": true
           },
           "cfop": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           }
         }
       },
@@ -1114,166 +1153,76 @@
         "type": "object",
         "properties": {
           "os": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "test_os"
           },
           "client_id": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "products_value": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "100"
           },
           "service_value": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "100"
           },
           "lenses_value": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "100"
           },
           "charged_value": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "100"
           },
           "credit_value": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "100"
           },
           "shipping_method": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "credit"
           },
           "shipping_value": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "100"
           },
           "shipping_time": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "90"
           },
           "payment_method": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "card"
           },
           "payment_date": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "Date"
-              }
-            }
+            "type": "string",
+            "example": "2022-04-05"
           },
           "installments": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "status": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "type": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "V"
           },
           "profit": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "N"
           },
           "note": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "test_note"
           },
           "user_id": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           }
         }
       },
@@ -1572,6 +1521,39 @@
           "table_id": {
             "type": "number",
             "example": 1
+          }
+        }
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
+          "product_category_id": {
+            "type": "number",
+            "example": 1
+          },
+          "side": {
+            "type": "string",
+            "example": "test"
+          },
+          "cylindrical": {
+            "type": "string",
+            "example": "100"
+          },
+          "spherical": {
+            "type": "string",
+            "example": "100"
+          },
+          "price": {
+            "type": "string",
+            "example": "100"
+          },
+          "bars_code": {
+            "type": "string",
+            "example": "1234567891011"
+          },
+          "active": {
+            "type": "string",
+            "example": "S"
           }
         }
       }
