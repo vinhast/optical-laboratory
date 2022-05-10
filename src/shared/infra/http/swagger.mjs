@@ -239,6 +239,11 @@ const endpointsFiles = [
   './src/modules/financial/infra/http/routes/financialMovimentsTypes.routes.ts',
   './src/modules/financial/infra/http/routes/financialMovimentsTypesGroups.routes.ts',
   './src/modules/financial/infra/http/routes/fiscalSettings.routes.ts',
+  './src/modules/users/infra/http/routes/sessions.routes.ts',
+  './src/modules/users/infra/http/routes/users.routes.ts',
+  './src/modules/users/infra/http/routes/checkPermission.route.ts',
+  './src/modules/users/infra/http/routes/menus.routes.ts',
+  './src/modules/users/infra/http/routes/password.routes.ts',
 ];
 
 swaggerAutogen({
