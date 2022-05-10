@@ -1,16 +1,19 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 
-import BankAccountController from '@modules/financial/infra/http/controllers/BankAccountsController';
+import FinancialMovimentsTypesController from '@modules/financial/infra/http/controllers/FinancialMovimentsTypesController';
 
-const bankAccountRouter = Router();
-const bankAccountController = new BankAccountController();
+const financialMovimentTypeRouter = Router();
+const financialMovimentTypeController = new FinancialMovimentsTypesController();
 
-bankAccountRouter.get('/', bankAccountController.list, () => {
-  /*
-      #swagger.path = '/financial/bankAccounts'
-      #swagger.tags = ['BankAccount']
-      #swagger.description = "List all bank accounts"
+financialMovimentTypeRouter.get(
+  '/',
+  financialMovimentTypeController.list,
+  () => {
+    /*
+      #swagger.path = '/financial/financialMovimentsTypes'
+      #swagger.tags = ['FinancialMovimentType']
+      #swagger.description = "List all financialMovimentsTypes"
       #swagger.security = [{
         "bearerAuth": []
       }]
@@ -21,20 +24,21 @@ bankAccountRouter.get('/', bankAccountController.list, () => {
         description: "OK",
       }
    */
-});
-bankAccountRouter.get(
+  },
+);
+financialMovimentTypeRouter.get(
   '/view/:id',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
     },
   }),
-  bankAccountController.get,
+  financialMovimentTypeController.get,
   () => {
     /*
-      #swagger.path = '/financial/bankAccounts/view/{id}'
-      #swagger.tags = ['BankAccount']
-      #swagger.description = "View bank account"
+      #swagger.path = '/financial/financialMovimentsTypes/view/{id}'
+      #swagger.tags = ['FinancialMovimentType']
+      #swagger.description = "View financialMovimentType"
       #swagger.security = [{
         "bearerAuth": []
       }]
@@ -42,7 +46,7 @@ bankAccountRouter.get(
         description: "Unauthorized"
       }
       #swagger.responses[404] = {
-        description: "Not found bank account"
+        description: "Not found financialMovimentType"
       }
       #swagger.responses[200] = {
         description: "OK",
@@ -51,19 +55,19 @@ bankAccountRouter.get(
   },
 );
 
-bankAccountRouter.post(
+financialMovimentTypeRouter.post(
   '/',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
     },
   }),
-  bankAccountController.create,
+  financialMovimentTypeController.create,
   () => {
     /*
-      #swagger.path = '/financial/bankAccounts'
-      #swagger.tags = ['BankAccount']
-      #swagger.description = "Create bank account"
+      #swagger.path = '/financial/financialMovimentsTypes'
+      #swagger.tags = ['FinancialMovimentType']
+      #swagger.description = "Create financialMovimentType"
             #swagger.security = [{
       "bearerAuth": []
       }]
@@ -81,7 +85,7 @@ bankAccountRouter.post(
               content: {
                   "application/json": {
                       schema: {
-                        "$ref": "#/components/schemas/BankAccount"
+                        "$ref": "#/components/schemas/FinancialMovimentType"
                        },
                   }
               }
@@ -89,19 +93,19 @@ bankAccountRouter.post(
     } */
   },
 );
-bankAccountRouter.put(
+financialMovimentTypeRouter.put(
   '/update/',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
     },
   }),
-  bankAccountController.update,
+  financialMovimentTypeController.update,
   () => {
     /*
-      #swagger.path = '/financial/bankAccounts/update/{id}'
-      #swagger.tags = ['BankAccount']
-      #swagger.description = "Update bank account"
+      #swagger.path = '/financial/financialMovimentsTypes/update/{id}'
+      #swagger.tags = ['FinancialMovimentType']
+      #swagger.description = "Update financialMovimentType"
             #swagger.security = [{
       "bearerAuth": []
       }]
@@ -119,7 +123,7 @@ bankAccountRouter.put(
               content: {
                   "application/json": {
                       schema: {
-                        "$ref": "#/components/schemas/BankAccount"
+                        "$ref": "#/components/schemas/FinancialMovimentType"
                        },
               }
           }
@@ -127,19 +131,19 @@ bankAccountRouter.put(
   },
 );
 
-bankAccountRouter.delete(
+financialMovimentTypeRouter.delete(
   '/:id',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
     },
   }),
-  bankAccountController.delete,
+  financialMovimentTypeController.delete,
   () => {
     /*
-      #swagger.path = '/financial/bankAccounts/{id}'
-      #swagger.tags = ['BankAccount']
-      #swagger.description = "Delete bank account"
+      #swagger.path = '/financial/financialMovimentsTypes/{id}'
+      #swagger.tags = ['FinancialMovimentType']
+      #swagger.description = "Delete financialMovimentType"
       #swagger.security = [{
       "bearerAuth": []
       }]
@@ -147,7 +151,7 @@ bankAccountRouter.delete(
         description: "Unauthorized"
       }
       #swagger.responses[404] = {
-        description: "Not found bank account"
+        description: "Not found financialMovimentType"
       }
       #swagger.responses[204] = {
         description: "No Content",
@@ -156,4 +160,4 @@ bankAccountRouter.delete(
   },
 );
 
-export default bankAccountRouter;
+export default financialMovimentTypeRouter;

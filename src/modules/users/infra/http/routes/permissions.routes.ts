@@ -18,6 +18,58 @@ permissionsRouter.post(
     },
   }),
   permissionsController.create,
+  () => {
+    /*
+     #swagger.tags = ['Permissions']
+     #swagger.path = '/users/permissions'
+     #swagger.description = "Create permission"
+         #swagger.security = [{
+        "bearerAuth": []
+    }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[404] = {
+        description: "Bad request"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+        #swagger.requestBody = {
+          required: true,
+          content: {
+              "application/json": {
+                  schema: {
+                    type: 'object',
+                    properties: {
+                      name: {
+                        type: 'string',
+                        example: 'test'
+                      },
+                      description: {
+                        type: 'string',
+                        example: 'test description'
+                      },
+                      method: {
+                        type: 'string',
+                        example: 'GET'
+                      },
+                      base_url: {
+                        type: 'string',
+                        example: 'test'
+                      },
+                      path: {
+                        type: 'string',
+                        example: 'test'
+                      },
+                    },
+                  },
+
+              }
+          }
+      }
+    */
+  },
 );
 
 permissionsRouter.get(
@@ -28,10 +80,43 @@ permissionsRouter.get(
     },
   }),
   permissionsController.get,
+  () => {
+    /*
+     #swagger.tags = ['Permissions']
+     #swagger.path = '/permissions/view/{id}'
+     #swagger.description = "View permission"
+         #swagger.security = [{
+        "bearerAuth": []
+    }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[404] = {
+        description: "Not found permission"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+    */
+  },
 );
 
-permissionsRouter.get('/', permissionsController.list);
-
+permissionsRouter.get('/', permissionsController.list, () => {
+  /*
+     #swagger.tags = ['Permissions']
+     #swagger.path = '/users/permissions'
+     #swagger.description = "List permissions"
+         #swagger.security = [{
+        "bearerAuth": []
+    }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+    */
+});
 permissionsRouter.put(
   '/update/:id',
   celebrate({
@@ -40,10 +125,62 @@ permissionsRouter.put(
       description: Joi.string().required(),
       method: Joi.string().required(),
       base_url: Joi.string().required(),
-      path: Joi.string(),
+      path: Joi.string().allow('', null),
     },
   }),
   permissionsController.update,
+  () => {
+    /*
+     #swagger.tags = ['Permissions']
+     #swagger.path = '/permissions/update/{id}'
+     #swagger.description = "Update permision"
+         #swagger.security = [{
+        "bearerAuth": []
+    }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[404] = {
+        description: "Bad request"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+        #swagger.requestBody = {
+          required: true,
+          content: {
+              "application/json": {
+                  schema: {
+                    type: 'object',
+                    properties: {
+                      name: {
+                        type: 'string',
+                        example: 'test_update'
+                      },
+                      description: {
+                        type: 'string',
+                        example: 'test update description'
+                      },
+                      base_url: {
+                        type: 'string',
+                        example: 'test_update'
+                      },
+                      method: {
+                        type: 'string',
+                        example: 'POST'
+                      },
+                      path: {
+                        type: 'string',
+                        example: 'test_update'
+                      },
+                    },
+                  },
+
+              }
+          }
+      }
+    */
+  },
 );
 
 permissionsRouter.delete(
@@ -54,6 +191,25 @@ permissionsRouter.delete(
     },
   }),
   permissionsController.delete,
+  () => {
+    /*
+     #swagger.tags = ['Permissions']
+     #swagger.path = '/permissions/{id}'
+     #swagger.description = "Delete permission"
+         #swagger.security = [{
+        "bearerAuth": []
+    }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[404] = {
+        description: "Not found permission"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+    */
+  },
 );
 
 export default permissionsRouter;

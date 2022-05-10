@@ -33,9 +33,13 @@ export default class BankAccountsController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
     const { bankAccount } = request.body;
     const updateBankAccount = container.resolve(UpdateService);
-    const bankAccountUpdate = await updateBankAccount.execute(bankAccount);
+    const bankAccountUpdate = await updateBankAccount.execute({
+      id,
+      ...bankAccount,
+    });
 
     return response.json(classToClass(bankAccountUpdate));
   }

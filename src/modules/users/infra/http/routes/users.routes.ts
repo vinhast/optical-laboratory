@@ -7,6 +7,9 @@ import uploadConfig from '@config/upload';
 import UsersController from '@modules/users/infra/http/controllers/UsersController';
 import AvatarUserController from '@modules/users/infra/http/controllers/AvatarUserController';
 import ensureAuthenticated from '@shared/infra/http/middlewares/ensureAuthenticated';
+import rolesRouter from './roles.routes';
+import profileRouter from './profile.routes';
+import permissionsRouter from './permissions.routes';
 
 const usersRouter = Router();
 const upload = multer(uploadConfig.multer);
@@ -23,9 +26,52 @@ usersRouter.post(
       email: Joi.string().email().required(),
       password: Joi.string().required(),
       active: Joi.boolean(),
+      remote_access: Joi.boolean(),
     },
   }),
   usersController.create,
+  () => {
+    /*
+    #swagger.path = '/users'
+    #swagger.tags = ['Users']
+    #swagger.description = "Create user"
+    #swagger.security = [{
+        "bearerAuth": []
+    }]
+    #swagger.responses[401] = {
+      description: "Unauthorized"
+    }
+    #swagger.responses[404] = {
+      description: "Bad request"
+    }
+    #swagger.responses[200] = {
+      description: "OK",
+    }
+     #swagger.requestBody = {
+              required: true,
+              content: {
+                  "application/json": {
+                      schema: {
+                        "$ref": "#/components/schemas/User"
+                       },
+                      examples: {
+                        user: {
+                          value: {
+                            role_id: 1,
+                            name: "Test",
+                            username: "Test",
+                            email: "test@test.com",
+                            password: "teste",
+                            active: true,
+                            remote_access: true,
+                          }
+                        }
+                      }
+                  }
+              }
+          }
+    } */
+  },
 );
 
 usersRouter.get(
@@ -36,6 +82,25 @@ usersRouter.get(
     },
   }),
   usersController.get,
+  () => {
+    /*
+     #swagger.tags = ['Users']
+     #swagger.path = '/users/view/{id}'
+     #swagger.description = "View user"
+         #swagger.security = [{
+        "bearerAuth": []
+    }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[404] = {
+        description: "Not found user"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+    */
+  },
 );
 
 usersRouter.put(
@@ -46,6 +111,48 @@ usersRouter.put(
     },
   }),
   usersController.update,
+  () => {
+    /*
+     #swagger.tags = ['Users']
+     #swagger.path = '/users/update/{id}'
+     #swagger.description = "Update user"
+         #swagger.security = [{
+        "bearerAuth": []
+    }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[404] = {
+        description: "Bad request"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+      #swagger.requestBody = {
+              required: true,
+              content: {
+                  "application/json": {
+                      schema: {
+                        "$ref": "#/components/schemas/User"
+                       },
+                      examples: {
+                        user: {
+                          value: {
+                            role_id: 1,
+                            name: "Test_update",
+                            username: "Test_update",
+                            email: "test_update@test.com",
+                            password: "teste",
+                            active: true,
+                            remote_access: true,
+                          }
+                        }
+                      }
+                  }
+              }
+          }
+    */
+  },
 );
 
 usersRouter.delete(
@@ -56,6 +163,25 @@ usersRouter.delete(
     },
   }),
   usersController.delete,
+  () => {
+    /*
+     #swagger.tags = ['Users']
+     #swagger.path = '/users/{id}'
+     #swagger.description = "Delete user"
+         #swagger.security = [{
+        "bearerAuth": []
+    }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[404] = {
+        description: "Not found user"
+      }
+      #swagger.responses[204] = {
+        description: "No Content",
+      }
+    */
+  },
 );
 
 usersRouter.patch(
@@ -63,6 +189,45 @@ usersRouter.patch(
   ensureAuthenticated,
   upload.single('avatar'),
   userAvatarController.update,
+  () => {
+    /*
+     #swagger.tags = ['Users']
+     #swagger.path = '/users/avatar'
+     #swagger.description = "Update avatar user"
+         #swagger.security = [{
+        "bearerAuth": []
+    }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[404] = {
+        description: "Not found user"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+      #swagger.requestBody = {
+        required: true,
+        content: {
+          "multipart/form-data": {
+            schema: {
+              type: 'object',
+              properties: {
+                avatar: {
+                  type: 'string',
+                  format: 'binary'
+                }
+              }
+            },
+          }
+        }
+      }
+    */
+  },
 );
+
+usersRouter.use('/roles', rolesRouter);
+usersRouter.use('/profile', profileRouter);
+usersRouter.use('/permissions', permissionsRouter);
 
 export default usersRouter;
