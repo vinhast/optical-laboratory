@@ -1050,6 +1050,164 @@
           }
         ]
       }
+    },
+    "/financial/financialMovimentsTypes": {
+      "get": {
+        "tags": [
+          "FinancialMovimentType"
+        ],
+        "description": "List all financialMovimentsTypes",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "FinancialMovimentType"
+        ],
+        "description": "Create financialMovimentType",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FinancialMovimentType"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/financial/financialMovimentsTypes/view/{id}": {
+      "get": {
+        "tags": [
+          "FinancialMovimentType"
+        ],
+        "description": "View financialMovimentType",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found financialMovimentType"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/financial/financialMovimentsTypes/update": {
+      "put": {
+        "tags": [
+          "FinancialMovimentType"
+        ],
+        "description": "Update financialMovimentType",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FinancialMovimentType"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/financial/financialMovimentsTypes/{id}": {
+      "delete": {
+        "tags": [
+          "FinancialMovimentType"
+        ],
+        "description": "Delete financialMovimentType",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found financialMovimentType"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -2120,6 +2278,23 @@
           "order_id": {
             "type": "number",
             "example": 1
+          }
+        }
+      },
+      "FinancialMovimentType": {
+        "type": "object",
+        "properties": {
+          "product_id": {
+            "type": "number",
+            "example": 1
+          },
+          "financial_moviment_type_group_id": {
+            "type": "number",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "name"
           }
         }
       }

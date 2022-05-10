@@ -190,6 +190,11 @@ const doc = {
         financial_moviment_id: 1,
         order_id: 1,
       },
+      FinancialMovimentType: {
+        product_id: 1,
+        financial_moviment_type_group_id: 1,
+        name: 'name',
+      },
     },
   },
   security: [
@@ -210,6 +215,7 @@ const endpointsFiles = [
   './src/modules/financial/infra/http/routes/credits.routes.ts',
   './src/modules/financial/infra/http/routes/financialMoviments.routes.ts',
   './src/modules/financial/infra/http/routes/financialMovimentsOrders.routes.ts',
+  './src/modules/financial/infra/http/routes/financialMovimentsTypes.routes.ts',
 ];
 
 swaggerAutogen({

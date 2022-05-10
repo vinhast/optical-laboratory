@@ -12,6 +12,9 @@ import FinancialMovimentsRepository from '@modules/financial/infra/typeorm/repos
 import IFinancialMovimentsOrdersRepository from '@modules/financial/repositories/IFinancialMovimentsOrdersRepository';
 import FinancialMovimentsOrdersRepository from '@modules/financial/infra/typeorm/repositories/FinancialMovimentsOrdersRepository';
 
+import IFinancialMovimentsTypesRepository from '@modules/financial/repositories/IFinancialMovimentsTypesRepository';
+import FinancialMovimentsTypesRepository from '@modules/financial/infra/typeorm/repositories/FinancialMovimentsTypesRepository';
+
 container.registerSingleton<IBankAccountsRepository>(
   'BankAccountsRepository',
   BankAccountsRepository,
@@ -30,4 +33,9 @@ container.registerSingleton<IFinancialMovimentsRepository>(
 container.registerSingleton<IFinancialMovimentsOrdersRepository>(
   'FinancialMovimentsOrdersRepository',
   FinancialMovimentsOrdersRepository,
+);
+
+container.registerSingleton<IFinancialMovimentsTypesRepository>(
+  'FinancialMovimentsTypesRepository',
+  FinancialMovimentsTypesRepository,
 );
