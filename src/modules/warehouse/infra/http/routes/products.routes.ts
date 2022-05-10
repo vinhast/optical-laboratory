@@ -8,7 +8,7 @@ const productsController = new ProductsController();
 
 productsRouter.get('/', productsController.list, () => {
   /* 
-     #swagger.tags = ['Products']
+     #swagger.tags = ['Product']
      #swagger.path = '/products'
      #swagger.description = "List products"
          #swagger.security = [{
@@ -33,7 +33,7 @@ productsRouter.get(
   productsController.get,
   () => {
     /* 
-     #swagger.tags = ['Products']
+     #swagger.tags = ['Product']
      #swagger.path = '/products/view/{id}'
      #swagger.description = "View product"
          #swagger.security = [{
@@ -67,7 +67,7 @@ productsRouter.post(
   productsController.create,
   () => {
     /* 
-     #swagger.tags = ['Products']
+     #swagger.tags = ['Product']
      #swagger.path = '/products'
      #swagger.description = "Create product"
          #swagger.security = [{
@@ -113,7 +113,7 @@ productsRouter.put(
   productsController.update,
   () => {
     /* 
-     #swagger.tags = ['Products']
+     #swagger.tags = ['Product']
      #swagger.path = '/products/update/{id}'
      #swagger.description = "Update product"
          #swagger.security = [{
@@ -154,7 +154,7 @@ productsRouter.delete(
   productsController.delete,
   () => {
     /* 
-     #swagger.tags = ['Products']
+     #swagger.tags = ['Product']
      #swagger.path = '/products/{id}'
      #swagger.description = "Delete product"
          #swagger.security = [{

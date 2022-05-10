@@ -9,7 +9,7 @@ const ordersController = new OrdersController();
 ordersRouter.get('/', ordersController.list, () => {
   /*  
         #swagger.path = '/orders'
-        #swagger.tags = ['Orders']
+        #swagger.tags = ['Order']
         #swagger.description = "List orders"
         #swagger.security = [{
           "bearerAuth": []
@@ -34,7 +34,7 @@ ordersRouter.get(
   () => {
     /*  
         #swagger.path = '/orders/view/{id}'
-        #swagger.tags = ['Orders']
+        #swagger.tags = ['Order']
         #swagger.description = "View order "
         #swagger.security = [{
           "bearerAuth": []
@@ -80,7 +80,7 @@ ordersRouter.post(
   () => {
     /*  
         #swagger.path = '/orders'
-        #swagger.tags = ['Orders']
+        #swagger.tags = ['Order']
         #swagger.description = "Create order "
         #swagger.security = [{
           "bearerAuth": []
@@ -137,7 +137,7 @@ ordersRouter.put(
   () => {
     /*  
         #swagger.path = '/orders/update/{id}'
-        #swagger.tags = ['Orders']
+        #swagger.tags = ['Order']
         #swagger.description = "Update order"
         #swagger.security = [{
           "bearerAuth": []
@@ -177,7 +177,7 @@ ordersRouter.delete(
   () => {
     /*  
         #swagger.path = '/orders/{id}'
-        #swagger.tags = ['Orders']
+        #swagger.tags = ['Order']
         #swagger.description = "Delete order"
         #swagger.security = [{
           "bearerAuth": []
