@@ -93,21 +93,7 @@ orderProductsRouter.post(
             "application/json": {
                 schema: { 
                   "$ref": "#/components/schemas/OrderProduct"
-                  },
-                example: {
-                  order_id: 1,
-                        product_id: 1,
-                        initial_price: '100',
-                        single_discount: '100',
-                        total_discount: '100',
-                        charged_value: '100',
-                        cashback_value: '100',
-                        taxes: '100',
-                        quantity: 1,
-                        wrap: true,
-                        released: true,
-                        cfop: 1,
-                }
+                  }
             }
         }
       }
@@ -157,21 +143,7 @@ orderProductsRouter.put(
             "application/json": {
                 schema: { 
                   "$ref": "#/components/schemas/OrderProduct"
-                  },
-                example: {
-                  order_id: 1,
-                        product_id: 1,
-                        initial_price: '100',
-                        single_discount: '100',
-                        total_discount: '100',
-                        charged_value: '100',
-                        cashback_value: '100',
-                        taxes: '100',
-                        quantity: 1,
-                        wrap: true,
-                        released: true,
-                        cfop: 1,
-                }
+                  }
             }
         }
       }

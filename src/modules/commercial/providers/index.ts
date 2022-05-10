@@ -6,8 +6,11 @@ import ClientsRepository from '@modules/commercial/infra/typeorm/repositories/Cl
 import IOrderProductsRepository from '@modules/commercial/repositories/IOrderProductsRepository';
 import OrderProductsRepository from '@modules/commercial/infra/typeorm/repositories/OrderProductsRepository';
 
-import IOrderRepository from '@modules/commercial/repositories/IOrderRepository';
-import OrderRepository from '@modules/commercial/infra/typeorm/repositories/OrderRepository';
+import IOrdersRepository from '@modules/commercial/repositories/IOrdersRepository';
+import OrdersRepository from '@modules/commercial/infra/typeorm/repositories/OrdersRepository';
+
+import IProvidersRepository from '@modules/commercial/repositories/IProvidersRepository';
+import ProvidersRepository from '@modules/commercial/infra/typeorm/repositories/ProvidersRepository';
 
 container.registerSingleton<IClientsRepository>(
   'ClientsRepository',
@@ -19,7 +22,12 @@ container.registerSingleton<IOrderProductsRepository>(
   OrderProductsRepository,
 );
 
-container.registerSingleton<IOrderRepository>(
-  'OrderRepository',
-  OrderRepository,
+container.registerSingleton<IOrdersRepository>(
+  'OrdersRepository',
+  OrdersRepository,
+);
+
+container.registerSingleton<IProvidersRepository>(
+  'ProvidersRepository',
+  ProvidersRepository,
 );

@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
-import IOrderRepository from '@modules/commercial/repositories/IOrderRepository';
+import IOrdersRepository from '@modules/commercial/repositories/IOrdersRepository';
 import Order from '@modules/commercial/infra/typeorm/entities/Order';
 import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICacheProvider';
 
@@ -30,8 +30,8 @@ interface IRequest {
 @injectable()
 class UpdateService {
   constructor(
-    @inject('OrderRepository')
-    private orderRepository: IOrderRepository,
+    @inject('OrdersRepository')
+    private ordersRepository: IOrdersRepository,
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
   ) {}
@@ -61,7 +61,7 @@ class UpdateService {
     let order = await this.cacheProvider.recover<Order | undefined>(cacheKey);
 
     if (!order) {
-      order = await this.orderRepository.findById(id);
+      order = await this.ordersRepository.findById(id);
     }
 
     if (!order) {
@@ -91,7 +91,7 @@ class UpdateService {
 
     await this.cacheProvider.invalidate(cacheKey);
 
-    await this.orderRepository.save(order);
+    await this.ordersRepository.save(order);
 
     return order;
   }

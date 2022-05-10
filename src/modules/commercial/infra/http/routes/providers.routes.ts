@@ -1,16 +1,16 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 
-import OrdersController from '@modules/commercial/infra/http/controllers/OrdersController';
+import ProvidersController from '@modules/commercial/infra/http/controllers/ProvidersController';
 
-const ordersRouter = Router();
-const ordersController = new OrdersController();
+const providersRouter = Router();
+const providersController = new ProvidersController();
 
-ordersRouter.get('/', ordersController.list, () => {
+providersRouter.get('/', providersController.list, () => {
   /*  
-        #swagger.path = '/orders'
-        #swagger.tags = ['Order']
-        #swagger.description = "List orders"
+        #swagger.path = '/providers'
+        #swagger.tags = ['Provider']
+        #swagger.description = "List Providers"
         #swagger.security = [{
           "bearerAuth": []
         }]
@@ -23,19 +23,19 @@ ordersRouter.get('/', ordersController.list, () => {
      */
 });
 
-ordersRouter.get(
+providersRouter.get(
   '/view/:id',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
     },
   }),
-  ordersController.get,
+  providersController.get,
   () => {
     /*  
-        #swagger.path = '/orders/view/{id}'
-        #swagger.tags = ['Order']
-        #swagger.description = "View order "
+        #swagger.path = '/providers/view/{id}'
+        #swagger.tags = ['Provider']
+        #swagger.description = "View Provider "
         #swagger.security = [{
           "bearerAuth": []
         }]
@@ -52,36 +52,34 @@ ordersRouter.get(
   },
 );
 
-ordersRouter.post(
+providersRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
-      os: Joi.string(),
-      client_id: Joi.number().required(),
-      products_value: Joi.string(),
-      service_value: Joi.string(),
-      lenses_value: Joi.string(),
-      charged_value: Joi.string(),
-      credit_value: Joi.string(),
-      shipping_method: Joi.string(),
-      shipping_value: Joi.string(),
-      shipping_time: Joi.string(),
-      payment_method: Joi.string(),
-      payment_date: Joi.date(),
-      installments: Joi.number(),
-      status: Joi.number(),
-      type: Joi.string().required(),
-      profit: Joi.string().required(),
+      company_social_name: Joi.string().required(),
+      company_name: Joi.string().required(),
+      cnpj: Joi.string(),
+      phone: Joi.string().required(),
+      mobile: Joi.string(),
+      email: Joi.string(),
+      street: Joi.string(),
+      number: Joi.string(),
+      complement: Joi.string(),
+      district: Joi.string(),
+      zip_code: Joi.string(),
+      city: Joi.string(),
+      state: Joi.string(),
+      ibge: Joi.number(),
       note: Joi.string(),
-      user_id: Joi.number(),
+      active: Joi.string().required(),
     },
   }),
-  ordersController.create,
+  providersController.create,
   () => {
     /*  
-        #swagger.path = '/orders'
-        #swagger.tags = ['Order']
-        #swagger.description = "Create order "
+        #swagger.path = '/providers'
+        #swagger.tags = ['Provider']
+        #swagger.description = "Create Provider "
         #swagger.security = [{
           "bearerAuth": []
         }]
@@ -99,8 +97,8 @@ ordersRouter.post(
         content: {
           "application/json": {
             schema: { 
-              "$ref": "#/components/schemas/Order"
-            }
+              "$ref": "#/components/schemas/Provider"
+            },
           }
         }
       }
@@ -109,36 +107,34 @@ ordersRouter.post(
   },
 );
 
-ordersRouter.put(
+providersRouter.put(
   '/update/:id',
   celebrate({
     [Segments.BODY]: {
-      os: Joi.string(),
-      client_id: Joi.number().required(),
-      products_value: Joi.string(),
-      service_value: Joi.string(),
-      lenses_value: Joi.string(),
-      charged_value: Joi.string(),
-      credit_value: Joi.string(),
-      shipping_method: Joi.string(),
-      shipping_value: Joi.string(),
-      shipping_time: Joi.string(),
-      payment_method: Joi.string(),
-      payment_date: Joi.date(),
-      installments: Joi.number(),
-      status: Joi.number(),
-      type: Joi.string().required(),
-      profit: Joi.string().required(),
+      company_social_name: Joi.string().required(),
+      company_name: Joi.string().required(),
+      cnpj: Joi.string(),
+      phone: Joi.string().required(),
+      mobile: Joi.string(),
+      email: Joi.string(),
+      street: Joi.string(),
+      number: Joi.string(),
+      complement: Joi.string(),
+      district: Joi.string(),
+      zip_code: Joi.string(),
+      city: Joi.string(),
+      state: Joi.string(),
+      ibge: Joi.number(),
       note: Joi.string(),
-      user_id: Joi.number(),
+      active: Joi.string().required(),
     },
   }),
-  ordersController.update,
+  providersController.update,
   () => {
     /*  
-        #swagger.path = '/orders/update/{id}'
-        #swagger.tags = ['Order']
-        #swagger.description = "Update order"
+        #swagger.path = '/providers/update/{id}'
+        #swagger.tags = ['Provider']
+        #swagger.description = "Update Provider"
         #swagger.security = [{
           "bearerAuth": []
         }]
@@ -156,8 +152,8 @@ ordersRouter.put(
         content: {
             "application/json": {
                 schema: { 
-                  "$ref": "#/components/schemas/Order"
-                  }
+                  "$ref": "#/components/schemas/Provider"
+                  },
             }
         }
       }
@@ -166,19 +162,19 @@ ordersRouter.put(
   },
 );
 
-ordersRouter.delete(
+providersRouter.delete(
   '/:id',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
     },
   }),
-  ordersController.delete,
+  providersController.delete,
   () => {
     /*  
-        #swagger.path = '/orders/{id}'
-        #swagger.tags = ['Order']
-        #swagger.description = "Delete order"
+        #swagger.path = '/providers/{id}'
+        #swagger.tags = ['Provider']
+        #swagger.description = "Delete Provider"
         #swagger.security = [{
           "bearerAuth": []
         }]
@@ -196,4 +192,4 @@ ordersRouter.delete(
   },
 );
 
-export default ordersRouter;
+export default providersRouter;

@@ -2,15 +2,15 @@ import { inject, injectable } from 'tsyringe';
 import { classToClass } from 'class-transformer';
 
 import AppError from '@shared/errors/AppError';
-import IOrderRepository from '@modules/commercial/repositories/IOrderRepository';
+import IOrdersRepository from '@modules/commercial/repositories/IOrdersRepository';
 import Order from '@modules/commercial/infra/typeorm/entities/Order';
 import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICacheProvider';
 
 @injectable()
 class GetService {
   constructor(
-    @inject('OrderRepository')
-    private orderRepository: IOrderRepository,
+    @inject('OrdersRepository')
+    private ordersRepository: IOrdersRepository,
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
   ) {}
@@ -20,7 +20,7 @@ class GetService {
     let order = await this.cacheProvider.recover<Order | undefined>(cacheKey);
 
     if (!order) {
-      order = await this.orderRepository.findById(id);
+      order = await this.ordersRepository.findById(id);
       this.cacheProvider.save(cacheKey, classToClass(order));
     }
 

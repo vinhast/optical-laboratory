@@ -1,12 +1,12 @@
 import { getRepository, Repository } from 'typeorm';
 import httpContext from 'express-http-context';
 
-import IOrderRepository from '@modules/commercial/repositories/IOrderRepository';
+import IOrdersRepository from '@modules/commercial/repositories/IOrdersRepository';
 import ICreateOrderDTO from '@modules/commercial/dtos/ICreateOrderDTO';
 import MainRepository from '@shared/infra/typeorm/repositories/MainRepository';
 import Order from '../entities/Order';
 
-class OrderRepository extends MainRepository implements IOrderRepository {
+class OrdersRepository extends MainRepository implements IOrdersRepository {
   private ormRepository: Repository<Order>;
   private userData: {
     id: number;
@@ -55,4 +55,4 @@ class OrderRepository extends MainRepository implements IOrderRepository {
   }
 }
 
-export default OrderRepository;
+export default OrdersRepository;

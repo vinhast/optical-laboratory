@@ -1,7 +1,7 @@
 import Order from '@modules/commercial/infra/typeorm/entities/Order';
 import ICreateOrderDTO from '../dtos/ICreateOrderDTO';
 
-export default interface IOrderRepository {
+export default interface IOrderRsepository {
   findAll(): Promise<Order[]>;
   findById(id: number): Promise<Order | undefined>;
   findByName(name: string): Promise<Order | undefined>;

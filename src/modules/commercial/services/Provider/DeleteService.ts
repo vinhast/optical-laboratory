@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
-import IOrdersRepository from '@modules/commercial/repositories/IOrdersRepository';
+import IProvidersRepository from '@modules/commercial/repositories/IProvidersRepository';
 import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICacheProvider';
 
 interface IRequest {
@@ -11,22 +11,22 @@ interface IRequest {
 @injectable()
 class DeleteService {
   constructor(
-    @inject('OrdersRepository')
-    private ordersRepository: IOrdersRepository,
+    @inject('ProvidersRepository')
+    private providersRepository: IProvidersRepository,
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute({ id }: IRequest): Promise<boolean> {
-    const order = await this.ordersRepository.findById(id);
+    const provider = await this.providersRepository.findById(id);
 
-    if (!order) {
-      throw new AppError('Order not found.', 404);
+    if (!provider) {
+      throw new AppError('Provider not found.', 404);
     }
 
-    await this.cacheProvider.invalidate(`order-list`);
+    await this.cacheProvider.invalidate(`provider-list`);
 
-    await this.ordersRepository.delete(id);
+    await this.providersRepository.delete(id);
 
     return true;
   }
