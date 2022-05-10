@@ -50,9 +50,7 @@ class OrdersRepository extends MainRepository implements IOrdersRepository {
     return this.ormRepository.save(order);
   }
 
-  public async delete(id: number): Promise<void> {
-    await this.ormRepository.delete(id);
-  }
+
 }
 
 export default OrdersRepository;

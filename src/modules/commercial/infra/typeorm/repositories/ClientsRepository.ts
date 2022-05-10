@@ -23,10 +23,6 @@ class ClientsRepository extends MainRepository implements IClientsRepository {
   public save(client: Client): Promise<Client> {
     return this.ormRepository.save(client);
   }
-
-  public async delete(id: number): Promise<void> {
-    await this.ormRepository.delete(id);
-  }
 }
 
 export default ClientsRepository;

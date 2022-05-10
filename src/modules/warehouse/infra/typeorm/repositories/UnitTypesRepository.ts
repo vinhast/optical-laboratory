@@ -29,10 +29,6 @@ class UnitTypesRepository
   public save(unitType: UnitType): Promise<UnitType> {
     return this.ormRepository.save(unitType);
   }
-
-  public async delete(id: number): Promise<void> {
-    await this.ormRepository.delete(id);
-  }
 }
 
 export default UnitTypesRepository;

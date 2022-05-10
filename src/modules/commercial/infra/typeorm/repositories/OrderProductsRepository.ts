@@ -50,10 +50,6 @@ class OrderProductsRepository
   public save(orderProducts: OrderProducts): Promise<OrderProducts> {
     return this.ormRepository.save(orderProducts);
   }
-
-  public async delete(id: number): Promise<void> {
-    await this.ormRepository.delete(id);
-  }
 }
 
 export default OrderProductsRepository;

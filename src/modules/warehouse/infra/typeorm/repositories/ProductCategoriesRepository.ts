@@ -32,9 +32,7 @@ class ProductCategoriesRepository
     return this.ormRepository.save(productCategory);
   }
 
-  public async delete(id: number): Promise<void> {
-    await this.ormRepository.delete(id);
-  }
+
 }
 
 export default ProductCategoriesRepository;

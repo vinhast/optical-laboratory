@@ -2,7 +2,11 @@ import { Repository } from 'typeorm';
 import httpContext from 'express-http-context';
 
 class MainRepository {
-  private ormMainRepository: Repository<any>;
+  private ormMainRepository: Repository<{
+    name?: string;
+    id: number;
+    client_application_id: number;
+  }>;
   private user: {
     id: number;
     client_application_id: number;
@@ -41,6 +45,13 @@ class MainRepository {
       },
     });
     return item;
+  }
+
+  public async delete(id: number): Promise<void> {
+    await this.ormMainRepository.delete({
+      id,
+      client_application_id: this.user.client_application_id,
+    });
   }
 }
 
