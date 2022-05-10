@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
-import IOrderRepository from '@modules/commercial/repositories/IOrderRepository';
+import IOrdersRepository from '@modules/commercial/repositories/IOrdersRepository';
 import Order from '@modules/commercial/infra/typeorm/entities/Order';
 import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICacheProvider';
 
@@ -28,8 +28,8 @@ interface IRequest {
 @injectable()
 class CreateService {
   constructor(
-    @inject('OrderRepository')
-    private orderRepository: IOrderRepository,
+    @inject('OrdersRepository')
+    private ordersRepository: IOrdersRepository,
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
   ) {}
@@ -54,7 +54,7 @@ class CreateService {
     note,
     user_id,
   }: IRequest): Promise<Order> {
-    const order = await this.orderRepository.create({
+    const order = await this.ordersRepository.create({
       os,
       client_id,
       products_value,

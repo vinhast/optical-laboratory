@@ -8,12 +8,12 @@ import UpdateService from '@modules/commercial/services/Order/UpdateService';
 import GetService from '@modules/commercial/services/Order/GetService';
 import DeleteService from '@modules/commercial/services/Order/DeleteService';
 
-export default class OrderController {
+export default class OrdersController {
   public async list(request: Request, response: Response): Promise<Response> {
-    const listOrder = container.resolve(ListService);
-    const order = await listOrder.execute();
+    const listOrders = container.resolve(ListService);
+    const orders = await listOrders.execute();
 
-    return response.json(classToClass(order));
+    return response.json(classToClass(orders));
   }
 
   public async create(request: Request, response: Response): Promise<Response> {

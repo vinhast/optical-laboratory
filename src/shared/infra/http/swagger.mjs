@@ -129,6 +129,29 @@ const doc = {
         username: { type: 'string' },
         active: { type: 'string' },
       },
+      Provider: {
+        company_social_name: 'test',
+        company_name: 'test',
+        cnpj: '123456789',
+        phone: '123456789',
+        mobile: '123456789',
+        email: 'test@test.com',
+        street: 'test',
+        number: '1',
+        complement: 'test',
+        district: 'test',
+        zip_code: '12345678',
+        city: 'test',
+        state: 'BA',
+        ibge: 1,
+        note: 'test',
+        active: 'S',
+      },
+      Client: {
+        cnpj: '123456789',
+        company_name: 'test',
+        table_id: 1,
+      },
     },
   },
   security: [
@@ -145,6 +168,8 @@ const outputFile = './src/shared/infra/http/swagger.json';
 const endpointsFiles = [
   './src/modules/commercial/infra/http/routes/orderProducts.routes.ts',
   './src/modules/commercial/infra/http/routes/orders.routes.ts',
+  './src/modules/commercial/infra/http/routes/providers.routes.ts',
+  './src/modules/commercial/infra/http/routes/clients.routes.ts',
   './src/modules/financial/infra/http/routes/bankAccounts.routes.ts',
 ];
 

@@ -13,6 +13,7 @@ import cacheRouter from '@modules/cache/infra/http/routes/cache.route';
 import clientsRouter from '@modules/commercial/infra/http/routes/clients.routes';
 import orderProductsRouter from '@modules/commercial/infra/http/routes/orderProducts.routes';
 import ordersRouter from '@modules/commercial/infra/http/routes/orders.routes';
+import providersRouter from '@modules/commercial/infra/http/routes/providers.routes';
 import dataTableRouter from './dataTable.routes';
 
 const routes = Router();
@@ -34,5 +35,6 @@ routes.use('/profile', profileRouter);
 routes.use('/clients', clientsRouter);
 routes.use('/orderProducts', orderProductsRouter);
 routes.use('/orders', ordersRouter);
+routes.use('/providers', providersRouter);
 
 export default routes;

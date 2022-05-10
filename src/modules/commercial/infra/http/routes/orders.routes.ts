@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 
-import OrderController from '@modules/commercial/infra/http/controllers/OrderController';
+import OrdersController from '@modules/commercial/infra/http/controllers/OrdersController';
 
-const orderRouter = Router();
-const orderController = new OrderController();
+const ordersRouter = Router();
+const ordersController = new OrdersController();
 
-orderRouter.get('/', orderController.list, () => {
+ordersRouter.get('/', ordersController.list, () => {
   /*  
         #swagger.path = '/orders'
         #swagger.tags = ['Order']
@@ -14,8 +14,8 @@ orderRouter.get('/', orderController.list, () => {
         #swagger.security = [{
           "bearerAuth": []
         }]
-      #swagger.responses[404] = {
-        description: "Bad request"
+      #swagger.responses[401] = {
+        description: "Unauthorized"
       }
       #swagger.responses[200] = {
         description: "OK",
@@ -23,14 +23,14 @@ orderRouter.get('/', orderController.list, () => {
      */
 });
 
-orderRouter.get(
+ordersRouter.get(
   '/view/:id',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
     },
   }),
-  orderController.get,
+  ordersController.get,
   () => {
     /*  
         #swagger.path = '/orders/view/{id}'
@@ -52,7 +52,7 @@ orderRouter.get(
   },
 );
 
-orderRouter.post(
+ordersRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
@@ -76,7 +76,7 @@ orderRouter.post(
       user_id: Joi.number(),
     },
   }),
-  orderController.create,
+  ordersController.create,
   () => {
     /*  
         #swagger.path = '/orders'
@@ -129,7 +129,7 @@ orderRouter.post(
   },
 );
 
-orderRouter.put(
+ordersRouter.put(
   '/update/:id',
   celebrate({
     [Segments.BODY]: {
@@ -153,7 +153,7 @@ orderRouter.put(
       user_id: Joi.number(),
     },
   }),
-  orderController.update,
+  ordersController.update,
   () => {
     /*  
         #swagger.path = '/orders/update/{id}'
@@ -206,14 +206,14 @@ orderRouter.put(
   },
 );
 
-orderRouter.delete(
+ordersRouter.delete(
   '/:id',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
     },
   }),
-  orderController.delete,
+  ordersController.delete,
   () => {
     /*  
         #swagger.path = '/orders/{id}'
@@ -236,4 +236,4 @@ orderRouter.delete(
   },
 );
 
-export default orderRouter;
+export default ordersRouter;

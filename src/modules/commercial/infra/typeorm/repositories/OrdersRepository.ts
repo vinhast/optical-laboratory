@@ -1,11 +1,11 @@
 import { getRepository, Repository } from 'typeorm';
 
-import IOrderRepository from '@modules/commercial/repositories/IOrderRepository';
+import IOrdersRepository from '@modules/commercial/repositories/IOrdersRepository';
 import ICreateOrderDTO from '@modules/commercial/dtos/ICreateOrderDTO';
 import MainRepository from '@shared/infra/typeorm/repositories/MainRepository';
 import Order from '../entities/Order';
 
-class OrderRepository extends MainRepository implements IOrderRepository {
+class OrdersRepository extends MainRepository implements IOrdersRepository {
   private ormRepository: Repository<Order>;
 
   constructor() {
@@ -14,28 +14,12 @@ class OrderRepository extends MainRepository implements IOrderRepository {
     this.ormRepository = repository;
   }
 
-  // public async findAll(): Promise<Order[]> {
-  //   const order = await this.ormRepository.find({
-  //     where: {
-  //       status: 'A',
-  //     },
-  //   });
-  //   return order;
-  // }
-
   public async setEmailSituation(id: number, value: number): Promise<void> {
     await this.ormRepository.save({
       id,
       email_situation: value,
     });
   }
-
-  // public async findById(id: number): Promise<Order | undefined> {
-  //   const order = await this.ormRepository.findOne(id, {
-  //     relations: ['client', 'orders_products'],
-  //   });
-  //   return order;
-  // }
 
   public async findByParentId(parent_id: number): Promise<Order[]> {
     const order = await this.ormRepository.find({
@@ -66,4 +50,4 @@ class OrderRepository extends MainRepository implements IOrderRepository {
   }
 }
 
-export default OrderRepository;
+export default OrdersRepository;
