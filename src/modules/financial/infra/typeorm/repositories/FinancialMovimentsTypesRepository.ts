@@ -2,12 +2,12 @@ import { getRepository, Repository } from 'typeorm';
 
 import FinancialMovimentType from '@modules/financial/infra/typeorm/entities/FinancialMovimentType';
 import ICreateFinancialMovimentTypeDTO from '@modules/financial/dtos/ICreateFinancialMovimentTypeDTO';
-import IFinancialMovimentTypesRepository from '@modules/financial/repositories/IFinancialMovimentsTypesRepository';
+import IFinancialMovimentsTypesRepository from '@modules/financial/repositories/IFinancialMovimentsTypesRepository';
 import MainRepository from '@shared/infra/typeorm/repositories/MainRepository';
 
 class FinancialMovimentsTypesRepository
   extends MainRepository
-  implements IFinancialMovimentTypesRepository
+  implements IFinancialMovimentsTypesRepository
 {
   private ormRepository: Repository<FinancialMovimentType>;
 

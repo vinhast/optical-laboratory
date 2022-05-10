@@ -508,13 +508,22 @@
         ]
       }
     },
-    "/financial/bankAccounts/update": {
+    "/financial/bankAccounts/update/{id}": {
       "put": {
         "tags": [
           "BankAccount"
         ],
         "description": "Update bank account",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -666,13 +675,22 @@
         ]
       }
     },
-    "/financial/credits/update": {
+    "/financial/credits/update/{id}": {
       "put": {
         "tags": [
           "Credit"
         ],
         "description": "Update credit",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -824,13 +842,22 @@
         ]
       }
     },
-    "/financial/financialMoviments/update": {
+    "/financial/financialMoviments/update/{id}": {
       "put": {
         "tags": [
           "FinancialMoviment"
         ],
         "description": "Update financialMoviment",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -982,13 +1009,22 @@
         ]
       }
     },
-    "/financial/financialMovimentsOrders/update": {
+    "/financial/financialMovimentsOrders/update/{id}": {
       "put": {
         "tags": [
           "FinancialMovimentOrder"
         ],
         "description": "Update financialMovimentOrder",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -1140,13 +1176,22 @@
         ]
       }
     },
-    "/financial/financialMovimentsTypes/update": {
+    "/financial/financialMovimentsTypes/update/{id}": {
       "put": {
         "tags": [
           "FinancialMovimentType"
         ],
         "description": "Update financialMovimentType",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -1200,6 +1245,340 @@
           },
           "404": {
             "description": "Not found financialMovimentType"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/financial/financialMovimentsTypesGroups": {
+      "get": {
+        "tags": [
+          "FinancialMovimentTypeGroup"
+        ],
+        "description": "List all financialMovimentsTypesGroups",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "FinancialMovimentTypeGroup"
+        ],
+        "description": "Create financialMovimentTypeGroup",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FinancialMovimentTypeGroup"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/financial/financialMovimentsTypesGroups/view/{id}": {
+      "get": {
+        "tags": [
+          "FinancialMovimentTypeGroup"
+        ],
+        "description": "View financialMovimentTypeGroup",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found financialMovimentTypeGroup"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/financial/financialMovimentsTypesGroups/update/{id}": {
+      "put": {
+        "tags": [
+          "FinancialMovimentTypeGroup"
+        ],
+        "description": "Update financialMovimentTypeGroup",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FinancialMovimentTypeGroup"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/financial/financialMovimentsTypesGroups/{id}": {
+      "delete": {
+        "tags": [
+          "FinancialMovimentTypeGroup"
+        ],
+        "description": "Delete financialMovimentTypeGroup",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found financialMovimentTypeGroup"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/financial/fiscalSettings": {
+      "get": {
+        "tags": [
+          "FiscalSetting"
+        ],
+        "description": "List all fiscalSettings",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "FiscalSetting"
+        ],
+        "description": "Create fiscalSetting",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FiscalSetting"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/financial/fiscalSettings/view/{id}": {
+      "get": {
+        "tags": [
+          "FiscalSetting"
+        ],
+        "description": "View fiscalSetting",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found fiscalSetting"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/financial/fiscalSettings/update/{id}": {
+      "put": {
+        "tags": [
+          "FiscalSetting"
+        ],
+        "description": "Update fiscalSetting",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FiscalSetting"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/financial/fiscalSettings/{id}": {
+      "delete": {
+        "tags": [
+          "FiscalSetting"
+        ],
+        "description": "Delete fiscalSetting",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found fiscalSetting"
           }
         },
         "security": [
@@ -1573,211 +1952,96 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "registry": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "agency": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "account": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "account_dv": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "client_code": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "assignor_code": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "assignor_code_dv": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "document": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "transmission_code": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "currency": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "invoice_value": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "delay_fines": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "delay_taxes": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "message_1": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "message_2": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "message_3": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "instruction_1": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "instruction_2": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "instruction_3": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "user_id": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "username": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "active": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           }
         }
       },
@@ -1785,76 +2049,36 @@
         "type": "object",
         "properties": {
           "client_id": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "order_id": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "user_id": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "description": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "value": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "date": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "Date"
-              }
-            }
+            "type": "string",
+            "example": "10/05/2022"
           },
           "used": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "used_at": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "Date"
-              }
-            }
+            "type": "string",
+            "example": "10/05/2022"
           }
         }
       },
@@ -1862,409 +2086,184 @@
         "type": "object",
         "properties": {
           "client_id": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "provider_id": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "financial_moviment_type_id": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "bank_account_id": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "shipment_file_id": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "description": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "due_date": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "Date"
-              }
-            }
+            "type": "string",
+            "example": "10/05/2022"
           },
           "value": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "products_value": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "services_value": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "credits_value": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "fees_fines_value": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "nf_code": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "nf_receipt": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "nf_receipt_date": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "Date"
-              }
-            }
+            "type": "string",
+            "example": "10/05/2022"
           },
           "nf_issue_date": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "Date"
-              }
-            }
+            "type": "string",
+            "example": "10/05/2022"
           },
           "nf_cStat_receipt": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "nf_xmotivo_receipt": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "nf_number": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "nf_key": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "nf_protocoll": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "nf_protocoll_date": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "nf_protocoll_menssage": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "nf_year_month": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "nf_lot": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "nf_canceled": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "nf_canceled_protocoll": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "nf_canceled_date": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "nf_canceled_reason": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "nf_status": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "nfse_number": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "nfse_verification_code": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "nfse_issue_date": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "Date"
-              }
-            }
+            "type": "string",
+            "example": "10/05/2022"
           },
           "nfse_rps_number": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "nfse_canceled": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "nfse_status": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "finished": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "payment_method": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "invoice_status": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "invoice_registered": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "invoice_bank_downloaded": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "operation_type": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "string"
-              }
-            }
+            "type": "string",
+            "example": "string"
           },
           "generated_user_id": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "downloaded_user_id": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "number"
-              }
-            }
+            "type": "number",
+            "example": 1
           },
           "downloaded_at": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "example": "Date"
-              }
-            }
+            "type": "string",
+            "example": "10/05/2022"
           }
         }
       },
@@ -2295,6 +2294,84 @@
           "name": {
             "type": "string",
             "example": "name"
+          }
+        }
+      },
+      "FinancialMovimentTypeGroup": {
+        "type": "object",
+        "properties": {
+          "operation_type": {
+            "type": "string",
+            "example": "string"
+          },
+          "active": {
+            "type": "number",
+            "example": 0
+          },
+          "name": {
+            "type": "string",
+            "example": "string"
+          }
+        }
+      },
+      "FiscalSetting": {
+        "type": "object",
+        "properties": {
+          "company_name": {
+            "type": "string",
+            "example": "string"
+          },
+          "cnpj": {
+            "type": "string",
+            "example": "string"
+          },
+          "city_registration": {
+            "type": "string",
+            "example": "string"
+          },
+          "state_registration": {
+            "type": "string",
+            "example": "string"
+          },
+          "address": {
+            "type": "string",
+            "example": "string"
+          },
+          "nfse_env": {
+            "type": "boolean",
+            "example": false
+          },
+          "nfse_rps_number": {
+            "type": "number",
+            "example": 0
+          },
+          "certified_file": {
+            "type": "string",
+            "example": "string"
+          },
+          "certified_validate": {
+            "type": "string",
+            "example": "10/05/2022"
+          },
+          "certified_password": {
+            "type": "string",
+            "example": "string"
+          },
+          "nf_emission_due": {
+            "type": "number",
+            "example": 0
+          },
+          "dir": {
+            "type": "number",
+            "example": 0
+          },
+          "invoice_email_copy": {
+            "type": "string",
+            "example": "string"
+          },
+          "active": {
+            "type": "string",
+            "example": "string"
           }
         }
       }

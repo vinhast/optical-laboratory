@@ -1,19 +1,16 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 
-import FinancialMovimentsTypesController from '@modules/financial/infra/http/controllers/FinancialMovimentsTypesController';
+import FiscalSettingController from '@modules/financial/infra/http/controllers/FiscalSettingsController';
 
-const financialMovimentTypeRouter = Router();
-const financialMovimentTypeController = new FinancialMovimentsTypesController();
+const fiscalSettingRouter = Router();
+const fiscalSettingController = new FiscalSettingController();
 
-financialMovimentTypeRouter.get(
-  '/',
-  financialMovimentTypeController.list,
-  () => {
-    /*
-      #swagger.path = '/financial/financialMovimentsTypes'
-      #swagger.tags = ['FinancialMovimentType']
-      #swagger.description = "List all financialMovimentsTypes"
+fiscalSettingRouter.get('/', fiscalSettingController.list, () => {
+  /*
+      #swagger.path = '/financial/fiscalSettings'
+      #swagger.tags = ['FiscalSetting']
+      #swagger.description = "List all fiscalSettings"
       #swagger.security = [{
         "bearerAuth": []
       }]
@@ -24,21 +21,20 @@ financialMovimentTypeRouter.get(
         description: "OK",
       }
    */
-  },
-);
-financialMovimentTypeRouter.get(
+});
+fiscalSettingRouter.get(
   '/view/:id',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
     },
   }),
-  financialMovimentTypeController.get,
+  fiscalSettingController.get,
   () => {
     /*
-      #swagger.path = '/financial/financialMovimentsTypes/view/{id}'
-      #swagger.tags = ['FinancialMovimentType']
-      #swagger.description = "View financialMovimentType"
+      #swagger.path = '/financial/fiscalSettings/view/{id}'
+      #swagger.tags = ['FiscalSetting']
+      #swagger.description = "View fiscalSetting"
       #swagger.security = [{
         "bearerAuth": []
       }]
@@ -46,7 +42,7 @@ financialMovimentTypeRouter.get(
         description: "Unauthorized"
       }
       #swagger.responses[404] = {
-        description: "Not found financialMovimentType"
+        description: "Not found fiscalSetting"
       }
       #swagger.responses[200] = {
         description: "OK",
@@ -55,19 +51,19 @@ financialMovimentTypeRouter.get(
   },
 );
 
-financialMovimentTypeRouter.post(
+fiscalSettingRouter.post(
   '/',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
     },
   }),
-  financialMovimentTypeController.create,
+  fiscalSettingController.create,
   () => {
     /*
-      #swagger.path = '/financial/financialMovimentsTypes'
-      #swagger.tags = ['FinancialMovimentType']
-      #swagger.description = "Create financialMovimentType"
+      #swagger.path = '/financial/fiscalSettings'
+      #swagger.tags = ['FiscalSetting']
+      #swagger.description = "Create fiscalSetting"
             #swagger.security = [{
       "bearerAuth": []
       }]
@@ -85,7 +81,7 @@ financialMovimentTypeRouter.post(
               content: {
                   "application/json": {
                       schema: {
-                        "$ref": "#/components/schemas/FinancialMovimentType"
+                        "$ref": "#/components/schemas/FiscalSetting"
                        },
                   }
               }
@@ -93,19 +89,19 @@ financialMovimentTypeRouter.post(
     } */
   },
 );
-financialMovimentTypeRouter.put(
+fiscalSettingRouter.put(
   '/update/',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
     },
   }),
-  financialMovimentTypeController.update,
+  fiscalSettingController.update,
   () => {
     /*
-      #swagger.path = '/financial/financialMovimentsTypes/update/{id}'
-      #swagger.tags = ['FinancialMovimentType']
-      #swagger.description = "Update financialMovimentType"
+      #swagger.path = '/financial/fiscalSettings/update/{id}'
+      #swagger.tags = ['FiscalSetting']
+      #swagger.description = "Update fiscalSetting"
             #swagger.security = [{
       "bearerAuth": []
       }]
@@ -123,7 +119,7 @@ financialMovimentTypeRouter.put(
               content: {
                   "application/json": {
                       schema: {
-                        "$ref": "#/components/schemas/FinancialMovimentType"
+                        "$ref": "#/components/schemas/FiscalSetting"
                        },
               }
           }
@@ -131,19 +127,19 @@ financialMovimentTypeRouter.put(
   },
 );
 
-financialMovimentTypeRouter.delete(
+fiscalSettingRouter.delete(
   '/:id',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
     },
   }),
-  financialMovimentTypeController.delete,
+  fiscalSettingController.delete,
   () => {
     /*
-      #swagger.path = '/financial/financialMovimentsTypes/{id}'
-      #swagger.tags = ['FinancialMovimentType']
-      #swagger.description = "Delete financialMovimentType"
+      #swagger.path = '/financial/fiscalSettings/{id}'
+      #swagger.tags = ['FiscalSetting']
+      #swagger.description = "Delete fiscalSetting"
       #swagger.security = [{
       "bearerAuth": []
       }]
@@ -151,7 +147,7 @@ financialMovimentTypeRouter.delete(
         description: "Unauthorized"
       }
       #swagger.responses[404] = {
-        description: "Not found financialMovimentType"
+        description: "Not found fiscalSetting"
       }
       #swagger.responses[204] = {
         description: "No Content",
@@ -160,4 +156,4 @@ financialMovimentTypeRouter.delete(
   },
 );
 
-export default financialMovimentTypeRouter;
+export default fiscalSettingRouter;

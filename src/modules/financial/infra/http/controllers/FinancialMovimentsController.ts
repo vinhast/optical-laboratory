@@ -35,11 +35,13 @@ export default class FinancialMovimentsController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
     const { financialMoviment } = request.body;
     const updateFinancialMoviment = container.resolve(UpdateService);
-    const financialMovimentUpdate = await updateFinancialMoviment.execute(
-      financialMoviment,
-    );
+    const financialMovimentUpdate = await updateFinancialMoviment.execute({
+      id,
+      ...financialMoviment,
+    });
 
     return response.json(classToClass(financialMovimentUpdate));
   }

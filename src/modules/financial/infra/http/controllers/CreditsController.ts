@@ -33,9 +33,10 @@ export default class CreditsController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
     const { credit } = request.body;
     const updateCredit = container.resolve(UpdateService);
-    const creditUpdate = await updateCredit.execute(credit);
+    const creditUpdate = await updateCredit.execute({ id, ...credit });
 
     return response.json(classToClass(creditUpdate));
   }

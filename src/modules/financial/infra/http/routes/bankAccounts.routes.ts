@@ -54,9 +54,8 @@ bankAccountRouter.get(
 bankAccountRouter.post(
   '/',
   celebrate({
-    [Segments.BODY]: {
-      year: Joi.number().required(),
-      categories: Joi.array(),
+    [Segments.PARAMS]: {
+      id: Joi.number().integer().required(),
     },
   }),
   bankAccountController.create,
@@ -93,16 +92,14 @@ bankAccountRouter.post(
 bankAccountRouter.put(
   '/update/',
   celebrate({
-    [Segments.BODY]: {
-      year: Joi.number().required(),
-      categories: Joi.array(),
-      deletes: Joi.array(),
+    [Segments.PARAMS]: {
+      id: Joi.number().integer().required(),
     },
   }),
   bankAccountController.update,
   () => {
     /*
-      #swagger.path = '/financial/bankAccounts/update'
+      #swagger.path = '/financial/bankAccounts/update/{id}'
       #swagger.tags = ['BankAccount']
       #swagger.description = "Update bank account"
             #swagger.security = [{

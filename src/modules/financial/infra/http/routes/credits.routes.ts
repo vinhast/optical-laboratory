@@ -54,9 +54,8 @@ creditRouter.get(
 creditRouter.post(
   '/',
   celebrate({
-    [Segments.BODY]: {
-      year: Joi.number().required(),
-      categories: Joi.array(),
+    [Segments.PARAMS]: {
+      id: Joi.number().integer().required(),
     },
   }),
   creditController.create,
@@ -93,16 +92,14 @@ creditRouter.post(
 creditRouter.put(
   '/update/',
   celebrate({
-    [Segments.BODY]: {
-      year: Joi.number().required(),
-      categories: Joi.array(),
-      deletes: Joi.array(),
+    [Segments.PARAMS]: {
+      id: Joi.number().integer().required(),
     },
   }),
   creditController.update,
   () => {
     /*
-      #swagger.path = '/financial/credits/update'
+      #swagger.path = '/financial/credits/update/{id}'
       #swagger.tags = ['Credit']
       #swagger.description = "Update credit"
             #swagger.security = [{

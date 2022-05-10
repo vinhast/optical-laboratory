@@ -59,9 +59,8 @@ financialMovimentOrderRouter.get(
 financialMovimentOrderRouter.post(
   '/',
   celebrate({
-    [Segments.BODY]: {
-      year: Joi.number().required(),
-      categories: Joi.array(),
+    [Segments.PARAMS]: {
+      id: Joi.number().integer().required(),
     },
   }),
   financialMovimentOrderController.create,
@@ -98,16 +97,14 @@ financialMovimentOrderRouter.post(
 financialMovimentOrderRouter.put(
   '/update/',
   celebrate({
-    [Segments.BODY]: {
-      year: Joi.number().required(),
-      categories: Joi.array(),
-      deletes: Joi.array(),
+    [Segments.PARAMS]: {
+      id: Joi.number().integer().required(),
     },
   }),
   financialMovimentOrderController.update,
   () => {
     /*
-      #swagger.path = '/financial/financialMovimentsOrders/update'
+      #swagger.path = '/financial/financialMovimentsOrders/update/{id}'
       #swagger.tags = ['FinancialMovimentOrder']
       #swagger.description = "Update financialMovimentOrder"
             #swagger.security = [{
