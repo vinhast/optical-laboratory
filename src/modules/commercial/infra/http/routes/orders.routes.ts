@@ -100,26 +100,6 @@ ordersRouter.post(
           "application/json": {
             schema: { 
               "$ref": "#/components/schemas/Order"
-            },
-            example: {
-              os: 'test_os',
-              client_id: 1,
-              products_value: '100',
-              service_value: '100',
-              lenses_value: '100',
-              charged_value: '100',
-              credit_value: '100',
-              shipping_method: 'credit',
-              shipping_value: '100',
-              shipping_time: '90',
-              payment_method: 'card',
-              payment_date: '2022-04-05',
-              installments: 1,
-              status: 1,
-              type: 'V',
-              profit: 'N',
-              note: 'test_note',
-              user_id: 1,
             }
           }
         }
@@ -177,27 +157,7 @@ ordersRouter.put(
             "application/json": {
                 schema: { 
                   "$ref": "#/components/schemas/Order"
-                  },
-                example: {
-                  os: 'test_os',
-                  client_id: 1,
-                  products_value: '100',
-                  service_value: '100',
-                  lenses_value: '100',
-                  charged_value: '100',
-                  credit_value: '100',
-                  shipping_method: 'credit',
-                  shipping_value: '100',
-                  shipping_time: '90',
-                  payment_method: 'card',
-                  payment_date: '2022-04-05',
-                  installments: 1,
-                  status: 1,
-                  type: 'V',
-                  profit: 'N',
-                  note: 'test_update_note',
-                  user_id: 1,
-                }
+                  }
             }
         }
       }
