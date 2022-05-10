@@ -38,6 +38,7 @@ interface IValueObject {
 }
 
 const notNormalizedEntities = ['AuditLog', 'User', 'Menu'];
+const notAutoIncrement = ['AuditLog', 'Menu'];
 
 @EventSubscriber()
 export default class EverythingSubscriber implements EntitySubscriberInterface {
@@ -47,7 +48,6 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
   async beforeInsert(event: InsertEvent<any>) {
     const nameEntity = event.metadata.name;
     if (!notNormalizedEntities.includes(nameEntity)) {
-      const userData = httpContext.get('user');
       const keys = Object.keys(event.entity);
       keys.map(key => {
         if (
@@ -61,6 +61,9 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
           event.entity[key] = this.sanitizeValue(event.entity[key]);
         }
       });
+    }
+    if (!notAutoIncrement.includes(nameEntity)) {
+      const userData = httpContext.get('user');
       const lastRegister: any = await event.manager
         .getRepository(nameEntity)
         .createQueryBuilder()
