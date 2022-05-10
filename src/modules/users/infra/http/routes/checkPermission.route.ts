@@ -17,6 +17,54 @@ checkPermissionRouter.post(
     },
   }),
   checkPermissionController.execute,
+  () => {
+    /* 
+     #swagger.tags = ['CheckPermission']
+     #swagger.path = '/checkPermission'
+     #swagger.description = "Check if user has permission"
+         #swagger.security = [{
+        "bearerAuth": []
+    }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[404] = {
+        description: "Bad request"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+        #swagger.requestBody = {
+          required: true,
+          content: {
+              "application/json": {
+                  schema: { 
+                    type: 'object',
+                    properties: {
+                      method: {
+                        type: 'string',
+                        example: 'GET'
+                      },
+                      originalUrl: {
+                        type: 'string',
+                        example: '/users'
+                      },
+                      role_id: {
+                        type: 'number',
+                        example: 1
+                      },
+                      user_id: {
+                        type: 'number',
+                        example: 1
+                      },
+                    },
+                  },
+                  
+              }
+          }
+      }
+    */
+  },
 );
 
 export default checkPermissionRouter;

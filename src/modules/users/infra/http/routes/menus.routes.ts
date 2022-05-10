@@ -6,7 +6,22 @@ import MenusController from '@modules/users/infra/http/controllers/MenusControll
 const menusRouter = Router();
 const menusController = new MenusController();
 
-menusRouter.get('/', menusController.list);
+menusRouter.get('/', menusController.list, () => {
+  /* 
+     #swagger.tags = ['Menus']
+     #swagger.path = '/menus'
+     #swagger.description = "List menus"
+         #swagger.security = [{
+        "bearerAuth": []
+    }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+    */
+});
 menusRouter.get(
   '/view/:id',
   celebrate({
@@ -15,6 +30,25 @@ menusRouter.get(
     },
   }),
   menusController.get,
+  () => {
+    /* 
+     #swagger.tags = ['Menus']
+     #swagger.path = '/menus/view/{id}'
+     #swagger.description = "View menu"
+         #swagger.security = [{
+        "bearerAuth": []
+    }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[404] = {
+        description: "Not found menu",
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+    */
+  },
 );
 menusRouter.post(
   '/',
@@ -29,6 +63,62 @@ menusRouter.post(
     },
   }),
   menusController.create,
+  () => {
+    /* 
+     #swagger.tags = ['Menus']
+     #swagger.path = '/menus'
+     #swagger.description = "Create menu"
+         #swagger.security = [{
+        "bearerAuth": []
+    }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[404] = {
+        description: "Bad request"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+        #swagger.requestBody = {
+          required: true,
+          content: {
+              "application/json": {
+                  schema: { 
+                    type: 'object',
+                    properties: {
+                      name: {
+                        type: 'string',
+                        example: 'test',
+                      },
+                      parent_id: {
+                        type: 'number',
+                        example: 1
+                      },
+                      controller: {
+                        type: 'string',
+                        example: 'test_route',
+                      },
+                      action: {
+                        type: 'string',
+                        example: 'test_path',
+                      },
+                      method: {
+                        type: 'string',
+                        example: 'POST',
+                      },
+                      type: {
+                        type: 'string',
+                        example: 'front or cake',
+                      },
+                    },
+                  },
+                  
+              }
+          }
+      }
+    */
+  },
 );
 menusRouter.put(
   '/update/:id',
@@ -43,6 +133,63 @@ menusRouter.put(
     },
   }),
   menusController.update,
+  () => {
+    /* 
+     #swagger.tags = ['Menus']
+     #swagger.path = '/menus/update/{id}'
+     #swagger.description = "Update menu"
+         #swagger.security = [{
+        "bearerAuth": []
+    }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[404] = {
+        description: "Bad request"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+        #swagger.requestBody = {
+          required: true,
+          content: {
+              "application/json": {
+                  schema: { 
+                    type: 'object',
+                    properties: {
+                      name: {
+                        type: 'string',
+                        example: 'test_update',
+                      },
+                      parent_id: {
+                        type: 'number',
+                        example: 1
+                      },
+                      controller: {
+                        type: 'string',
+                        example: 'test_update_route',
+                      },
+                      action: {
+                        type: 'string',
+                        example: 'test_update_path',
+                      },
+                      method: {
+                        type: 'string',
+                        example: 'POST',
+                      },
+                      type: {
+                        type: 'string',
+                        example: 'front or cake',
+                      },
+                    },
+                  },
+                  },
+                  
+              }
+          }
+      }
+    */
+  },
 );
 
 menusRouter.delete(
@@ -53,6 +200,25 @@ menusRouter.delete(
     },
   }),
   menusController.delete,
+  () => {
+    /* 
+     #swagger.tags = ['Menus']
+     #swagger.path = '/menus/{id}'
+     #swagger.description = "Delete menu"
+         #swagger.security = [{
+        "bearerAuth": []
+    }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[204] = {
+        description: "No Content",
+      }
+      #swagger.responses[404] = {
+        description: "Not found menu",
+      }
+    */
+  },
 );
 
 export default menusRouter;

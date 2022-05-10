@@ -6,7 +6,22 @@ import RolesController from '@modules/users/infra/http/controllers/RolesControll
 const rolesRouter = Router();
 const rolesController = new RolesController();
 
-rolesRouter.get('/', rolesController.list);
+rolesRouter.get('/', rolesController.list, () => {
+  /* 
+     #swagger.tags = ['Roles']
+     #swagger.path = '/users/roles/'
+     #swagger.description = "List roles"
+         #swagger.security = [{
+        "bearerAuth": []
+    }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+    */
+});
 
 rolesRouter.post(
   '/',
@@ -17,6 +32,46 @@ rolesRouter.post(
     },
   }),
   rolesController.create,
+  () => {
+    /* 
+     #swagger.tags = ['Roles']
+     #swagger.path = '/users/roles/'
+     #swagger.description = "Create role"
+         #swagger.security = [{
+        "bearerAuth": []
+    }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+      #swagger.responses[404] = {
+        description: "Bad request"
+      }
+      #swagger.requestBody = {
+          required: true,
+          content: {
+              "application/json": {
+                  schema: { 
+                    type: 'object',
+                    properties: {
+                      name: {
+                        type: 'string',
+                        example: 'test_role'
+                      },
+                      description: {
+                        type: 'string',
+                        example: 'test description role'
+                      },
+                    },
+                  },
+                  
+              }
+          }
+      }
+    */
+  },
 );
 
 rolesRouter.get(
@@ -27,6 +82,25 @@ rolesRouter.get(
     },
   }),
   rolesController.get,
+  () => {
+    /* 
+     #swagger.tags = ['Roles']
+     #swagger.path = '/users/roles/view/{id}'
+     #swagger.description = "View role"
+         #swagger.security = [{
+        "bearerAuth": []
+    }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[404] = {
+        description: "Not found role"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+    */
+  },
 );
 
 rolesRouter.put(
@@ -38,6 +112,46 @@ rolesRouter.put(
     },
   }),
   rolesController.update,
+  () => {
+    /* 
+     #swagger.tags = ['Roles']
+     #swagger.path = '/users/roles/update/{id}'
+     #swagger.description = "Update role"
+         #swagger.security = [{
+        "bearerAuth": []
+    }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[404] = {
+        description: "Bad request"
+      }
+      #swagger.responses[204] = {
+        description: "No Content",
+      }
+      #swagger.requestBody = {
+          required: true,
+          content: {
+              "application/json": {
+                  schema: { 
+                    type: 'object',
+                    properties: {
+                      name: {
+                        type: 'string',
+                        example: 'test_update_role'
+                      },
+                      description: {
+                        type: 'string',
+                        example: 'test update description role'
+                      },
+                    },
+                  },
+                  
+              }
+          }
+      }
+    */
+  },
 );
 
 rolesRouter.delete(
@@ -48,6 +162,25 @@ rolesRouter.delete(
     },
   }),
   rolesController.delete,
+  () => {
+    /* 
+     #swagger.tags = ['Roles']
+     #swagger.path = '/users/roles/{id}'
+     #swagger.description = "Delete role"
+      #swagger.security = [{
+        "bearerAuth": []
+      }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[404] = {
+        description: "Not found role"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+    */
+  },
 );
 
 export default rolesRouter;

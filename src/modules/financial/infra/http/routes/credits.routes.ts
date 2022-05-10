@@ -1,16 +1,16 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 
-import BankAccountController from '@modules/financial/infra/http/controllers/BankAccountsController';
+import CreditController from '@modules/financial/infra/http/controllers/CreditsController';
 
-const bankAccountRouter = Router();
-const bankAccountController = new BankAccountController();
+const creditRouter = Router();
+const creditController = new CreditController();
 
-bankAccountRouter.get('/', bankAccountController.list, () => {
+creditRouter.get('/', creditController.list, () => {
   /*
-      #swagger.path = '/financial/bankAccounts'
-      #swagger.tags = ['BankAccount']
-      #swagger.description = "List all bank accounts"
+      #swagger.path = '/financial/credits'
+      #swagger.tags = ['Credit']
+      #swagger.description = "List all credits"
       #swagger.security = [{
         "bearerAuth": []
       }]
@@ -22,19 +22,19 @@ bankAccountRouter.get('/', bankAccountController.list, () => {
       }
    */
 });
-bankAccountRouter.get(
+creditRouter.get(
   '/view/:id',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
     },
   }),
-  bankAccountController.get,
+  creditController.get,
   () => {
     /*
-      #swagger.path = '/financial/bankAccounts/view/{id}'
-      #swagger.tags = ['BankAccount']
-      #swagger.description = "View bank account"
+      #swagger.path = '/financial/credits/view/{id}'
+      #swagger.tags = ['Credit']
+      #swagger.description = "View credit"
       #swagger.security = [{
         "bearerAuth": []
       }]
@@ -42,7 +42,7 @@ bankAccountRouter.get(
         description: "Unauthorized"
       }
       #swagger.responses[404] = {
-        description: "Not found bank account"
+        description: "Not found credit"
       }
       #swagger.responses[200] = {
         description: "OK",
@@ -51,19 +51,19 @@ bankAccountRouter.get(
   },
 );
 
-bankAccountRouter.post(
+creditRouter.post(
   '/',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
     },
   }),
-  bankAccountController.create,
+  creditController.create,
   () => {
     /*
-      #swagger.path = '/financial/bankAccounts'
-      #swagger.tags = ['BankAccount']
-      #swagger.description = "Create bank account"
+      #swagger.path = '/financial/credits'
+      #swagger.tags = ['Credit']
+      #swagger.description = "Create credit"
             #swagger.security = [{
       "bearerAuth": []
       }]
@@ -81,7 +81,7 @@ bankAccountRouter.post(
               content: {
                   "application/json": {
                       schema: {
-                        "$ref": "#/components/schemas/BankAccount"
+                        "$ref": "#/components/schemas/Credit"
                        },
                   }
               }
@@ -89,19 +89,19 @@ bankAccountRouter.post(
     } */
   },
 );
-bankAccountRouter.put(
+creditRouter.put(
   '/update/',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
     },
   }),
-  bankAccountController.update,
+  creditController.update,
   () => {
     /*
-      #swagger.path = '/financial/bankAccounts/update/{id}'
-      #swagger.tags = ['BankAccount']
-      #swagger.description = "Update bank account"
+      #swagger.path = '/financial/credits/update/{id}'
+      #swagger.tags = ['Credit']
+      #swagger.description = "Update credit"
             #swagger.security = [{
       "bearerAuth": []
       }]
@@ -119,7 +119,7 @@ bankAccountRouter.put(
               content: {
                   "application/json": {
                       schema: {
-                        "$ref": "#/components/schemas/BankAccount"
+                        "$ref": "#/components/schemas/Credit"
                        },
               }
           }
@@ -127,19 +127,19 @@ bankAccountRouter.put(
   },
 );
 
-bankAccountRouter.delete(
+creditRouter.delete(
   '/:id',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
     },
   }),
-  bankAccountController.delete,
+  creditController.delete,
   () => {
     /*
-      #swagger.path = '/financial/bankAccounts/{id}'
-      #swagger.tags = ['BankAccount']
-      #swagger.description = "Delete bank account"
+      #swagger.path = '/financial/credits/{id}'
+      #swagger.tags = ['Credit']
+      #swagger.description = "Delete credit"
       #swagger.security = [{
       "bearerAuth": []
       }]
@@ -147,7 +147,7 @@ bankAccountRouter.delete(
         description: "Unauthorized"
       }
       #swagger.responses[404] = {
-        description: "Not found bank account"
+        description: "Not found credit"
       }
       #swagger.responses[204] = {
         description: "No Content",
@@ -156,4 +156,4 @@ bankAccountRouter.delete(
   },
 );
 
-export default bankAccountRouter;
+export default creditRouter;

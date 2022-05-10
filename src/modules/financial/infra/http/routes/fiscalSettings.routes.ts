@@ -1,16 +1,16 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 
-import BankAccountController from '@modules/financial/infra/http/controllers/BankAccountsController';
+import FiscalSettingController from '@modules/financial/infra/http/controllers/FiscalSettingsController';
 
-const bankAccountRouter = Router();
-const bankAccountController = new BankAccountController();
+const fiscalSettingRouter = Router();
+const fiscalSettingController = new FiscalSettingController();
 
-bankAccountRouter.get('/', bankAccountController.list, () => {
+fiscalSettingRouter.get('/', fiscalSettingController.list, () => {
   /*
-      #swagger.path = '/financial/bankAccounts'
-      #swagger.tags = ['BankAccount']
-      #swagger.description = "List all bank accounts"
+      #swagger.path = '/financial/fiscalSettings'
+      #swagger.tags = ['FiscalSetting']
+      #swagger.description = "List all fiscalSettings"
       #swagger.security = [{
         "bearerAuth": []
       }]
@@ -22,19 +22,19 @@ bankAccountRouter.get('/', bankAccountController.list, () => {
       }
    */
 });
-bankAccountRouter.get(
+fiscalSettingRouter.get(
   '/view/:id',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
     },
   }),
-  bankAccountController.get,
+  fiscalSettingController.get,
   () => {
     /*
-      #swagger.path = '/financial/bankAccounts/view/{id}'
-      #swagger.tags = ['BankAccount']
-      #swagger.description = "View bank account"
+      #swagger.path = '/financial/fiscalSettings/view/{id}'
+      #swagger.tags = ['FiscalSetting']
+      #swagger.description = "View fiscalSetting"
       #swagger.security = [{
         "bearerAuth": []
       }]
@@ -42,7 +42,7 @@ bankAccountRouter.get(
         description: "Unauthorized"
       }
       #swagger.responses[404] = {
-        description: "Not found bank account"
+        description: "Not found fiscalSetting"
       }
       #swagger.responses[200] = {
         description: "OK",
@@ -51,19 +51,19 @@ bankAccountRouter.get(
   },
 );
 
-bankAccountRouter.post(
+fiscalSettingRouter.post(
   '/',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
     },
   }),
-  bankAccountController.create,
+  fiscalSettingController.create,
   () => {
     /*
-      #swagger.path = '/financial/bankAccounts'
-      #swagger.tags = ['BankAccount']
-      #swagger.description = "Create bank account"
+      #swagger.path = '/financial/fiscalSettings'
+      #swagger.tags = ['FiscalSetting']
+      #swagger.description = "Create fiscalSetting"
             #swagger.security = [{
       "bearerAuth": []
       }]
@@ -81,7 +81,7 @@ bankAccountRouter.post(
               content: {
                   "application/json": {
                       schema: {
-                        "$ref": "#/components/schemas/BankAccount"
+                        "$ref": "#/components/schemas/FiscalSetting"
                        },
                   }
               }
@@ -89,19 +89,19 @@ bankAccountRouter.post(
     } */
   },
 );
-bankAccountRouter.put(
+fiscalSettingRouter.put(
   '/update/',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
     },
   }),
-  bankAccountController.update,
+  fiscalSettingController.update,
   () => {
     /*
-      #swagger.path = '/financial/bankAccounts/update/{id}'
-      #swagger.tags = ['BankAccount']
-      #swagger.description = "Update bank account"
+      #swagger.path = '/financial/fiscalSettings/update/{id}'
+      #swagger.tags = ['FiscalSetting']
+      #swagger.description = "Update fiscalSetting"
             #swagger.security = [{
       "bearerAuth": []
       }]
@@ -119,7 +119,7 @@ bankAccountRouter.put(
               content: {
                   "application/json": {
                       schema: {
-                        "$ref": "#/components/schemas/BankAccount"
+                        "$ref": "#/components/schemas/FiscalSetting"
                        },
               }
           }
@@ -127,19 +127,19 @@ bankAccountRouter.put(
   },
 );
 
-bankAccountRouter.delete(
+fiscalSettingRouter.delete(
   '/:id',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
     },
   }),
-  bankAccountController.delete,
+  fiscalSettingController.delete,
   () => {
     /*
-      #swagger.path = '/financial/bankAccounts/{id}'
-      #swagger.tags = ['BankAccount']
-      #swagger.description = "Delete bank account"
+      #swagger.path = '/financial/fiscalSettings/{id}'
+      #swagger.tags = ['FiscalSetting']
+      #swagger.description = "Delete fiscalSetting"
       #swagger.security = [{
       "bearerAuth": []
       }]
@@ -147,7 +147,7 @@ bankAccountRouter.delete(
         description: "Unauthorized"
       }
       #swagger.responses[404] = {
-        description: "Not found bank account"
+        description: "Not found fiscalSetting"
       }
       #swagger.responses[204] = {
         description: "No Content",
@@ -156,4 +156,4 @@ bankAccountRouter.delete(
   },
 );
 
-export default bankAccountRouter;
+export default fiscalSettingRouter;
