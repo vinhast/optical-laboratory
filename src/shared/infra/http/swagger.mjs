@@ -163,6 +163,10 @@ const doc = {
         origin: 'AB',
         quantity: 1,
       },
+      UnitType: {
+        name: 'test',
+        abbreviation: 'A',
+      },
     },
   },
   security: [
@@ -185,6 +189,7 @@ const endpointsFiles = [
   './src/modules/warehouse/infra/http/routes/products.routes.ts',
   './src/modules/warehouse/infra/http/routes/productCategories.routes.ts',
   './src/modules/warehouse/infra/http/routes/stockMoviments.routes.ts',
+  './src/modules/warehouse/infra/http/routes/unitTypes.routes.ts',
 ];
 
 swaggerAutogen({

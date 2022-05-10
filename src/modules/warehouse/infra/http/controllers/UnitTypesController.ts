@@ -2,13 +2,13 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
 
-import ListService from '@modules/warehouse/services/ProductAttribute/ListService';
-import CreateService from '@modules/warehouse/services/ProductAttribute/CreateService';
-import UpdateService from '@modules/warehouse/services/ProductAttribute/UpdateService';
-import GetService from '@modules/warehouse/services/ProductAttribute/GetService';
-import DeleteService from '@modules/warehouse/services/ProductAttribute/DeleteService';
+import ListService from '@modules/warehouse/services/UnitType/ListService';
+import CreateService from '@modules/warehouse/services/UnitType/CreateService';
+import UpdateService from '@modules/warehouse/services/UnitType/UpdateService';
+import GetService from '@modules/warehouse/services/UnitType/GetService';
+import DeleteService from '@modules/warehouse/services/UnitType/DeleteService';
 
-export default class ProductAttributesController {
+export default class UnitTypesController {
   public async list(request: Request, response: Response): Promise<Response> {
     const listAttributes = container.resolve(ListService);
     const attributes = await listAttributes.execute();
@@ -17,11 +17,11 @@ export default class ProductAttributesController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { parent_id, name } = request.body;
+    const { name, abbreviation } = request.body;
     const createAttribute = container.resolve(CreateService);
     const attribute = await createAttribute.execute({
-      parent_id,
       name,
+      abbreviation,
     });
 
     return response.json(classToClass(attribute));
@@ -36,13 +36,13 @@ export default class ProductAttributesController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { parent_id, name } = request.body;
+    const { name, abbreviation } = request.body;
     const { id } = request.params;
     const updateAttribute = container.resolve(UpdateService);
     const attribute = await updateAttribute.execute({
       id: Number(id),
-      parent_id,
       name,
+      abbreviation,
     });
 
     return response.json(classToClass(attribute));
@@ -55,6 +55,6 @@ export default class ProductAttributesController {
       id: Number(id),
     });
 
-    return response.status(204).json({ message: 'attribute removed' });
+    return response.status(204).json({ message: 'Unit type removed' });
   }
 }
