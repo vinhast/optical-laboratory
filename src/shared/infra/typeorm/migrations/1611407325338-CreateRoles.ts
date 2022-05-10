@@ -65,7 +65,7 @@ export default class CreateRoles1611407325338 implements MigrationInterface {
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     const checkIfTableExist = await queryRunner.hasTable('roles');
-    if (!checkIfTableExist) {
+    if (checkIfTableExist) {
       await queryRunner.dropTable('roles');
     }
   }

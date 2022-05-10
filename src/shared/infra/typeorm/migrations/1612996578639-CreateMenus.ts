@@ -83,7 +83,7 @@ export default class CreateMenus1612996578639 implements MigrationInterface {
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     const checkIfTableExist = await queryRunner.hasTable('menus');
-    if (!checkIfTableExist) {
+    if (checkIfTableExist) {
       await queryRunner.dropForeignKey('menus', 'fk_menu_sub');
       await queryRunner.dropTable('menus');
     }

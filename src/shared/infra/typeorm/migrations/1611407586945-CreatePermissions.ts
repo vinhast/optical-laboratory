@@ -81,7 +81,7 @@ export default class CreatePermissions1611407586945
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     const checkIfTableExist = await queryRunner.hasTable('permissions');
-    if (!checkIfTableExist) {
+    if (checkIfTableExist) {
       await queryRunner.dropTable('permissions');
     }
   }

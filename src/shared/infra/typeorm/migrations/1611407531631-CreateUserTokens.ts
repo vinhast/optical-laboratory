@@ -78,7 +78,7 @@ export default class CreateUserTokens1611407531631
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     const checkIfTableExist = await queryRunner.hasTable('user_tokens');
-    if (!checkIfTableExist) {
+    if (checkIfTableExist) {
       await queryRunner.dropTable('user_tokens');
     }
   }

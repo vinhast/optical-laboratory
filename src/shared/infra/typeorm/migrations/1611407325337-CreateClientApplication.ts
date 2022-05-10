@@ -113,7 +113,7 @@ export default class CreateClientAccounts1611407325337
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     const checkIfTableExist = await queryRunner.hasTable('clients_application');
-    if (!checkIfTableExist) {
+    if (checkIfTableExist) {
       await queryRunner.dropTable('clients_application');
     }
   }

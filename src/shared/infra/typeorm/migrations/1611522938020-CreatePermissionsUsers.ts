@@ -92,7 +92,7 @@ export default class CreatePermissionsUsers1611522938020
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     const checkIfTableExist = await queryRunner.hasTable('permissions_users');
-    if (!checkIfTableExist) {
+    if (checkIfTableExist) {
       await queryRunner.dropForeignKey(
         'permissions_users',
         'fk_permissions_users',

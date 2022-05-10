@@ -107,7 +107,7 @@ export default class CreateUsers1611407470088 implements MigrationInterface {
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     const checkIfTableExist = await queryRunner.hasTable('users');
-    if (!checkIfTableExist) {
+    if (checkIfTableExist) {
       await queryRunner.dropForeignKey('users', 'fk_users_roles');
       await queryRunner.dropTable('users');
     }

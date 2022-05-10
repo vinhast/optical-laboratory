@@ -1,10 +1,10 @@
 import {
   Entity,
   Column,
-  PrimaryColumn,
   CreateDateColumn,
   ManyToOne,
   JoinColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import User from '@modules/users/infra/typeorm/entities/User';
@@ -12,11 +12,8 @@ import ClientApplication from './ClientApplication';
 
 @Entity('audit_logs')
 class AuditLog {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn('increment')
   id: number;
-
-  @PrimaryColumn()
-  client_application_id: number;
 
   @Column()
   type: string;

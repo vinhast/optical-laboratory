@@ -19,13 +19,9 @@ export default class CreateAuditLogs1612359732060
               name: 'id',
               type: 'int',
               isPrimary: true,
+              isGenerated: true,
+              generationStrategy: 'increment',
             },
-            {
-              name: 'client_application_id',
-              type: 'int',
-              isPrimary: true,
-            },
-
             {
               name: 'type',
               type: 'varchar',
@@ -63,18 +59,6 @@ export default class CreateAuditLogs1612359732060
       await queryRunner.createForeignKey(
         'audit_logs',
         new TableForeignKey({
-          name: 'fk_audit_logs_clients_application',
-          columnNames: ['client_application_id'],
-          referencedColumnNames: ['id'],
-          referencedTableName: 'clients_application',
-          onDelete: 'NO ACTION',
-          onUpdate: 'CASCADE',
-        }),
-      );
-
-      await queryRunner.createForeignKey(
-        'audit_logs',
-        new TableForeignKey({
           name: 'fk_audit_log_user',
           columnNames: ['user_id'],
           referencedColumnNames: ['id'],
@@ -88,7 +72,7 @@ export default class CreateAuditLogs1612359732060
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     const checkIfTableExist = await queryRunner.hasTable('audit_logs');
-    if (!checkIfTableExist) {
+    if (checkIfTableExist) {
       await queryRunner.dropForeignKey('audit_logs', 'fk_audit_log_user');
       await queryRunner.dropTable('audit_logs');
     }
