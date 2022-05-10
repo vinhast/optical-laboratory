@@ -8,6 +8,8 @@ import {
   InsertEvent,
   RemoveEvent,
   UpdateEvent,
+  Not,
+  IsNull,
 } from 'typeorm';
 
 import User from '@modules/users/infra/typeorm/entities/User';
@@ -47,6 +49,7 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
   async beforeInsert(event: InsertEvent<any>) {
     const nameEntity = event.metadata.name;
     if (!notNormalizedEntities.includes(nameEntity)) {
+      const userData = httpContext.get('user');
       const keys = Object.keys(event.entity);
       keys.map(key => {
         if (
@@ -60,22 +63,8 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
           event.entity[key] = this.sanitizeValue(event.entity[key]);
         }
       });
-      const client_application_id = 2;
-      const lastRegister: any = await event.manager
-        .getRepository(nameEntity)
-        .findOne({
-          where: {
-            client_application_id,
-          },
-          order: {
-            created_at: 'DESC',
-          },
-        });
-      event.entity.id = 0;
-      if (lastRegister) {
-        event.entity.id = lastRegister.id + 1;
-      }
-      event.entity.client_application_id = client_application_id;
+      event.entity.id = Math.floor(Math.random() * 9999);
+      event.entity.client_application_id = userData.client_application_id;
     }
   }
 
@@ -118,11 +107,37 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
     const entity = event.metadata.name;
     if (entity !== 'AuditLog' && entity !== 'UserToken') {
       if (event.entity) {
-        const entity_id = event.entity.id;
         const userData = httpContext.get('user');
-        const user = await event.manager
-          .getRepository(User)
-          .findOne({ id: userData.id, client_application_id: 1 });
+        const client_application_id = userData.client_application_id;
+        const user = await event.manager.getRepository(User).findOne({
+          id: userData.id,
+          client_application_id,
+        });
+        const ormEntityRepository = event.manager.getRepository(entity);
+        const lastRegister: any = await ormEntityRepository.findOne({
+          where: {
+            client_application_id,
+            id: Not(event.entity.id),
+          },
+          order: {
+            created_at: 'DESC',
+          },
+        });
+        let newId = event.entity.id;
+        if (lastRegister) {
+          newId = lastRegister.id + 1;
+        }
+        lastRegister.id = newId;
+        console.log(event.entity.id, lastRegister);
+        const entity_id = newId;
+        await ormEntityRepository.update(
+          {
+            id: event.entity.id,
+          },
+          {
+            ...lastRegister,
+          },
+        );
         const type = 'create';
         const ormRepository = event.manager.getRepository(AuditLog);
         const descriptions = `Registro criado por ${user?.name}`;
@@ -132,9 +147,8 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
           entity,
           entity_id,
           user_id: userData.id,
-          client_application_id: 1,
         });
-        // await ormRepository.save(auditLog);
+        await ormRepository.save(auditLog);
       }
     }
   }
@@ -144,6 +158,7 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
    */
   async afterUpdate(event: UpdateEvent<any>) {
     if (event.entity) {
+      console.log(event);
       const entity = event.metadata.name;
       const entityDataBase = event.databaseEntity;
       const user = httpContext.get('user');
@@ -183,9 +198,8 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
           entity_id,
           changes: JSON.stringify(changes),
           user_id: user.id,
-          client_application_id: 1,
         });
-        // await ormRepository.save(auditLog);
+        await ormRepository.save(auditLog);
       }
     }
   }
