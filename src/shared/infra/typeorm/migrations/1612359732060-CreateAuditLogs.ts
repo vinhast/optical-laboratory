@@ -18,6 +18,7 @@ export default class CreateAuditLogs1612359732060
             {
               name: 'id',
               type: 'int',
+              isNullable: true,
             },
             {
               name: 'id_key',
