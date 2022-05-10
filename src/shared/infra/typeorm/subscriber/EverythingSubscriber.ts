@@ -8,8 +8,6 @@ import {
   InsertEvent,
   RemoveEvent,
   UpdateEvent,
-  Not,
-  IsNull,
 } from 'typeorm';
 
 import User from '@modules/users/infra/typeorm/entities/User';
@@ -63,8 +61,17 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
           event.entity[key] = this.sanitizeValue(event.entity[key]);
         }
       });
-      event.entity.id = Math.floor(Math.random() * 9999);
+      const lastRegister: any = await event.manager
+        .getRepository(nameEntity)
+        .createQueryBuilder()
+        .select(`Max(id) as id`)
+        .where(`client_application_id = "${userData.client_application_id}"`)
+        .getRawOne();
+      event.entity.id = 1;
       event.entity.client_application_id = userData.client_application_id;
+      if (lastRegister) {
+        event.entity.id = lastRegister.id + 1;
+      }
     }
   }
 
@@ -113,31 +120,7 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
           id: userData.id,
           client_application_id,
         });
-        const ormEntityRepository = event.manager.getRepository(entity);
-        const lastRegister: any = await ormEntityRepository.findOne({
-          where: {
-            client_application_id,
-            id: Not(event.entity.id),
-          },
-          order: {
-            created_at: 'DESC',
-          },
-        });
-        let newId = event.entity.id;
-        if (lastRegister) {
-          newId = lastRegister.id + 1;
-        }
-        lastRegister.id = newId;
-        console.log(event.entity.id, lastRegister);
-        const entity_id = newId;
-        await ormEntityRepository.update(
-          {
-            id: event.entity.id,
-          },
-          {
-            ...lastRegister,
-          },
-        );
+        const entity_id = event.entity.id;
         const type = 'create';
         const ormRepository = event.manager.getRepository(AuditLog);
         const descriptions = `Registro criado por ${user?.name}`;
@@ -158,7 +141,6 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
    */
   async afterUpdate(event: UpdateEvent<any>) {
     if (event.entity) {
-      console.log(event);
       const entity = event.metadata.name;
       const entityDataBase = event.databaseEntity;
       const user = httpContext.get('user');
