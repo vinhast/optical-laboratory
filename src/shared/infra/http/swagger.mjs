@@ -230,6 +230,11 @@ const doc = {
 
 const outputFile = './src/shared/infra/http/swagger.json';
 const endpointsFiles = [
+  './src/modules/users/infra/http/routes/sessions.routes.ts',
+  './src/modules/users/infra/http/routes/users.routes.ts',
+  './src/modules/users/infra/http/routes/checkPermission.route.ts',
+  './src/modules/users/infra/http/routes/menus.routes.ts',
+  './src/modules/users/infra/http/routes/password.routes.ts',
   './src/modules/commercial/infra/http/routes/orderProducts.routes.ts',
   './src/modules/commercial/infra/http/routes/orders.routes.ts',
   './src/modules/financial/infra/http/routes/bankAccounts.routes.ts',
@@ -239,11 +244,6 @@ const endpointsFiles = [
   './src/modules/financial/infra/http/routes/financialMovimentsTypes.routes.ts',
   './src/modules/financial/infra/http/routes/financialMovimentsTypesGroups.routes.ts',
   './src/modules/financial/infra/http/routes/fiscalSettings.routes.ts',
-  './src/modules/users/infra/http/routes/sessions.routes.ts',
-  './src/modules/users/infra/http/routes/users.routes.ts',
-  './src/modules/users/infra/http/routes/checkPermission.route.ts',
-  './src/modules/users/infra/http/routes/menus.routes.ts',
-  './src/modules/users/infra/http/routes/password.routes.ts',
 ];
 
 swaggerAutogen({
