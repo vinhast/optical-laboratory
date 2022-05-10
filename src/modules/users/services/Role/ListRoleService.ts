@@ -19,7 +19,7 @@ class ListRoleService {
     let roles = await this.cacheProvider.recover<Role[]>(cacheKey);
 
     if (!roles) {
-      roles = await this.rolesRepository.findAllRoles();
+      roles = await this.rolesRepository.findAll();
       await this.cacheProvider.save(cacheKey, classToClass(roles));
     }
 

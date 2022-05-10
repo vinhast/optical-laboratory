@@ -30,10 +30,6 @@ class FinancialMovimentsRepository
   ): Promise<FinancialMoviment> {
     return this.ormRepository.save(financialMoviment);
   }
-
-  public async delete(id: number): Promise<void> {
-    await this.ormRepository.delete(id);
-  }
 }
 
 export default FinancialMovimentsRepository;

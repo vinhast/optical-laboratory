@@ -2,12 +2,18 @@ import { getRepository, Repository } from 'typeorm';
 
 import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository';
 import UserToken from '@modules/users/infra/typeorm/entities/UserToken';
+import MainRepository from '@shared/infra/typeorm/repositories/MainRepository';
 
-class UserTokensRepository implements IUserTokensRepository {
+class UserTokensRepository
+  extends MainRepository
+  implements IUserTokensRepository
+{
   private ormRepository: Repository<UserToken>;
 
   constructor() {
-    this.ormRepository = getRepository(UserToken);
+    const repository = getRepository(UserToken);
+    super(repository);
+    this.ormRepository = repository;
   }
 
   public async findByToken(token: string): Promise<UserToken | undefined> {

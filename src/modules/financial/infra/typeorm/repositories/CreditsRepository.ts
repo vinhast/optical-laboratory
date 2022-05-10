@@ -23,10 +23,6 @@ class CreditsRepository extends MainRepository implements ICreditsRepository {
   public save(credit: Credit): Promise<Credit> {
     return this.ormRepository.save(credit);
   }
-
-  public async delete(id: number): Promise<void> {
-    await this.ormRepository.delete(id);
-  }
 }
 
 export default CreditsRepository;

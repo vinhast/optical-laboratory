@@ -5,22 +5,18 @@ import ICreatePermissionDTO from '@modules/users/dtos/ICreatePermissionDTO';
 import IFindPermissonByRouteDTO from '@modules/users/dtos/IFindPermissonByRouteDTO';
 
 import Permission from '@modules/users/infra/typeorm/entities/Permission';
+import MainRepository from '@shared/infra/typeorm/repositories/MainRepository';
 
-class PermissionsRepository implements IPermissionsRepository {
+class PermissionsRepository
+  extends MainRepository
+  implements IPermissionsRepository
+{
   private ormRepository: Repository<Permission>;
 
   constructor() {
-    this.ormRepository = getRepository(Permission);
-  }
-
-  public async findById(id: number): Promise<Permission | undefined> {
-    const permission = await this.ormRepository.findOne(id);
-    return permission;
-  }
-
-  public async findByName(name: string): Promise<Permission | undefined> {
-    const permission = await this.ormRepository.findOne({ name });
-    return permission;
+    const repository = getRepository(Permission);
+    super(repository);
+    this.ormRepository = repository;
   }
 
   public async findByRoute({
@@ -60,10 +56,6 @@ class PermissionsRepository implements IPermissionsRepository {
 
   public save(permission: Permission): Promise<Permission> {
     return this.ormRepository.save(permission);
-  }
-
-  public async delete(id: number): Promise<void> {
-    await this.ormRepository.delete(id);
   }
 }
 

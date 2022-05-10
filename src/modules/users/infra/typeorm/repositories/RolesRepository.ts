@@ -4,33 +4,15 @@ import IRolesRepository from '@modules/users/repositories/IRolesRepository';
 import ICreateRoleDTO from '@modules/users/dtos/ICreateRoleDTO';
 
 import Role from '@modules/users/infra/typeorm/entities/Role';
+import MainRepository from '@shared/infra/typeorm/repositories/MainRepository';
 
-class RolesRepository implements IRolesRepository {
+class RolesRepository extends MainRepository implements IRolesRepository {
   private ormRepository: Repository<Role>;
 
   constructor() {
-    this.ormRepository = getRepository(Role);
-  }
-
-  public async findById(id: number): Promise<Role | undefined> {
-    const role = await this.ormRepository.findOne(id, {
-      relations: ['permissions'],
-    });
-    return role;
-  }
-
-  public async findByName(name: string): Promise<Role | undefined> {
-    const role = await this.ormRepository.findOne({ name });
-    return role;
-  }
-
-  public async findAllRoles(): Promise<Role[]> {
-    const roles = await this.ormRepository.find({
-      order: {
-        name: 'ASC',
-      },
-    });
-    return roles;
+    const repository = getRepository(Role);
+    super(repository);
+    this.ormRepository = repository;
   }
 
   public async create(roleData: ICreateRoleDTO): Promise<Role> {
@@ -43,10 +25,6 @@ class RolesRepository implements IRolesRepository {
 
   public save(role: Role): Promise<Role> {
     return this.ormRepository.save(role);
-  }
-
-  public async delete(id: number): Promise<void> {
-    await this.ormRepository.delete(id);
   }
 }
 

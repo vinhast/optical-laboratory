@@ -28,10 +28,6 @@ class FiscalSettingsRepository
   public save(fiscalSetting: FiscalSetting): Promise<FiscalSetting> {
     return this.ormRepository.save(fiscalSetting);
   }
-
-  public async delete(id: number): Promise<void> {
-    await this.ormRepository.delete(id);
-  }
 }
 
 export default FiscalSettingsRepository;

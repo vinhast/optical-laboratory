@@ -32,10 +32,6 @@ class FinancialMovimentsTypesRepository
   ): Promise<FinancialMovimentType> {
     return this.ormRepository.save(financialMovimentType);
   }
-
-  public async delete(id: number): Promise<void> {
-    await this.ormRepository.delete(id);
-  }
 }
 
 export default FinancialMovimentsTypesRepository;

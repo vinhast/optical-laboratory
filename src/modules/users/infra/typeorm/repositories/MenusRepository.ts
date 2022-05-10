@@ -4,38 +4,18 @@ import IFinancialCategoriesRepository from '@modules/users/repositories/IMenusRe
 import ICreateMenuDTO from '@modules/users/dtos/ICreateMenuDTO';
 
 import Menu from '@modules/users/infra/typeorm/entities/Menu';
+import MainRepository from '@shared/infra/typeorm/repositories/MainRepository';
 
-class MenusRepository implements IFinancialCategoriesRepository {
+class MenusRepository
+  extends MainRepository
+  implements IFinancialCategoriesRepository
+{
   private ormRepository: Repository<Menu>;
 
   constructor() {
-    this.ormRepository = getRepository(Menu);
-  }
-
-  public async findAll(): Promise<Menu[]> {
-    const menus = await this.ormRepository.find({
-      order: {
-        name: 'ASC',
-      },
-    });
-    return menus;
-  }
-
-  public async findById(id: number): Promise<Menu | undefined> {
-    const menu = await this.ormRepository.findOne(id);
-    return menu;
-  }
-
-  public async findByParentId(parent_id: number): Promise<Menu[]> {
-    const menus = await this.ormRepository.find({
-      where: { parent_id },
-    });
-    return menus;
-  }
-
-  public async findByName(name: string): Promise<Menu | undefined> {
-    const menu = await this.ormRepository.findOne({ name });
-    return menu;
+    const repository = getRepository(Menu);
+    super(repository);
+    this.ormRepository = repository;
   }
 
   public async create(menuData: ICreateMenuDTO): Promise<Menu> {
@@ -48,10 +28,6 @@ class MenusRepository implements IFinancialCategoriesRepository {
 
   public save(menu: Menu): Promise<Menu> {
     return this.ormRepository.save(menu);
-  }
-
-  public async delete(id: number): Promise<void> {
-    await this.ormRepository.delete(id);
   }
 }
 

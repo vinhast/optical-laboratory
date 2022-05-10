@@ -28,10 +28,6 @@ class BankAccountsRepository
   public save(bankAccount: BankAccount): Promise<BankAccount> {
     return this.ormRepository.save(bankAccount);
   }
-
-  public async delete(id: number): Promise<void> {
-    await this.ormRepository.delete(id);
-  }
 }
 
 export default BankAccountsRepository;
