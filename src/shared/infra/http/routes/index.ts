@@ -17,7 +17,9 @@ import productCategoriesRouter from '@modules/warehouse/infra/http/routes/produc
 import stockMovimentsRouter from '@modules/warehouse/infra/http/routes/stockMoviments.routes';
 import unitTypesRouter from '@modules/warehouse/infra/http/routes/unitTypes.routes';
 
-import dataTableRouter from './dataTable.routes';
+import dataTableRouter from '@shared/infra/http/routes/dataTable.routes';
+import clientsApplicationsUsersRouter from '@modules/users/infra/http/routes/clientsApplicationsUsers.routes';
+import clientApplicationsRouter from '@shared/infra/http/routes/clientApplications.routes';
 
 const routes = Router();
 
@@ -41,5 +43,7 @@ routes.use('/products', productsRouter);
 routes.use('/productCategories', productCategoriesRouter);
 routes.use('/stockMoviments', stockMovimentsRouter);
 routes.use('/unitTypes', unitTypesRouter);
+routes.use('/clientApplications', clientApplicationsRouter);
+routes.use('/clientsApplicationsUsers', clientsApplicationsUsersRouter);
 
 export default routes;

@@ -266,6 +266,27 @@ const doc = {
         name: 'test',
         abbreviation: 'A',
       },
+      ClientApplication: {
+        name: 'test',
+        email: 'test@test.com',
+        avatar: 'image',
+        street: 'test',
+        cnpj: '123456789',
+        number: '1',
+        complement: 'test',
+        district: 'test',
+        city: 'test',
+        state: 'T',
+        zip_code: 'test',
+        phone: '123456789',
+        mobile: '123456789',
+      },
+      ClientApplicationUser: {
+        username: 'test',
+        password: '123456',
+        active: true,
+        client_application_id: 1,
+      },
     },
   },
   security: [
@@ -287,6 +308,8 @@ const endpointsFiles = [
   './src/modules/users/infra/http/routes/password.routes.ts',
   './src/modules/users/infra/http/routes/salesTables.routes.ts',
   './src/modules/users/infra/http/routes/salesTablesPrices.routes.ts',
+  './src/modules/users/infra/http/routes/clientsApplicationsUsers.routes.ts',
+  './src/modules/cache/infra/http/routes/cache.route.ts',
   './src/modules/commercial/infra/http/routes/orderProducts.routes.ts',
   './src/modules/commercial/infra/http/routes/orders.routes.ts',
   './src/modules/commercial/infra/http/routes/providers.routes.ts',
@@ -302,6 +325,7 @@ const endpointsFiles = [
   './src/modules/financial/infra/http/routes/financialMovimentsTypes.routes.ts',
   './src/modules/financial/infra/http/routes/financialMovimentsTypesGroups.routes.ts',
   './src/modules/financial/infra/http/routes/fiscalSettings.routes.ts',
+  './src/shared/infra/http/routes/clientApplications.routes.ts',
 ];
 
 swaggerAutogen({

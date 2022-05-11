@@ -6,22 +6,22 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { Exclude } from 'class-transformer';
-
 @Entity('clients_application')
 class ClientApplication {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
   @Column()
-  email?: string;
+  name: string;
 
   @Column()
-  @Exclude()
-  password: string;
+  email: string;
 
   @Column()
-  avatar: string;
+  avatar?: string;
+
+  @Column()
+  cnpj: string;
 
   @Column()
   street?: string;

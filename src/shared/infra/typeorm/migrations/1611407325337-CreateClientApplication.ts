@@ -32,11 +32,6 @@ export default class CreateClientAccounts1611407325337
               isNullable: true,
             },
             {
-              name: 'password',
-              type: 'varchar',
-              isNullable: true,
-            },
-            {
               name: 'cnpj',
               type: 'varchar(18)',
             },

@@ -9,7 +9,7 @@ interface IRequest {
 }
 
 @injectable()
-class DeleteClientService {
+class DeleteService {
   constructor(
     @inject('ClientsRepository')
     private clientsRepository: IClientsRepository,
@@ -33,4 +33,4 @@ class DeleteClientService {
   }
 }
 
-export default DeleteClientService;
+export default DeleteService;

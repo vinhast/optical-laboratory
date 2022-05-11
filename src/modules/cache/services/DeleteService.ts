@@ -1,7 +1,5 @@
-import { container, inject, injectable } from 'tsyringe';
-import { classToClass } from 'class-transformer';
+import { inject, injectable } from 'tsyringe';
 import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICacheProvider';
-import cache from '@config/cache';
 import AppError from '@shared/errors/AppError';
 
 @injectable()

@@ -23,6 +23,8 @@ import SalesTablesRepository from '@modules/users/infra/typeorm/repositories/Sal
 
 import ISalesTablesPriceRepository from '@modules/users/repositories/ISalesTablesPricesRepository';
 import SalesTablesPriceRepository from '@modules/users/infra/typeorm/repositories/SalesTablesPricesRepository';
+import IClientsApplicationsUsersRepository from '@modules/users/repositories/IClientsApplicationsUsersRepository';
+import ClientsApplicationsUsersRepository from '@modules/users/infra/typeorm/repositories/ClientsApplicationsUsersRepository';
 
 container.registerSingleton<IHashProvider>('HashProvider', BCriptyHashProvider);
 
@@ -59,4 +61,8 @@ container.registerSingleton<ISalesTablesRepository>(
 container.registerSingleton<ISalesTablesPriceRepository>(
   'SalesTablesPricesRepository',
   SalesTablesPriceRepository,
+);
+container.registerSingleton<IClientsApplicationsUsersRepository>(
+  'ClientsApplicationsUsersRepository',
+  ClientsApplicationsUsersRepository,
 );

@@ -2,23 +2,23 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
 
-import CreateClientService from '@modules/commercial/services/Client/CreateClientService';
-import GetClientService from '@modules/commercial/services/Client/GetClientService';
-import UpdateClientService from '@modules/commercial/services/Client/UpdateClientService';
-import DeleteClientService from '@modules/commercial/services/Client/DeleteClientService';
-import ListClientsService from '@modules/commercial/services/Client/ListClientsService';
+import CreateService from '@modules/commercial/services/Client/CreateService';
+import GetService from '@modules/commercial/services/Client/GetService';
+import UpdateService from '@modules/commercial/services/Client/UpdateService';
+import DeleteService from '@modules/commercial/services/Client/DeleteService';
+import ListService from '@modules/commercial/services/Client/ListService';
 
 export default class ClientsController {
   public async list(request: Request, response: Response): Promise<Response> {
-    const listClients = container.resolve(ListClientsService);
-    const clietns = await listClients.execute();
+    const listClients = container.resolve(ListService);
+    const clients = await listClients.execute();
 
-    return response.json(classToClass(clietns));
+    return response.json(classToClass(clients));
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
     const { cnpj, company_name, table_id } = request.body;
-    const createClient = container.resolve(CreateClientService);
+    const createClient = container.resolve(CreateService);
     const client = await createClient.execute({
       cnpj,
       company_name,
@@ -31,7 +31,7 @@ export default class ClientsController {
   public async get(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
 
-    const getClient = container.resolve(GetClientService);
+    const getClient = container.resolve(GetService);
     const client = await getClient.execute(Number(id));
 
     return response.json(classToClass(client));
@@ -40,7 +40,7 @@ export default class ClientsController {
   public async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
     const { cnpj, company_name, table_id } = request.body;
-    const updateClient = container.resolve(UpdateClientService);
+    const updateClient = container.resolve(UpdateService);
     const client = await updateClient.execute({
       id: Number(id),
       cnpj,
@@ -53,7 +53,7 @@ export default class ClientsController {
 
   public async delete(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
-    const deleteClient = container.resolve(DeleteClientService);
+    const deleteClient = container.resolve(DeleteService);
     await deleteClient.execute({
       id: Number(id),
     });
