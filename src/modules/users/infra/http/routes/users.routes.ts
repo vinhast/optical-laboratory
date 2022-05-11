@@ -10,6 +10,8 @@ import ensureAuthenticated from '@shared/infra/http/middlewares/ensureAuthentica
 import rolesRouter from './roles.routes';
 import profileRouter from './profile.routes';
 import permissionsRouter from './permissions.routes';
+import salesTablesRouter from './salesTables.routes';
+import salesTablesPricesRouter from './salesTablesPrices.routes';
 
 const usersRouter = Router();
 const upload = multer(uploadConfig.multer);
@@ -229,5 +231,7 @@ usersRouter.patch(
 usersRouter.use('/roles', rolesRouter);
 usersRouter.use('/profile', profileRouter);
 usersRouter.use('/permissions', permissionsRouter);
+usersRouter.use('/salesTables', salesTablesRouter);
+usersRouter.use('/salesTablesPrices', salesTablesPricesRouter);
 
 export default usersRouter;
