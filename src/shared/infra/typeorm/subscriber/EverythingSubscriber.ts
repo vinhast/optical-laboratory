@@ -38,7 +38,12 @@ interface IValueObject {
 }
 
 const notNormalizedEntities = ['AuditLog', 'Menu'];
-const notAutoIncrementEntities = ['AuditLog', 'Menu', 'ClientApplication'];
+const notAutoIncrementEntities = [
+  'AuditLog',
+  'Menu',
+  'ClientApplication',
+  'ClientApplicationUser',
+];
 
 @EventSubscriber()
 export default class EverythingSubscriber implements EntitySubscriberInterface {

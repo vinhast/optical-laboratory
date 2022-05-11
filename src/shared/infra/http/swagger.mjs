@@ -270,6 +270,12 @@ const doc = {
         phone: '123456789',
         mobile: '123456789',
       },
+      ClientApplicationUser: {
+        username: 'test',
+        password: '123456',
+        active: true,
+        client_application_id: 1,
+      },
     },
   },
   security: [
@@ -287,9 +293,10 @@ const endpointsFiles = [
   './src/modules/users/infra/http/routes/sessions.routes.ts',
   './src/modules/users/infra/http/routes/users.routes.ts',
   './src/modules/users/infra/http/routes/checkPermission.route.ts',
-  './src/modules/cache/infra/http/routes/cache.route.ts',
   './src/modules/users/infra/http/routes/menus.routes.ts',
   './src/modules/users/infra/http/routes/password.routes.ts',
+  './src/modules/users/infra/http/routes/clientsApplicationsUsers.routes.ts',
+  './src/modules/cache/infra/http/routes/cache.route.ts',
   './src/modules/commercial/infra/http/routes/orderProducts.routes.ts',
   './src/modules/commercial/infra/http/routes/orders.routes.ts',
   './src/modules/commercial/infra/http/routes/providers.routes.ts',
@@ -305,7 +312,6 @@ const endpointsFiles = [
   './src/modules/financial/infra/http/routes/financialMovimentsTypes.routes.ts',
   './src/modules/financial/infra/http/routes/financialMovimentsTypesGroups.routes.ts',
   './src/modules/financial/infra/http/routes/fiscalSettings.routes.ts',
-  './src/shared/infra/http/routes/clientApplications.routes.ts',
 ];
 
 swaggerAutogen({

@@ -18,6 +18,9 @@ import RolesRepository from '@modules/users/infra/typeorm/repositories/RolesRepo
 import IMenusRepository from '@modules/users/repositories/IMenusRepository';
 import MenusRepository from '@modules/users/infra/typeorm/repositories/MenusRepository';
 
+import IClientsApplicationsUsersRepository from '@modules/users/repositories/IClientsApplicationsUsersRepository';
+import ClientsApplicationsUsersRepository from '@modules/users/infra/typeorm/repositories/ClientsApplicationsUsersRepository';
+
 container.registerSingleton<IHashProvider>('HashProvider', BCriptyHashProvider);
 
 container.registerSingleton<IUsersRepository>(
@@ -43,4 +46,9 @@ container.registerSingleton<IRolesRepository>(
 container.registerSingleton<IMenusRepository>(
   'MenusRepository',
   MenusRepository,
+);
+
+container.registerSingleton<IClientsApplicationsUsersRepository>(
+  'ClientsApplicationsUsersRepository',
+  ClientsApplicationsUsersRepository,
 );

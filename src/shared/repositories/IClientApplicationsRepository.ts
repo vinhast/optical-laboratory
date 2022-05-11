@@ -7,6 +7,6 @@ export default interface IClientApplicationsRepository {
   findByEmail(email: string): Promise<ClientApplication | undefined>;
   findByUsername(username: string): Promise<ClientApplication | undefined>;
   create(data: ICreateClientApplicationDTO): Promise<ClientApplication>;
-  save(ClientApplication: ClientApplication): Promise<ClientApplication>;
+  save(clientApplication: ClientApplication): Promise<ClientApplication>;
   delete(id: number): Promise<void>;
 }
