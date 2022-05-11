@@ -30,22 +30,9 @@ class UpdateService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute({
-    id,
-    order_id,
-    product_id,
-    initial_price,
-    single_discount,
-    total_discount,
-    charged_value,
-    cashback_value,
-    taxes,
-    quantity,
-    wrap,
-    released,
-    cfop,
-  }: IRequest): Promise<OrderProduct> {
-    const cacheKey = `Campaing-get-${id}`;
+  public async execute(orderProductUpdate: IRequest): Promise<OrderProduct> {
+    const id = orderProductUpdate.id;
+    const cacheKey = `order-product-get-${id}`;
     let orderProduct = await this.cacheProvider.recover<
       OrderProduct | undefined
     >(cacheKey);
@@ -58,18 +45,10 @@ class UpdateService {
       throw new AppError('orderProduct not found.', 404);
     }
 
-    orderProduct.cashback_value = cashback_value;
-    orderProduct.charged_value = charged_value;
-    orderProduct.cfop = cfop;
-    orderProduct.initial_price = initial_price;
-    orderProduct.order_id = order_id;
-    orderProduct.product_id = product_id;
-    orderProduct.quantity = quantity;
-    orderProduct.single_discount = single_discount;
-    orderProduct.total_discount = total_discount;
-    orderProduct.taxes = taxes;
-    orderProduct.wrap = wrap;
-    orderProduct.released = released;
+    orderProduct = {
+      ...orderProduct,
+      ...orderProductUpdate,
+    };
 
     await this.cacheProvider.invalidate(`order-products-list`);
 

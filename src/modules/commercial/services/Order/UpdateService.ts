@@ -36,27 +36,8 @@ class UpdateService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute({
-    id,
-    os,
-    client_id,
-    products_value,
-    service_value,
-    lenses_value,
-    charged_value,
-    credit_value,
-    shipping_method,
-    shipping_value,
-    shipping_time,
-    payment_method,
-    payment_date,
-    installments,
-    status,
-    type,
-    profit,
-    note,
-    user_id,
-  }: IRequest): Promise<Order> {
+  public async execute(orderUpdate: IRequest): Promise<Order> {
+    const id = orderUpdate.id;
     const cacheKey = `order-get-${id}`;
     let order = await this.cacheProvider.recover<Order | undefined>(cacheKey);
 
@@ -68,24 +49,10 @@ class UpdateService {
       throw new AppError('order not found.', 404);
     }
 
-    order.os = os;
-    order.client_id = client_id;
-    order.products_value = products_value;
-    order.service_value = service_value;
-    order.lenses_value = lenses_value;
-    order.charged_value = charged_value;
-    order.credit_value = credit_value;
-    order.shipping_method = shipping_method;
-    order.shipping_value = shipping_value;
-    order.shipping_time = shipping_time;
-    order.payment_method = payment_method;
-    order.payment_date = payment_date;
-    order.installments = installments;
-    order.status = status;
-    order.type = type;
-    order.profit = profit;
-    order.note = note;
-    order.user_id = user_id;
+    order = {
+      ...order,
+      ...orderUpdate,
+    };
 
     await this.cacheProvider.invalidate(`orders-list`);
 

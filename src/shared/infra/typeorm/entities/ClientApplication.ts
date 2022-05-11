@@ -14,14 +14,20 @@ class ClientApplication {
   id: number;
 
   @Column()
-  email?: string;
+  name: string;
+
+  @Column()
+  email: string;
 
   @Column()
   @Exclude()
   password: string;
 
   @Column()
-  avatar: string;
+  avatar?: string;
+
+  @Column()
+  cnpj: string;
 
   @Column()
   street?: string;

@@ -11,9 +11,9 @@ import ListClientsService from '@modules/commercial/services/Client/ListClientsS
 export default class ClientsController {
   public async list(request: Request, response: Response): Promise<Response> {
     const listClients = container.resolve(ListClientsService);
-    const clietns = await listClients.execute();
+    const clients = await listClients.execute();
 
-    return response.json(classToClass(clietns));
+    return response.json(classToClass(clients));
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
