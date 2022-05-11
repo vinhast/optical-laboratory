@@ -7,16 +7,16 @@ import DeleteService from '@modules/cache/services/DeleteService';
 
 export default class CacheController {
   public async list(request: Request, response: Response): Promise<Response> {
-    const listCampaings = container.resolve(ListService);
-    const campaings = await listCampaings.execute();
+    const listCache = container.resolve(ListService);
+    const cache = await listCache.execute();
 
-    return response.json(classToClass(campaings));
+    return response.json(classToClass(cache));
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
     const { key } = request.params;
-    const deleteCampaing = container.resolve(DeleteService);
-    await deleteCampaing.execute(key);
+    const deleteCache = container.resolve(DeleteService);
+    await deleteCache.execute(key);
 
     return response.status(204).json({ message: 'Cache key removed' });
   }
