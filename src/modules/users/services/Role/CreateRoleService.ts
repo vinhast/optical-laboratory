@@ -46,7 +46,7 @@ class CreateRoleService {
       permissions: existsPermissions,
     });
 
-    await this.cacheProvider.invalidatePrefix('roles-list');
+    await this.cacheProvider.invalidate('roles-list');
 
     return role;
   }

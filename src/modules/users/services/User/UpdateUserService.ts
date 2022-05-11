@@ -59,7 +59,7 @@ class UpdateUserService {
     user.active = active;
     if (hashedPassword) user.password = hashedPassword;
 
-    await this.cacheProvider.invalidate(`user-list`);
+    await this.cacheProvider.invalidate(`users-list`);
 
     await this.cacheProvider.invalidate(cacheKey);
 

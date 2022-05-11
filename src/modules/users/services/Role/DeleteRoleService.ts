@@ -24,7 +24,7 @@ class DeleteRoleService {
       throw new AppError('role not found.', 404);
     }
 
-    await this.cacheProvider.invalidate(`role-list`);
+    await this.cacheProvider.invalidate(`roles-list`);
 
     await this.rolesRepository.delete(id);
 

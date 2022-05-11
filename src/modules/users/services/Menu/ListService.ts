@@ -15,7 +15,7 @@ class ListService {
   ) {}
 
   public async execute(): Promise<Menu[]> {
-    const cacheKey = `menu-list`;
+    const cacheKey = `menus-list`;
     let menus = await this.cacheProvider.recover<Menu[]>(cacheKey);
 
     if (!menus) {

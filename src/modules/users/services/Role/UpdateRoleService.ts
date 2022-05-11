@@ -43,7 +43,7 @@ class UpdateRoleService {
     role.name = name;
     role.permissions = permissions;
 
-    await this.cacheProvider.invalidate(`role-list`);
+    await this.cacheProvider.invalidate(`roles-list`);
 
     await this.cacheProvider.invalidate(cacheKey);
 

@@ -19,7 +19,7 @@ class CreateService {
   ): Promise<SaleTablePrice> {
     const saleTablePrice = await this.salesTablesRepository.create(request);
 
-    await this.cacheProvider.invalidatePrefix('sales-tables-prices-list');
+    await this.cacheProvider.invalidate('sales-tables-prices-list');
 
     return saleTablePrice;
   }

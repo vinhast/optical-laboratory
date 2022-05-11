@@ -24,7 +24,7 @@ class DeleteService {
       throw new AppError('menu not found.', 404);
     }
 
-    await this.cacheProvider.invalidate(`menu-list`);
+    await this.cacheProvider.invalidate(`menus-list`);
 
     await this.menusRepository.delete(id);
 

@@ -50,7 +50,7 @@ class CreateUserService {
       active,
     });
 
-    await this.cacheProvider.invalidatePrefix('users-list');
+    await this.cacheProvider.invalidate('users-list');
 
     return user;
   }

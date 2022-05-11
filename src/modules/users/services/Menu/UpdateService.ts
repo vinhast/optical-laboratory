@@ -52,7 +52,7 @@ class UpdateService {
     menu.controller = controller;
     menu.action = action;
 
-    await this.cacheProvider.invalidate(`menu-list`);
+    await this.cacheProvider.invalidate(`menus-list`);
 
     await this.cacheProvider.invalidate(cacheKey);
 

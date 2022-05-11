@@ -15,7 +15,7 @@ class ListRoleService {
   ) {}
 
   public async execute(): Promise<Role[]> {
-    const cacheKey = `role-list`;
+    const cacheKey = `roles-list`;
     let roles = await this.cacheProvider.recover<Role[]>(cacheKey);
 
     if (!roles) {
