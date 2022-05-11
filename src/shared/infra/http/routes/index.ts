@@ -18,13 +18,15 @@ import productsRouter from '@modules/warehouse/infra/http/routes/products.routes
 import productCategoriesRouter from '@modules/warehouse/infra/http/routes/productCategories.routes';
 import stockMovimentsRouter from '@modules/warehouse/infra/http/routes/stockMoviments.routes';
 import unitTypesRouter from '@modules/warehouse/infra/http/routes/unitTypes.routes';
+import salesTablesRouter from '@modules/users/infra/http/routes/salesTables.routes';
+
 import dataTableRouter from './dataTable.routes';
 
 const routes = Router();
 
 routes.use('/sessions', sessionsRouter);
 routes.use('/password', passwordRouter);
-routes.use('/users', usersRouter);
+// routes.use('/users', usersRouter);
 
 routes.use('/checkPermission', checkPermission);
 routes.use('/cache', cacheRouter);
@@ -44,5 +46,7 @@ routes.use('/products', productsRouter);
 routes.use('/productCategories', productCategoriesRouter);
 routes.use('/stockMoviments', stockMovimentsRouter);
 routes.use('/unitTypes', unitTypesRouter);
+
+routes.use('/users/salesTables', salesTablesRouter);
 
 export default routes;

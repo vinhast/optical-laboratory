@@ -51,16 +51,8 @@ financialMovimentRouter.get(
   },
 );
 
-financialMovimentRouter.post(
-  '/',
-  celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.number().integer().required(),
-    },
-  }),
-  financialMovimentController.create,
-  () => {
-    /*
+financialMovimentRouter.post('/', financialMovimentController.create, () => {
+  /*
       #swagger.path = '/financial/financialMoviments'
       #swagger.tags = ['FinancialMoviment']
       #swagger.description = "Create financialMoviment"
@@ -87,8 +79,7 @@ financialMovimentRouter.post(
               }
           }
     } */
-  },
-);
+});
 financialMovimentRouter.put(
   '/update/',
   celebrate({

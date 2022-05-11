@@ -1194,10 +1194,356 @@
         }
       }
     },
+    "/users/salesTables/": {
+      "get": {
+        "tags": [
+          "SalesTables"
+        ],
+        "description": "List salesTables",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "SalesTables"
+        ],
+        "description": "Create saleTable",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaleTable"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/salesTables/view/{id}": {
+      "get": {
+        "tags": [
+          "SalesTables"
+        ],
+        "description": "View saleTable",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found saleTable"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users/salesTables/update/{id}": {
+      "put": {
+        "tags": [
+          "SalesTables"
+        ],
+        "description": "Update saleTable",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaleTable"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/salesTables/{id}": {
+      "delete": {
+        "tags": [
+          "SalesTables"
+        ],
+        "description": "Delete saleTable",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found saleTable"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users/salesTablesPrices/": {
+      "get": {
+        "tags": [
+          "SalesTablesPrices"
+        ],
+        "description": "List salesTablesPrices",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "SalesTablesPrices"
+        ],
+        "description": "Create saleTablePrice",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaleTablePrice"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/salesTablesPrices/view/{id}": {
+      "get": {
+        "tags": [
+          "SalesTablesPrices"
+        ],
+        "description": "View saleTablePrice",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found saleTablePrice"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users/salesTablesPrices/update/{id}": {
+      "put": {
+        "tags": [
+          "SalesTablesPrices"
+        ],
+        "description": "Update saleTablePrice",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaleTablePrice"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/salesTablesPrices/{id}": {
+      "delete": {
+        "tags": [
+          "SalesTablesPrices"
+        ],
+        "description": "Delete saleTablePrice",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found saleTablePrice"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/orderProducts": {
       "get": {
         "tags": [
-          "OrderProducts"
+          "OrderProduct"
         ],
         "description": "List order products",
         "parameters": [],
@@ -1217,7 +1563,7 @@
       },
       "post": {
         "tags": [
-          "OrderProducts"
+          "OrderProduct"
         ],
         "description": "Create order product",
         "parameters": [],
@@ -1252,7 +1598,7 @@
     "/orderProducts/view/{id}": {
       "get": {
         "tags": [
-          "OrderProducts"
+          "OrderProduct"
         ],
         "description": "View order product",
         "parameters": [
@@ -1286,7 +1632,7 @@
     "/orderProducts/update/{id}": {
       "put": {
         "tags": [
-          "OrderProducts"
+          "OrderProduct"
         ],
         "description": "Update order product",
         "parameters": [
@@ -1330,7 +1676,7 @@
     "/orderProducts/{id}": {
       "delete": {
         "tags": [
-          "OrderProducts"
+          "OrderProduct"
         ],
         "description": "Delete order product",
         "parameters": [
@@ -1877,7 +2223,7 @@
     "/products": {
       "get": {
         "tags": [
-          "Products"
+          "Product"
         ],
         "description": "List products",
         "parameters": [],
@@ -1897,7 +2243,7 @@
       },
       "post": {
         "tags": [
-          "Products"
+          "Product"
         ],
         "description": "Create product",
         "parameters": [],
@@ -1932,7 +2278,7 @@
     "/products/view/{id}": {
       "get": {
         "tags": [
-          "Products"
+          "Product"
         ],
         "description": "View product",
         "parameters": [
@@ -1966,7 +2312,7 @@
     "/products/update/{id}": {
       "put": {
         "tags": [
-          "Products"
+          "Product"
         ],
         "description": "Update product",
         "parameters": [
@@ -2010,7 +2356,7 @@
     "/products/{id}": {
       "delete": {
         "tags": [
-          "Products"
+          "Product"
         ],
         "description": "Delete product",
         "parameters": [
@@ -2044,7 +2390,7 @@
     "/productCategories": {
       "get": {
         "tags": [
-          "ProductCategories"
+          "ProductCategory"
         ],
         "description": "List categories",
         "parameters": [],
@@ -2064,7 +2410,7 @@
       },
       "post": {
         "tags": [
-          "ProductCategories"
+          "ProductCategory"
         ],
         "description": "Create category",
         "parameters": [],
@@ -2099,7 +2445,7 @@
     "/productCategories/view/{id}": {
       "get": {
         "tags": [
-          "ProductCategories"
+          "ProductCategory"
         ],
         "description": "View category",
         "parameters": [
@@ -2133,7 +2479,7 @@
     "/productCategories/update/{id}": {
       "put": {
         "tags": [
-          "ProductCategories"
+          "ProductCategory"
         ],
         "description": "Update category",
         "parameters": [
@@ -2177,7 +2523,7 @@
     "/productCategories/{id}": {
       "delete": {
         "tags": [
-          "ProductCategories"
+          "ProductCategory"
         ],
         "description": "Delete category",
         "parameters": [
@@ -2211,7 +2557,7 @@
     "/stockMoviments": {
       "get": {
         "tags": [
-          "StockMoviments"
+          "StockMoviment"
         ],
         "description": "List stock moviments",
         "parameters": [],
@@ -2231,7 +2577,7 @@
       },
       "post": {
         "tags": [
-          "StockMoviments"
+          "StockMoviment"
         ],
         "description": "Create stock moviment",
         "parameters": [],
@@ -2266,7 +2612,7 @@
     "/stockMoviments/view/{id}": {
       "get": {
         "tags": [
-          "StockMoviments"
+          "StockMoviment"
         ],
         "description": "View stock moviment",
         "parameters": [
@@ -2300,7 +2646,7 @@
     "/stockMoviments/update/{id}": {
       "put": {
         "tags": [
-          "StockMoviments"
+          "StockMoviment"
         ],
         "description": "Update stock moviment",
         "parameters": [
@@ -2344,7 +2690,7 @@
     "/stockMoviments/{id}": {
       "delete": {
         "tags": [
-          "StockMoviments"
+          "StockMoviment"
         ],
         "description": "Delete stock moviment",
         "parameters": [
@@ -2381,7 +2727,7 @@
     "/unitTypes": {
       "get": {
         "tags": [
-          "UnitTypes"
+          "UnitType"
         ],
         "description": "List unit types",
         "parameters": [],
@@ -2401,7 +2747,7 @@
       },
       "post": {
         "tags": [
-          "UnitTypes"
+          "UnitType"
         ],
         "description": "Create unit type",
         "parameters": [],
@@ -2436,7 +2782,7 @@
     "/unitTypes/view/{id}": {
       "get": {
         "tags": [
-          "UnitTypes"
+          "UnitType"
         ],
         "description": "View unit type",
         "parameters": [
@@ -2470,7 +2816,7 @@
     "/unitTypes/update/{id}": {
       "put": {
         "tags": [
-          "UnitTypes"
+          "UnitType"
         ],
         "description": "Update unit type",
         "parameters": [
@@ -2514,7 +2860,7 @@
     "/unitTypes/{id}": {
       "delete": {
         "tags": [
-          "UnitTypes"
+          "UnitType"
         ],
         "description": "Delete unit type",
         "parameters": [
@@ -4043,7 +4389,7 @@
           },
           "date": {
             "type": "string",
-            "example": "10/05/2022"
+            "example": "11/05/2022"
           },
           "used": {
             "type": "string",
@@ -4051,7 +4397,7 @@
           },
           "used_at": {
             "type": "string",
-            "example": "10/05/2022"
+            "example": "11/05/2022"
           }
         }
       },
@@ -4084,7 +4430,7 @@
           },
           "due_date": {
             "type": "string",
-            "example": "10/05/2022"
+            "example": "11/05/2022"
           },
           "value": {
             "type": "string",
@@ -4116,11 +4462,11 @@
           },
           "nf_receipt_date": {
             "type": "string",
-            "example": "10/05/2022"
+            "example": "11/05/2022"
           },
           "nf_issue_date": {
             "type": "string",
-            "example": "10/05/2022"
+            "example": "11/05/2022"
           },
           "nf_cStat_receipt": {
             "type": "string",
@@ -4188,7 +4534,7 @@
           },
           "nfse_issue_date": {
             "type": "string",
-            "example": "10/05/2022"
+            "example": "11/05/2022"
           },
           "nfse_rps_number": {
             "type": "number",
@@ -4236,7 +4582,7 @@
           },
           "downloaded_at": {
             "type": "string",
-            "example": "10/05/2022"
+            "example": "11/05/2022"
           }
         }
       },
@@ -4324,7 +4670,7 @@
           },
           "certified_validate": {
             "type": "string",
-            "example": "10/05/2022"
+            "example": "11/05/2022"
           },
           "certified_password": {
             "type": "string",
@@ -4345,6 +4691,48 @@
           "active": {
             "type": "string",
             "example": "string"
+          }
+        }
+      },
+      "SaleTable": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "string"
+          },
+          "description": {
+            "type": "string",
+            "example": "string"
+          },
+          "active": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "SaleTablePrice": {
+        "type": "object",
+        "properties": {
+          "product_category_id": {
+            "type": "number",
+            "example": 1
+          },
+          "table_id": {
+            "type": "number",
+            "example": 1
+          },
+          "unit_price": {
+            "type": "string",
+            "example": "string"
+          },
+          "wholesale_price": {
+            "type": "string",
+            "example": "string"
+          },
+          "user_id": {
+            "type": "number",
+            "example": 1
           }
         }
       },

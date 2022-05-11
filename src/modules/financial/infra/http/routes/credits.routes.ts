@@ -51,16 +51,8 @@ creditRouter.get(
   },
 );
 
-creditRouter.post(
-  '/',
-  celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.number().integer().required(),
-    },
-  }),
-  creditController.create,
-  () => {
-    /*
+creditRouter.post('/', creditController.create, () => {
+  /*
       #swagger.path = '/financial/credits'
       #swagger.tags = ['Credit']
       #swagger.description = "Create credit"
@@ -87,8 +79,7 @@ creditRouter.post(
               }
           }
     } */
-  },
-);
+});
 creditRouter.put(
   '/update/',
   celebrate({

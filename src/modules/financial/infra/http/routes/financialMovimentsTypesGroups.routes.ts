@@ -58,11 +58,6 @@ financialMovimentTypeGroupRouter.get(
 
 financialMovimentTypeGroupRouter.post(
   '/',
-  celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.number().integer().required(),
-    },
-  }),
   financialMovimentTypeGroupController.create,
   () => {
     /*

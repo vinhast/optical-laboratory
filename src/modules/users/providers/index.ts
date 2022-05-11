@@ -18,6 +18,12 @@ import RolesRepository from '@modules/users/infra/typeorm/repositories/RolesRepo
 import IMenusRepository from '@modules/users/repositories/IMenusRepository';
 import MenusRepository from '@modules/users/infra/typeorm/repositories/MenusRepository';
 
+import ISalesTablesRepository from '@modules/users/repositories/ISalesTablesRepository';
+import SalesTablesRepository from '@modules/users/infra/typeorm/repositories/SalesTablesRepository';
+
+import ISalesTablesPriceRepository from '@modules/users/repositories/ISalesTablesPricesRepository';
+import SalesTablesPriceRepository from '@modules/users/infra/typeorm/repositories/SalesTablesPricesRepository';
+
 container.registerSingleton<IHashProvider>('HashProvider', BCriptyHashProvider);
 
 container.registerSingleton<IUsersRepository>(
@@ -43,4 +49,14 @@ container.registerSingleton<IRolesRepository>(
 container.registerSingleton<IMenusRepository>(
   'MenusRepository',
   MenusRepository,
+);
+
+container.registerSingleton<ISalesTablesRepository>(
+  'SalesTablesRepository',
+  SalesTablesRepository,
+);
+
+container.registerSingleton<ISalesTablesPriceRepository>(
+  'SalesTablesPricesRepository',
+  SalesTablesPriceRepository,
 );

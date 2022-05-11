@@ -58,11 +58,6 @@ financialMovimentOrderRouter.get(
 
 financialMovimentOrderRouter.post(
   '/',
-  celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.number().integer().required(),
-    },
-  }),
   financialMovimentOrderController.create,
   () => {
     /*

@@ -51,16 +51,8 @@ bankAccountRouter.get(
   },
 );
 
-bankAccountRouter.post(
-  '/',
-  celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.number().integer().required(),
-    },
-  }),
-  bankAccountController.create,
-  () => {
-    /*
+bankAccountRouter.post('/', bankAccountController.create, () => {
+  /*
       #swagger.path = '/financial/bankAccounts'
       #swagger.tags = ['BankAccount']
       #swagger.description = "Create bank account"
@@ -87,8 +79,7 @@ bankAccountRouter.post(
               }
           }
     } */
-  },
-);
+});
 bankAccountRouter.put(
   '/update/',
   celebrate({

@@ -51,16 +51,8 @@ fiscalSettingRouter.get(
   },
 );
 
-fiscalSettingRouter.post(
-  '/',
-  celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.number().integer().required(),
-    },
-  }),
-  fiscalSettingController.create,
-  () => {
-    /*
+fiscalSettingRouter.post('/', fiscalSettingController.create, () => {
+  /*
       #swagger.path = '/financial/fiscalSettings'
       #swagger.tags = ['FiscalSetting']
       #swagger.description = "Create fiscalSetting"
@@ -87,8 +79,7 @@ fiscalSettingRouter.post(
               }
           }
     } */
-  },
-);
+});
 fiscalSettingRouter.put(
   '/update/',
   celebrate({

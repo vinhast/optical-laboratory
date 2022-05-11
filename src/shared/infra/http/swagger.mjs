@@ -192,6 +192,18 @@ const doc = {
         invoice_email_copy: 'string',
         active: 'string',
       },
+      SaleTable: {
+        name: 'string',
+        description: 'string',
+        active: true,
+      },
+      SaleTablePrice: {
+        product_category_id: 1,
+        table_id: 1,
+        unit_price: 'string',
+        wholesale_price: 'string',
+        user_id: 1,
+      },
       Provider: {
         company_social_name: 'test',
         company_name: 'test',
@@ -273,6 +285,8 @@ const endpointsFiles = [
   './src/modules/users/infra/http/routes/checkPermission.route.ts',
   './src/modules/users/infra/http/routes/menus.routes.ts',
   './src/modules/users/infra/http/routes/password.routes.ts',
+  './src/modules/users/infra/http/routes/salesTables.routes.ts',
+  './src/modules/users/infra/http/routes/salesTablesPrices.routes.ts',
   './src/modules/commercial/infra/http/routes/orderProducts.routes.ts',
   './src/modules/commercial/infra/http/routes/orders.routes.ts',
   './src/modules/commercial/infra/http/routes/providers.routes.ts',
