@@ -287,6 +287,7 @@ const endpointsFiles = [
   './src/modules/users/infra/http/routes/sessions.routes.ts',
   './src/modules/users/infra/http/routes/users.routes.ts',
   './src/modules/users/infra/http/routes/checkPermission.route.ts',
+  './src/modules/cache/infra/http/routes/cache.route.ts',
   './src/modules/users/infra/http/routes/menus.routes.ts',
   './src/modules/users/infra/http/routes/password.routes.ts',
   './src/modules/commercial/infra/http/routes/orderProducts.routes.ts',

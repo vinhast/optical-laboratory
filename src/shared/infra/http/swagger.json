@@ -882,6 +882,62 @@
         }
       }
     },
+    "/cache": {
+      "get": {
+        "tags": [
+          "Cache"
+        ],
+        "description": "List cache keys",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/cache/{key}": {
+      "delete": {
+        "tags": [
+          "Cache"
+        ],
+        "description": "Delete key cache",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found key"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/menus": {
       "get": {
         "tags": [

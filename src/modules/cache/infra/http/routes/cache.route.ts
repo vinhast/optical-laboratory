@@ -3,12 +3,27 @@ import { celebrate, Joi, Segments } from 'celebrate';
 
 import CacheController from '@modules/cache/infra/http/controllers/CacheController';
 
-const campaingsRouter = Router();
+const cacheRouter = Router();
 const cacheController = new CacheController();
 
-campaingsRouter.get('/', cacheController.list);
+cacheRouter.get('/', cacheController.list, () => {
+  /*  
+    #swagger.path = '/cache'
+    #swagger.tags = ['Cache']
+    #swagger.description = "List cache keys"
+    #swagger.security = [{
+      "bearerAuth": []
+    }]
+    #swagger.responses[401] = {
+      description: "Unauthorized"
+    }
+    #swagger.responses[200] = {
+      description: "OK",
+    }
+  */
+});
 
-campaingsRouter.delete(
+cacheRouter.delete(
   '/:key',
   celebrate({
     [Segments.PARAMS]: {
@@ -16,6 +31,25 @@ campaingsRouter.delete(
     },
   }),
   cacheController.delete,
+  () => {
+    /*
+      #swagger.path = '/cache/{key}'
+      #swagger.tags = ['Cache']
+      #swagger.description = "Delete key cache"
+      #swagger.security = [{
+        "bearerAuth": []
+      }]
+      #swagger.responses[401] = {
+      description: "Unauthorized"
+      }
+      #swagger.responses[404] = {
+      description: "Not found key"
+      }
+      #swagger.responses[204] = {
+        description: "No Content",
+      }
+     */
+  },
 );
 
-export default campaingsRouter;
+export default cacheRouter;
