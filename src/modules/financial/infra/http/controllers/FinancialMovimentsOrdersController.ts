@@ -18,10 +18,13 @@ export default class FinancialMovimentsOrdersController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { financialMovimentOrder } = request.body;
+    const { financial_moviment_id, order_id } = request.body;
     const createFinancialMovimentOrder = container.resolve(CreateService);
     const financialMovimentOrderCreate =
-      await createFinancialMovimentOrder.execute(financialMovimentOrder);
+      await createFinancialMovimentOrder.execute({
+        financial_moviment_id,
+        order_id,
+      });
 
     return response.json(classToClass(financialMovimentOrderCreate));
   }
@@ -38,11 +41,12 @@ export default class FinancialMovimentsOrdersController {
 
   public async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
-    const { financialMovimentOrder } = request.body;
+    const { financial_moviment_id, order_id } = request.body;
     const updateFinancialMovimentOrder = container.resolve(UpdateService);
     const financialMovimentUpdate = await updateFinancialMovimentOrder.execute({
-      id,
-      ...financialMovimentOrder,
+      id: Number(id),
+      financial_moviment_id,
+      order_id,
     });
 
     return response.json(classToClass(financialMovimentUpdate));

@@ -17,9 +17,27 @@ export default class CreditsController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { credit } = request.body;
+    const {
+      client_id,
+      order_id,
+      user_id,
+      description,
+      value,
+      date,
+      used,
+      used_at,
+    } = request.body;
     const createCredit = container.resolve(CreateService);
-    const creditCreate = await createCredit.execute(credit);
+    const creditCreate = await createCredit.execute({
+      client_id,
+      order_id,
+      user_id,
+      description,
+      value,
+      date,
+      used,
+      used_at,
+    });
 
     return response.json(classToClass(creditCreate));
   }
@@ -34,9 +52,28 @@ export default class CreditsController {
 
   public async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
-    const { credit } = request.body;
+    const {
+      client_id,
+      order_id,
+      user_id,
+      description,
+      value,
+      date,
+      used,
+      used_at,
+    } = request.body;
     const updateCredit = container.resolve(UpdateService);
-    const creditUpdate = await updateCredit.execute({ id, ...credit });
+    const creditUpdate = await updateCredit.execute({
+      id: Number(id),
+      client_id,
+      order_id,
+      user_id,
+      description,
+      value,
+      date,
+      used,
+      used_at,
+    });
 
     return response.json(classToClass(creditUpdate));
   }

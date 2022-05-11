@@ -17,9 +17,57 @@ export default class BankAccountsController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { bankAccount } = request.body;
+    const {
+      name,
+      registry,
+      agency,
+      account,
+      account_dv,
+      client_code,
+      assignor_code,
+      assignor_code_dv,
+      document,
+      transmission_code,
+      currency,
+      invoice_value,
+      delay_fines,
+      delay_taxes,
+      message_1,
+      message_2,
+      message_3,
+      instruction_1,
+      instruction_2,
+      instruction_3,
+      user_id,
+      username,
+      active,
+    } = request.body;
     const createBankAccount = container.resolve(CreateService);
-    const bankAccountCreate = await createBankAccount.execute(bankAccount);
+    const bankAccountCreate = await createBankAccount.execute({
+      name,
+      registry,
+      agency,
+      account,
+      account_dv,
+      client_code,
+      assignor_code,
+      assignor_code_dv,
+      document,
+      transmission_code,
+      currency,
+      invoice_value,
+      delay_fines,
+      delay_taxes,
+      message_1,
+      message_2,
+      message_3,
+      instruction_1,
+      instruction_2,
+      instruction_3,
+      user_id,
+      username,
+      active,
+    });
 
     return response.json(classToClass(bankAccountCreate));
   }
@@ -34,11 +82,57 @@ export default class BankAccountsController {
 
   public async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
-    const { bankAccount } = request.body;
+    const {
+      name,
+      registry,
+      agency,
+      account,
+      account_dv,
+      client_code,
+      assignor_code,
+      assignor_code_dv,
+      document,
+      transmission_code,
+      currency,
+      invoice_value,
+      delay_fines,
+      delay_taxes,
+      message_1,
+      message_2,
+      message_3,
+      instruction_1,
+      instruction_2,
+      instruction_3,
+      user_id,
+      username,
+      active,
+    } = request.body;
     const updateBankAccount = container.resolve(UpdateService);
     const bankAccountUpdate = await updateBankAccount.execute({
-      id,
-      ...bankAccount,
+      id: Number(id),
+      name,
+      registry,
+      agency,
+      account,
+      account_dv,
+      client_code,
+      assignor_code,
+      assignor_code_dv,
+      document,
+      transmission_code,
+      currency,
+      invoice_value,
+      delay_fines,
+      delay_taxes,
+      message_1,
+      message_2,
+      message_3,
+      instruction_1,
+      instruction_2,
+      instruction_3,
+      user_id,
+      username,
+      active,
     });
 
     return response.json(classToClass(bankAccountUpdate));

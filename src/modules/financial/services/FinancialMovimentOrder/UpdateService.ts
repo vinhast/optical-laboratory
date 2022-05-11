@@ -4,6 +4,11 @@ import AppError from '@shared/errors/AppError';
 import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICacheProvider';
 import IFinancialMovimentsOrdersRepository from '@modules/financial/repositories/IFinancialMovimentsOrdersRepository';
 import FinancialMovimentOrder from '@modules/financial/infra/typeorm/entities/FinancialMovimentOrder';
+import ICreateFinancialMovimentOrderDTO from '@modules/financial/dtos/ICreateFinancialMovimentOrderDTO';
+
+interface IRequest extends ICreateFinancialMovimentOrderDTO {
+  id: number;
+}
 
 @injectable()
 class UpdateService {
@@ -15,7 +20,7 @@ class UpdateService {
   ) {}
 
   public async execute(
-    financialMovimentOrderUpdate: FinancialMovimentOrder,
+    financialMovimentOrderUpdate: IRequest,
   ): Promise<FinancialMovimentOrder> {
     const id = financialMovimentOrderUpdate.id;
     const cacheKey = `financial-moviment-order-get-${id}`;

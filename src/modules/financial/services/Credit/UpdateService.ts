@@ -4,6 +4,11 @@ import AppError from '@shared/errors/AppError';
 import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICacheProvider';
 import ICreditsRepository from '@modules/financial/repositories/ICreditsRepository';
 import Credit from '@modules/financial/infra/typeorm/entities/Credit';
+import ICreateCreditDTO from '@modules/financial/dtos/ICreateCreditDTO';
+
+interface IRequest extends ICreateCreditDTO {
+  id: number;
+}
 
 @injectable()
 class UpdateService {
@@ -14,7 +19,7 @@ class UpdateService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute(creditUpdate: Credit): Promise<Credit> {
+  public async execute(creditUpdate: IRequest): Promise<Credit> {
     const id = creditUpdate.id;
     const cacheKey = `credit-get-${id}`;
     let credit = await this.cacheProvider.recover<Credit | undefined>(cacheKey);

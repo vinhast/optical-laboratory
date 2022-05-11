@@ -17,10 +17,14 @@ export default class FinancialMovimentsTypesController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { financialMovimentType } = request.body;
+    const { product_id, financial_moviment_type_group_id, name } = request.body;
     const createFinancialMovimentType = container.resolve(CreateService);
     const financialMovimentTypeCreate =
-      await createFinancialMovimentType.execute(financialMovimentType);
+      await createFinancialMovimentType.execute({
+        product_id,
+        financial_moviment_type_group_id,
+        name,
+      });
 
     return response.json(classToClass(financialMovimentTypeCreate));
   }
@@ -37,11 +41,13 @@ export default class FinancialMovimentsTypesController {
 
   public async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
-    const { financialMovimentType } = request.body;
+    const { product_id, financial_moviment_type_group_id, name } = request.body;
     const updateFinancialMovimentType = container.resolve(UpdateService);
     const financialMovimentUpdate = await updateFinancialMovimentType.execute({
-      id,
-      ...financialMovimentType,
+      id: Number(id),
+      product_id,
+      financial_moviment_type_group_id,
+      name,
     });
 
     return response.json(classToClass(financialMovimentUpdate));

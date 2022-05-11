@@ -4,6 +4,11 @@ import AppError from '@shared/errors/AppError';
 import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICacheProvider';
 import IBankAccountsRepository from '@modules/financial/repositories/IBankAccountsRepository';
 import BankAccount from '@modules/financial/infra/typeorm/entities/BankAccount';
+import ICreateBankAccountDTO from '@modules/financial/dtos/ICreateBankAccountDTO';
+
+interface IRequest extends ICreateBankAccountDTO {
+  id: number;
+}
 
 @injectable()
 class UpdateService {
@@ -14,7 +19,7 @@ class UpdateService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute(bankAccountUpdate: BankAccount): Promise<BankAccount> {
+  public async execute(bankAccountUpdate: IRequest): Promise<BankAccount> {
     const id = bankAccountUpdate.id;
     const cacheKey = `bankAccount-get-${id}`;
     let bankAccount = await this.cacheProvider.recover<BankAccount | undefined>(

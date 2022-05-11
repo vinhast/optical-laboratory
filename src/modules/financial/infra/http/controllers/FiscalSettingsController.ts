@@ -17,11 +17,39 @@ export default class FiscalSettingsController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { fiscalSetting } = request.body;
+    const {
+      company_name,
+      cnpj,
+      city_registration,
+      state_registration,
+      address,
+      nfse_env,
+      nfse_rps_number,
+      certified_file,
+      certified_validate,
+      certified_password,
+      nf_emission_due,
+      dir,
+      invoice_email_copy,
+      active,
+    } = request.body;
     const createFiscalSetting = container.resolve(CreateService);
-    const fiscalSettingCreate = await createFiscalSetting.execute(
-      fiscalSetting,
-    );
+    const fiscalSettingCreate = await createFiscalSetting.execute({
+      company_name,
+      cnpj,
+      city_registration,
+      state_registration,
+      address,
+      nfse_env,
+      nfse_rps_number,
+      certified_file,
+      certified_validate,
+      certified_password,
+      nf_emission_due,
+      dir,
+      invoice_email_copy,
+      active,
+    });
 
     return response.json(classToClass(fiscalSettingCreate));
   }
@@ -36,11 +64,39 @@ export default class FiscalSettingsController {
 
   public async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
-    const { fiscalSetting } = request.body;
+    const {
+      company_name,
+      cnpj,
+      city_registration,
+      state_registration,
+      address,
+      nfse_env,
+      nfse_rps_number,
+      certified_file,
+      certified_validate,
+      certified_password,
+      nf_emission_due,
+      dir,
+      invoice_email_copy,
+      active,
+    } = request.body;
     const updateFiscalSetting = container.resolve(UpdateService);
     const fiscalSettingUpdate = await updateFiscalSetting.execute({
-      id,
-      ...fiscalSetting,
+      id: Number(id),
+      company_name,
+      cnpj,
+      city_registration,
+      state_registration,
+      address,
+      nfse_env,
+      nfse_rps_number,
+      certified_file,
+      certified_validate,
+      certified_password,
+      nf_emission_due,
+      dir,
+      invoice_email_copy,
+      active,
     });
 
     return response.json(classToClass(fiscalSettingUpdate));

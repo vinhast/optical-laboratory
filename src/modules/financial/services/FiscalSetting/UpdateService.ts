@@ -4,6 +4,11 @@ import AppError from '@shared/errors/AppError';
 import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICacheProvider';
 import IFiscalSettingsRepository from '@modules/financial/repositories/IFiscalSettingsRepository';
 import FiscalSetting from '@modules/financial/infra/typeorm/entities/FiscalSetting';
+import ICreateFiscalSettingDTO from '@modules/financial/dtos/ICreateFiscalSettingDTO';
+
+interface IRequest extends ICreateFiscalSettingDTO {
+  id: number;
+}
 
 @injectable()
 class UpdateService {
@@ -14,9 +19,7 @@ class UpdateService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute(
-    fiscalSettingUpdate: FiscalSetting,
-  ): Promise<FiscalSetting> {
+  public async execute(fiscalSettingUpdate: IRequest): Promise<FiscalSetting> {
     const id = fiscalSettingUpdate.id;
     const cacheKey = `fiscal-setting-get-${id}`;
     let fiscalSetting = await this.cacheProvider.recover<
