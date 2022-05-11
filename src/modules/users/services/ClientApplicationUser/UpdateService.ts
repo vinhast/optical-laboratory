@@ -33,7 +33,7 @@ class UpdateUserService {
   ): Promise<ClientApplicationUser> {
     const id = clientApplicationUserUpdate.id;
     const password = clientApplicationUserUpdate.password;
-    const cacheKey = `user-get-${id}`;
+    const cacheKey = `client-application-user-get-${id}`;
     let clientApplicationUser = await this.cacheProvider.recover<
       ClientApplicationUser | undefined
     >(cacheKey);

@@ -40,7 +40,6 @@ clientApplicationsRouter.post(
     [Segments.BODY]: {
       name: Joi.string().required(),
       email: Joi.string().required(),
-      password: Joi.string().required(),
       avatar: Joi.string(),
       cnpj: Joi.string().required(),
       street: Joi.string(),
@@ -122,7 +121,6 @@ clientApplicationsRouter.put(
     [Segments.BODY]: {
       name: Joi.string().required(),
       email: Joi.string().required(),
-      password: Joi.string().required(),
       avatar: Joi.string(),
       cnpj: Joi.string().required(),
       street: Joi.string(),

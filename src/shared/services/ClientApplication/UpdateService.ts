@@ -10,7 +10,6 @@ interface IRequest {
   id: number;
   name: string;
   email?: string;
-  password: string;
   avatar?: string;
   cnpj: string;
   street?: string;
@@ -39,7 +38,6 @@ class UpdateService {
     clientApplicationUpdate: IRequest,
   ): Promise<ClientApplication> {
     const id = clientApplicationUpdate.id;
-    const password = clientApplicationUpdate.password;
     const cacheKey = `client-application-get-${id}`;
     let clientApplication = await this.cacheProvider.recover<
       ClientApplication | undefined
@@ -53,15 +51,9 @@ class UpdateService {
       throw new AppError('Client application not found.', 404);
     }
 
-    let hashedPassword;
-    if (password) {
-      hashedPassword = await this.hashProvider.generateHash(password);
-    }
-
     clientApplication = {
       ...clientApplication,
       ...clientApplicationUpdate,
-      password: hashedPassword || clientApplication.password,
     };
 
     await this.cacheProvider.invalidate(`client-applications-list`);

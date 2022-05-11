@@ -1,7 +1,6 @@
 export default interface ICreateClientApplicationDTO {
   name: string;
   email?: string;
-  password: string;
   avatar?: string;
   cnpj: string;
   street?: string;

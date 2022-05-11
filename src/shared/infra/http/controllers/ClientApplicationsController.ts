@@ -20,7 +20,6 @@ export default class ClientApplicationsController {
     const {
       name,
       email,
-      password,
       avatar,
       cnpj,
       street,
@@ -38,7 +37,6 @@ export default class ClientApplicationsController {
     const clientApplication = await createClientApplication.execute({
       name,
       email,
-      password,
       avatar,
       cnpj,
       street,
@@ -69,7 +67,6 @@ export default class ClientApplicationsController {
     const {
       name,
       email,
-      password,
       cnpj,
       avatar,
       street,
@@ -87,7 +84,6 @@ export default class ClientApplicationsController {
       id: Number(id),
       name,
       email,
-      password,
       avatar,
       cnpj,
       street,

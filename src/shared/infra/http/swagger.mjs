@@ -257,7 +257,6 @@ const doc = {
       ClientApplication: {
         name: 'test',
         email: 'test@test.com',
-        password: '123456',
         avatar: 'image',
         street: 'test',
         cnpj: '123456789',
@@ -312,6 +311,7 @@ const endpointsFiles = [
   './src/modules/financial/infra/http/routes/financialMovimentsTypes.routes.ts',
   './src/modules/financial/infra/http/routes/financialMovimentsTypesGroups.routes.ts',
   './src/modules/financial/infra/http/routes/fiscalSettings.routes.ts',
+  './src/shared/infra/http/routes/clientApplications.routes.ts',
 ];
 
 swaggerAutogen({

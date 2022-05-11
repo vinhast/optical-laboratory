@@ -9,7 +9,6 @@ import IHashProvider from '@modules/users/providers/HashProvider/moldes/IHashPro
 interface IRequest {
   name: string;
   email: string;
-  password: string;
   avatar?: string;
   cnpj: string;
   street?: string;
@@ -37,7 +36,6 @@ class CreateService {
   public async execute({
     name,
     email,
-    password,
     avatar,
     street,
     cnpj,
@@ -56,11 +54,9 @@ class CreateService {
     if (clientApplication) {
       throw new AppError('Email address already used.');
     }
-    const hashedPassword = await this.hashProvider.generateHash(password);
     clientApplication = await this.clientApplicationsRepository.create({
       name,
       email,
-      password: hashedPassword,
       avatar,
       cnpj,
       street,
