@@ -43,12 +43,14 @@ export default async function ensureAuthenticated(
   const { originalUrl, method } = request;
   if (!originalUrl.includes('dataTable')) {
     const checkPermission = container.resolve(CheckPermissionService);
-    authorized = await checkPermission.execute({
-      user_id: Number(request.user.id),
-      role_id: Number(request.user.role_id),
-      method,
-      originalUrl,
-    });
+    authorized = await checkPermission
+      .execute({
+        user_id: Number(request.user.id),
+        role_id: Number(request.user.role_id),
+        method,
+        originalUrl,
+      })
+      .then(permission => permission.approved);
   } else {
     authorized = true;
   }

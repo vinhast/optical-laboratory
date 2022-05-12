@@ -34,10 +34,8 @@ class MountMenuUserService {
     const cacheKey = `menu-list`;
     let allMenus = await this.cacheProvider.recover<Menu[]>(cacheKey);
 
-    if (!allMenus) {
-      allMenus = await this.menusRepository.findAll();
-      await this.cacheProvider.save(cacheKey, classToClass(allMenus));
-    }
+    allMenus = await this.menusRepository.findAll();
+    await this.cacheProvider.save(cacheKey, classToClass(allMenus));
 
     const nestMenus = (menus: IMenu[], id: number | null = null): IMenu[] =>
       menus
@@ -45,9 +43,15 @@ class MountMenuUserService {
         .map(menu => {
           let { permission } = menu;
           if (permission === false && !menu.url) {
-            const linkedMenu = menus.filter(
-              sub => sub.parent_id === menu.id && sub.permission,
-            );
+            const linkedMenu = menus.filter(sub => {
+              if (!sub.url) {
+                if (sub.parent_id === menu.id) {
+                  return true;
+                }
+              }
+              return sub.parent_id === menu.id && sub.permission;
+            });
+
             permission = linkedMenu.length > 0 ? true : permission;
           }
           return {
@@ -60,36 +64,42 @@ class MountMenuUserService {
     const checkPermission = container.resolve(CheckPermissionService);
 
     const checkMenuPermission = (menus: Menu[]) => {
-      const promises = menus.map(
-        async (menu): Promise<IMenu> => {
-          const { method, controller, action } = menu;
-          let originalUrl = controller ? `/${controller}/` : false;
-          originalUrl =
-            originalUrl && action
-              ? `${originalUrl}${action}`
-              : `${originalUrl}`;
-          const url =
-            menu.type === 'front' && controller ? `${originalUrl}` : undefined;
-          const permission =
-            method && originalUrl
-              ? await checkPermission.execute({
+      const promises = menus.map(async (menu): Promise<IMenu> => {
+        const { method, controller, action } = menu;
+        let originalUrl = controller ? `/${controller}/` : false;
+        originalUrl =
+          originalUrl && action ? `${originalUrl}${action}` : `${originalUrl}`;
+        const url = controller ? `${originalUrl}` : undefined;
+        const permission =
+          method && originalUrl
+            ? await checkPermission
+                .execute({
                   method,
                   originalUrl,
                   role_id,
                   user_id,
                 })
-              : false;
-          return {
-            ...menu,
-            url,
-            permission,
-          };
-        },
-      );
+                .then(response => response.approved)
+            : false;
+        return {
+          ...menu,
+          url,
+          permission,
+        };
+      });
       return Promise.all(promises);
     };
+
+    const filterEmptyMenu = (menus: IMenu[]) => {
+      return menus.filter(
+        item => item.permission && item.children?.some(sub => sub.permission),
+      );
+    };
+
     const checkedMenus = await checkMenuPermission(allMenus);
-    return nestMenus(checkedMenus);
+    const menus = nestMenus(checkedMenus);
+    const filterEmptyMenus = filterEmptyMenu(menus);
+    return filterEmptyMenus;
   }
 }
 
