@@ -2,34 +2,48 @@ import { inject, injectable } from 'tsyringe';
 import path from 'path';
 
 import AppError from '@shared/errors/AppError';
-import IUsersRepository from '@modules/users/repositories/IUsersRepository';
-import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository';
 import IMailProvider from '@shared/contanier/providers/MailProvider/models/IMailProvider';
+import authConfig from '@config/auth';
+import { sign } from 'jsonwebtoken';
+import moment from 'moment';
+import IClientsApplicationsUsersRepository from '../repositories/IClientsApplicationsUsersRepository';
 
-interface IReaquest {
-  email: string;
+interface IRequest {
+  username: string;
 }
 
 @injectable()
 class SendForgotPasswordEmailService {
   constructor(
-    @inject('UsersRepository')
-    private usersRepository: IUsersRepository,
-    @inject('UserTokensRepository')
-    private userTokensRepository: IUserTokensRepository,
+    @inject('ClientsApplicationsUsersRepository')
+    private clientsApplicationsUsersRepository: IClientsApplicationsUsersRepository,
     @inject('MailProvider')
     private mailProvider: IMailProvider,
   ) {}
 
-  public async execute({ email }: IReaquest): Promise<void> {
-    const user = await this.usersRepository.findByEmail(email);
-    if (!user) {
-      throw new AppError('Email address not exists.');
+  public async execute({ username }: IRequest): Promise<void> {
+    const clientApplicationUser =
+      await this.clientsApplicationsUsersRepository.findByUsername(username);
+    if (!clientApplicationUser) {
+      throw new AppError('Username not exists.');
     }
 
-    const { token } = await this.userTokensRepository.generate(user.id);
+    const { secret, expiresIn, expiresInForgotToken } = authConfig.jwt;
+    const subject = `${clientApplicationUser.id}#${clientApplicationUser.role_id}#${clientApplicationUser.client_application_id}`;
+    const token = sign({}, secret, {
+      subject,
+      expiresIn,
+    });
+    const expiresDate = new Date(
+      moment().add(expiresInForgotToken, 'hour').format('YYYY-MM-DD HH:mm:s'),
+    );
+    await this.clientsApplicationsUsersRepository.save({
+      ...clientApplicationUser,
+      token,
+      token_validate: expiresDate,
+    });
 
-    const forgotPawwordTemplate = await path.resolve(
+    const forgotPawwordTemplate = path.resolve(
       __dirname,
       '..',
       'views',
@@ -37,14 +51,14 @@ class SendForgotPasswordEmailService {
     );
     await this.mailProvider.sendMail({
       to: {
-        name: user.name,
-        email: user.email,
+        name: clientApplicationUser.clientApplication.name,
+        email: clientApplicationUser.clientApplication.email,
       },
-      subject: '[Gobarber] Recuperação de senha',
+      subject: '[opticalLaboratory] Recuperação de senha',
       templateData: {
         file: forgotPawwordTemplate,
         variables: {
-          name: user.name,
+          name: clientApplicationUser.clientApplication.name,
           link: `http://localhost:3000/reset_password=${token}`,
         },
       },

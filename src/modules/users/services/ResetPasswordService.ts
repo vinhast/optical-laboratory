@@ -1,10 +1,10 @@
 import { inject, injectable } from 'tsyringe';
-import { differenceInHours } from 'date-fns';
 
 import AppError from '@shared/errors/AppError';
-import IUsersRepository from '@modules/users/repositories/IUsersRepository';
-import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository';
+import authConfig from '@config/auth';
 import IHashProvider from '@modules/users/providers/HashProvider/moldes/IHashProvider';
+import moment from 'moment';
+import IClientsApplicationsUsersRepository from '../repositories/IClientsApplicationsUsersRepository';
 
 interface IReaquest {
   token: string;
@@ -14,36 +14,33 @@ interface IReaquest {
 @injectable()
 class ResetPasswordService {
   constructor(
-    @inject('UsersRepository')
-    private usersRepository: IUsersRepository,
-    @inject('UserTokensRepository')
-    private userTokensRepository: IUserTokensRepository,
+    @inject('ClientsApplicationsUsersRepository')
+    private clientsApplicationsUsersRepository: IClientsApplicationsUsersRepository,
     @inject('HashProvider')
     private hashProvider: IHashProvider,
   ) {}
 
   public async execute({ token, password }: IReaquest): Promise<void> {
-    const userToken = await this.userTokensRepository.findByToken(token);
+    const clientApplicationUser =
+      await this.clientsApplicationsUsersRepository.findByToken(token);
 
-    if (!userToken) {
-      throw new AppError('User token does not exists');
+    if (!clientApplicationUser) {
+      throw new AppError('Client application user token does not exists');
     }
+    const { expiresInForgotToken } = authConfig.jwt;
+    const [date, time] = `${clientApplicationUser.token_validate}`.split(' ');
+    const [day, month, year] = date.split('/');
+    const expiresDate = moment(`${year}-${month}-${day} ${time}`);
 
-    const user = await this.usersRepository.findById(userToken.user_id);
-
-    if (!user) {
-      throw new AppError('User does not exists');
-    }
-
-    const tokenCreateAt = userToken.created_at;
-
-    if (differenceInHours(new Date(), tokenCreateAt) > 2) {
+    if (moment().diff(expiresDate, 'hour') > expiresInForgotToken) {
       throw new AppError('token expired');
     }
 
-    user.password = await this.hashProvider.generateHash(password);
+    clientApplicationUser.password = await this.hashProvider.generateHash(
+      password,
+    );
 
-    await this.usersRepository.save(user);
+    await this.clientsApplicationsUsersRepository.save(clientApplicationUser);
   }
 }
 

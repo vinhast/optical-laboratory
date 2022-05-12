@@ -4,6 +4,6 @@ export default interface ICreateClientApplicationUserDTO {
   username: string;
   password: string;
   active: boolean;
-  user_token?: string;
-  user_token_validate?: number;
+  token?: string;
+  token_validate?: Date;
 }

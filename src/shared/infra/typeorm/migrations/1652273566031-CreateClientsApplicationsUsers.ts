@@ -48,13 +48,13 @@ export class CreateClientsApplicationsUsers1652273566031
               isNullable: true,
             },
             {
-              name: 'user_token',
+              name: 'token',
               type: 'varchar',
               isNullable: true,
             },
             {
-              name: 'user_token_validate',
-              type: 'int',
+              name: 'token_validate',
+              type: 'timestamp',
               isNullable: true,
             },
             {

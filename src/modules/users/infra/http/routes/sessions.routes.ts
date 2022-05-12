@@ -57,6 +57,56 @@ sessionsRouter.post(
   },
 );
 sessionsRouter.post(
+  '/clientApplicationUser',
+  celebrate({
+    [Segments.BODY]: {
+      username: Joi.string().required(),
+      password: Joi.string().required(),
+    },
+  }),
+  sessionsController.createClientApplicationUser,
+  () => {
+    /*
+     #swagger.tags = ['Sessions']
+     #swagger.path = '/sessions'
+     #swagger.description = "Create session"
+         #swagger.security = [{
+        "bearerAuth": []
+    }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[404] = {
+        description: "Bad request"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+        #swagger.requestBody = {
+          required: true,
+          content: {
+              "application/json": {
+                  schema: {
+                    type: 'object',
+                    properties: {
+                      username: {
+                        type: 'string',
+                        example: 'test'
+                      },
+                      password: {
+                        type: 'string',
+                        example: 'test'
+                      },
+                    },
+                  },
+
+              }
+          }
+      }
+    */
+  },
+);
+sessionsRouter.post(
   '/createuser',
   celebrate({
     [Segments.BODY]: {

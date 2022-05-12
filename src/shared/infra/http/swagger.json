@@ -829,6 +829,352 @@
         ]
       }
     },
+    "/users/salesTables/": {
+      "get": {
+        "tags": [
+          "SalesTables"
+        ],
+        "description": "List salesTables",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "SalesTables"
+        ],
+        "description": "Create saleTable",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaleTable"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/salesTables/view/{id}": {
+      "get": {
+        "tags": [
+          "SalesTables"
+        ],
+        "description": "View saleTable",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found saleTable"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users/salesTables/update/{id}": {
+      "put": {
+        "tags": [
+          "SalesTables"
+        ],
+        "description": "Update saleTable",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaleTable"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/salesTables/{id}": {
+      "delete": {
+        "tags": [
+          "SalesTables"
+        ],
+        "description": "Delete saleTable",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found saleTable"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users/salesTablesPrices/": {
+      "get": {
+        "tags": [
+          "SalesTablesPrices"
+        ],
+        "description": "List salesTablesPrices",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "SalesTablesPrices"
+        ],
+        "description": "Create saleTablePrice",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaleTablePrice"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/salesTablesPrices/view/{id}": {
+      "get": {
+        "tags": [
+          "SalesTablesPrices"
+        ],
+        "description": "View saleTablePrice",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found saleTablePrice"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users/salesTablesPrices/update/{id}": {
+      "put": {
+        "tags": [
+          "SalesTablesPrices"
+        ],
+        "description": "Update saleTablePrice",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaleTablePrice"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/salesTablesPrices/{id}": {
+      "delete": {
+        "tags": [
+          "SalesTablesPrices"
+        ],
+        "description": "Delete saleTablePrice",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found saleTablePrice"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/checkPermission": {
       "post": {
         "tags": [
@@ -1194,12 +1540,6 @@
         }
       }
     },
-    "/users/salesTables/": {
-      "get": {
-        "tags": [
-          "SalesTables"
-        ],
-        "description": "List salesTables",
     "/clientsApplicationsUsers": {
       "get": {
         "tags": [
@@ -1226,9 +1566,6 @@
       },
       "post": {
         "tags": [
-          "SalesTables"
-        ],
-        "description": "Create saleTable",
           "ClientsApplicationsUsers"
         ],
         "description": "Create client application user",
@@ -1254,7 +1591,6 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SaleTable"
                 "$ref": "#/components/schemas/ClientApplicationUser"
               }
             }
@@ -1262,12 +1598,6 @@
         }
       }
     },
-    "/users/salesTables/view/{id}": {
-      "get": {
-        "tags": [
-          "SalesTables"
-        ],
-        "description": "View saleTable",
     "/clientsApplicationsUsers/view/{id}": {
       "get": {
         "tags": [
@@ -1292,7 +1622,6 @@
             "description": "Unauthorized"
           },
           "404": {
-            "description": "Not found saleTable"
             "description": "Not found"
           }
         },
@@ -1303,12 +1632,6 @@
         ]
       }
     },
-    "/users/salesTables/update/{id}": {
-      "put": {
-        "tags": [
-          "SalesTables"
-        ],
-        "description": "Update saleTable",
     "/clientsApplicationsUsers/update/{id}": {
       "put": {
         "tags": [
@@ -1329,9 +1652,6 @@
           "200": {
             "description": "OK"
           },
-          "204": {
-            "description": "No Content"
-          },
           "401": {
             "description": "Unauthorized"
           },
@@ -1349,7 +1669,6 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SaleTable"
                 "$ref": "#/components/schemas/ClientApplicationUser"
               }
             }
@@ -1357,12 +1676,6 @@
         }
       }
     },
-    "/users/salesTables/{id}": {
-      "delete": {
-        "tags": [
-          "SalesTables"
-        ],
-        "description": "Delete saleTable",
     "/clientsApplicationsUsers/{id}": {
       "delete": {
         "tags": [
@@ -1380,9 +1693,6 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
           "204": {
             "description": "No Content"
           },
@@ -1390,7 +1700,6 @@
             "description": "Unauthorized"
           },
           "404": {
-            "description": "Not found saleTable"
             "description": "Not found"
           }
         },
@@ -1401,12 +1710,6 @@
         ]
       }
     },
-    "/users/salesTablesPrices/": {
-      "get": {
-        "tags": [
-          "SalesTablesPrices"
-        ],
-        "description": "List salesTablesPrices",
     "/cache": {
       "get": {
         "tags": [
@@ -1427,131 +1730,6 @@
             "bearerAuth": []
           }
         ]
-      },
-      "post": {
-        "tags": [
-          "SalesTablesPrices"
-        ],
-        "description": "Create saleTablePrice",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Bad request"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SaleTablePrice"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/users/salesTablesPrices/view/{id}": {
-      "get": {
-        "tags": [
-          "SalesTablesPrices"
-        ],
-        "description": "View saleTablePrice",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not found saleTablePrice"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/users/salesTablesPrices/update/{id}": {
-      "put": {
-        "tags": [
-          "SalesTablesPrices"
-        ],
-        "description": "Update saleTablePrice",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "204": {
-            "description": "No Content"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Bad request"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SaleTablePrice"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/users/salesTablesPrices/{id}": {
-      "delete": {
-        "tags": [
-          "SalesTablesPrices"
-        ],
-        "description": "Delete saleTablePrice",
-        "parameters": [
-          {
-            "name": "id",
       }
     },
     "/cache/{key}": {
@@ -1571,9 +1749,6 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
           "204": {
             "description": "No Content"
           },
@@ -1581,7 +1756,6 @@
             "description": "Unauthorized"
           },
           "404": {
-            "description": "Not found saleTablePrice"
             "description": "Not found key"
           }
         },
@@ -4652,7 +4826,7 @@
           },
           "date": {
             "type": "string",
-            "example": "11/05/2022"
+            "example": "12/05/2022"
           },
           "used": {
             "type": "string",
@@ -4660,7 +4834,7 @@
           },
           "used_at": {
             "type": "string",
-            "example": "11/05/2022"
+            "example": "12/05/2022"
           }
         }
       },
@@ -4693,7 +4867,7 @@
           },
           "due_date": {
             "type": "string",
-            "example": "11/05/2022"
+            "example": "12/05/2022"
           },
           "value": {
             "type": "string",
@@ -4725,11 +4899,11 @@
           },
           "nf_receipt_date": {
             "type": "string",
-            "example": "11/05/2022"
+            "example": "12/05/2022"
           },
           "nf_issue_date": {
             "type": "string",
-            "example": "11/05/2022"
+            "example": "12/05/2022"
           },
           "nf_cStat_receipt": {
             "type": "string",
@@ -4797,7 +4971,7 @@
           },
           "nfse_issue_date": {
             "type": "string",
-            "example": "11/05/2022"
+            "example": "12/05/2022"
           },
           "nfse_rps_number": {
             "type": "number",
@@ -4845,7 +5019,7 @@
           },
           "downloaded_at": {
             "type": "string",
-            "example": "11/05/2022"
+            "example": "12/05/2022"
           }
         }
       },
@@ -4933,7 +5107,7 @@
           },
           "certified_validate": {
             "type": "string",
-            "example": "11/05/2022"
+            "example": "12/05/2022"
           },
           "certified_password": {
             "type": "string",

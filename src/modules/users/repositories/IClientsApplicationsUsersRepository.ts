@@ -6,6 +6,7 @@ export default interface IClientsApplicationsUsersRepository {
   findById(id: number): Promise<ClientApplicationUser | undefined>;
   findByEmail(email: string): Promise<ClientApplicationUser | undefined>;
   findByUsername(username: string): Promise<ClientApplicationUser | undefined>;
+  findByToken(token: string): Promise<ClientApplicationUser | undefined>;
   create(data: ICreateClientApplicationUserDTO): Promise<ClientApplicationUser>;
   save(
     clientApplicationUser: ClientApplicationUser,

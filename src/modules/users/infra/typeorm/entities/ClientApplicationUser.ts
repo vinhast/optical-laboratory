@@ -36,10 +36,10 @@ class ClientApplicationUser {
   active: boolean;
 
   @Column()
-  user_token?: string;
+  token?: string;
 
   @Column()
-  user_token_validate?: number;
+  token_validate?: Date;
 
   @CreateDateColumn()
   created_at: Date;

@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
 
 import AuthenticateUserService from '@modules/users/services/AuthenticateUserService';
+import AuthenticateClientApplicationUserService from '@modules/users/services/AuthenticateClientApplicationUserService';
 
 export default class SessionController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -16,6 +17,27 @@ export default class SessionController {
 
     return response.json({
       user: classToClass(user),
+      token,
+      menus: classToClass(menus),
+    });
+  }
+  public async createClientApplicationUser(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { username, password } = request.body;
+    const authenticateClientApplicationUser = container.resolve(
+      AuthenticateClientApplicationUserService,
+    );
+
+    const { clientApplicationUser, token, menus } =
+      await authenticateClientApplicationUser.execute({
+        username,
+        password,
+      });
+
+    return response.json({
+      clientApplicationUser: classToClass(clientApplicationUser),
       token,
       menus: classToClass(menus),
     });

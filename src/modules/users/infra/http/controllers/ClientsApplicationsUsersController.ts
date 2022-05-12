@@ -23,8 +23,8 @@ export default class ClientsApplicationsUsersController {
       password,
       active,
       client_application_id,
-      user_token_validate,
-      user_token,
+      token_validate,
+      token,
     } = request.body;
     const createClientApplicationUser = container.resolve(CreateService);
 
@@ -34,8 +34,8 @@ export default class ClientsApplicationsUsersController {
       password,
       active,
       client_application_id,
-      user_token_validate,
-      user_token,
+      token_validate,
+      token,
     });
 
     return response.json(classToClass(clientApplicationUser));
@@ -60,8 +60,8 @@ export default class ClientsApplicationsUsersController {
       password,
       active,
       client_application_id,
-      user_token_validate,
-      user_token,
+      token_validate,
+      token,
     } = request.body;
     const updateClientApplicationUser = container.resolve(UpdateService);
     const clientApplicationUser = await updateClientApplicationUser.execute({
@@ -71,8 +71,8 @@ export default class ClientsApplicationsUsersController {
       password,
       active,
       client_application_id,
-      user_token_validate,
-      user_token,
+      token_validate,
+      token,
     });
 
     return response.json(classToClass(clientApplicationUser));

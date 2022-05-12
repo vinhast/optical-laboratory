@@ -18,6 +18,28 @@ class MenusRepository
     this.ormRepository = repository;
   }
 
+  public async findAll(): Promise<Menu[]> {
+    const menus = await this.ormRepository.find();
+    return menus;
+  }
+
+  public async findById(id: number): Promise<Menu | undefined> {
+    const menu = await this.ormRepository.findOne(id);
+    return menu;
+  }
+
+  public async findByParentId(parent_id: number): Promise<Menu[]> {
+    const menus = await this.ormRepository.find({
+      where: { parent_id },
+    });
+    return menus;
+  }
+
+  public async findByName(name: string): Promise<Menu | undefined> {
+    const menu = await this.ormRepository.findOne({ name });
+    return menu;
+  }
+
   public async create(menuData: ICreateMenuDTO): Promise<Menu> {
     const menu = this.ormRepository.create(menuData);
 

@@ -24,6 +24,7 @@ class ClientsApplicationsUsersRepository
   ): Promise<ClientApplicationUser | undefined> {
     const clientApplicationUser = await this.ormRepository.findOne({
       where: { email },
+      relations: ['clientApplication'],
     });
     return clientApplicationUser;
   }
@@ -33,6 +34,7 @@ class ClientsApplicationsUsersRepository
   ): Promise<ClientApplicationUser | undefined> {
     const clientApplicationUser = await this.ormRepository.findOne({
       where: { username },
+      relations: ['clientApplication'],
     });
     return clientApplicationUser;
   }
@@ -40,7 +42,20 @@ class ClientsApplicationsUsersRepository
   public async findById(
     id: number,
   ): Promise<ClientApplicationUser | undefined> {
-    const clientApplicationUser = await this.ormRepository.findOne(id);
+    const clientApplicationUser = await this.ormRepository.findOne(id, {
+      relations: ['clientApplication'],
+    });
+    return clientApplicationUser;
+  }
+
+  public async findByToken(
+    token: string,
+  ): Promise<ClientApplicationUser | undefined> {
+    const clientApplicationUser = await this.ormRepository.findOne({
+      where: {
+        token,
+      },
+    });
     return clientApplicationUser;
   }
 

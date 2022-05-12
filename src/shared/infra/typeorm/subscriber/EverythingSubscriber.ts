@@ -37,13 +37,13 @@ interface IValueObject {
   [key: string]: string;
 }
 
-const notNormalizedEntities = ['AuditLog', 'Menu'];
 const notAutoIncrementEntities = [
   'AuditLog',
   'Menu',
   'ClientApplication',
   'ClientApplicationUser',
 ];
+const notGetChangesFields = ['password', 'token', 'token_validate'];
 
 @EventSubscriber()
 export default class EverythingSubscriber implements EntitySubscriberInterface {
@@ -52,21 +52,16 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
    */
   async beforeInsert(event: InsertEvent<any>) {
     const nameEntity = event.metadata.name;
-    if (!notNormalizedEntities.includes(nameEntity)) {
-      const keys = Object.keys(event.entity);
-      keys.map(key => {
-        if (
-          event.entity[key] &&
-          event.entity[key].toString().includes('GMT') &&
-          moment(event.entity[key], moment.ISO_8601, true).isValid()
-        ) {
-          event.entity[key] = addHours(event.entity[key], 3);
-        }
-        if (typeof event.entity[key] === 'string') {
-          event.entity[key] = this.sanitizeValue(event.entity[key]);
-        }
-      });
-    }
+    const keys = Object.keys(event.entity);
+    keys.map(key => {
+      if (
+        event.entity[key] &&
+        event.entity[key].toString().includes('GMT') &&
+        moment(event.entity[key], moment.ISO_8601, true).isValid()
+      ) {
+        event.entity[key] = addHours(event.entity[key], 3);
+      }
+    });
     if (!notAutoIncrementEntities.includes(nameEntity)) {
       const userData = httpContext.get('user');
       const lastRegister: any = await event.manager
@@ -87,22 +82,16 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
    * Called before entity insertion.
    */
   beforeUpdate(event: UpdateEvent<any>) {
-    const nameEntity = event.metadata.name;
-    if (!notNormalizedEntities.includes(nameEntity)) {
-      const keys = Object.keys(event.entity);
-      keys.map(key => {
-        if (
-          event.entity[key] &&
-          event.entity[key].toString().includes('GMT') &&
-          moment(event.entity[key], moment.ISO_8601, true).isValid()
-        ) {
-          event.entity[key] = addHours(event.entity[key], 3);
-        }
-        if (typeof event.entity[key] === 'string') {
-          event.entity[key] = this.sanitizeValue(event.entity[key]);
-        }
-      });
-    }
+    const keys = Object.keys(event.entity);
+    keys.map(key => {
+      if (
+        event.entity[key] &&
+        event.entity[key].toString().includes('GMT') &&
+        moment(event.entity[key], moment.ISO_8601, true).isValid()
+      ) {
+        event.entity[key] = addHours(event.entity[key], 3);
+      }
+    });
   }
 
   /**
@@ -157,7 +146,7 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
       let type = 'update';
       if (event.updatedColumns.length > 0) {
         event.updatedColumns.forEach(value => {
-          if (value.propertyName !== 'password') {
+          if (!notGetChangesFields.includes(value.propertyName)) {
             const field = value.propertyName;
             const valueBefore = value.getEntityValue(event.databaseEntity);
             const valueAfter = value.getEntityValue(event.entity);
@@ -232,30 +221,5 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
     } catch (err) {
       return false;
     }
-  }
-
-  sanitizeValue(str: string): String {
-    let value: string;
-    if (this.hasJsonStructure(str)) {
-      const object: IValueObject = JSON.parse(str);
-      Object.entries(object).forEach(([k, v]) => {
-        if (typeof v === 'string') {
-          object[k] = v
-            .toUpperCase()
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .replace(/[^\w\s]/gi, '')
-            .trim();
-        }
-      });
-      value = JSON.stringify(object);
-    } else {
-      value = str
-        .toUpperCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .trim();
-    }
-    return value;
   }
 }

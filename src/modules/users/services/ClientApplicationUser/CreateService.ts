@@ -12,8 +12,8 @@ interface IRequest {
   username: string;
   password: string;
   active: boolean;
-  user_token?: string;
-  user_token_validate?: number;
+  token?: string;
+  token_validate?: Date;
 }
 
 @injectable()
@@ -33,8 +33,8 @@ class CreateService {
     password,
     active,
     client_application_id,
-    user_token_validate,
-    user_token,
+    token_validate,
+    token,
   }: IRequest): Promise<ClientApplicationUser> {
     let clientApplicationUser =
       await this.clientsApplicationsUsersRepository.findByUsername(username);
@@ -51,8 +51,8 @@ class CreateService {
         password: hashedPassword,
         active,
         client_application_id,
-        user_token_validate,
-        user_token,
+        token_validate,
+        token,
       });
 
     await this.cacheProvider.invalidatePrefix('clients-applications-user-list');

@@ -5,7 +5,8 @@ import IParseMailTemplateDTO from '@shared/contanier/providers/MailTemplateProvi
 import IMailTemplateProvider from '@shared/contanier/providers/MailTemplateProvider/models/IMailTemplateProvider';
 
 export default class HandlebarsMailTemplateProvider
-  implements IMailTemplateProvider {
+  implements IMailTemplateProvider
+{
   public async paser({
     file,
     variables,

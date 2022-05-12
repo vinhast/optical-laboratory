@@ -29,20 +29,24 @@ export default class SESMailProvider implements IMailProvider {
     to,
     from,
     subject,
+    cc,
+    bcc,
+    replyTo,
     templateData,
+    attachments,
   }: ISendMailDTO): Promise<void> {
     const { name, email } = mailConfig.defaults.from;
-
     await this.client.sendMail({
       from: {
         name: from?.name || name,
         address: from?.email || email,
       },
-      to: {
-        name: to.name,
-        address: to.email,
-      },
+      to: to.email,
+      cc,
+      bcc,
+      replyTo,
       subject,
+      attachments,
       html: await this.mailTemplateProvider.paser(templateData),
     });
   }
