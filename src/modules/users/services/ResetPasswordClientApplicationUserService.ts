@@ -12,7 +12,7 @@ interface IReaquest {
 }
 
 @injectable()
-class ResetPasswordService {
+class ResetPasswordClientApplicationUserService {
   constructor(
     @inject('ClientsApplicationsUsersRepository')
     private clientsApplicationsUsersRepository: IClientsApplicationsUsersRepository,
@@ -31,7 +31,6 @@ class ResetPasswordService {
     const [date, time] = `${clientApplicationUser.token_validate}`.split(' ');
     const [day, month, year] = date.split('/');
     const expiresDate = moment(`${year}-${month}-${day} ${time}`);
-
     if (moment().diff(expiresDate, 'hour') > expiresInForgotToken) {
       throw new AppError('token expired');
     }
@@ -44,4 +43,4 @@ class ResetPasswordService {
   }
 }
 
-export default ResetPasswordService;
+export default ResetPasswordClientApplicationUserService;

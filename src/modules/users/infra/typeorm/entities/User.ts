@@ -37,6 +37,12 @@ class User extends MainEntity {
   @Column()
   active: boolean;
 
+  @Column()
+  token?: string;
+
+  @Column()
+  token_validate?: Date;
+
   @ManyToOne(() => Role)
   @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
   user: User;

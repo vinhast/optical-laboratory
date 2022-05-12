@@ -49,8 +49,6 @@ class OrdersRepository extends MainRepository implements IOrdersRepository {
   public save(order: Order): Promise<Order> {
     return this.ormRepository.save(order);
   }
-
-
 }
 
 export default OrdersRepository;

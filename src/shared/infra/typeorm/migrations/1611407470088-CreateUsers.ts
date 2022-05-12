@@ -58,6 +58,16 @@ export default class CreateUsers1611407470088 implements MigrationInterface {
               default: true,
             },
             {
+              name: 'token',
+              type: 'varchar',
+              isNullable: true,
+            },
+            {
+              name: 'token_validate',
+              type: 'timestamp',
+              isNullable: true,
+            },
+            {
               name: 'last_acess_at',
               type: 'timestamp',
               isNullable: true,

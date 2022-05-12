@@ -6,42 +6,43 @@ import IMailProvider from '@shared/contanier/providers/MailProvider/models/IMail
 import authConfig from '@config/auth';
 import { sign } from 'jsonwebtoken';
 import moment from 'moment';
-import IClientsApplicationsUsersRepository from '../repositories/IClientsApplicationsUsersRepository';
+import IUsersRepository from '../repositories/IUsersRepository';
 
 interface IRequest {
   username: string;
 }
 
 @injectable()
-class SendForgotPasswordEmailService {
+class SendForgotPasswordUserService {
   constructor(
-    @inject('ClientsApplicationsUsersRepository')
-    private clientsApplicationsUsersRepository: IClientsApplicationsUsersRepository,
+    @inject('UsersRepository')
+    private usersRepository: IUsersRepository,
     @inject('MailProvider')
     private mailProvider: IMailProvider,
   ) {}
 
   public async execute({ username }: IRequest): Promise<void> {
-    const clientApplicationUser =
-      await this.clientsApplicationsUsersRepository.findByUsername(username);
-    if (!clientApplicationUser) {
+    const user = await this.usersRepository.findByUsername(username);
+    if (!user) {
       throw new AppError('Username not exists.');
     }
 
     const { secret, expiresIn, expiresInForgotToken } = authConfig.jwt;
-    const subject = `${clientApplicationUser.id}#${clientApplicationUser.role_id}#${clientApplicationUser.client_application_id}`;
+    const subject = `${user.id}#${user.role_id}#${user.client_application_id}`;
     const token = sign({}, secret, {
       subject,
       expiresIn,
     });
     const expiresDate = new Date(
-      moment().add(expiresInForgotToken, 'hour').format('YYYY-MM-DD HH:mm:s'),
+      moment()
+        .add(expiresInForgotToken, 'hour')
+        .format('YYYY-MM-DDTHH:mm:ss[Z]'),
     );
-    await this.clientsApplicationsUsersRepository.save({
-      ...clientApplicationUser,
-      token,
-      token_validate: expiresDate,
-    });
+
+    user.token = token;
+    user.token_validate = expiresDate;
+
+    await this.usersRepository.save(user);
 
     const forgotPawwordTemplate = path.resolve(
       __dirname,
@@ -51,14 +52,14 @@ class SendForgotPasswordEmailService {
     );
     await this.mailProvider.sendMail({
       to: {
-        name: clientApplicationUser.clientApplication.name,
-        email: clientApplicationUser.clientApplication.email,
+        name: user.name,
+        email: user.email,
       },
       subject: '[opticalLaboratory] Recuperação de senha',
       templateData: {
         file: forgotPawwordTemplate,
         variables: {
-          name: clientApplicationUser.clientApplication.name,
+          name: user.name,
           link: `http://localhost:3000/reset_password=${token}`,
         },
       },
@@ -66,4 +67,4 @@ class SendForgotPasswordEmailService {
   }
 }
 
-export default SendForgotPasswordEmailService;
+export default SendForgotPasswordUserService;

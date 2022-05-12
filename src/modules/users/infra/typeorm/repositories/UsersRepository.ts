@@ -29,6 +29,15 @@ class UsersRepository extends MainRepository implements IUsersRepository {
     return user;
   }
 
+  public async findByToken(token: string): Promise<User | undefined> {
+    const user = await this.ormRepository.findOne({
+      where: {
+        token,
+      },
+    });
+    return user;
+  }
+
   public async create(userData: ICreateUserDTO): Promise<User> {
     const user = this.ormRepository.create(userData);
 
