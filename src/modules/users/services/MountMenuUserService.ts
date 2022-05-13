@@ -84,7 +84,7 @@ class MountMenuUserService {
         return {
           ...menu,
           url,
-          permission,
+          permission: true,
         };
       });
       return Promise.all(promises);
@@ -99,7 +99,7 @@ class MountMenuUserService {
     const checkedMenus = await checkMenuPermission(allMenus);
     const menus = nestMenus(checkedMenus);
     const filterEmptyMenus = filterEmptyMenu(menus);
-    return filterEmptyMenus;
+    return menus;
   }
 }
 

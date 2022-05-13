@@ -90,7 +90,7 @@ financialMovimentOrderRouter.post(
   },
 );
 financialMovimentOrderRouter.put(
-  '/update/',
+  '/update/:id',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),

@@ -81,7 +81,7 @@ fiscalSettingRouter.post('/', fiscalSettingController.create, () => {
     } */
 });
 fiscalSettingRouter.put(
-  '/update/',
+  '/update/:id',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
