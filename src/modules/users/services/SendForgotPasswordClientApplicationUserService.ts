@@ -62,7 +62,7 @@ class SendForgotPasswordClientApplicationUserService {
         file: forgotPawwordTemplate,
         variables: {
           name: clientApplicationUser.clientApplication.name,
-          link: `${process.env.API_WEB_URL}/forgot?token=${token}`,
+          link: `${process.env.APP_WEB_URL}/forgot?token=${token}`,
         },
       },
     });
