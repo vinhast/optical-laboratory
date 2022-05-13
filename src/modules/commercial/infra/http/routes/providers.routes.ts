@@ -8,7 +8,7 @@ const providersController = new ProvidersController();
 
 providersRouter.get('/', providersController.list, () => {
   /*  
-        #swagger.path = '/providers'
+        #swagger.path = '/commercial/providers'
         #swagger.tags = ['Provider']
         #swagger.description = "List Providers"
         #swagger.security = [{
@@ -77,7 +77,7 @@ providersRouter.post(
   providersController.create,
   () => {
     /*  
-        #swagger.path = '/providers'
+        #swagger.path = '/commercial/providers'
         #swagger.tags = ['Provider']
         #swagger.description = "Create Provider "
         #swagger.security = [{

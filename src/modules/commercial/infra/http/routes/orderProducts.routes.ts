@@ -8,7 +8,7 @@ const orderProductsController = new OrderProductsController();
 
 orderProductsRouter.get('/', orderProductsController.list, () => {
   /*  
-      #swagger.path = '/orderProducts'
+      #swagger.path = '/commercial/orderProducts'
       #swagger.tags = ['OrderProduct']
       #swagger.description = "List order products"
       #swagger.security = [{
@@ -72,7 +72,7 @@ orderProductsRouter.post(
   orderProductsController.create,
   () => {
     /*  
-        #swagger.path = '/orderProducts'
+        #swagger.path = '/commercial/orderProducts'
         #swagger.tags = ['OrderProduct']
         #swagger.description = "Create order product"
         #swagger.security = [{

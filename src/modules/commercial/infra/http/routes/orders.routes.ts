@@ -8,7 +8,7 @@ const ordersController = new OrdersController();
 
 ordersRouter.get('/', ordersController.list, () => {
   /*  
-        #swagger.path = '/orders'
+        #swagger.path = '/commercial/orders'
         #swagger.tags = ['Order']
         #swagger.description = "List orders"
         #swagger.security = [{
@@ -79,7 +79,7 @@ ordersRouter.post(
   ordersController.create,
   () => {
     /*  
-        #swagger.path = '/orders'
+        #swagger.path = '/commercial/orders'
         #swagger.tags = ['Order']
         #swagger.description = "Create order "
         #swagger.security = [{
