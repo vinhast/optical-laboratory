@@ -9,7 +9,7 @@ const productsController = new ProductsController();
 productsRouter.get('/', productsController.list, () => {
   /* 
      #swagger.tags = ['Product']
-     #swagger.path = '/products'
+     #swagger.path = '/warehouse/products'
      #swagger.description = "List products"
          #swagger.security = [{
         "bearerAuth": []
@@ -34,7 +34,7 @@ productsRouter.get(
   () => {
     /* 
      #swagger.tags = ['Product']
-     #swagger.path = '/products/view/{id}'
+     #swagger.path = '/warehouse/products/view/{id}'
      #swagger.description = "View product"
          #swagger.security = [{
         "bearerAuth": []
@@ -68,7 +68,7 @@ productsRouter.post(
   () => {
     /* 
      #swagger.tags = ['Product']
-     #swagger.path = '/products'
+     #swagger.path = '/warehouse/products'
      #swagger.description = "Create product"
          #swagger.security = [{
         "bearerAuth": []
@@ -114,7 +114,7 @@ productsRouter.put(
   () => {
     /* 
      #swagger.tags = ['Product']
-     #swagger.path = '/products/update/{id}'
+     #swagger.path = '/warehouse/products/update/{id}'
      #swagger.description = "Update product"
          #swagger.security = [{
         "bearerAuth": []
@@ -155,7 +155,7 @@ productsRouter.delete(
   () => {
     /* 
      #swagger.tags = ['Product']
-     #swagger.path = '/products/{id}'
+     #swagger.path = '/warehouse/products/{id}'
      #swagger.description = "Delete product"
          #swagger.security = [{
         "bearerAuth": []

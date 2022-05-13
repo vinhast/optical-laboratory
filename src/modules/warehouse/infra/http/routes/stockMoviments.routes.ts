@@ -9,7 +9,7 @@ const stockMovimentsController = new StockMovimentsController();
 stockMovimentsRouter.get('/', stockMovimentsController.list, () => {
   /* 
      #swagger.tags = ['StockMoviment']
-     #swagger.path = '/stockMoviments'
+     #swagger.path = '/warehouse/stockMoviments'
      #swagger.description = "List stock moviments"
          #swagger.security = [{
         "bearerAuth": []
@@ -34,7 +34,7 @@ stockMovimentsRouter.get(
   () => {
     /* 
      #swagger.tags = ['StockMoviment']
-     #swagger.path = '/stockMoviments/view/{id}'
+     #swagger.path = '/warehouse/stockMoviments/view/{id}'
      #swagger.description = "View stock moviment"
          #swagger.security = [{
         "bearerAuth": []
@@ -69,7 +69,7 @@ stockMovimentsRouter.post(
   () => {
     /* 
      #swagger.tags = ['StockMoviment']
-     #swagger.path = '/stockMoviments'
+     #swagger.path = '/warehouse/stockMoviments'
      #swagger.description = "Create stock moviment"
          #swagger.security = [{
         "bearerAuth": []
@@ -116,7 +116,7 @@ stockMovimentsRouter.put(
   () => {
     /* 
      #swagger.tags = ['StockMoviment']
-     #swagger.path = '/stockMoviments/update/{id}'
+     #swagger.path = '/warehouse/stockMoviments/update/{id}'
      #swagger.description = "Update stock moviment"
          #swagger.security = [{
         "bearerAuth": []
@@ -157,7 +157,7 @@ stockMovimentsRouter.delete(
   () => {
     /* 
      #swagger.tags = ['StockMoviment']
-     #swagger.path = '/stockMoviments/{id}'
+     #swagger.path = '/warehouse/stockMoviments/{id}'
      #swagger.description = "Delete stock moviment"
          #swagger.security = [{
         "bearerAuth": []

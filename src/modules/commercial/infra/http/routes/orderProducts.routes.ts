@@ -32,7 +32,7 @@ orderProductsRouter.get(
   orderProductsController.get,
   () => {
     /*  
-        #swagger.path = '/orderProducts/view/{id}'
+        #swagger.path = '/commercial/orderProducts/view/{id}'
         #swagger.tags = ['OrderProduct']
         #swagger.description = "View order product"
         #swagger.security = [{
@@ -122,7 +122,7 @@ orderProductsRouter.put(
   orderProductsController.update,
   () => {
     /*  
-        #swagger.path = '/orderProducts/update/{id}'
+        #swagger.path = '/commercial/orderProducts/update/{id}'
         #swagger.tags = ['OrderProduct']
         #swagger.description = "Update order product"
         #swagger.security = [{
@@ -162,7 +162,7 @@ orderProductsRouter.delete(
   orderProductsController.delete,
   () => {
     /*  
-        #swagger.path = '/orderProducts/{id}'
+        #swagger.path = '/commercial/orderProducts/{id}'
         #swagger.tags = ['OrderProduct']
         #swagger.description = "Delete order product"
         #swagger.security = [{

@@ -9,7 +9,7 @@ const unitTypesController = new UnitTypesController();
 unitTypesRouter.get('/', unitTypesController.list, () => {
   /* 
      #swagger.tags = ['UnitType']
-     #swagger.path = '/unitTypes'
+     #swagger.path = '/warehouse/unitTypes'
      #swagger.description = "List unit types"
          #swagger.security = [{
         "bearerAuth": []
@@ -33,7 +33,7 @@ unitTypesRouter.get(
   () => {
     /* 
      #swagger.tags = ['UnitType']
-     #swagger.path = '/unitTypes/view/{id}'
+     #swagger.path = '/warehouse/unitTypes/view/{id}'
      #swagger.description = "View unit type"
          #swagger.security = [{
         "bearerAuth": []
@@ -62,7 +62,7 @@ unitTypesRouter.post(
   () => {
     /* 
      #swagger.tags = ['UnitType']
-     #swagger.path = '/unitTypes'
+     #swagger.path = '/warehouse/unitTypes'
      #swagger.description = "Create unit type"
          #swagger.security = [{
         "bearerAuth": []
@@ -103,7 +103,7 @@ unitTypesRouter.put(
   () => {
     /* 
      #swagger.tags = ['UnitType']
-     #swagger.path = '/unitTypes/update/{id}'
+     #swagger.path = '/warehouse/unitTypes/update/{id}'
      #swagger.description = "Update unit type"
          #swagger.security = [{
         "bearerAuth": []
@@ -144,7 +144,7 @@ unitTypesRouter.delete(
   () => {
     /* 
      #swagger.tags = ['UnitType']
-     #swagger.path = '/unitTypes/{id}'
+     #swagger.path = '/warehouse/unitTypes/{id}'
      #swagger.description = "Delete unit type"
          #swagger.security = [{
         "bearerAuth": []

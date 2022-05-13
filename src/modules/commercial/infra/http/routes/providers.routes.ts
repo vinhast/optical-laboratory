@@ -33,7 +33,7 @@ providersRouter.get(
   providersController.get,
   () => {
     /*  
-        #swagger.path = '/providers/view/{id}'
+        #swagger.path = '/commercial/providers/view/{id}'
         #swagger.tags = ['Provider']
         #swagger.description = "View Provider "
         #swagger.security = [{
@@ -132,7 +132,7 @@ providersRouter.put(
   providersController.update,
   () => {
     /*  
-        #swagger.path = '/providers/update/{id}'
+        #swagger.path = '/commercial/providers/update/{id}'
         #swagger.tags = ['Provider']
         #swagger.description = "Update Provider"
         #swagger.security = [{
@@ -172,7 +172,7 @@ providersRouter.delete(
   providersController.delete,
   () => {
     /*  
-        #swagger.path = '/providers/{id}'
+        #swagger.path = '/commercial/providers/{id}'
         #swagger.tags = ['Provider']
         #swagger.description = "Delete Provider"
         #swagger.security = [{

@@ -33,7 +33,7 @@ ordersRouter.get(
   ordersController.get,
   () => {
     /*  
-        #swagger.path = '/orders/view/{id}'
+        #swagger.path = '/commercial/orders/view/{id}'
         #swagger.tags = ['Order']
         #swagger.description = "View order "
         #swagger.security = [{
@@ -136,7 +136,7 @@ ordersRouter.put(
   ordersController.update,
   () => {
     /*  
-        #swagger.path = '/orders/update/{id}'
+        #swagger.path = '/commercial/orders/update/{id}'
         #swagger.tags = ['Order']
         #swagger.description = "Update order"
         #swagger.security = [{
@@ -176,7 +176,7 @@ ordersRouter.delete(
   ordersController.delete,
   () => {
     /*  
-        #swagger.path = '/orders/{id}'
+        #swagger.path = '/commercial/orders/{id}'
         #swagger.tags = ['Order']
         #swagger.description = "Delete order"
         #swagger.security = [{

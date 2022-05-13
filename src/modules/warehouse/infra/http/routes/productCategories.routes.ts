@@ -9,7 +9,7 @@ const productCategoriesController = new ProductCategoriesController();
 productCategoriesRouter.get('/', productCategoriesController.list, () => {
   /* 
      #swagger.tags = ['ProductCategory']
-     #swagger.path = '/productCategories'
+     #swagger.path = '/warehouse/productCategories'
      #swagger.description = "List categories"
          #swagger.security = [{
         "bearerAuth": []
@@ -34,7 +34,7 @@ productCategoriesRouter.get(
   () => {
     /* 
      #swagger.tags = ['ProductCategory']
-     #swagger.path = '/productCategories/view/{id}'
+     #swagger.path = '/warehouse/productCategories/view/{id}'
      #swagger.description = "View category"
          #swagger.security = [{
         "bearerAuth": []
@@ -75,7 +75,7 @@ productCategoriesRouter.post(
   () => {
     /* 
      #swagger.tags = ['ProductCategory']
-     #swagger.path = '/productCategories'
+     #swagger.path = '/warehouse/productCategories'
      #swagger.description = "Create category"
          #swagger.security = [{
         "bearerAuth": []
@@ -128,7 +128,7 @@ productCategoriesRouter.put(
   () => {
     /* 
      #swagger.tags = ['ProductCategory']
-     #swagger.path = '/productCategories/update/{id}'
+     #swagger.path = '/warehouse/productCategories/update/{id}'
      #swagger.description = "Update category"
          #swagger.security = [{
         "bearerAuth": []
@@ -169,7 +169,7 @@ productCategoriesRouter.delete(
   () => {
     /* 
      #swagger.tags = ['ProductCategory']
-     #swagger.path = '/productCategories/{id}'
+     #swagger.path = '/warehouse/productCategories/{id}'
      #swagger.description = "Delete category"
          #swagger.security = [{
         "bearerAuth": []

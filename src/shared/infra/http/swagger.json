@@ -1821,7 +1821,7 @@
         }
       }
     },
-    "/orderProducts/view/{id}": {
+    "/commercial/orderProducts/view/{id}": {
       "get": {
         "tags": [
           "OrderProduct"
@@ -1855,7 +1855,7 @@
         ]
       }
     },
-    "/orderProducts/update/{id}": {
+    "/commercial/orderProducts/update/{id}": {
       "put": {
         "tags": [
           "OrderProduct"
@@ -1899,7 +1899,7 @@
         }
       }
     },
-    "/orderProducts/{id}": {
+    "/commercial/orderProducts/{id}": {
       "delete": {
         "tags": [
           "OrderProduct"
@@ -1991,7 +1991,7 @@
         }
       }
     },
-    "/orders/view/{id}": {
+    "/commercial/orders/view/{id}": {
       "get": {
         "tags": [
           "Order"
@@ -2025,7 +2025,7 @@
         ]
       }
     },
-    "/orders/update/{id}": {
+    "/commercial/orders/update/{id}": {
       "put": {
         "tags": [
           "Order"
@@ -2069,7 +2069,7 @@
         }
       }
     },
-    "/orders/{id}": {
+    "/commercial/orders/{id}": {
       "delete": {
         "tags": [
           "Order"
@@ -2161,7 +2161,7 @@
         }
       }
     },
-    "/providers/view/{id}": {
+    "/commercial/providers/view/{id}": {
       "get": {
         "tags": [
           "Provider"
@@ -2195,7 +2195,7 @@
         ]
       }
     },
-    "/providers/update/{id}": {
+    "/commercial/providers/update/{id}": {
       "put": {
         "tags": [
           "Provider"
@@ -2239,7 +2239,7 @@
         }
       }
     },
-    "/providers/{id}": {
+    "/commercial/providers/{id}": {
       "delete": {
         "tags": [
           "Provider"
@@ -2331,7 +2331,7 @@
         }
       }
     },
-    "/clients/view/{id}": {
+    "/commercial/clients/view/{id}": {
       "get": {
         "tags": [
           "Client"
@@ -2365,7 +2365,7 @@
         ]
       }
     },
-    "/clients/update/{id}": {
+    "/commercial/clients/update/{id}": {
       "put": {
         "tags": [
           "Client"
@@ -2409,7 +2409,7 @@
         }
       }
     },
-    "/clients/{id}": {
+    "/commercial/clients/{id}": {
       "delete": {
         "tags": [
           "Client"
@@ -2446,7 +2446,7 @@
         ]
       }
     },
-    "/products": {
+    "/warehouse/products": {
       "get": {
         "tags": [
           "Product"
@@ -2501,7 +2501,7 @@
         }
       }
     },
-    "/products/view/{id}": {
+    "/warehouse/products/view/{id}": {
       "get": {
         "tags": [
           "Product"
@@ -2535,7 +2535,7 @@
         ]
       }
     },
-    "/products/update/{id}": {
+    "/warehouse/products/update/{id}": {
       "put": {
         "tags": [
           "Product"
@@ -2579,7 +2579,7 @@
         }
       }
     },
-    "/products/{id}": {
+    "/warehouse/products/{id}": {
       "delete": {
         "tags": [
           "Product"
@@ -2613,7 +2613,7 @@
         ]
       }
     },
-    "/productCategories": {
+    "/warehouse/productCategories": {
       "get": {
         "tags": [
           "ProductCategory"
@@ -2668,7 +2668,7 @@
         }
       }
     },
-    "/productCategories/view/{id}": {
+    "/warehouse/productCategories/view/{id}": {
       "get": {
         "tags": [
           "ProductCategory"
@@ -2702,7 +2702,7 @@
         ]
       }
     },
-    "/productCategories/update/{id}": {
+    "/warehouse/productCategories/update/{id}": {
       "put": {
         "tags": [
           "ProductCategory"
@@ -2746,7 +2746,7 @@
         }
       }
     },
-    "/productCategories/{id}": {
+    "/warehouse/productCategories/{id}": {
       "delete": {
         "tags": [
           "ProductCategory"
@@ -2780,7 +2780,7 @@
         ]
       }
     },
-    "/stockMoviments": {
+    "/warehouse/stockMoviments": {
       "get": {
         "tags": [
           "StockMoviment"
@@ -2835,7 +2835,7 @@
         }
       }
     },
-    "/stockMoviments/view/{id}": {
+    "/warehouse/stockMoviments/view/{id}": {
       "get": {
         "tags": [
           "StockMoviment"
@@ -2869,7 +2869,7 @@
         ]
       }
     },
-    "/stockMoviments/update/{id}": {
+    "/warehouse/stockMoviments/update/{id}": {
       "put": {
         "tags": [
           "StockMoviment"
@@ -2913,7 +2913,7 @@
         }
       }
     },
-    "/stockMoviments/{id}": {
+    "/warehouse/stockMoviments/{id}": {
       "delete": {
         "tags": [
           "StockMoviment"
@@ -2950,7 +2950,7 @@
         ]
       }
     },
-    "/unitTypes": {
+    "/warehouse/unitTypes": {
       "get": {
         "tags": [
           "UnitType"
@@ -3005,7 +3005,7 @@
         }
       }
     },
-    "/unitTypes/view/{id}": {
+    "/warehouse/unitTypes/view/{id}": {
       "get": {
         "tags": [
           "UnitType"
@@ -3039,7 +3039,7 @@
         ]
       }
     },
-    "/unitTypes/update/{id}": {
+    "/warehouse/unitTypes/update/{id}": {
       "put": {
         "tags": [
           "UnitType"
@@ -3083,7 +3083,7 @@
         }
       }
     },
-    "/unitTypes/{id}": {
+    "/warehouse/unitTypes/{id}": {
       "delete": {
         "tags": [
           "UnitType"

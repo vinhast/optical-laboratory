@@ -76,7 +76,7 @@ clientsRouter.get(
   clientsController.get,
   () => {
     /*  
-        #swagger.path = '/clients/view/{id}'
+        #swagger.path = '/commercial/clients/view/{id}'
         #swagger.tags = ['Client']
         #swagger.description = "View client"
         #swagger.security = [{
@@ -107,7 +107,7 @@ clientsRouter.put(
   clientsController.update,
   () => {
     /*  
-      #swagger.path = '/clients/update/{id}'
+      #swagger.path = '/commercial/clients/update/{id}'
       #swagger.tags = ['Client']
       #swagger.description = "Update client"
       #swagger.security = [{
@@ -148,7 +148,7 @@ clientsRouter.delete(
   clientsController.delete,
   () => {
     /*  
-        #swagger.path = '/clients/{id}'
+        #swagger.path = '/commercial/clients/{id}'
         #swagger.tags = ['Client']
         #swagger.description = "Delete client"
         #swagger.security = [{
