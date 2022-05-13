@@ -8,7 +8,7 @@ const clientsController = new ClientsController();
 
 clientsRouter.get('/', clientsController.list, () => {
   /*  
-        #swagger.path = '/clients'
+        #swagger.path = '/commercial/clients'
         #swagger.tags = ['Client']
         #swagger.description = "List clients"
         #swagger.security = [{
@@ -35,7 +35,7 @@ clientsRouter.post(
   clientsController.create,
   () => {
     /*  
-        #swagger.path = '/clients'
+        #swagger.path = '/commercial/clients'
         #swagger.tags = ['Client']
         #swagger.description = "Create client"
         #swagger.security = [{

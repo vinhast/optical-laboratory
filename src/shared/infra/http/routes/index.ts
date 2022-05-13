@@ -8,7 +8,6 @@ import passwordRouter from '@modules/users/infra/http/routes/password.routes';
 import ensureAuthenticated from '@shared/infra/http/middlewares/ensureAuthenticated';
 import checkPermission from '@modules/users/infra/http/routes/checkPermission.route';
 import cacheRouter from '@modules/cache/infra/http/routes/cache.route';
-import clientsRouter from '@modules/commercial/infra/http/routes/clients.routes';
 import orderProductsRouter from '@modules/commercial/infra/http/routes/orderProducts.routes';
 import ordersRouter from '@modules/commercial/infra/http/routes/orders.routes';
 import providersRouter from '@modules/commercial/infra/http/routes/providers.routes';
@@ -20,6 +19,7 @@ import unitTypesRouter from '@modules/warehouse/infra/http/routes/unitTypes.rout
 import dataTableRouter from '@shared/infra/http/routes/dataTable.routes';
 import clientsApplicationsUsersRouter from '@modules/users/infra/http/routes/clientsApplicationsUsers.routes';
 import clientApplicationsRouter from '@shared/infra/http/routes/clientApplications.routes';
+import commercialRouter from '@modules/commercial/infra/http/routes/commercial.routes';
 
 const routes = Router();
 
@@ -32,10 +32,10 @@ routes.use('/cache', cacheRouter);
 routes.use(ensureAuthenticated);
 routes.use('/users', usersRouter);
 routes.use('/financial', financialRouter);
+routes.use('/commercial', commercialRouter);
 routes.use('/dataTable', dataTableRouter);
 routes.use('/menus', menusRouter);
 
-routes.use('/clients', clientsRouter);
 routes.use('/orderProducts', orderProductsRouter);
 routes.use('/orders', ordersRouter);
 routes.use('/providers', providersRouter);
