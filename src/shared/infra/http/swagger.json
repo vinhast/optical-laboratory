@@ -1175,6 +1175,176 @@
         ]
       }
     },
+    "/users/clientsApplicationsUsers": {
+      "get": {
+        "tags": [
+          "ClientsApplicationsUsers"
+        ],
+        "description": "List clients applications users",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "ClientsApplicationsUsers"
+        ],
+        "description": "Create client application user",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientApplicationUser"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/clientsApplicationsUsers/view/{id}": {
+      "get": {
+        "tags": [
+          "ClientsApplicationsUsers"
+        ],
+        "description": "View client application user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users/clientsApplicationsUsers/update/{id}": {
+      "put": {
+        "tags": [
+          "ClientsApplicationsUsers"
+        ],
+        "description": "Update client application user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientApplicationUser"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/clientsApplicationsUsers/{id}": {
+      "delete": {
+        "tags": [
+          "ClientsApplicationsUsers"
+        ],
+        "description": "Delete client application user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/checkPermission": {
       "post": {
         "tags": [
@@ -1538,176 +1708,6 @@
             }
           }
         }
-      }
-    },
-    "/clientsApplicationsUsers": {
-      "get": {
-        "tags": [
-          "ClientsApplicationsUsers"
-        ],
-        "description": "List clients applications users",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not found"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      },
-      "post": {
-        "tags": [
-          "ClientsApplicationsUsers"
-        ],
-        "description": "Create client application user",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Bad request"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ClientApplicationUser"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/clientsApplicationsUsers/view/{id}": {
-      "get": {
-        "tags": [
-          "ClientsApplicationsUsers"
-        ],
-        "description": "View client application user",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not found"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/clientsApplicationsUsers/update/{id}": {
-      "put": {
-        "tags": [
-          "ClientsApplicationsUsers"
-        ],
-        "description": "Update client application user",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Bad request"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ClientApplicationUser"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/clientsApplicationsUsers/{id}": {
-      "delete": {
-        "tags": [
-          "ClientsApplicationsUsers"
-        ],
-        "description": "Delete client application user",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not found"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
       }
     },
     "/cache": {

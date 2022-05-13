@@ -10,7 +10,6 @@ import checkPermission from '@modules/users/infra/http/routes/checkPermission.ro
 import cacheRouter from '@modules/cache/infra/http/routes/cache.route';
 
 import dataTableRouter from '@shared/infra/http/routes/dataTable.routes';
-import clientsApplicationsUsersRouter from '@modules/users/infra/http/routes/clientsApplicationsUsers.routes';
 import clientApplicationsRouter from '@shared/infra/http/routes/clientApplications.routes';
 import commercialRouter from '@modules/commercial/infra/http/routes/commercial.routes';
 import warehouseRouter from '@modules/warehouse/infra/http/routes/warehouse.routes';
@@ -32,6 +31,5 @@ routes.use('/dataTable', dataTableRouter);
 routes.use('/menus', menusRouter);
 
 routes.use('/clientApplications', clientApplicationsRouter);
-routes.use('/clientsApplicationsUsers', clientsApplicationsUsersRouter);
 
 export default routes;

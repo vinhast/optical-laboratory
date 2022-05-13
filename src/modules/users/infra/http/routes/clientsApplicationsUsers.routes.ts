@@ -13,7 +13,7 @@ clientsApplicationsUsersRouter.get(
   () => {
     /*
       #swagger.tags = ['ClientsApplicationsUsers']
-      #swagger.path = '/clientsApplicationsUsers'
+      #swagger.path = '/users/clientsApplicationsUsers'
       #swagger.description = "List clients applications users"
           #swagger.security = [{
         "bearerAuth": []
@@ -47,7 +47,7 @@ clientsApplicationsUsersRouter.post(
   clientsApplicationsUsersController.create,
   () => {
     /*
-    #swagger.path = '/clientsApplicationsUsers'
+    #swagger.path = '/users/clientsApplicationsUsers'
     #swagger.tags = ['ClientsApplicationsUsers']
     #swagger.description = "Create client application user"
     #swagger.security = [{
@@ -87,7 +87,7 @@ clientsApplicationsUsersRouter.get(
   () => {
     /*
      #swagger.tags = ['ClientsApplicationsUsers']
-     #swagger.path = '/clientsApplicationsUsers/view/{id}'
+     #swagger.path = '/users/clientsApplicationsUsers/view/{id}'
      #swagger.description = "View client application user"
          #swagger.security = [{
         "bearerAuth": []
@@ -122,7 +122,7 @@ clientsApplicationsUsersRouter.put(
   () => {
     /*
      #swagger.tags = ['ClientsApplicationsUsers']
-     #swagger.path = '/clientsApplicationsUsers/update/{id}'
+     #swagger.path = '/users/clientsApplicationsUsers/update/{id}'
      #swagger.description = "Update client application user"
          #swagger.security = [{
         "bearerAuth": []
@@ -161,7 +161,7 @@ clientsApplicationsUsersRouter.delete(
   () => {
     /*
      #swagger.tags = ['ClientsApplicationsUsers']
-     #swagger.path = '/clientsApplicationsUsers/{id}'
+     #swagger.path = '/users/clientsApplicationsUsers/{id}'
      #swagger.description = "Delete client application user"
          #swagger.security = [{
         "bearerAuth": []

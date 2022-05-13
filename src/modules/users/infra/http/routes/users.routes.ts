@@ -12,6 +12,7 @@ import profileRouter from './profile.routes';
 import permissionsRouter from './permissions.routes';
 import salesTablesRouter from './salesTables.routes';
 import salesTablesPricesRouter from './salesTablesPrices.routes';
+import clientsApplicationsUsersRouter from './clientsApplicationsUsers.routes';
 
 const usersRouter = Router();
 const upload = multer(uploadConfig.multer);
@@ -233,5 +234,6 @@ usersRouter.use('/profile', profileRouter);
 usersRouter.use('/permissions', permissionsRouter);
 usersRouter.use('/salesTables', salesTablesRouter);
 usersRouter.use('/salesTablesPrices', salesTablesPricesRouter);
+usersRouter.use('/clientsApplicationsUsers', clientsApplicationsUsersRouter);
 
 export default usersRouter;
