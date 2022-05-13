@@ -1,5 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 import path from 'path';
+import 'dotenv/config';
 
 import AppError from '@shared/errors/AppError';
 import IMailProvider from '@shared/contanier/providers/MailProvider/models/IMailProvider';
@@ -61,7 +62,7 @@ class SendForgotPasswordClientApplicationUserService {
         file: forgotPawwordTemplate,
         variables: {
           name: clientApplicationUser.clientApplication.name,
-          link: `http://localhost:3000/reset_password=${token}`,
+          link: `${process.env.API_WEB_URL}/forgot?token=${token}`,
         },
       },
     });
