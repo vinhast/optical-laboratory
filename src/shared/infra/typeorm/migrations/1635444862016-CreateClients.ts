@@ -90,17 +90,17 @@ export class CreateClients1635444862016 implements MigrationInterface {
           },
           {
             name: 'phone_1',
-            type: 'char(13)',
+            type: 'char(14)',
             isNullable: true,
           },
           {
             name: 'phone_2',
-            type: 'char(13)',
+            type: 'char(14)',
             isNullable: true,
           },
           {
             name: 'mobile',
-            type: 'char(13)',
+            type: 'char(14)',
             isNullable: true,
           },
           {
@@ -132,6 +132,11 @@ export class CreateClients1635444862016 implements MigrationInterface {
             name: 'active',
             type: 'char(1)',
             default: '"S"',
+          },
+          {
+            name: 'cnpjSearch',
+            type: 'json',
+            isNullable: true,
           },
           {
             name: 'created_at',

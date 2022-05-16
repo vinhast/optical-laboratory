@@ -15,4 +15,5 @@ export default interface ICreateProviderDTO {
   ibge?: number;
   note?: string;
   active: string;
+  cnpjSearch?: string;
 }

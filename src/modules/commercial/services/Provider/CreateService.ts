@@ -21,6 +21,7 @@ interface IRequest {
   ibge?: number;
   note?: string;
   active: string;
+  cnpjSearch?: string;
 }
 
 @injectable()
@@ -49,6 +50,7 @@ class CreateService {
     ibge,
     note,
     active,
+    cnpjSearch,
   }: IRequest): Promise<Provider> {
     const provider = await this.providersRepository.create({
       company_social_name,
@@ -67,6 +69,7 @@ class CreateService {
       ibge,
       note,
       active,
+      cnpjSearch,
     });
 
     await this.cacheProvider.invalidatePrefix('providers-list');

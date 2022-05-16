@@ -17,7 +17,7 @@ class GetService {
 
   public async execute(id: number): Promise<Client> {
     const cacheKey = `client-get-${id}`;
-    let client = await this.cacheProvider.recover<Client | undefined>(cacheKey);
+    let client;
 
     if (!client) {
       client = await this.clientsRepository.findById(id);
