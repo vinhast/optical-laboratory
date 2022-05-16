@@ -39,10 +39,6 @@ export class CreatFiscalSettings1635951862580 implements MigrationInterface {
             isNullable: true,
           },
           {
-            name: 'address',
-            type: 'text',
-          },
-          {
             name: 'nfse_env',
             type: 'boolean',
             default: '1',
@@ -85,6 +81,46 @@ export class CreatFiscalSettings1635951862580 implements MigrationInterface {
             name: 'active',
             type: 'char(1)',
             default: '"1"',
+          },
+          {
+            name: 'street',
+            type: 'varchar(45)',
+            isNullable: true,
+          },
+          {
+            name: 'number',
+            type: 'varchar(10)',
+            isNullable: true,
+          },
+          {
+            name: 'complement',
+            type: 'varchar(45)',
+            isNullable: true,
+          },
+          {
+            name: 'district',
+            type: 'varchar(45)',
+            isNullable: true,
+          },
+          {
+            name: 'city',
+            type: 'varchar(45)',
+            isNullable: true,
+          },
+          {
+            name: 'state',
+            type: 'varchar(2)',
+            isNullable: true,
+          },
+          {
+            name: 'zip_code',
+            type: 'varchar(9)',
+            isNullable: true,
+          },
+          {
+            name: 'phone',
+            type: 'varchar(20)',
+            isNullable: true,
           },
           {
             name: 'created_at',
