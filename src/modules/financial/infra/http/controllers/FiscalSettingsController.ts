@@ -22,7 +22,6 @@ export default class FiscalSettingsController {
       cnpj,
       city_registration,
       state_registration,
-      address,
       nfse_env,
       nfse_rps_number,
       certified_validate,
@@ -31,6 +30,14 @@ export default class FiscalSettingsController {
       dir,
       invoice_email_copy,
       active,
+      street,
+      number,
+      complement,
+      district,
+      city,
+      state,
+      zip_code,
+      phone,
     } = request.body;
     const createFiscalSetting = container.resolve(CreateService);
     const fiscalSettingCreate = await createFiscalSetting.execute({
@@ -38,7 +45,6 @@ export default class FiscalSettingsController {
       cnpj,
       city_registration,
       state_registration,
-      address,
       nfse_env: nfse_env === '1',
       nfse_rps_number,
       certified_file: request.file?.filename,
@@ -48,6 +54,14 @@ export default class FiscalSettingsController {
       dir,
       invoice_email_copy,
       active,
+      street,
+      number,
+      complement,
+      district,
+      city,
+      state,
+      zip_code,
+      phone,
     });
 
     return response.json(classToClass(fiscalSettingCreate));
@@ -68,7 +82,6 @@ export default class FiscalSettingsController {
       cnpj,
       city_registration,
       state_registration,
-      address,
       nfse_env,
       nfse_rps_number,
       certified_validate,
@@ -77,6 +90,14 @@ export default class FiscalSettingsController {
       dir,
       invoice_email_copy,
       active,
+      street,
+      number,
+      complement,
+      district,
+      city,
+      state,
+      zip_code,
+      phone,
     } = request.body;
     const updateFiscalSetting = container.resolve(UpdateService);
     const fiscalSettingUpdate = await updateFiscalSetting.execute({
@@ -85,7 +106,6 @@ export default class FiscalSettingsController {
       cnpj,
       city_registration,
       state_registration,
-      address,
       nfse_env: nfse_env === '1',
       nfse_rps_number,
       certified_file: request.file?.filename,
@@ -95,6 +115,14 @@ export default class FiscalSettingsController {
       dir,
       invoice_email_copy,
       active,
+      street,
+      number,
+      complement,
+      district,
+      city,
+      state,
+      zip_code,
+      phone,
     });
 
     return response.json(classToClass(fiscalSettingUpdate));

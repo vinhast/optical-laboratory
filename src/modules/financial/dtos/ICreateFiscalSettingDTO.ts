@@ -3,7 +3,6 @@ export default interface ICreateFiscalSettingDTO {
   cnpj: string;
   city_registration: string;
   state_registration?: string;
-  address: string;
   nfse_env?: boolean;
   nfse_rps_number?: number;
   certified_file?: string;
@@ -13,4 +12,12 @@ export default interface ICreateFiscalSettingDTO {
   dir?: number;
   invoice_email_copy?: string;
   active: string;
+  street?: string;
+  number?: string;
+  complement?: string;
+  district?: string;
+  city?: string;
+  state?: string;
+  zip_code?: string;
+  phone: string;
 }

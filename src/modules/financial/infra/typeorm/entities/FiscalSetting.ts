@@ -16,9 +16,6 @@ class FiscalSetting extends MainEntity {
   state_registration?: string;
 
   @Column()
-  address: string;
-
-  @Column()
   nfse_env?: boolean;
 
   @Column()
@@ -44,6 +41,30 @@ class FiscalSetting extends MainEntity {
 
   @Column()
   active: string;
+
+  @Column()
+  street?: string;
+
+  @Column()
+  number?: string;
+
+  @Column()
+  complement?: string;
+
+  @Column()
+  district?: string;
+
+  @Column()
+  city?: string;
+
+  @Column()
+  state?: string;
+
+  @Column()
+  zip_code?: string;
+
+  @Column()
+  phone?: string;
 }
 
 export default FiscalSetting;
