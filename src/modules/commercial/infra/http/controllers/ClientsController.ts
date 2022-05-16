@@ -17,12 +17,56 @@ export default class ClientsController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { cnpj, company_name, table_id } = request.body;
+    const {
+      table_id,
+      company_name,
+      company_social_name,
+      cnpj,
+      state_registration,
+      city_registration,
+      street,
+      number,
+      complement,
+      district,
+      city,
+      state,
+      zip_code,
+      ibge,
+      phone_1,
+      phone_2,
+      mobile,
+      email,
+      note,
+      shipment_method,
+      payment_method,
+      active,
+      cnpjSearch,
+    } = request.body;
     const createClient = container.resolve(CreateService);
     const client = await createClient.execute({
-      cnpj,
-      company_name,
       table_id,
+      company_name,
+      company_social_name,
+      cnpj,
+      state_registration,
+      city_registration,
+      street,
+      number,
+      complement,
+      district,
+      city,
+      state,
+      zip_code,
+      ibge,
+      phone_1,
+      phone_2,
+      mobile,
+      email,
+      note,
+      shipment_method,
+      payment_method,
+      active,
+      cnpjSearch,
     });
 
     return response.json(classToClass(client));
@@ -39,13 +83,55 @@ export default class ClientsController {
 
   public async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
-    const { cnpj, company_name, table_id } = request.body;
+    const {
+      table_id,
+      company_name,
+      company_social_name,
+      cnpj,
+      state_registration,
+      city_registration,
+      street,
+      number,
+      complement,
+      district,
+      city,
+      state,
+      zip_code,
+      ibge,
+      phone_1,
+      phone_2,
+      mobile,
+      email,
+      note,
+      shipment_method,
+      payment_method,
+      active,
+    } = request.body;
     const updateClient = container.resolve(UpdateService);
     const client = await updateClient.execute({
       id: Number(id),
-      cnpj,
-      company_name,
       table_id,
+      company_name,
+      company_social_name,
+      cnpj,
+      state_registration,
+      city_registration,
+      street,
+      number,
+      complement,
+      district,
+      city,
+      state,
+      zip_code,
+      ibge,
+      phone_1,
+      phone_2,
+      mobile,
+      email,
+      note,
+      shipment_method,
+      payment_method,
+      active,
     });
 
     return response.json(classToClass(client));

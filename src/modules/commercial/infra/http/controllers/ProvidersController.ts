@@ -34,6 +34,7 @@ export default class ProvidersController {
       ibge,
       note,
       active,
+      cnpjSearch,
     } = request.body;
     const createProvider = container.resolve(CreateService);
 
@@ -54,6 +55,7 @@ export default class ProvidersController {
       ibge,
       note,
       active,
+      cnpjSearch,
     });
 
     return response.json(classToClass(provider));

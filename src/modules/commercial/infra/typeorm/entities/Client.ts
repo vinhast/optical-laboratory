@@ -1,5 +1,6 @@
+import SaleTable from '@modules/users/infra/typeorm/entities/SaleTable';
 import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, JoinColumn, OneToOne } from 'typeorm';
 
 @Entity('clients')
 class Client extends MainEntity {
@@ -71,6 +72,13 @@ class Client extends MainEntity {
 
   @Column()
   active?: string;
+
+  @Column({ type: 'json' })
+  cnpjSearch?: string;
+
+  @OneToOne(() => SaleTable)
+  @JoinColumn({ name: 'table_id' })
+  table: SaleTable;
 }
 
 export default Client;

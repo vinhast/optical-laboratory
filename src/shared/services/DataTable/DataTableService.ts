@@ -107,6 +107,11 @@ class DataTableService {
     if (entity === 'Order') {
       query.orderBy('pedidos.id', 'DESC');
     }
+    if (entity === 'Client') {
+      query.addSelect(
+        `IF(${source}.active = "S", "Sim", "Não") as ${'`commercial/clients_active`'}`,
+      );
+    }
 
     let [items] = await query.getManyAndCount();
     const [_, count] = await query.getManyAndCount();

@@ -76,12 +76,12 @@ export class CreateProviders1635462808434 implements MigrationInterface {
           },
           {
             name: 'phone',
-            type: 'char(13)',
+            type: 'char(14)',
             isNullable: true,
           },
           {
             name: 'mobile',
-            type: 'char(13)',
+            type: 'char(14)',
             isNullable: true,
           },
           {
@@ -92,6 +92,11 @@ export class CreateProviders1635462808434 implements MigrationInterface {
           {
             name: 'note',
             type: 'text',
+            isNullable: true,
+          },
+          {
+            name: 'cnpjSearch',
+            type: 'json',
             isNullable: true,
           },
           {
