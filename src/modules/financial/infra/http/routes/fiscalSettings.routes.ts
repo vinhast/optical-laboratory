@@ -1,10 +1,14 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
+import multer from 'multer';
+
+import uploadConfig from '@config/upload';
 
 import FiscalSettingController from '@modules/financial/infra/http/controllers/FiscalSettingsController';
 
 const fiscalSettingRouter = Router();
 const fiscalSettingController = new FiscalSettingController();
+const upload = multer(uploadConfig.multer);
 
 fiscalSettingRouter.get('/', fiscalSettingController.list, () => {
   /*
@@ -51,8 +55,12 @@ fiscalSettingRouter.get(
   },
 );
 
-fiscalSettingRouter.post('/', fiscalSettingController.create, () => {
-  /*
+fiscalSettingRouter.post(
+  '/',
+  upload.single('certified_file'),
+  fiscalSettingController.create,
+  () => {
+    /*
       #swagger.path = '/financial/fiscalSettings'
       #swagger.tags = ['FiscalSetting']
       #swagger.description = "Create fiscalSetting"
@@ -79,9 +87,11 @@ fiscalSettingRouter.post('/', fiscalSettingController.create, () => {
               }
           }
     } */
-});
+  },
+);
 fiscalSettingRouter.put(
   '/update/:id',
+  upload.single('certified_file'),
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
