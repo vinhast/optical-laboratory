@@ -107,9 +107,9 @@ class DataTableService {
     if (entity === 'Order') {
       query.orderBy('pedidos.id', 'DESC');
     }
-    if (entity === 'Client') {
+    if (entity === 'Client' || entity === 'Provider') {
       query.addSelect(
-        `IF(${source}.active = "S", "Sim", "Não") as ${'`commercial/clients_active`'}`,
+        `IF(${source}.active = "S", "Sim", "Não") as \`${source}_active\``,
       );
     }
 
