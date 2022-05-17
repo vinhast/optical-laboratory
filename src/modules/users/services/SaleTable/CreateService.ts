@@ -15,7 +15,10 @@ class CreateService {
   ) {}
 
   public async execute(request: ICreateSaleTableDTO): Promise<SaleTable> {
-    const saleTable = await this.salesTablesRepository.create(request);
+    const saleTable = await this.salesTablesRepository.create({
+      ...request,
+      active: !!request.active,
+    });
 
     await this.cacheProvider.invalidate('sales-tables-list');
 
