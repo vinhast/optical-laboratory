@@ -65,9 +65,7 @@ class DataTableService {
     }
 
     if (entity === 'Order') {
-      query.take(10);
-
-      query.innerJoinAndSelect('pedidos.products', 'product');
+      query.innerJoinAndSelect(`${source}.client`, 'client');
     }
 
     if (onlyParent) {

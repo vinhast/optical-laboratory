@@ -5,6 +5,7 @@ import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICa
 import IFiscalSettingsRepository from '@modules/financial/repositories/IFiscalSettingsRepository';
 import FiscalSetting from '@modules/financial/infra/typeorm/entities/FiscalSetting';
 import ICreateFiscalSettingDTO from '@modules/financial/dtos/ICreateFiscalSettingDTO';
+import IStorageProvider from '@shared/contanier/providers/StorageProvider/models/IStorageProvider';
 
 interface IRequest extends ICreateFiscalSettingDTO {
   id: number;
@@ -17,6 +18,8 @@ class UpdateService {
     private fiscalSettingsRepository: IFiscalSettingsRepository,
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
+    @inject('StorageProvider')
+    private storageProvider: IStorageProvider,
   ) {}
 
   public async execute(fiscalSettingUpdate: IRequest): Promise<FiscalSetting> {
@@ -38,6 +41,17 @@ class UpdateService {
       ...fiscalSetting,
       ...fiscalSettingUpdate,
     };
+
+    let filename;
+    if (fiscalSettingUpdate.certified_file) {
+      filename = await this.storageProvider.saveFile(
+        fiscalSettingUpdate.certified_file,
+      );
+      fiscalSetting = {
+        ...fiscalSetting,
+        certified_file: filename,
+      };
+    }
 
     await this.cacheProvider.invalidate(`fiscal-settings-list`);
     await this.cacheProvider.invalidate(cacheKey);
