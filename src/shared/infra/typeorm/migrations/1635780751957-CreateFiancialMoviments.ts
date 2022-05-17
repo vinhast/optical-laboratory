@@ -54,7 +54,7 @@ export class CreateFiancialMoviments1635780751957
           },
           {
             name: 'due_date',
-            type: 'date',
+            type: 'datetime',
             isNullable: true,
           },
           {
@@ -98,7 +98,7 @@ export class CreateFiancialMoviments1635780751957
           },
           {
             name: 'nf_issue_date',
-            type: 'date',
+            type: 'datetime',
             isNullable: true,
           },
           {

@@ -55,7 +55,7 @@ export class CreatFiscalSettings1635951862580 implements MigrationInterface {
           },
           {
             name: 'certified_validate',
-            type: 'date',
+            type: 'datetime',
             isNullable: true,
           },
           {

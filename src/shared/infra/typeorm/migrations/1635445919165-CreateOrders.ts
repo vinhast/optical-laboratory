@@ -81,8 +81,8 @@ export class CreateOrders1635445919165 implements MigrationInterface {
             isNullable: true,
           },
           {
-            name: 'payment_date',
-            type: 'date',
+            name: 'paymenmt_date',
+            type: 'datetime',
             isNullable: true,
           },
           {

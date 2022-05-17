@@ -44,7 +44,7 @@ export class CreateCredits1635941998089 implements MigrationInterface {
           },
           {
             name: 'date',
-            type: 'date',
+            type: 'datetime',
           },
           {
             name: 'used',
