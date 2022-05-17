@@ -36,6 +36,7 @@ class UpdateService {
     saleTable = {
       ...saleTable,
       ...saleTableUpdate,
+      active: !!saleTableUpdate.active,
     };
 
     await this.cacheProvider.invalidate(`sales-tables-list`);

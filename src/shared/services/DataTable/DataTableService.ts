@@ -41,6 +41,7 @@ class DataTableService {
     parentId,
     entityId,
   }: IRequest): Promise<IResponse> {
+    const convertActiveField = ['Client', 'Provider', 'SaleTable'];
     const query = getManager()
       .createQueryBuilder(entity, source)
       .take(perPage)
@@ -105,7 +106,7 @@ class DataTableService {
     if (entity === 'Order') {
       query.orderBy('pedidos.id', 'DESC');
     }
-    if (entity === 'Client' || entity === 'Provider') {
+    if (convertActiveField.includes(entity)) {
       query.addSelect(
         `IF(${source}.active = "S", "Sim", "Não") as \`${source}_active\``,
       );
