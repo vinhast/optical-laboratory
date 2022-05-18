@@ -44,6 +44,7 @@ const notAutoIncrementEntities = [
   'ClientApplicationUser',
 ];
 const notGetChangesFields = ['password', 'token', 'token_validate'];
+const notModifyDateField = ['created_at', 'updated_at', 'deleted_at'];
 
 @EventSubscriber()
 export default class EverythingSubscriber implements EntitySubscriberInterface {
