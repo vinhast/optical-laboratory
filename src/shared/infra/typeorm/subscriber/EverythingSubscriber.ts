@@ -201,13 +201,20 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
     Object.keys(entity).forEach(function (key) {
       const value = entity[key];
       if (value) {
-        if (moment(value, moment.ISO_8601, true).isValid()) {
-          if (value.toString().includes('GMT')) {
-            const valueDate = new Date(value);
-            entity[key] = valueDate.toISOString().includes('00:00:00')
-              ? moment.utc(value).format('DD/MM/YYYY')
-              : moment.utc(value).format('DD/MM/YYYY HH:mm:ss');
+        if (!notModifyDateField.includes(key)) {
+          if (moment(value, moment.ISO_8601, true).isValid()) {
+            if (value.toString().includes('GMT')) {
+              const valueDate = new Date(value);
+              entity[key] = valueDate.toISOString().includes('00:00:00')
+                ? moment.utc(value).format('DD/MM/YYYY')
+                : moment.utc(value).format('DD/MM/YYYY HH:mm:ss');
+            }
           }
+        } else {
+          const valueDate = new Date(
+            new Date(value).toISOString().slice(0, -1),
+          );
+          entity[key] = moment.utc(valueDate).format('DD/MM/YYYY HH:mm:ss');
         }
       }
     });
