@@ -10,6 +10,7 @@ interface IRequest {
   perPage: number;
   orderByField?: any;
   onlyParent: boolean;
+  notParent: boolean;
   orderBySort: 'ASC' | 'DESC' | undefined;
   searchParameters?: any;
   parentId?: string;
@@ -38,6 +39,7 @@ class DataTableService {
     orderBySort,
     searchParameters,
     onlyParent,
+    notParent,
     parentId,
     entityId,
   }: IRequest): Promise<IResponse> {
@@ -68,9 +70,16 @@ class DataTableService {
     if (entity === 'Order') {
       query.innerJoinAndSelect(`${source}.client`, 'client');
     }
+    if (entity === 'ProductCategory') {
+      query.leftJoinAndSelect(`${source}.parentProductCategory`, 'family');
+    }
 
     if (onlyParent) {
-      query.where('parent_id IS NULL');
+      query.andWhere(`${source}.parent_id IS NULL`);
+    }
+
+    if (notParent) {
+      query.andWhere(`${source}.parent_id IS NOT NULL`);
     }
 
     if (parentId && parentId !== '' && Number(parentId) !== 0) {

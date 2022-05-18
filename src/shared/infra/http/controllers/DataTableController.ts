@@ -17,6 +17,7 @@ export default class DataTableController {
       orderBy,
       searchParameters,
       onlyParent,
+      notParent,
       parentId,
       entityId,
     } = request.query;
@@ -31,6 +32,7 @@ export default class DataTableController {
       orderBySort: orderBySort === 'DESC' ? 'DESC' : 'ASC',
       searchParameters,
       onlyParent: !!onlyParent,
+      notParent: !!notParent,
       parentId: String(parentId),
       entityId: String(entityId),
     });
