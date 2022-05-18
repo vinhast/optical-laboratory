@@ -12,6 +12,9 @@ import OrdersRepository from '@modules/commercial/infra/typeorm/repositories/Ord
 import IProvidersRepository from '@modules/commercial/repositories/IProvidersRepository';
 import ProvidersRepository from '@modules/commercial/infra/typeorm/repositories/ProvidersRepository';
 
+import IDownloadsRepository from '@modules/commercial/repositories/IDownloadsRepository';
+import DownloadsRepository from '@modules/commercial/infra/typeorm/repositories/DownloadsRepository';
+
 container.registerSingleton<IClientsRepository>(
   'ClientsRepository',
   ClientsRepository,
@@ -30,4 +33,9 @@ container.registerSingleton<IOrdersRepository>(
 container.registerSingleton<IProvidersRepository>(
   'ProvidersRepository',
   ProvidersRepository,
+);
+
+container.registerSingleton<IDownloadsRepository>(
+  'DownloadsRepository',
+  DownloadsRepository,
 );

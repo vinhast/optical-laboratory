@@ -49,7 +49,7 @@ class Provider extends MainEntity {
   note?: string;
 
   @Column()
-  active: string;
+  active: boolean;
 }
 
 export default Provider;
