@@ -113,7 +113,7 @@ class DataTableService {
       query.orderBy(`${source}.${orderByField}`, orderBySort || 'ASC');
     }
     if (entity === 'Order') {
-      query.orderBy('pedidos.id', 'DESC');
+      query.orderBy(`${source}id`, 'DESC');
     }
     if (convertActiveField.includes(entity)) {
       query.addSelect(
