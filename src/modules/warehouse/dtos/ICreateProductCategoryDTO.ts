@@ -1,3 +1,5 @@
+import SaleTablePrice from '@modules/users/infra/typeorm/entities/SaleTablePrice';
+
 export default interface ICreateProductCategoryDTO {
   parent_id?: number;
   user_id?: number;
@@ -13,4 +15,5 @@ export default interface ICreateProductCategoryDTO {
   spherical_end?: number;
   cylindrical_start?: number;
   cylindrical_end?: number;
+  tables?: SaleTablePrice[];
 }

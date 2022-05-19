@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
 
 import ListService from '@modules/warehouse/services/ProductCategory/ListService';
+import ListFamiliesService from '@modules/warehouse/services/ProductCategory/ListFamiliesService';
 import CreateService from '@modules/warehouse/services/ProductCategory/CreateService';
 import UpdateService from '@modules/warehouse/services/ProductCategory/UpdateService';
 import GetService from '@modules/warehouse/services/ProductCategory/GetService';
@@ -10,8 +11,16 @@ import DeleteService from '@modules/warehouse/services/ProductCategory/DeleteSer
 
 export default class ProductCategoriesController {
   public async list(request: Request, response: Response): Promise<Response> {
+    const { parent_id } = request.query;
     const listProductCategories = container.resolve(ListService);
-    const productCategories = await listProductCategories.execute();
+    let productCategories = await listProductCategories.execute();
+    if (parent_id === 'null') {
+      const listProductCategoriesFamilies =
+        container.resolve(ListFamiliesService);
+      productCategories = await listProductCategoriesFamilies.execute(
+        parent_id,
+      );
+    }
 
     return response.json(classToClass(productCategories));
   }
@@ -32,6 +41,7 @@ export default class ProductCategoriesController {
       spherical_end,
       cylindrical_start,
       cylindrical_end,
+      tables,
     } = request.body;
     const createCategory = container.resolve(CreateService);
     const category = await createCategory.execute({
@@ -49,6 +59,7 @@ export default class ProductCategoriesController {
       spherical_end,
       cylindrical_start,
       cylindrical_end,
+      tables,
     });
 
     return response.json(classToClass(category));
@@ -79,6 +90,7 @@ export default class ProductCategoriesController {
       spherical_end,
       cylindrical_start,
       cylindrical_end,
+      tables,
     } = request.body;
     const updateCategory = container.resolve(UpdateService);
     const category = await updateCategory.execute({
@@ -97,6 +109,7 @@ export default class ProductCategoriesController {
       spherical_end,
       cylindrical_start,
       cylindrical_end,
+      tables,
     });
 
     return response.json(classToClass(category));

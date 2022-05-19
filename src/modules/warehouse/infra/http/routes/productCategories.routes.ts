@@ -7,7 +7,7 @@ const productCategoriesRouter = Router();
 const productCategoriesController = new ProductCategoriesController();
 
 productCategoriesRouter.get('/', productCategoriesController.list, () => {
-  /* 
+  /*
      #swagger.tags = ['ProductCategory']
      #swagger.path = '/warehouse/productCategories'
      #swagger.description = "List categories"
@@ -32,7 +32,7 @@ productCategoriesRouter.get(
   }),
   productCategoriesController.get,
   () => {
-    /* 
+    /*
      #swagger.tags = ['ProductCategory']
      #swagger.path = '/warehouse/productCategories/view/{id}'
      #swagger.description = "View category"
@@ -69,11 +69,12 @@ productCategoriesRouter.post(
       spherical_end: Joi.number(),
       cylindrical_start: Joi.number(),
       cylindrical_end: Joi.number(),
+      tables: Joi.array(),
     },
   }),
   productCategoriesController.create,
   () => {
-    /* 
+    /*
      #swagger.tags = ['ProductCategory']
      #swagger.path = '/warehouse/productCategories'
      #swagger.description = "Create category"
@@ -93,10 +94,10 @@ productCategoriesRouter.post(
       required: true,
       content: {
         "application/json": {
-          schema: { 
+          schema: {
             "$ref": "#/components/schemas/ProductCategory"
           }
-          
+
         }
       }
       }
@@ -122,11 +123,12 @@ productCategoriesRouter.put(
       spherical_end: Joi.number(),
       cylindrical_start: Joi.number(),
       cylindrical_end: Joi.number(),
+      tables: Joi.array(),
     },
   }),
   productCategoriesController.update,
   () => {
-    /* 
+    /*
      #swagger.tags = ['ProductCategory']
      #swagger.path = '/warehouse/productCategories/update/{id}'
      #swagger.description = "Update category"
@@ -146,10 +148,10 @@ productCategoriesRouter.put(
       required: true,
       content: {
         "application/json": {
-          schema: { 
+          schema: {
             "$ref": "#/components/schemas/ProductCategory"
           }
-          
+
         }
       }
       }
@@ -167,7 +169,7 @@ productCategoriesRouter.delete(
   }),
   productCategoriesController.delete,
   () => {
-    /* 
+    /*
      #swagger.tags = ['ProductCategory']
      #swagger.path = '/warehouse/productCategories/{id}'
      #swagger.description = "Delete category"

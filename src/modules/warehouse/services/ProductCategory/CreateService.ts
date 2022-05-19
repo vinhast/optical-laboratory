@@ -4,6 +4,7 @@ import AppError from '@shared/errors/AppError';
 import ProductCategory from '@modules/warehouse/infra/typeorm/entities/ProductCategory';
 import IProductCategoriesRepository from '@modules/warehouse/repositories/IProductCategoriesRepository';
 import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICacheProvider';
+import SaleTablePrice from '@modules/users/infra/typeorm/entities/SaleTablePrice';
 
 interface IRequest {
   parent_id?: number;
@@ -20,6 +21,7 @@ interface IRequest {
   spherical_end?: number;
   cylindrical_start?: number;
   cylindrical_end?: number;
+  tables: SaleTablePrice[];
 }
 
 @injectable()
@@ -46,6 +48,7 @@ class CreateService {
     spherical_end,
     cylindrical_start,
     cylindrical_end,
+    tables,
   }: IRequest): Promise<ProductCategory> {
     let category = await this.productCategoriesRepository.findByName(name);
     if (category) {
@@ -67,9 +70,11 @@ class CreateService {
       spherical_end,
       cylindrical_start,
       cylindrical_end,
+      tables,
     });
 
     await this.cacheProvider.invalidate('product-categories-list');
+    await this.cacheProvider.invalidate('product-categories-families-list');
     if (parent_id) {
       await this.cacheProvider.invalidate(`product-category-get-${parent_id}`);
     }
