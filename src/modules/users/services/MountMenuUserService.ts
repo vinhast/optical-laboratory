@@ -85,7 +85,7 @@ class MountMenuUserService {
         return {
           ...menu,
           url,
-          permission: true,
+          permission,
         };
       });
       return Promise.all(promises);
