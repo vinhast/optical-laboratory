@@ -31,7 +31,7 @@ class Menu {
   action?: string;
 
   @Column()
-  type: string;
+  icon?: string;
 
   @CreateDateColumn()
   created_at: Date;

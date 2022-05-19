@@ -37,8 +37,8 @@ class MountMenuUserService {
     allMenus = await this.menusRepository.findAll();
     await this.cacheProvider.save(cacheKey, classToClass(allMenus));
 
-    const nestMenus = (menus: IMenu[], id: number | null = null): IMenu[] =>
-      menus
+    const nestMenus = (menus: IMenu[], id: number | null = null): IMenu[] => {
+      return menus
         .filter(menu => menu.parent_id === id)
         .map(menu => {
           let { permission } = menu;
@@ -60,6 +60,7 @@ class MountMenuUserService {
             children: nestMenus(menus, menu.id),
           };
         });
+    };
 
     const checkPermission = container.resolve(CheckPermissionService);
 
@@ -91,15 +92,21 @@ class MountMenuUserService {
     };
 
     const filterEmptyMenu = (menus: IMenu[]) => {
-      return menus.filter(
-        item => item.permission && item.children?.some(sub => sub.permission),
-      );
+      return menus.filter(item => {
+        if (item?.children?.length) {
+          if (item.permission && item.children?.some(sub => sub.permission)) {
+            return true;
+          }
+          return false;
+        }
+        return item.permission;
+      });
     };
 
     const checkedMenus = await checkMenuPermission(allMenus);
     const menus = nestMenus(checkedMenus);
     const filterEmptyMenus = filterEmptyMenu(menus);
-    return menus;
+    return filterEmptyMenus;
   }
 }
 

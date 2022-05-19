@@ -45,9 +45,9 @@ export default class CreateMenus1612996578639 implements MigrationInterface {
               isNullable: true,
             },
             {
-              name: 'type',
-              type: 'enum',
-              enum: ['cake', 'front'],
+              name: 'icon',
+              type: 'varchar',
+              isNullable: true,
             },
             {
               name: 'created_at',

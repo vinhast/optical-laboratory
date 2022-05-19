@@ -9,7 +9,7 @@ interface IRequest {
   parent_id: number | undefined;
   method?: string;
   name: string;
-  type: string;
+  icon?: string;
   controller?: string;
   action?: string;
 }
@@ -27,7 +27,7 @@ class CreateService {
     parent_id,
     method,
     name,
-    type,
+    icon,
     controller,
     action,
   }: IRequest): Promise<Menu> {
@@ -40,7 +40,7 @@ class CreateService {
       parent_id,
       method,
       name,
-      type,
+      icon,
       controller,
       action,
     });

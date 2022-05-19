@@ -59,7 +59,7 @@ menusRouter.post(
       controller: Joi.string().allow(null, ''),
       action: Joi.string().allow(null, ''),
       method: Joi.string().allow(null, ''),
-      type: Joi.string().valid('cake', 'front'),
+      icon: Joi.string().allow(null, ''),
     },
   }),
   menusController.create,
@@ -107,9 +107,9 @@ menusRouter.post(
                         type: 'string',
                         example: 'POST',
                       },
-                      type: {
+                      icon: {
                         type: 'string',
-                        example: 'front or cake',
+                        example: 'fa fa-users',
                       },
                     },
                   },
@@ -128,8 +128,8 @@ menusRouter.put(
       parent_id: Joi.number().integer().allow(null, ''),
       controller: Joi.string().allow(null, ''),
       method: Joi.string().allow(null, ''),
+      icon: Joi.string().allow(null, ''),
       action: Joi.string().allow(null, ''),
-      type: Joi.string().valid('cake', 'front'),
     },
   }),
   menusController.update,
@@ -177,9 +177,9 @@ menusRouter.put(
                         type: 'string',
                         example: 'POST',
                       },
-                      type: {
+                      icon: {
                         type: 'string',
-                        example: 'front or cake',
+                        example: 'fa fa-users',
                       },
                     },
                   },

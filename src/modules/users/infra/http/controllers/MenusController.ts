@@ -17,11 +17,11 @@ export default class MenusController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { parent_id, type, name, controller, method, action } = request.body;
+    const { parent_id, name, controller, method, action, icon } = request.body;
     const createMenu = container.resolve(CreateService);
     const menu = await createMenu.execute({
       parent_id,
-      type,
+      icon,
       name,
       controller,
       method,
@@ -41,12 +41,12 @@ export default class MenusController {
 
   public async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
-    const { parent_id, type, name, controller, method, action } = request.body;
+    const { parent_id, name, controller, method, action, icon } = request.body;
     const updateMenu = container.resolve(UpdateService);
     const menu = await updateMenu.execute({
       id: Number(id),
       parent_id,
-      type,
+      icon,
       name,
       controller,
       method,

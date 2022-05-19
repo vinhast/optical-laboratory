@@ -10,10 +10,10 @@ interface IRequest {
   parent_id: number | undefined;
   method?: string;
   name: string;
-  type: string;
   controller?: string;
   action?: string;
   url?: string;
+  icon?: string;
 }
 
 @injectable()
@@ -30,9 +30,9 @@ class UpdateService {
     parent_id,
     method,
     name,
-    type,
     controller,
     action,
+    icon,
   }: IRequest): Promise<Menu> {
     const cacheKey = `menu-get-${id}`;
     let menu = await this.cacheProvider.recover<Menu | undefined>(cacheKey);
@@ -48,9 +48,9 @@ class UpdateService {
     menu.parent_id = parent_id;
     menu.method = method;
     menu.name = name;
-    menu.type = type;
     menu.controller = controller;
     menu.action = action;
+    menu.icon = icon;
 
     await this.cacheProvider.invalidate(`menus-list`);
 
