@@ -323,6 +323,11 @@ const doc = {
         active: 1,
         user_id: 1,
       },
+      FinancialCategory: {
+        name: 'test',
+        parent_id: null,
+        type: 'D',
+      },
     },
   },
   security: [
@@ -362,6 +367,7 @@ const endpointsFiles = [
   './src/modules/financial/infra/http/routes/financialMovimentsTypes.routes.ts',
   './src/modules/financial/infra/http/routes/financialMovimentsTypesGroups.routes.ts',
   './src/modules/financial/infra/http/routes/fiscalSettings.routes.ts',
+  './src/modules/financial/infra/http/routes/financialCategories.routes.ts',
   './src/shared/infra/http/routes/clientApplications.routes.ts',
 ];
 

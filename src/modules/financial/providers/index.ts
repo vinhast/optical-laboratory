@@ -21,6 +21,9 @@ import FinancialMovimentsTypesGroupsRepository from '@modules/financial/infra/ty
 import IFiscalSettingsRepository from '@modules/financial/repositories/IFiscalSettingsRepository';
 import FiscalSettingsRepository from '@modules/financial/infra/typeorm/repositories/FiscalSettingsRepository';
 
+import IFinancialCategoriesRepository from '@modules/financial/repositories/IFinancialCategoriesRepository';
+import FinancialCategoriesRepository from '@modules/financial/infra/typeorm/repositories/FinancialCategoriesRepository';
+
 container.registerSingleton<IBankAccountsRepository>(
   'BankAccountsRepository',
   BankAccountsRepository,
@@ -54,4 +57,9 @@ container.registerSingleton<IFinancialMovimentsTypesGroupsRepository>(
 container.registerSingleton<IFiscalSettingsRepository>(
   'FiscalSettingsRepository',
   FiscalSettingsRepository,
+);
+
+container.registerSingleton<IFinancialCategoriesRepository>(
+  'FinancialCategoriesRepository',
+  FinancialCategoriesRepository,
 );
