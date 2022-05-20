@@ -28,14 +28,22 @@ export class CreateProducts1635460543904 implements MigrationInterface {
           {
             name: 'side',
             type: 'char(1)',
+            isNullable: true,
           },
           {
             name: 'cylindrical',
             type: 'varchar(5)',
+            isNullable: true,
           },
           {
             name: 'spherical',
             type: 'varchar(5)',
+            isNullable: true,
+          },
+          {
+            name: 'addition',
+            type: 'varchar(5)',
+            isNullable: true,
           },
           {
             name: 'price',

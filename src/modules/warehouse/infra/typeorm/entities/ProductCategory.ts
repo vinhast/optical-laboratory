@@ -28,7 +28,16 @@ class ProductCategory extends MainEntity {
   cfop?: number;
 
   @Column()
+  cfop_out_of_state?: number;
+
+  @Column()
   unit_type_id?: number;
+
+  @Column()
+  lense_type?: string;
+
+  @Column()
+  lense_side?: string;
 
   @Column()
   price?: string;
@@ -44,6 +53,21 @@ class ProductCategory extends MainEntity {
 
   @Column()
   cylindrical_end?: number;
+
+  @Column()
+  addition_start?: number;
+
+  @Column()
+  addition_end?: number;
+
+  @Column()
+  online?: string;
+
+  @Column()
+  dir?: number;
+
+  @Column()
+  cover?: string;
 
   @ManyToOne(
     () => ProductCategory,

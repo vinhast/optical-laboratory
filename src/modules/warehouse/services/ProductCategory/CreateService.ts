@@ -15,12 +15,20 @@ interface IRequest {
   ncm?: number;
   cst?: number;
   cfop?: number;
+  cfop_out_of_state?: number;
   unit_type_id?: number;
+  lense_type?: string;
+  lense_side?: string;
   price?: string;
   spherical_start?: number;
   spherical_end?: number;
   cylindrical_start?: number;
   cylindrical_end?: number;
+  addition_start?: number;
+  addition_end?: number;
+  online?: string;
+  dir?: number;
+  cover?: string;
   tables: SaleTablePrice[];
 }
 
@@ -42,12 +50,20 @@ class CreateService {
     ncm,
     cst,
     cfop,
+    cfop_out_of_state,
     unit_type_id,
+    lense_side,
+    lense_type,
     price,
     spherical_start,
     spherical_end,
     cylindrical_start,
     cylindrical_end,
+    addition_start,
+    addition_end,
+    online,
+    dir,
+    cover,
     tables,
   }: IRequest): Promise<ProductCategory> {
     let category = await this.productCategoriesRepository.findByName(name);
@@ -64,12 +80,20 @@ class CreateService {
       ncm,
       cst,
       cfop,
+      cfop_out_of_state,
       unit_type_id,
+      lense_side,
+      lense_type,
       price,
       spherical_start,
       spherical_end,
       cylindrical_start,
       cylindrical_end,
+      addition_start,
+      addition_end,
+      online,
+      dir,
+      cover,
       tables,
     });
 

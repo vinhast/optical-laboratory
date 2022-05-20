@@ -10,13 +10,16 @@ class Product extends MainEntity {
   product_category_id: number;
 
   @Column()
-  side: string;
+  side?: string;
 
   @Column()
-  cylindrical: string;
+  cylindrical?: string;
 
   @Column()
-  spherical: string;
+  spherical?: string;
+
+  @Column()
+  addition?: string;
 
   @Column()
   price?: string;

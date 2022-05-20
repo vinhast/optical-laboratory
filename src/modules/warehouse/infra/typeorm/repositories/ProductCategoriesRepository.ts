@@ -9,6 +9,7 @@ import ProductCategory from '@modules/warehouse/infra/typeorm/entities/ProductCa
 import MainRepository from '@shared/infra/typeorm/repositories/MainRepository';
 import SaleTablePrice from '@modules/users/infra/typeorm/entities/SaleTablePrice';
 import httpContext from 'express-http-context';
+import Product from '../entities/Product';
 
 class ProductCategoriesRepository
   extends MainRepository
@@ -21,13 +22,23 @@ class ProductCategoriesRepository
   };
   private ormRepository: Repository<ProductCategory>;
   private ormSalesTablesPricesRepository: Repository<SaleTablePrice>;
+  private ormProductsRepository: Repository<Product>;
 
   constructor() {
     const repository = getRepository(ProductCategory);
     super(repository);
     this.ormRepository = repository;
     this.ormSalesTablesPricesRepository = getRepository(SaleTablePrice);
+    this.ormProductsRepository = getRepository(Product);
     this.myUser = httpContext.get('user');
+  }
+
+  private buildRange(start = 0, end = 1): string[] {
+    const result: string[] = [];
+    for (let index = start; index <= end; index += 0.25) {
+      result.push(index.toFixed(2));
+    }
+    return result;
   }
 
   public async findAll(parent_id?: string): Promise<any[]> {
@@ -66,6 +77,69 @@ class ProductCategoriesRepository
     };
   }
 
+  private async saveProducts(productCategory: ProductCategory) {
+    // save products
+    if (productCategory.lense_type === 'S') {
+      const cylindricalRange = this.buildRange(
+        productCategory.cylindrical_start,
+        productCategory.cylindrical_end,
+      );
+      const sphericalRange = this.buildRange(
+        productCategory.spherical_start,
+        productCategory.spherical_end,
+      );
+      for (const sphe of sphericalRange) {
+        for (const cyli of cylindricalRange) {
+          const find = await this.ormProductsRepository.findOne({
+            where: {
+              client_application_id: this.myUser.client_application_id,
+              product_category_id: productCategory?.id,
+              spherical: sphe,
+              cylindrical: cyli,
+              side: 'I',
+            },
+          });
+          if (!find) {
+            await this.ormProductsRepository.save({
+              spherical: sphe,
+              cylindrical: cyli,
+              side: 'I',
+              product_category_id: productCategory.id,
+            });
+          }
+        }
+      }
+    } else if (productCategory.lense_type === 'M') {
+      const sides =
+        productCategory.lense_side === 'A'
+          ? ['E', 'D']
+          : [productCategory.lense_side];
+      const additionRange = this.buildRange(
+        productCategory.addition_start,
+        productCategory.addition_end,
+      );
+      for (const side of sides) {
+        for (const addition of additionRange) {
+          const find = await this.ormProductsRepository.findOne({
+            where: {
+              client_application_id: this.myUser.client_application_id,
+              product_category_id: productCategory?.id,
+              addition,
+              side,
+            },
+          });
+          if (!find) {
+            await this.ormProductsRepository.save({
+              addition,
+              side,
+              product_category_id: productCategory.id,
+            });
+          }
+        }
+      }
+    }
+  }
+
   public async create(
     productCategoryData: ICreateProductCategoryDTO,
   ): Promise<ProductCategory> {
@@ -81,7 +155,7 @@ class ProductCategoriesRepository
         });
       }
     }
-
+    await this.saveProducts(productCategory);
     return productCategory;
   }
 
@@ -113,6 +187,7 @@ class ProductCategoriesRepository
         });
       }
     }
+    await this.saveProducts(productCategory);
     return productCategory;
   }
 }
