@@ -143,7 +143,7 @@ class FinancialMoviment extends MainEntity {
   downloaded_at?: Date;
 
   @ManyToOne(() => Provider)
-  @JoinColumn({ name: 'provider_id' })
+  @JoinColumn({ name: 'provider_id', referencedColumnName: 'id' })
   provider: Provider;
 
   @ManyToOne(() => Client)

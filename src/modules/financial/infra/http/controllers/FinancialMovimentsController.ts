@@ -63,6 +63,9 @@ export default class FinancialMovimentsController {
       generated_user_id,
       downloaded_user_id,
       downloaded_at,
+      recurrence,
+      frequency,
+      number_recurrence,
     } = request.body;
     const createFinancialMoviment = container.resolve(CreateService);
     const financialMovimentCreate = await createFinancialMoviment.execute({
@@ -111,6 +114,9 @@ export default class FinancialMovimentsController {
       generated_user_id,
       downloaded_user_id,
       downloaded_at,
+      recurrence: !!recurrence,
+      frequency,
+      number_recurrence,
     });
 
     return response.json(classToClass(financialMovimentCreate));

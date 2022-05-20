@@ -121,6 +121,7 @@ const doc = {
         financial_moviment_type_id: 1,
         bank_account_id: 1,
         shipment_file_id: 1,
+        recurrence: false,
         description: 'string',
         due_date: new Date().toLocaleDateString(),
         value: 'string',
