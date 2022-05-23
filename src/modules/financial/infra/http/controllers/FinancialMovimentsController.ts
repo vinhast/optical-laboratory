@@ -20,7 +20,8 @@ export default class FinancialMovimentsController {
     const {
       client_id,
       provider_id,
-      financial_moviment_type_id,
+      sub_category_id,
+      category_id,
       bank_account_id,
       shipment_file_id,
       description,
@@ -71,7 +72,8 @@ export default class FinancialMovimentsController {
     const financialMovimentCreate = await createFinancialMoviment.execute({
       client_id,
       provider_id,
-      financial_moviment_type_id,
+      sub_category_id,
+      category_id,
       bank_account_id,
       shipment_file_id,
       description,
@@ -135,7 +137,8 @@ export default class FinancialMovimentsController {
     const {
       client_id,
       provider_id,
-      financial_moviment_type_id,
+      sub_category_id,
+      category_id,
       bank_account_id,
       shipment_file_id,
       description,
@@ -184,7 +187,8 @@ export default class FinancialMovimentsController {
       id: Number(id),
       client_id,
       provider_id,
-      financial_moviment_type_id,
+      sub_category_id,
+      category_id,
       bank_account_id,
       shipment_file_id,
       description,
@@ -230,6 +234,28 @@ export default class FinancialMovimentsController {
     });
 
     return response.json(classToClass(financialMovimentUpdate));
+  }
+
+  public async updateAllFinancialMoviments(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { financialMoviments } = request.body;
+    const updateFinancialMoviment = container.resolve(UpdateService);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // eslint-disable-next-line no-restricted-syntax
+    for (const financialMoviment of financialMoviments) {
+      if (financialMoviment) {
+        // eslint-disable-next-line no-await-in-loop
+        await updateFinancialMoviment.execute({
+          ...financialMoviment,
+          id: Number(financialMoviment.id),
+          finished: 'S',
+        });
+      }
+    }
+
+    return response.json();
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {

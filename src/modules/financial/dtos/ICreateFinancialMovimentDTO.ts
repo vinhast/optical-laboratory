@@ -1,7 +1,8 @@
 export default interface ICreateFinancialMovimentDTO {
   client_id?: number;
   provider_id?: number;
-  financial_moviment_type_id: number;
+  sub_category_id: number;
+  category_id: number;
   bank_account_id?: number;
   shipment_file_id?: number;
   description: string;

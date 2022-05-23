@@ -3,7 +3,8 @@ import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 
 import Client from '@modules/commercial/infra/typeorm/entities/Client';
 import Provider from '@modules/commercial/infra/typeorm/entities/Provider';
-import FinancialMovimentType from './FinancialMovimentType';
+import ClientApplication from '@shared/infra/typeorm/entities/ClientApplication';
+import FinancialCategory from './FinancialCategory';
 
 @Entity('financial_moviments')
 class FinancialMoviment extends MainEntity {
@@ -14,7 +15,10 @@ class FinancialMoviment extends MainEntity {
   provider_id?: number;
 
   @Column()
-  financial_moviment_type_id: number;
+  category_id: number;
+
+  @Column()
+  sub_category_id: number;
 
   @Column()
   bank_account_id?: number;
@@ -144,15 +148,27 @@ class FinancialMoviment extends MainEntity {
 
   @ManyToOne(() => Provider)
   @JoinColumn({ name: 'provider_id', referencedColumnName: 'id' })
-  provider: Provider;
+  provider?: Provider;
 
   @ManyToOne(() => Client)
-  @JoinColumn({ name: 'client_id' })
+  @JoinColumn({ name: 'client_id', referencedColumnName: 'id' })
   client: Client;
 
-  @ManyToOne(() => FinancialMovimentType)
-  @JoinColumn({ name: 'financial_moviment_type_id' })
-  financialMovimentType: FinancialMovimentType;
+  @ManyToOne(() => ClientApplication)
+  @JoinColumn({ name: 'downloaded_user_id', referencedColumnName: 'id' })
+  downloadedUser?: ClientApplication;
+
+  @ManyToOne(() => ClientApplication)
+  @JoinColumn({ name: 'generated_user_id', referencedColumnName: 'id' })
+  generatedUser?: ClientApplication;
+
+  @ManyToOne(() => FinancialCategory)
+  @JoinColumn({ name: 'category_id', referencedColumnName: 'id' })
+  financialCategory?: FinancialCategory;
+
+  @ManyToOne(() => FinancialCategory)
+  @JoinColumn({ name: 'sub_category_id', referencedColumnName: 'id' })
+  financialSubCategory?: FinancialCategory;
 }
 
 export default FinancialMoviment;

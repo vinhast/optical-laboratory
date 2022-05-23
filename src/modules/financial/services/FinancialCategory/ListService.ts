@@ -15,7 +15,7 @@ class ListService {
   ) {}
 
   public async execute(): Promise<FinancialCategory[]> {
-    const cacheKey = `financial-categories`;
+    const cacheKey = `financial-category-list`;
     let categories = await this.cacheProvider.recover<FinancialCategory[]>(
       cacheKey,
     );

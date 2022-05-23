@@ -6,6 +6,7 @@ import IFinancialMovimentsRepository from '@modules/financial/repositories/IFina
 import FinancialMoviment from '@modules/financial/infra/typeorm/entities/FinancialMoviment';
 import ICreateFinancialMovimentDTO from '@modules/financial/dtos/ICreateFinancialMovimentDTO';
 import moment from 'moment';
+import httpContext from 'express-http-context';
 
 interface IRequest extends ICreateFinancialMovimentDTO {
   recurrence: boolean;
@@ -28,21 +29,29 @@ class CreateService {
       m: { month: 1 },
       s: { weeks: 1 },
     };
+    if (request.finished === 'S') {
+      const user = httpContext.get('user');
+      request.downloaded_user_id = user?.client_application_id;
+      request.downloaded_at = new Date(
+        moment().format('YYYY-MM-DDTHH:mm:ss[Z]'),
+      );
+    }
     let financialMoviment = await this.financialMovimentsRepository.create(
       request,
     );
-    let due_date = request.due_date;
+    let due_date = moment(request.due_date).subtract(3, 'h').toDate();
     if (request.recurrence) {
       for (
         let index = 0;
         index < Number(request.number_recurrence) - 1;
         index += 1
       ) {
-        due_date = new Date(
-          moment(due_date).add(recurrenceType[request.frequency]).toISOString(),
-        );
+        due_date = moment(due_date)
+          .add(recurrenceType[request.frequency])
+          .toDate();
         financialMoviment = await this.financialMovimentsRepository.create({
           ...request,
+          downloaded_at: new Date(moment().format('YYYY-MM-DDTHH:mm:ss[Z]')),
           due_date,
         });
       }

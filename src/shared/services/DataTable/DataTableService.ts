@@ -72,6 +72,18 @@ class DataTableService {
     if (entity === 'ProductCategory') {
       query.leftJoinAndSelect(`${source}.parentProductCategory`, 'family');
     }
+    if (entity === 'FinancialMoviment') {
+      query.leftJoinAndSelect(`${source}.provider`, 'provider');
+      query.leftJoinAndSelect(
+        `${source}.financialCategory`,
+        'financialCategory',
+      );
+      query.leftJoinAndSelect(
+        `${source}.financialSubCategory`,
+        'financialSubCategory',
+      );
+      query.orderBy(`${source}.created_at`, 'DESC');
+    }
 
     if (onlyParent) {
       query.andWhere(`${source}.parent_id IS NULL`);
@@ -90,7 +102,20 @@ class DataTableService {
     }
 
     if (searchParameters && entity !== 'Stock') {
-      query.where(JSON.parse(searchParameters));
+      const parameters = JSON.parse(searchParameters);
+
+      if (entity === 'FinancialMoviment') {
+        if (parameters.finished) {
+          query.andWhere(`${source}.finished = "${parameters.finished}"`);
+        }
+        if (parameters.start_date && parameters.end_date) {
+          query.andWhere(
+            `${source}.due_date BETWEEN "${parameters.start_date}" AND "${parameters.end_date}"`,
+          );
+        }
+      } else {
+        query.where(parameters);
+      }
     }
 
     if (keyword) {

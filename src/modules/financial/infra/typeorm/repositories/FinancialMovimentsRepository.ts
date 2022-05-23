@@ -38,7 +38,13 @@ class FinancialMovimentsRepository
         id,
         client_application_id: this.userData.client_application_id,
       },
-      relations: ['provider', 'financialMovimentType'],
+      relations: [
+        'provider',
+        'financialCategory',
+        'financialSubCategory',
+        'downloadedUser',
+        'generatedUser',
+      ],
     });
     return financialMoviment;
   }

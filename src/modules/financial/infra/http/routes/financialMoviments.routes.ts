@@ -81,6 +81,38 @@ financialMovimentRouter.post('/', financialMovimentController.create, () => {
     } */
 });
 financialMovimentRouter.put(
+  '/update',
+  financialMovimentController.updateAllFinancialMoviments,
+  () => {
+    /*
+      #swagger.path = '/financial/financialMoviments/update'
+      #swagger.tags = ['FinancialMoviment']
+      #swagger.description = "Update many financial moviments same time"
+            #swagger.security = [{
+      "bearerAuth": []
+      }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[404] = {
+        description: "Bad request"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+      #swagger.requestBody = {
+              required: true,
+              content: {
+                  "application/json": {
+                      schema: {
+                        "$ref": "#/components/schemas/FinancialMoviment"
+                       },
+              }
+          }
+    } */
+  },
+);
+financialMovimentRouter.put(
   '/update/:id',
   celebrate({
     [Segments.PARAMS]: {

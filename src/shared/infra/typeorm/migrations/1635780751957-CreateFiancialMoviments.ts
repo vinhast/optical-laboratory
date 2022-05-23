@@ -59,11 +59,11 @@ export class CreateFiancialMoviments1635780751957
           },
           {
             name: 'value',
-            type: 'varchar(15)',
+            type: 'decimal(10,2)',
           },
           {
             name: 'products_value',
-            type: 'varchar(10)',
+            type: 'decimal(10,2)',
             isNullable: true,
           },
           {
@@ -73,12 +73,12 @@ export class CreateFiancialMoviments1635780751957
           },
           {
             name: 'credits_value',
-            type: 'varchar(10)',
+            type: 'decimal(10,2)',
             isNullable: true,
           },
           {
             name: 'fees_fines_value',
-            type: 'varchar(10)',
+            type: 'decimal(10,2)',
             isNullable: true,
           },
           {

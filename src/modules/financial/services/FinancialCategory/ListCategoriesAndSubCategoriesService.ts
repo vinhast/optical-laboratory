@@ -16,10 +16,13 @@ class ListCategoriesAndSubCategoriesService {
 
   public async execute(): Promise<FinancialCategory[]> {
     const cacheKey = `financial-category-list`;
-    let categories = null;
+    let categories = await this.cacheProvider.recover<FinancialCategory[]>(
+      cacheKey,
+    );
 
     if (!categories) {
-      categories = await this.financialCategoriesRepository.findCategoriesAndSubCategories();
+      categories =
+        await this.financialCategoriesRepository.findCategoriesAndSubCategories();
       await this.cacheProvider.save(cacheKey, classToClass(categories));
     }
     return categories;

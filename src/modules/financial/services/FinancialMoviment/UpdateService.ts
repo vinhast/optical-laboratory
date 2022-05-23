@@ -5,6 +5,8 @@ import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICa
 import IFinancialMovimentsRepository from '@modules/financial/repositories/IFinancialMovimentsRepository';
 import FinancialMoviment from '@modules/financial/infra/typeorm/entities/FinancialMoviment';
 import ICreateFinancialMovimentDTO from '@modules/financial/dtos/ICreateFinancialMovimentDTO';
+import httpContext from 'express-http-context';
+import moment from 'moment';
 
 interface IRequest extends ICreateFinancialMovimentDTO {
   id: number;
@@ -36,10 +38,21 @@ class UpdateService {
       throw new AppError('FinancialMoviment not found.', 404);
     }
 
+    delete financialMoviment.financialCategory;
+    delete financialMoviment.provider;
+
     financialMoviment = {
       ...financialMoviment,
       ...financialMovimentUpdate,
     };
+
+    if (financialMovimentUpdate.finished === 'S') {
+      const user = httpContext.get('user');
+      financialMoviment.downloaded_user_id = user?.client_application_id;
+      financialMoviment.downloaded_at = new Date(
+        moment().format('YYYY-MM-DDTHH:mm:ss[Z]'),
+      );
+    }
 
     await this.cacheProvider.invalidate(`financial-moviments-list`);
     await this.cacheProvider.invalidate(cacheKey);

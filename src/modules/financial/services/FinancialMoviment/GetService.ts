@@ -17,9 +17,7 @@ class GetService {
 
   public async execute(id: number): Promise<FinancialMoviment> {
     const cacheKey = `financial-moviment-get-${id}`;
-    let financialMoviment = await this.cacheProvider.recover<
-      FinancialMoviment | undefined
-    >(cacheKey);
+    let financialMoviment;
 
     if (!financialMoviment) {
       financialMoviment = await this.financialMovimentsRepository.findById(id);
