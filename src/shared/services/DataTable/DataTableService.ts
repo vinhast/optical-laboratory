@@ -1,6 +1,7 @@
 import { getManager } from 'typeorm';
 import '@shared/infra/typeorm';
 import Role from '@modules/users/infra/typeorm/entities/Role';
+import moment from 'moment';
 
 interface IRequest {
   source: string;
@@ -108,9 +109,25 @@ class DataTableService {
         if (parameters.finished) {
           query.andWhere(`${source}.finished = "${parameters.finished}"`);
         }
-        if (parameters.start_date && parameters.end_date) {
+        if (parameters.start_date) {
+          parameters.start_date = moment(parameters.start_date)
+            .startOf('day')
+            .format('YYYY-MM-DDTHH:mm:ss[Z]');
           query.andWhere(
-            `${source}.due_date BETWEEN "${parameters.start_date}" AND "${parameters.end_date}"`,
+            `${source}.${parameters.fieldDate || 'due_date'} >= "${
+              parameters.start_date
+            }"`,
+          );
+        }
+        if (parameters.end_date) {
+          parameters.end_date = moment(parameters.end_date)
+            .endOf('day')
+            .format('YYYY-MM-DDTHH:mm:ss[Z]');
+
+          query.andWhere(
+            `${source}.${parameters.fieldDate || 'due_date'} <= "${
+              parameters.end_date
+            }"`,
           );
         }
       } else {
@@ -181,6 +198,24 @@ class DataTableService {
           if (value.type === 'create') messageMutation.type = 'Criação';
           if (value.type === 'delete') messageMutation.type = 'Remoção';
           return messageMutation;
+        });
+      }
+    }
+
+    if (entity === 'FinancialMoviment') {
+      if (items) {
+        let balance = 0;
+        items.map((item: any) => {
+          const itemMutation = item;
+          if (itemMutation.operation_type === 'C') {
+            balance += Number(itemMutation.value);
+            itemMutation.balance = balance;
+          }
+          if (itemMutation.operation_type === 'D') {
+            balance -= Number(itemMutation.value);
+            itemMutation.balance = balance;
+          }
+          return itemMutation;
         });
       }
     }
