@@ -16,9 +16,6 @@ class ProductCategory extends MainEntity {
   description?: string;
 
   @Column()
-  type?: string;
-
-  @Column()
   ncm?: number;
 
   @Column()

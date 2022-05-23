@@ -43,11 +43,6 @@ export class CreateProductCategories1635460543902
             isNullable: true,
           },
           {
-            name: 'type',
-            type: 'char(1)',
-            isNullable: true,
-          },
-          {
             name: 'ncm',
             type: 'int',
             isNullable: true,

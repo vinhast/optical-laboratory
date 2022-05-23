@@ -5,7 +5,6 @@ export default interface ICreateProductCategoryDTO {
   user_id?: number;
   name: string;
   description?: string;
-  type?: string;
   ncm?: number;
   cst?: number;
   cfop?: number;

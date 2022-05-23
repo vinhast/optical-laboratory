@@ -211,6 +211,12 @@ const doc = {
         wholesale_price: 'string',
         user_id: 1,
       },
+      SaleTablePriceService: {
+        service_id: 1,
+        table_id: 1,
+        price: 'string',
+        user_id: 1,
+      },
       Provider: {
         company_social_name: 'test',
         company_name: 'test',
@@ -279,6 +285,10 @@ const doc = {
         cylindrical_start: 1,
         cylindrical_end: 1,
       },
+      Service: {
+        price: '100',
+        active: 'S',
+      },
       StockMoviment: {
         product_id: 1,
         order_id: 1,
@@ -344,6 +354,7 @@ const endpointsFiles = [
   './src/modules/users/infra/http/routes/salesTables.routes.ts',
   './src/modules/users/infra/http/routes/salesTablesPrices.routes.ts',
   './src/modules/users/infra/http/routes/clientsApplicationsUsers.routes.ts',
+  './src/modules/users/infra/http/routes/salesTablesPricesServices.routes.ts',
   './src/modules/cache/infra/http/routes/cache.route.ts',
   './src/modules/commercial/infra/http/routes/orderProducts.routes.ts',
   './src/modules/commercial/infra/http/routes/orders.routes.ts',
@@ -354,6 +365,7 @@ const endpointsFiles = [
   './src/modules/warehouse/infra/http/routes/productCategories.routes.ts',
   './src/modules/warehouse/infra/http/routes/stockMoviments.routes.ts',
   './src/modules/warehouse/infra/http/routes/unitTypes.routes.ts',
+  './src/modules/warehouse/infra/http/routes/services.routes.ts',
   './src/modules/financial/infra/http/routes/bankAccounts.routes.ts',
   './src/modules/financial/infra/http/routes/credits.routes.ts',
   './src/modules/financial/infra/http/routes/financialMoviments.routes.ts',
