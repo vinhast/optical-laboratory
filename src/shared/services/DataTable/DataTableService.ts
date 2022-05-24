@@ -75,6 +75,7 @@ class DataTableService {
     }
     if (entity === 'FinancialMoviment') {
       query.leftJoinAndSelect(`${source}.provider`, 'provider');
+      query.leftJoinAndSelect(`${source}.client`, 'client');
       query.leftJoinAndSelect(
         `${source}.financialCategory`,
         'financialCategory',
@@ -108,6 +109,11 @@ class DataTableService {
       if (entity === 'FinancialMoviment') {
         if (parameters.finished) {
           query.andWhere(`${source}.finished = "${parameters.finished}"`);
+        }
+        if (parameters.operation_type) {
+          query.andWhere(
+            `${source}.operation_type = "${parameters.operation_type}"`,
+          );
         }
         if (parameters.start_date) {
           parameters.start_date = moment(parameters.start_date)
@@ -165,7 +171,7 @@ class DataTableService {
     }
 
     let [items] = await query.getManyAndCount();
-    const [_, count] = await query.getManyAndCount();
+    const [, count] = await query.getManyAndCount();
 
     if (entity === 'User') {
       const roles = await getManager().find(Role);
@@ -210,10 +216,12 @@ class DataTableService {
           if (itemMutation.operation_type === 'C') {
             balance += Number(itemMutation.value);
             itemMutation.balance = balance;
+            itemMutation.description = `${item.client.company_name} - ${item.financialCategory.name} - ${item.financialSubCategory.name}  `;
           }
           if (itemMutation.operation_type === 'D') {
             balance -= Number(itemMutation.value);
             itemMutation.balance = balance;
+            itemMutation.description = `${item.provider.company_name} - ${item.financialCategory.name} - ${item.financialSubCategory.name}`;
           }
           return itemMutation;
         });

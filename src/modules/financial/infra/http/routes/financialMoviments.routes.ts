@@ -105,7 +105,7 @@ financialMovimentRouter.put(
               content: {
                   "application/json": {
                       schema: {
-                        "$ref": "#/components/schemas/FinancialMoviment"
+                        "$ref": "#/components/schemas/FinancialMovimentsUpdate"
                        },
               }
           }

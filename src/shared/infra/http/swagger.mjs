@@ -328,6 +328,27 @@ const doc = {
         parent_id: null,
         type: 'D',
       },
+      FinancialMovimentsUpdate: {
+        financialMoviments: [
+          {
+            id: 1,
+            client_id: 1,
+            provider_id: 1,
+            financial_moviment_type_id: 1,
+            bank_account_id: 1,
+            shipment_file_id: 1,
+            recurrence: false,
+            description: 'test',
+            due_date: new Date().toLocaleDateString(),
+            value: '1000.00',
+            products_value: '1000.00',
+            services_value: '1000.00',
+            credits_value: '1000.00',
+            fees_fines_value: '1000.00',
+            nf_number: 1,
+          },
+        ],
+      },
     },
   },
   security: [
