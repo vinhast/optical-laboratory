@@ -22,14 +22,18 @@ export class CreateService1653328554061 implements MigrationInterface {
             isPrimary: true,
           },
           {
-            name: 'price',
-            type: 'varchar(5)',
+            name: 'name',
+            type: 'varchar',
+          },
+          {
+            name: 'description',
+            type: 'text',
             isNullable: true,
           },
           {
-            name: 'active',
-            type: 'char(1)',
-            default: '"S"',
+            name: 'price',
+            type: 'varchar(5)',
+            isNullable: true,
           },
           {
             name: 'created_at',

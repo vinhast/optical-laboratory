@@ -10,7 +10,10 @@ class SaleTablePriceService extends MainEntity {
   table_id: number;
 
   @Column()
-  price: string;
+  unit_price: string;
+
+  @Column()
+  wholesale_price: string;
 
   @Column()
   user_id?: number;

@@ -5,10 +5,13 @@ import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
 @Entity('services')
 class Service extends MainEntity {
   @Column()
-  price?: string;
+  name: string;
 
   @Column()
-  active: string;
+  description?: string;
+
+  @Column()
+  price?: string;
 }
 
 export default Service;

@@ -4,11 +4,14 @@ import Service from '@modules/warehouse/infra/typeorm/entities/Service';
 import IServicesRepository from '@modules/warehouse/repositories/IServicesRepository';
 import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICacheProvider';
 import AppError from '@shared/errors/AppError';
+import SaleTablePriceService from '@modules/users/infra/typeorm/entities/SaleTablePriceService';
 
 interface IRequest {
   id: number;
+  name: string;
+  description?: string;
   price?: string;
-  active: string;
+  tables: SaleTablePriceService[];
 }
 @injectable()
 class UpdateService {

@@ -55,8 +55,10 @@ servicesRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
+      name: Joi.string(),
+      description: Joi.string(),
       price: Joi.string(),
-      active: Joi.string().required(),
+      tables: Joi.array(),
     },
   }),
   servicesController.create,
@@ -96,8 +98,10 @@ servicesRouter.put(
   '/update/:id',
   celebrate({
     [Segments.BODY]: {
+      name: Joi.string(),
+      description: Joi.string(),
       price: Joi.string(),
-      active: Joi.string().required(),
+      tables: Joi.array(),
     },
   }),
   servicesController.update,

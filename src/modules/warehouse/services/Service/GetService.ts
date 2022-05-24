@@ -2,15 +2,15 @@ import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 import Service from '@modules/warehouse/infra/typeorm/entities/Service';
-import IProductsRepository from '@modules/warehouse/repositories/IProductsRepository';
+import IServicesRepository from '@modules/warehouse/repositories/IServicesRepository';
 import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICacheProvider';
 import { classToClass } from 'class-transformer';
 
 @injectable()
 class GetService {
   constructor(
-    @inject('ProductsRepository')
-    private servicesRepository: IProductsRepository,
+    @inject('ServicesRepository')
+    private servicesRepository: IServicesRepository,
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
   ) {}

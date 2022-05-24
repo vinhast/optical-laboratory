@@ -214,7 +214,8 @@ const doc = {
       SaleTablePriceService: {
         service_id: 1,
         table_id: 1,
-        price: 'string',
+        unit_price: 'string',
+        wholesale_price: 'string',
         user_id: 1,
       },
       Provider: {
@@ -286,8 +287,9 @@ const doc = {
         cylindrical_end: 1,
       },
       Service: {
+        name: 'limpeza',
+        description: '',
         price: '100',
-        active: 'S',
       },
       StockMoviment: {
         product_id: 1,

@@ -17,12 +17,14 @@ export default class ServicesController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { price, active } = request.body;
+    const { name, description, price, tables } = request.body;
 
     const createService = container.resolve(CreateService);
     const service = await createService.execute({
+      name,
+      description,
       price,
-      active,
+      tables,
     });
 
     return response.json(classToClass(service));
@@ -36,14 +38,16 @@ export default class ServicesController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { price, active } = request.body;
+    const { name, description, price, tables } = request.body;
     const { id } = request.params;
     const updateService = container.resolve(UpdateService);
 
     const service = await updateService.execute({
       id: Number(id),
+      name,
+      description,
       price,
-      active,
+      tables,
     });
 
     return response.json(classToClass(service));

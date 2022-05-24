@@ -32,7 +32,11 @@ export class CreateTablesPricesService1653328570891
             type: 'int',
           },
           {
-            name: 'price',
+            name: 'unit_price',
+            type: 'varchar(10)',
+          },
+          {
+            name: 'wholesale_price',
             type: 'varchar(10)',
           },
           {

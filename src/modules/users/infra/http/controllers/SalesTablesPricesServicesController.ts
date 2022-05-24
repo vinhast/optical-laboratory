@@ -18,13 +18,14 @@ export default class SalesTablesPricesServicesController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { service_id, table_id, price } = request.body;
+    const { service_id, table_id, unit_price, wholesale_price } = request.body;
     const createSaleTablePriceService = container.resolve(CreateService);
     const saleTablePriceServiceCreate =
       await createSaleTablePriceService.execute({
         service_id,
         table_id,
-        price,
+        unit_price,
+        wholesale_price,
         user_id: request.user.id,
       });
 
@@ -44,14 +45,15 @@ export default class SalesTablesPricesServicesController {
 
   public async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
-    const { service_id, table_id, price } = request.body;
+    const { service_id, table_id, unit_price, wholesale_price } = request.body;
     const updateSaleTablePriceService = container.resolve(UpdateService);
     const saleTablePriceServiceUpdate =
       await updateSaleTablePriceService.execute({
         id: Number(id),
         service_id,
         table_id,
-        price,
+        unit_price,
+        wholesale_price,
         user_id: request.user.id,
       });
 
