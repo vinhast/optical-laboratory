@@ -7,7 +7,24 @@ const productsRouter = Router();
 const productsController = new ProductsController();
 
 productsRouter.get('/', productsController.list, () => {
-  /* 
+  /*
+     #swagger.tags = ['Product']
+     #swagger.path = '/warehouse/products'
+     #swagger.description = "List products"
+         #swagger.security = [{
+        "bearerAuth": []
+    }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+    */
+});
+
+productsRouter.get('/search', productsController.search, () => {
+  /*
      #swagger.tags = ['Product']
      #swagger.path = '/warehouse/products'
      #swagger.description = "List products"
@@ -32,7 +49,7 @@ productsRouter.get(
   }),
   productsController.get,
   () => {
-    /* 
+    /*
      #swagger.tags = ['Product']
      #swagger.path = '/warehouse/products/view/{id}'
      #swagger.description = "View product"
@@ -66,7 +83,7 @@ productsRouter.post(
   }),
   productsController.create,
   () => {
-    /* 
+    /*
      #swagger.tags = ['Product']
      #swagger.path = '/warehouse/products'
      #swagger.description = "Create product"
@@ -86,10 +103,10 @@ productsRouter.post(
         required: true,
         content: {
           "application/json": {
-            schema: { 
+            schema: {
               "$ref": "#/components/schemas/Product"
             }
-            
+
           }
         }
       }
@@ -112,7 +129,7 @@ productsRouter.put(
   }),
   productsController.update,
   () => {
-    /* 
+    /*
      #swagger.tags = ['Product']
      #swagger.path = '/warehouse/products/update/{id}'
      #swagger.description = "Update product"
@@ -124,7 +141,7 @@ productsRouter.put(
       }
       #swagger.responses[404] = {
         description: "Bad request"
-      }      
+      }
       #swagger.responses[200] = {
         description: "OK",
       }
@@ -132,10 +149,10 @@ productsRouter.put(
         required: true,
         content: {
           "application/json": {
-            schema: { 
+            schema: {
               "$ref": "#/components/schemas/Product"
             }
-            
+
           }
         }
       }
@@ -153,7 +170,7 @@ productsRouter.delete(
   }),
   productsController.delete,
   () => {
-    /* 
+    /*
      #swagger.tags = ['Product']
      #swagger.path = '/warehouse/products/{id}'
      #swagger.description = "Delete product"

@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
 
 import ListService from '@modules/warehouse/services/Product/ListService';
+import SearchService from '@modules/warehouse/services/Product/SearchService';
 import CreateService from '@modules/warehouse/services/Product/CreateService';
 import UpdateService from '@modules/warehouse/services/Product/UpdateService';
 import GetService from '@modules/warehouse/services/Product/GetService';
@@ -12,6 +13,17 @@ export default class ProductProductsController {
   public async list(request: Request, response: Response): Promise<Response> {
     const listProducts = container.resolve(ListService);
     const products = await listProducts.execute();
+
+    return response.json(classToClass(products));
+  }
+
+  public async search(request: Request, response: Response): Promise<Response> {
+    const { product, client_id } = request.query;
+    const listProducts = container.resolve(SearchService);
+    const products = await listProducts.execute(
+      product ? JSON.parse(String(product)) : {},
+      Number(client_id),
+    );
 
     return response.json(classToClass(products));
   }
