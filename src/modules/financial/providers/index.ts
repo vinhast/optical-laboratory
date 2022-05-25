@@ -24,6 +24,12 @@ import FiscalSettingsRepository from '@modules/financial/infra/typeorm/repositor
 import IFinancialCategoriesRepository from '@modules/financial/repositories/IFinancialCategoriesRepository';
 import FinancialCategoriesRepository from '@modules/financial/infra/typeorm/repositories/FinancialCategoriesRepository';
 
+import IPaymentGatewaysRepository from '@modules/financial/repositories/IPaymentGatewaysRepository';
+import PaymentGatewaysRepository from '@modules/financial/infra/typeorm/repositories/PaymentGatewaysRepository';
+
+import IPaymentModulesRepository from '@modules/financial/repositories/IPaymentModulesRepository';
+import PaymentModulesRepository from '@modules/financial/infra/typeorm/repositories/PaymentModulesRepository';
+
 container.registerSingleton<IBankAccountsRepository>(
   'BankAccountsRepository',
   BankAccountsRepository,
@@ -62,4 +68,14 @@ container.registerSingleton<IFiscalSettingsRepository>(
 container.registerSingleton<IFinancialCategoriesRepository>(
   'FinancialCategoriesRepository',
   FinancialCategoriesRepository,
+);
+
+container.registerSingleton<IPaymentGatewaysRepository>(
+  'PaymentGatewaysRepository',
+  PaymentGatewaysRepository,
+);
+
+container.registerSingleton<IPaymentModulesRepository>(
+  'PaymentModulesRepository',
+  PaymentModulesRepository,
 );

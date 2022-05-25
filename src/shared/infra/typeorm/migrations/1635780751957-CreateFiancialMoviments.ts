@@ -259,7 +259,11 @@ export class CreateFiancialMoviments1635780751957
             type: 'int',
             isNullable: true,
           },
-
+          {
+            name: 'payment_gateway_id',
+            type: 'int',
+            isNullable: true,
+          },
           {
             name: 'downloaded_at',
             type: 'datetime',

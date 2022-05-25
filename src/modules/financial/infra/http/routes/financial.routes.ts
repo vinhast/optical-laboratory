@@ -7,6 +7,8 @@ import financialMovimentsOrdersRouter from './financialMovimentsOrders.routes';
 import financialMovimentsTypesRouter from './financialMovimentsTypes.routes';
 import financialMovimentsTypesGroupsRouter from './financialMovimentsTypesGroups.routes';
 import fiscalSettingsRouter from './fiscalSettings.routes';
+import paymentGatewaysRouter from './paymentGateways.routes';
+import paymentModulesRouter from './paymentModules.routes';
 
 const financialRouter = Router();
 
@@ -24,4 +26,6 @@ financialRouter.use(
 );
 financialRouter.use('/fiscalSettings', fiscalSettingsRouter);
 financialRouter.use('/categories', financialCategoriesRouter);
+financialRouter.use('/paymentGateways', paymentGatewaysRouter);
+financialRouter.use('/paymentModules', paymentModulesRouter);
 export default financialRouter;

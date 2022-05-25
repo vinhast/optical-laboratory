@@ -14,3 +14,8 @@ container.registerSingleton<IStorageProvider>(
   'StorageProvider',
   providers[uploadConfig.driver],
 );
+
+container.registerSingleton<IStorageProvider>(
+  'StorageDiskProvider',
+  DiskStorageProvider,
+);

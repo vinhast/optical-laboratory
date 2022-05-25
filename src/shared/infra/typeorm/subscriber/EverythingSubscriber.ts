@@ -42,6 +42,7 @@ const notAutoIncrementEntities = [
   'Menu',
   'ClientApplication',
   'ClientApplicationUser',
+  'PaymentModule',
 ];
 const notGetChangesFields = ['password', 'token', 'token_validate'];
 const notModifyDateField = ['created_at', 'updated_at', 'deleted_at'];
@@ -65,6 +66,7 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
     });
     if (!notAutoIncrementEntities.includes(nameEntity)) {
       const userData = httpContext.get('user');
+      console.log(userData);
       const lastRegister: any = await event.manager
         .getRepository(nameEntity)
         .createQueryBuilder()

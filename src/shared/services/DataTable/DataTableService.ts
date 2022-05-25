@@ -86,6 +86,10 @@ class DataTableService {
       );
       query.orderBy(`${source}.created_at`, 'DESC');
     }
+    if (entity === 'PaymentGateway') {
+      query.leftJoinAndSelect(`${source}.paymentModule`, 'paymentModule');
+      query.orderBy(`${source}.created_at`, 'DESC');
+    }
 
     if (onlyParent) {
       query.andWhere(`${source}.parent_id IS NULL`);
