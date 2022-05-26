@@ -6,12 +6,14 @@ import AppError from '@shared/errors/AppError';
 import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICacheProvider';
 import IPaymentGatewaysRepository from '@modules/financial/repositories/IPaymentGatewaysRepository';
 import PaymentGateway from '@modules/financial/infra/typeorm/entities/PaymentGateway';
-import IInterApiProvider from '@shared/contanier/providers/InterApiProvider/models/IInterApiProvider';
+import IBankApiProvider, {
+  ICredentials,
+} from '@shared/contanier/providers/BankApiProvider/models/IBankApiProvider';
 
 interface IRequest {
   id: number;
   type: 'Boleto';
-  credentials: any;
+  credentials: ICredentials;
   payment_module_id: number;
   files?: any;
 }
@@ -23,14 +25,15 @@ class UpdateService {
     private paymentGatewaysRepository: IPaymentGatewaysRepository,
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
-    @inject('InterApiProvider')
-    private interApiProvider: IInterApiProvider,
+    @inject('BankApiProvider')
+    private bankApiProvider: IBankApiProvider,
   ) {}
 
   public async execute(
     paymentGatewayUpdate: IRequest,
   ): Promise<PaymentGateway> {
     const id = paymentGatewayUpdate.id;
+    let token;
     const cacheKey = `payment-gateway-get-${id}`;
     let paymentGateway = await this.cacheProvider.recover<
       PaymentGateway | undefined
@@ -44,10 +47,17 @@ class UpdateService {
       throw new AppError('Payment Gateway not found.', 404);
     }
 
-    const token = await this.interApiProvider.getToken({
-      ...paymentGatewayUpdate.credentials,
-      ...paymentGateway.credentials,
-    });
+    const bankModule = await this.bankApiProvider.getBankModule(
+      paymentGatewayUpdate.payment_module_id,
+    );
+
+    if (bankModule) {
+      token = await bankModule.getToken({
+        ...paymentGatewayUpdate.credentials,
+        ...paymentGateway.credentials,
+      });
+    }
+
     if (!token) {
       throw new AppError('Credetials is not valid', 401);
     }

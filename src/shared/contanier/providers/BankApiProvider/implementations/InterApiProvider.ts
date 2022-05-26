@@ -1,10 +1,10 @@
 /* eslint-disable no-empty */
 /* eslint-disable @typescript-eslint/no-var-requires */
 // eslint-disable-next-line import/newline-after-import
-import IInterApiProvider from '@shared/contanier/providers/InterApiProvider/models/IInterApiProvider';
 import axios from 'axios';
 import https from 'https';
 import AppError from '@shared/errors/AppError';
+import IInterApiProvider from '../models/IInterApiProvider';
 
 interface ICredentials {
   grant_type?: string;
