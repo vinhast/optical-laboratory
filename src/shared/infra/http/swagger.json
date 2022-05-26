@@ -1710,6 +1710,179 @@
         }
       }
     },
+    "/users/salesTablesPricesServices/": {
+      "get": {
+        "tags": [
+          "SalesTablesPricesServices"
+        ],
+        "description": "List salesTablesPricesServices",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "SalesTablesPricesServices"
+        ],
+        "description": "Create saleTablePriceService",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaleTablePriceService"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/salesTablesPricesServices/view/{id}": {
+      "get": {
+        "tags": [
+          "SalesTablesPricesServices"
+        ],
+        "description": "View saleTablePriceService",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found saleTablePriceService"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users/salesTablesPricesServices/update/{id}": {
+      "put": {
+        "tags": [
+          "SalesTablesPricesServices"
+        ],
+        "description": "Update saleTablePriceService",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaleTablePriceService"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/salesTablesPricesServices/{id}": {
+      "delete": {
+        "tags": [
+          "SalesTablesPricesServices"
+        ],
+        "description": "Delete saleTablePriceService",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found saleTablePriceService"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/cache": {
       "get": {
         "tags": [
@@ -2789,7 +2962,15 @@
           "ProductCategory"
         ],
         "description": "List categories",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "parent_id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -3275,6 +3456,173 @@
           },
           "401": {
             "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/warehouse/services": {
+      "get": {
+        "tags": [
+          "Service"
+        ],
+        "description": "List services",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Service"
+        ],
+        "description": "Create service",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Service"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/warehouse/services/view/{id}": {
+      "get": {
+        "tags": [
+          "Service"
+        ],
+        "description": "View service",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/warehouse/services/update/{id}": {
+      "put": {
+        "tags": [
+          "Service"
+        ],
+        "description": "Update service",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Bad request"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Service"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/warehouse/services/{id}": {
+      "delete": {
+        "tags": [
+          "Service"
+        ],
+        "description": "Delete service",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not found"
           }
         },
         "security": [
@@ -5599,6 +5947,27 @@
           }
         }
       },
+      "SaleTablePriceService": {
+        "type": "object",
+        "properties": {
+          "service_id": {
+            "type": "number",
+            "example": 1
+          },
+          "table_id": {
+            "type": "number",
+            "example": 1
+          },
+          "price": {
+            "type": "string",
+            "example": "string"
+          },
+          "user_id": {
+            "type": "number",
+            "example": 1
+          }
+        }
+      },
       "Provider": {
         "type": "object",
         "properties": {
@@ -5856,6 +6225,19 @@
           "cylindrical_end": {
             "type": "number",
             "example": 1
+          }
+        }
+      },
+      "Service": {
+        "type": "object",
+        "properties": {
+          "price": {
+            "type": "string",
+            "example": "100"
+          },
+          "active": {
+            "type": "string",
+            "example": "S"
           }
         }
       },

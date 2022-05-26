@@ -5,11 +5,11 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export class CreateProducts1635460543904 implements MigrationInterface {
+export class CreateService1653328554061 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'products',
+        name: 'services',
         columns: [
           {
             name: 'id',
@@ -22,43 +22,18 @@ export class CreateProducts1635460543904 implements MigrationInterface {
             isPrimary: true,
           },
           {
-            name: 'product_category_id',
-            type: 'int',
+            name: 'name',
+            type: 'varchar',
           },
           {
-            name: 'side',
-            type: 'char(1)',
-            isNullable: true,
-          },
-          {
-            name: 'cylindrical',
-            type: 'varchar(6)',
-            isNullable: true,
-          },
-          {
-            name: 'spherical',
-            type: 'varchar(6)',
-            isNullable: true,
-          },
-          {
-            name: 'addition',
-            type: 'varchar(6)',
+            name: 'description',
+            type: 'text',
             isNullable: true,
           },
           {
             name: 'price',
-            type: 'varchar(6)',
+            type: 'varchar(5)',
             isNullable: true,
-          },
-          {
-            name: 'bars_code',
-            type: 'varchar(45)',
-            isNullable: true,
-          },
-          {
-            name: 'active',
-            type: 'char(1)',
-            default: '"S"',
           },
           {
             name: 'created_at',
@@ -79,9 +54,9 @@ export class CreateProducts1635460543904 implements MigrationInterface {
       }),
     );
     await queryRunner.createForeignKey(
-      'products',
+      'services',
       new TableForeignKey({
-        name: 'fk_products_clients_application',
+        name: 'fk_services_clients_application',
         columnNames: ['client_application_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'clients_application',
@@ -89,25 +64,13 @@ export class CreateProducts1635460543904 implements MigrationInterface {
         onUpdate: 'CASCADE',
       }),
     );
-
-    await queryRunner.createForeignKey(
-      'products',
-      new TableForeignKey({
-        name: 'fk_products_product_categories',
-        columnNames: ['product_category_id'],
-        referencedColumnNames: ['id'],
-        referencedTableName: 'product_categories',
-        onDelete: 'NO ACTION',
-        onUpdate: 'NO ACTION',
-      }),
-    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropForeignKey(
-      'products',
-      'fk_products_product_categories',
+      'services',
+      'fk_services_clients_application',
     );
-    await queryRunner.dropTable('products');
+    await queryRunner.dropTable('services');
   }
 }

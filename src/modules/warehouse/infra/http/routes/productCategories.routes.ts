@@ -7,7 +7,7 @@ const productCategoriesRouter = Router();
 const productCategoriesController = new ProductCategoriesController();
 
 productCategoriesRouter.get('/', productCategoriesController.list, () => {
-  /* 
+  /*
      #swagger.tags = ['ProductCategory']
      #swagger.path = '/warehouse/productCategories'
      #swagger.description = "List categories"
@@ -32,7 +32,7 @@ productCategoriesRouter.get(
   }),
   productCategoriesController.get,
   () => {
-    /* 
+    /*
      #swagger.tags = ['ProductCategory']
      #swagger.path = '/warehouse/productCategories/view/{id}'
      #swagger.description = "View category"
@@ -63,17 +63,26 @@ productCategoriesRouter.post(
       ncm: Joi.number(),
       cst: Joi.number(),
       cfop: Joi.number(),
+      cfop_out_of_state: Joi.number(),
       unit_type_id: Joi.number(),
+      lense_type: Joi.string(),
+      lense_side: Joi.string(),
       price: Joi.string(),
       spherical_start: Joi.number(),
       spherical_end: Joi.number(),
       cylindrical_start: Joi.number(),
       cylindrical_end: Joi.number(),
+      addition_start: Joi.number(),
+      addition_end: Joi.number(),
+      online: Joi.string(),
+      dir: Joi.number(),
+      cover: Joi.string(),
+      tables: Joi.array(),
     },
   }),
   productCategoriesController.create,
   () => {
-    /* 
+    /*
      #swagger.tags = ['ProductCategory']
      #swagger.path = '/warehouse/productCategories'
      #swagger.description = "Create category"
@@ -93,10 +102,10 @@ productCategoriesRouter.post(
       required: true,
       content: {
         "application/json": {
-          schema: { 
+          schema: {
             "$ref": "#/components/schemas/ProductCategory"
           }
-          
+
         }
       }
       }
@@ -116,17 +125,26 @@ productCategoriesRouter.put(
       ncm: Joi.number(),
       cst: Joi.number(),
       cfop: Joi.number(),
+      cfop_out_of_state: Joi.number(),
       unit_type_id: Joi.number(),
+      lense_type: Joi.string(),
+      lense_side: Joi.string(),
       price: Joi.string(),
       spherical_start: Joi.number(),
       spherical_end: Joi.number(),
       cylindrical_start: Joi.number(),
       cylindrical_end: Joi.number(),
+      addition_start: Joi.number(),
+      addition_end: Joi.number(),
+      online: Joi.string(),
+      dir: Joi.number(),
+      cover: Joi.string(),
+      tables: Joi.array(),
     },
   }),
   productCategoriesController.update,
   () => {
-    /* 
+    /*
      #swagger.tags = ['ProductCategory']
      #swagger.path = '/warehouse/productCategories/update/{id}'
      #swagger.description = "Update category"
@@ -146,10 +164,10 @@ productCategoriesRouter.put(
       required: true,
       content: {
         "application/json": {
-          schema: { 
+          schema: {
             "$ref": "#/components/schemas/ProductCategory"
           }
-          
+
         }
       }
       }
@@ -167,7 +185,7 @@ productCategoriesRouter.delete(
   }),
   productCategoriesController.delete,
   () => {
-    /* 
+    /*
      #swagger.tags = ['ProductCategory']
      #swagger.path = '/warehouse/productCategories/{id}'
      #swagger.description = "Delete category"
