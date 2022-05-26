@@ -51,7 +51,6 @@ class CreateService {
           .toDate();
         financialMoviment = await this.financialMovimentsRepository.create({
           ...request,
-          downloaded_at: new Date(moment().format('YYYY-MM-DDTHH:mm:ss[Z]')),
           due_date,
         });
       }

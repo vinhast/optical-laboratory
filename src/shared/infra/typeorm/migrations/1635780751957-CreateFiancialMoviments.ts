@@ -219,13 +219,16 @@ export class CreateFiancialMoviments1635780751957
             type: 'char(2)',
             default: '"N"',
           },
-
           {
             name: 'payment_method',
             type: 'char(2)',
             isNullable: true,
           },
-
+          {
+            name: 'payment_method_text',
+            type: 'varchar',
+            isNullable: true,
+          },
           {
             name: 'invoice_status',
             type: 'char(1)',
@@ -334,10 +337,32 @@ export class CreateFiancialMoviments1635780751957
         onUpdate: 'NO ACTION',
       }),
     );
+    await queryRunner.createForeignKey(
+      'financial_moviments',
+      new TableForeignKey({
+        name: 'fk_financial_moviments_payment_gateways',
+        columnNames: ['payment_gateway_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'payment_gateways',
+        onDelete: 'NO ACTION',
+        onUpdate: 'NO ACTION',
+      }),
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('financial_moviments');
+    await queryRunner.dropForeignKey(
+      'financial_moviments',
+      'fk_financial_moviments_payment_gateways',
+    );
+    await queryRunner.dropForeignKey(
+      'financial_moviments',
+      'fk_financial_moviments_financial_providers',
+    );
+    await queryRunner.dropForeignKey(
+      'financial_moviments',
+      'fk_financial_moviments_clients_application',
+    );
     await queryRunner.dropForeignKey(
       'financial_moviments',
       'fk_financial_moviments_clients',
@@ -350,5 +375,6 @@ export class CreateFiancialMoviments1635780751957
       'financial_moviments',
       'fk_financial_moviments_financial_providers',
     );
+    await queryRunner.dropTable('financial_moviments');
   }
 }

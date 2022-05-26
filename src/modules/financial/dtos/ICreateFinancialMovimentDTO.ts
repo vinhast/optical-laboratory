@@ -45,4 +45,6 @@ export default interface ICreateFinancialMovimentDTO {
   generated_user_id?: number;
   downloaded_user_id?: number;
   downloaded_at?: Date;
+  payment_method_text?: string;
+  payment_gateway_id?: number;
 }

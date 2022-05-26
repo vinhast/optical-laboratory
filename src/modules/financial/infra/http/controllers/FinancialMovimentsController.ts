@@ -67,6 +67,8 @@ export default class FinancialMovimentsController {
       recurrence,
       frequency,
       number_recurrence,
+      payment_method_text,
+      payment_gateway_id,
     } = request.body;
     const createFinancialMoviment = container.resolve(CreateService);
     const financialMovimentCreate = await createFinancialMoviment.execute({
@@ -109,6 +111,8 @@ export default class FinancialMovimentsController {
       nfse_status,
       finished,
       payment_method,
+      payment_method_text,
+      payment_gateway_id,
       invoice_status,
       invoice_registered,
       invoice_bank_downloaded,
@@ -181,6 +185,8 @@ export default class FinancialMovimentsController {
       generated_user_id,
       downloaded_user_id,
       downloaded_at,
+      payment_method_text,
+      payment_gateway_id,
     } = request.body;
     const updateFinancialMoviment = container.resolve(UpdateService);
     const financialMovimentUpdate = await updateFinancialMoviment.execute({
@@ -231,6 +237,8 @@ export default class FinancialMovimentsController {
       generated_user_id,
       downloaded_user_id,
       downloaded_at,
+      payment_method_text,
+      payment_gateway_id,
     });
 
     return response.json(classToClass(financialMovimentUpdate));

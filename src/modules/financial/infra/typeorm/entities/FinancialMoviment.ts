@@ -5,6 +5,7 @@ import Client from '@modules/commercial/infra/typeorm/entities/Client';
 import Provider from '@modules/commercial/infra/typeorm/entities/Provider';
 import ClientApplication from '@shared/infra/typeorm/entities/ClientApplication';
 import FinancialCategory from './FinancialCategory';
+import PaymentGateway from './PaymentGateway';
 
 @Entity('financial_moviments')
 class FinancialMoviment extends MainEntity {
@@ -146,6 +147,12 @@ class FinancialMoviment extends MainEntity {
   @Column()
   downloaded_at?: Date;
 
+  @Column()
+  payment_method_text?: string;
+
+  @Column()
+  payment_gateway_id?: number;
+
   @ManyToOne(() => Provider)
   @JoinColumn({ name: 'provider_id', referencedColumnName: 'id' })
   provider?: Provider;
@@ -169,6 +176,10 @@ class FinancialMoviment extends MainEntity {
   @ManyToOne(() => FinancialCategory)
   @JoinColumn({ name: 'sub_category_id', referencedColumnName: 'id' })
   financialSubCategory?: FinancialCategory;
+
+  @ManyToOne(() => PaymentGateway)
+  @JoinColumn({ name: 'payment_gateway_id', referencedColumnName: 'id' })
+  paymentGateway?: PaymentGateway;
 }
 
 export default FinancialMoviment;

@@ -39,6 +39,7 @@ class FinancialMovimentsRepository
         client_application_id: this.userData.client_application_id,
       },
       relations: [
+        'client',
         'provider',
         'financialCategory',
         'financialSubCategory',
