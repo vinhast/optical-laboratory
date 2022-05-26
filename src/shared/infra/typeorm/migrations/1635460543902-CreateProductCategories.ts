@@ -43,11 +43,6 @@ export class CreateProductCategories1635460543902
             isNullable: true,
           },
           {
-            name: 'type',
-            type: 'char(1)',
-            isNullable: true,
-          },
-          {
             name: 'ncm',
             type: 'int',
             isNullable: true,
@@ -63,8 +58,23 @@ export class CreateProductCategories1635460543902
             isNullable: true,
           },
           {
+            name: 'cfop_out_of_state',
+            type: 'int',
+            isNullable: true,
+          },
+          {
             name: 'unit_type_id',
             type: 'int',
+            isNullable: true,
+          },
+          {
+            name: 'lense_type',
+            type: 'char(1)',
+            isNullable: true,
+          },
+          {
+            name: 'lense_side',
+            type: 'char(1)',
             isNullable: true,
           },
           {
@@ -90,6 +100,31 @@ export class CreateProductCategories1635460543902
           {
             name: 'cylindrical_end',
             type: 'decimal(10,2)',
+            isNullable: true,
+          },
+          {
+            name: 'addition_start',
+            type: 'decimal(10,2)',
+            isNullable: true,
+          },
+          {
+            name: 'addition_end',
+            type: 'decimal(10,2)',
+            isNullable: true,
+          },
+          {
+            name: 'online',
+            type: 'char(1)',
+            isNullable: true,
+          },
+          {
+            name: 'dir',
+            type: 'int',
+            isNullable: true,
+          },
+          {
+            name: 'cover',
+            type: 'varchar',
             isNullable: true,
           },
           {

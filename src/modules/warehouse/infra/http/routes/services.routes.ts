@@ -1,16 +1,16 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 
-import ProductsController from '@modules/warehouse/infra/http/controllers/ProductsController';
+import ServicesController from '@modules/warehouse/infra/http/controllers/ServicesController';
 
-const productsRouter = Router();
-const productsController = new ProductsController();
+const servicesRouter = Router();
+const servicesController = new ServicesController();
 
-productsRouter.get('/', productsController.list, () => {
+servicesRouter.get('/', servicesController.list, () => {
   /*
-     #swagger.tags = ['Product']
-     #swagger.path = '/warehouse/products'
-     #swagger.description = "List products"
+     #swagger.tags = ['Service']
+     #swagger.path = '/warehouse/services'
+     #swagger.description = "List services"
          #swagger.security = [{
         "bearerAuth": []
     }]
@@ -23,36 +23,19 @@ productsRouter.get('/', productsController.list, () => {
     */
 });
 
-productsRouter.get('/search', productsController.search, () => {
-  /*
-     #swagger.tags = ['Product']
-     #swagger.path = '/warehouse/products'
-     #swagger.description = "List products"
-         #swagger.security = [{
-        "bearerAuth": []
-    }]
-      #swagger.responses[401] = {
-        description: "Unauthorized"
-      }
-      #swagger.responses[200] = {
-        description: "OK",
-      }
-    */
-});
-
-productsRouter.get(
+servicesRouter.get(
   '/view/:id',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
     },
   }),
-  productsController.get,
+  servicesController.get,
   () => {
     /*
-     #swagger.tags = ['Product']
-     #swagger.path = '/warehouse/products/view/{id}'
-     #swagger.description = "View product"
+     #swagger.tags = ['Service']
+     #swagger.path = '/warehouse/services/view/{id}'
+     #swagger.description = "View service"
          #swagger.security = [{
         "bearerAuth": []
     }]
@@ -68,25 +51,22 @@ productsRouter.get(
     */
   },
 );
-productsRouter.post(
+servicesRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
-      product_category_id: Joi.number().required(),
-      side: Joi.string().required(),
-      cylindrical: Joi.string().required(),
-      spherical: Joi.string().required(),
+      name: Joi.string(),
+      description: Joi.string(),
       price: Joi.string(),
-      bars_code: Joi.string(),
-      active: Joi.string().required(),
+      tables: Joi.array(),
     },
   }),
-  productsController.create,
+  servicesController.create,
   () => {
     /*
-     #swagger.tags = ['Product']
-     #swagger.path = '/warehouse/products'
-     #swagger.description = "Create product"
+     #swagger.tags = ['Service']
+     #swagger.path = '/warehouse/services'
+     #swagger.description = "Create service"
          #swagger.security = [{
         "bearerAuth": []
     }]
@@ -104,7 +84,7 @@ productsRouter.post(
         content: {
           "application/json": {
             schema: {
-              "$ref": "#/components/schemas/Product"
+              "$ref": "#/components/schemas/Service"
             }
 
           }
@@ -114,25 +94,22 @@ productsRouter.post(
     */
   },
 );
-productsRouter.put(
+servicesRouter.put(
   '/update/:id',
   celebrate({
     [Segments.BODY]: {
-      product_category_id: Joi.number().required(),
-      side: Joi.string().required(),
-      cylindrical: Joi.string().required(),
-      spherical: Joi.string().required(),
+      name: Joi.string(),
+      description: Joi.string(),
       price: Joi.string(),
-      bars_code: Joi.string(),
-      active: Joi.string().required(),
+      tables: Joi.array(),
     },
   }),
-  productsController.update,
+  servicesController.update,
   () => {
     /*
-     #swagger.tags = ['Product']
-     #swagger.path = '/warehouse/products/update/{id}'
-     #swagger.description = "Update product"
+     #swagger.tags = ['Service']
+     #swagger.path = '/warehouse/services/update/{id}'
+     #swagger.description = "Update service"
          #swagger.security = [{
         "bearerAuth": []
     }]
@@ -150,7 +127,7 @@ productsRouter.put(
         content: {
           "application/json": {
             schema: {
-              "$ref": "#/components/schemas/Product"
+              "$ref": "#/components/schemas/Service"
             }
 
           }
@@ -161,19 +138,19 @@ productsRouter.put(
   },
 );
 
-productsRouter.delete(
+servicesRouter.delete(
   '/:id',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
     },
   }),
-  productsController.delete,
+  servicesController.delete,
   () => {
     /*
-     #swagger.tags = ['Product']
-     #swagger.path = '/warehouse/products/{id}'
-     #swagger.description = "Delete product"
+     #swagger.tags = ['Service']
+     #swagger.path = '/warehouse/services/{id}'
+     #swagger.description = "Delete service"
          #swagger.security = [{
         "bearerAuth": []
     }]
@@ -190,4 +167,4 @@ productsRouter.delete(
   },
 );
 
-export default productsRouter;
+export default servicesRouter;

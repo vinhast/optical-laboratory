@@ -26,6 +26,7 @@ class DeleteService {
     }
 
     await this.cacheProvider.invalidate(`product-categories-list`);
+    await this.cacheProvider.invalidate(`product-categories-families-list`);
     await this.cacheProvider.invalidate(cacheKey);
     if (category.parent_id) {
       await this.cacheProvider.invalidate(

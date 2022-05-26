@@ -23,6 +23,8 @@ import SalesTablesRepository from '@modules/users/infra/typeorm/repositories/Sal
 
 import ISalesTablesPriceRepository from '@modules/users/repositories/ISalesTablesPricesRepository';
 import SalesTablesPriceRepository from '@modules/users/infra/typeorm/repositories/SalesTablesPricesRepository';
+import ISalesTablesPricesServicesRepository from '@modules/users/repositories/ISalesTablesPricesServicesRepository';
+import SalesTablesPricesServiceRepository from '@modules/users/infra/typeorm/repositories/SalesTablesPricesServicesRepository';
 import IClientsApplicationsUsersRepository from '@modules/users/repositories/IClientsApplicationsUsersRepository';
 import ClientsApplicationsUsersRepository from '@modules/users/infra/typeorm/repositories/ClientsApplicationsUsersRepository';
 
@@ -61,6 +63,10 @@ container.registerSingleton<ISalesTablesRepository>(
 container.registerSingleton<ISalesTablesPriceRepository>(
   'SalesTablesPricesRepository',
   SalesTablesPriceRepository,
+);
+container.registerSingleton<ISalesTablesPricesServicesRepository>(
+  'SalesTablesPricesServicesRepository',
+  SalesTablesPricesServiceRepository,
 );
 container.registerSingleton<IClientsApplicationsUsersRepository>(
   'ClientsApplicationsUsersRepository',

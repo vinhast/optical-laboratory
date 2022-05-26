@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
 
 import ListService from '@modules/warehouse/services/Product/ListService';
+import SearchService from '@modules/warehouse/services/Product/SearchService';
 import CreateService from '@modules/warehouse/services/Product/CreateService';
 import UpdateService from '@modules/warehouse/services/Product/UpdateService';
 import GetService from '@modules/warehouse/services/Product/GetService';
@@ -16,12 +17,24 @@ export default class ProductProductsController {
     return response.json(classToClass(products));
   }
 
+  public async search(request: Request, response: Response): Promise<Response> {
+    const { product, client_id } = request.query;
+    const listProducts = container.resolve(SearchService);
+    const products = await listProducts.execute(
+      product ? JSON.parse(String(product)) : {},
+      Number(client_id),
+    );
+
+    return response.json(classToClass(products));
+  }
+
   public async create(request: Request, response: Response): Promise<Response> {
     const {
       product_category_id,
       side,
       cylindrical,
       spherical,
+      addition,
       price,
       bars_code,
       active,
@@ -33,6 +46,7 @@ export default class ProductProductsController {
       side,
       cylindrical,
       spherical,
+      addition,
       price,
       bars_code,
       active,
@@ -54,6 +68,7 @@ export default class ProductProductsController {
       side,
       cylindrical,
       spherical,
+      addition,
       price,
       bars_code,
       active,
@@ -67,6 +82,7 @@ export default class ProductProductsController {
       side,
       cylindrical,
       spherical,
+      addition,
       price,
       bars_code,
       active,

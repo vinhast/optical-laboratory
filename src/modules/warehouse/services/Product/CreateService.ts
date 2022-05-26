@@ -7,8 +7,9 @@ import Product from '@modules/warehouse/infra/typeorm/entities/Product';
 interface IRequest {
   product_category_id: number;
   side: string;
-  cylindrical: string;
-  spherical: string;
+  cylindrical?: string;
+  spherical?: string;
+  addition?: string;
   price?: string;
   bars_code?: string;
   active: string;
@@ -28,6 +29,7 @@ class CreateService {
     side,
     cylindrical,
     spherical,
+    addition,
     price,
     bars_code,
     active,
@@ -37,6 +39,7 @@ class CreateService {
       side,
       cylindrical,
       spherical,
+      addition,
       price,
       bars_code,
       active,
