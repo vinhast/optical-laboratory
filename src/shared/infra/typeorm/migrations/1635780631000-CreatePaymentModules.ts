@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreatePaymentModules1653402668011 implements MigrationInterface {
+export class CreatePaymentModules1635780631000 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     const checkIfTableExist = await queryRunner.hasTable('payment_modules');
     if (!checkIfTableExist) {

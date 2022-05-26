@@ -34,7 +34,11 @@ export class CreateFiancialMoviments1635780751957
             isNullable: true,
           },
           {
-            name: 'financial_moviment_type_id',
+            name: 'category_id',
+            type: 'int',
+          },
+          {
+            name: 'sub_category_id',
             type: 'int',
           },
           {
@@ -317,18 +321,6 @@ export class CreateFiancialMoviments1635780751957
     await queryRunner.createForeignKey(
       'financial_moviments',
       new TableForeignKey({
-        name: 'fk_financial_moviments_types',
-        columnNames: ['financial_moviment_type_id'],
-        referencedColumnNames: ['id'],
-        referencedTableName: 'financial_moviments_types',
-        onDelete: 'NO ACTION',
-        onUpdate: 'NO ACTION',
-      }),
-    );
-
-    await queryRunner.createForeignKey(
-      'financial_moviments',
-      new TableForeignKey({
         name: 'fk_financial_moviments_financial_providers',
         columnNames: ['provider_id'],
         referencedColumnNames: ['id'],
@@ -348,9 +340,39 @@ export class CreateFiancialMoviments1635780751957
         onUpdate: 'NO ACTION',
       }),
     );
+    await queryRunner.createForeignKey(
+      'financial_moviments',
+      new TableForeignKey({
+        name: 'fk_financial_moviments_financial_categories_category',
+        columnNames: ['category_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'financial_categories',
+        onDelete: 'NO ACTION',
+        onUpdate: 'NO ACTION',
+      }),
+    );
+    await queryRunner.createForeignKey(
+      'financial_moviments',
+      new TableForeignKey({
+        name: 'fk_financial_moviments_financial_categories_sub_category',
+        columnNames: ['sub_category_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'financial_categories',
+        onDelete: 'NO ACTION',
+        onUpdate: 'NO ACTION',
+      }),
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.dropForeignKey(
+      'financial_moviments',
+      'fk_financial_moviments_financial_categories_sub_category',
+    );
+    await queryRunner.dropForeignKey(
+      'financial_moviments',
+      'fk_financial_moviments_financial_categories_category',
+    );
     await queryRunner.dropForeignKey(
       'financial_moviments',
       'fk_financial_moviments_payment_gateways',

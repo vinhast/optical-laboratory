@@ -87,6 +87,17 @@ export class CreateClientsApplicationsUsers1652273566031
           onUpdate: 'CASCADE',
         }),
       );
+      await queryRunner.createForeignKey(
+        'clients_applications_users',
+        new TableForeignKey({
+          name: 'fk_clients_applications_users_roles',
+          columnNames: ['role_id'],
+          referencedColumnNames: ['id'],
+          referencedTableName: 'roles',
+          onDelete: 'NO ACTION',
+          onUpdate: 'NO ACTION',
+        }),
+      );
     }
   }
 
@@ -95,6 +106,14 @@ export class CreateClientsApplicationsUsers1652273566031
       'clients_applications_users',
     );
     if (checkIfTableExist) {
+      await queryRunner.dropForeignKey(
+        'clients_applications_users',
+        'fk_clients_applications_users_roles',
+      );
+      await queryRunner.dropForeignKey(
+        'clients_applications_users',
+        'fk_clients_applications_users_clients_application',
+      );
       await queryRunner.dropTable('clients_applications_users');
     }
   }

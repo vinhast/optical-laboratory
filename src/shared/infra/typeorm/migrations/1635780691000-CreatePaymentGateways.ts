@@ -5,7 +5,7 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export class CreatePaymentGateways1653414606275 implements MigrationInterface {
+export class CreatePaymentGateways1635780691000 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     const checkIfTableExist = await queryRunner.hasTable('payment_gateways');
     if (!checkIfTableExist) {
