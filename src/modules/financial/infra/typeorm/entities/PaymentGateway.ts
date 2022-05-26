@@ -11,7 +11,7 @@ class PaymentGateway extends MainEntity {
   payment_module_id: number;
 
   @Column({ type: 'json' })
-  credentials: string;
+  credentials: any;
 
   @ManyToOne(() => PaymentModule)
   @JoinColumn({ name: 'payment_module_id', referencedColumnName: 'id' })

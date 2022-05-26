@@ -26,12 +26,8 @@ paymentGatewaysRouter.get('/', paymentGatewaysController.list, () => {
   */
 });
 
-paymentGatewaysRouter.post(
-  '/',
-  upload.any(),
-  paymentGatewaysController.create,
-  () => {
-    /*  
+paymentGatewaysRouter.post('/', paymentGatewaysController.create, () => {
+  /*  
     #swagger.tags = ['PaymentGateways']
     #swagger.path = '/paymentGateways'
     #swagger.description = "Create payment gateway"
@@ -63,8 +59,7 @@ paymentGatewaysRouter.post(
               }
           }
   */
-  },
-);
+});
 
 paymentGatewaysRouter.get(
   '/view/:id',

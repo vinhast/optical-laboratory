@@ -24,8 +24,6 @@ export default class PaymentGatewaysController {
       type,
       payment_module_id,
       credentials,
-      files: request.files,
-      user: request.user,
     });
 
     return response.json(classToClass(paymentGateway));

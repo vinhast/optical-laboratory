@@ -1,21 +1,17 @@
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-restricted-syntax */
 import { inject, injectable } from 'tsyringe';
 
 import PaymentGateway from '@modules/financial/infra/typeorm/entities/PaymentGateway';
 import IPaymentGatewaysRepository from '@modules/financial/repositories/IPaymentGatewaysRepository';
 import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICacheProvider';
-import IStorageProvider from '@shared/contanier/providers/StorageProvider/models/IStorageProvider';
-import httpContext from 'express-http-context';
+import IInterApiProvider from '@shared/contanier/providers/InterApiProvider/models/IInterApiProvider';
+import AppError from '@shared/errors/AppError';
 
 interface IRequest {
   type: 'Boleto';
   credentials: any;
   payment_module_id: number;
-  files?: any;
-  user: {
-    id: number;
-    client_application_id: number;
-    role_id: number;
-  };
 }
 
 @injectable()
@@ -25,32 +21,21 @@ class CreateService {
     private paymentGatewaysRepository: IPaymentGatewaysRepository,
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
-    @inject('StorageDiskProvider')
-    private storageDiskProvider: IStorageProvider,
+    @inject('InterApiProvider')
+    private interApiProvider: IInterApiProvider,
   ) {}
 
   public async execute({
     type,
     credentials,
     payment_module_id,
-    files,
-    user,
   }: IRequest): Promise<PaymentGateway> {
-    const copyCredentials = { ...JSON.parse(credentials) };
-    if (files?.length) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      // eslint-disable-next-line no-restricted-syntax
-      for (const file of files) {
-        // eslint-disable-next-line no-await-in-loop
-        const filename = await this.storageDiskProvider.saveFile(
-          file.filename,
-          user.client_application_id,
-        );
-        copyCredentials[file.fieldname] = filename;
-      }
+    const token = await this.interApiProvider.getToken(credentials);
+    if (!token) {
+      throw new AppError('Credetials is not valid', 401);
     }
     const paymentGateway = await this.paymentGatewaysRepository.create({
-      credentials: copyCredentials,
+      credentials,
       type,
       payment_module_id,
     });
