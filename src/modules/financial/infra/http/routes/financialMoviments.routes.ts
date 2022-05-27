@@ -179,4 +179,88 @@ financialMovimentRouter.delete(
   },
 );
 
+financialMovimentRouter.get(
+  '/bankSlipPDF/:payment_gateway_id/:ourNumber',
+  financialMovimentController.getBankSlipPDF,
+  () => {
+    /*
+      #swagger.path = '/financial/financialMoviments/bankSlipPDF/{payment_gateway_id}/{ourNumber}'
+      #swagger.tags = ['FinancialMoviment']
+      #swagger.description = "Get bank slip pdf"
+      #swagger.security = [{
+        "bearerAuth": []
+      }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+   */
+  },
+);
+
+financialMovimentRouter.get(
+  '/list/bankSlip/:payment_gateway_id',
+  financialMovimentController.getListBankSlip,
+  () => {
+    /*
+      #swagger.path = '/financial/financialMoviments/list/bankSlip/{payment_gateway_id}'
+      #swagger.tags = ['FinancialMoviment']
+      #swagger.description = "Get list bank slip"
+      #swagger.security = [{
+        "bearerAuth": []
+      }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+   */
+  },
+);
+
+financialMovimentRouter.post(
+  '/cancel/bankSlipPDF/',
+  financialMovimentController.cancelBankSlip,
+  () => {
+    /*
+      #swagger.path = '/financial/financialMoviments/cancel/bankSlipPDF'
+      #swagger.tags = ['FinancialMoviment']
+      #swagger.description = "Cancel bank slip"
+      #swagger.security = [{
+        "bearerAuth": []
+      }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+   */
+  },
+);
+
+financialMovimentRouter.post(
+  '/create/bankSlipPDF/',
+  financialMovimentController.createBankSlip,
+  () => {
+    /*
+      #swagger.path = '/financial/financialMoviments/create/bankSlipPDF/'
+      #swagger.tags = ['FinancialMoviment']
+      #swagger.description = "Create bank slip"
+      #swagger.security = [{
+        "bearerAuth": []
+      }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+   */
+  },
+);
+
 export default financialMovimentRouter;

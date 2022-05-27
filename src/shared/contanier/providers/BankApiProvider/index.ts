@@ -1,9 +1,10 @@
 import { container } from 'tsyringe';
 
-import IBankApiProvider from '@shared/contanier/providers/BankApiProvider/models/IBankApiProvider';
+import IBankApiProvider, {
+  IBankApiResponse,
+} from '@shared/contanier/providers/BankApiProvider/models/IBankApiProvider';
 import BankApiProvider from '@shared/contanier/providers/BankApiProvider/implementations/BankApiProvider';
 
-import IInterApiProvider from '@shared/contanier/providers/BankApiProvider/models/IInterApiProvider';
 import InterApiProvider from '@shared/contanier/providers/BankApiProvider/implementations/InterApiProvider';
 
 container.registerSingleton<IBankApiProvider>(
@@ -11,7 +12,7 @@ container.registerSingleton<IBankApiProvider>(
   BankApiProvider,
 );
 
-container.registerSingleton<IInterApiProvider>(
+container.registerSingleton<IBankApiResponse>(
   'InterApiProvider',
   InterApiProvider,
 );

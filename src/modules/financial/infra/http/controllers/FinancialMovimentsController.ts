@@ -7,6 +7,10 @@ import CreateService from '@modules/financial/services/FinancialMoviment/CreateS
 import UpdateService from '@modules/financial/services/FinancialMoviment/UpdateService';
 import GetService from '@modules/financial/services/FinancialMoviment/GetService';
 import DeleteService from '@modules/financial/services/FinancialMoviment/DeleteService';
+import GetBankSlipPDFService from '@modules/financial/services/FinancialMoviment/GetBankSlipPDFService';
+import GetListBankSlipService from '@modules/financial/services/FinancialMoviment/GetListBankSlipService';
+import CancelBankSlipService from '@modules/financial/services/FinancialMoviment/CancelBankSlipService';
+import CreateBankSlipService from '@modules/financial/services/FinancialMoviment/CreateBankSlipService';
 
 export default class FinancialMovimentsController {
   public async list(request: Request, response: Response): Promise<Response> {
@@ -264,6 +268,95 @@ export default class FinancialMovimentsController {
     }
 
     return response.json();
+  }
+
+  public async getBankSlipPDF(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { payment_gateway_id, ourNumber } = request.params;
+    const getBankSlipPDFFinancialMoviment = container.resolve(
+      GetBankSlipPDFService,
+    );
+    const id = Number(payment_gateway_id);
+    const pdf = await getBankSlipPDFFinancialMoviment.execute(id, ourNumber);
+    return response.json({ pdf });
+  }
+
+  public async getListBankSlip(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { payment_gateway_id } = request.params;
+    const getListBankSlipFinancialMoviment = container.resolve(
+      GetListBankSlipService,
+    );
+    const id = Number(payment_gateway_id);
+
+    const listBankslip = await getListBankSlipFinancialMoviment.execute(id);
+    return response.json({ listBankslip });
+  }
+
+  public async cancelBankSlip(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { payment_gateway_id, ourNumber, cancellationReason } = request.body;
+    const cancelBankSlipFinancialMoviment = container.resolve(
+      CancelBankSlipService,
+    );
+    const id = Number(payment_gateway_id);
+
+    await cancelBankSlipFinancialMoviment.execute({
+      payment_gateway_id: id,
+      ourNumber,
+      cancellationReason,
+    });
+    return response.status(204).json({ message: 'Cancel bank slip' });
+  }
+
+  public async createBankSlip(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const {
+      payment_gateway_id,
+      ourNumber,
+      valorNominal,
+      valorAbatimento,
+      dataVencimento,
+      numDiasAgenda,
+      pagador,
+      mensagem,
+      desconto1,
+      desconto2,
+      desconto3,
+      multa,
+      mora,
+    } = request.body;
+    const createBankSlipFinancialMoviment = container.resolve(
+      CreateBankSlipService,
+    );
+    const id = Number(payment_gateway_id);
+
+    const bankSlip = await createBankSlipFinancialMoviment.execute({
+      payment_gateway_id: id,
+      bankSlip: {
+        ourNumber,
+        valorNominal,
+        valorAbatimento,
+        dataVencimento,
+        numDiasAgenda,
+        pagador,
+        mensagem,
+        desconto1,
+        desconto2,
+        desconto3,
+        multa,
+        mora,
+      },
+    });
+    return response.json({ bankSlip });
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {

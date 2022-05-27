@@ -4,24 +4,20 @@
 import axios from 'axios';
 import https from 'https';
 import AppError from '@shared/errors/AppError';
-import IInterApiProvider from '../models/IInterApiProvider';
+import {
+  IBankApiResponse,
+  ICancelBankSlipData,
+  ICreateBankSlipData,
+  ICredentials,
+  IParams,
+  IResponseCreateBankSlip,
+  IResponseListBankSlip,
+  IResponseToken,
+} from '../models/IBankApiProvider';
 
-interface ICredentials {
-  grant_type?: string;
-  client_id: number;
-  client_secret: string;
-  certificate_file: string;
-  key_file: string;
-  scope?: string;
-}
-interface IResponseToken {
-  access_token: string;
-  token_type: string;
-  expires_in: number;
-  scope: string;
-}
+export default class InterApiProvider implements IBankApiResponse {
+  private token: string;
 
-export default class InterApiProvider implements IInterApiProvider {
   public async getToken(credentials: ICredentials): Promise<IResponseToken> {
     const cert = credentials.certificate_file;
     const key = credentials.key_file;
@@ -88,11 +84,164 @@ export default class InterApiProvider implements IInterApiProvider {
       // });
 
       token = response.data;
+      this.token = `Bearer ${token.access_token}`;
     } catch (error: any) {
       if (error.response.status === 401) {
         throw new AppError('Credetials incorrent', 401);
       }
     }
     return token;
+  }
+  public async getBankSlipPDF(
+    credentials: ICredentials,
+    ourNumber: string,
+  ): Promise<string> {
+    const token = await this.getToken(credentials);
+    if (!token) {
+      throw new AppError('Credentials not valid', 401);
+    }
+    const cert = credentials.certificate_file;
+    const key = credentials.key_file;
+    const httpsAgent = new https.Agent({
+      rejectUnauthorized: false,
+      cert,
+      key,
+    });
+    const instance = axios.create({ httpsAgent });
+    try {
+      const response = await instance.get(
+        `https://cdpj.partners.bancointer.com.br/cobranca/v2/boletos/${ourNumber}/pdf`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: this.token,
+          },
+        },
+      );
+      return response.data.pdf;
+    } catch (error: any) {
+      throw new AppError(
+        'An error occurred while trying to retrieve the bank slip',
+        error.response.status,
+      );
+    }
+  }
+  public async getListBankSlip(
+    credentials: ICredentials,
+    params?: IParams,
+  ): Promise<IResponseListBankSlip> {
+    const token = await this.getToken(credentials);
+    if (!token) {
+      throw new AppError('Credentials not valid', 401);
+    }
+    const cert = credentials.certificate_file;
+    const key = credentials.key_file;
+    const httpsAgent = new https.Agent({
+      rejectUnauthorized: false,
+      cert,
+      key,
+    });
+    const instance = axios.create({ httpsAgent });
+    try {
+      const response = await instance.get(
+        `https://cdpj.partners.bancointer.com.br/cobranca/v2/boletos`,
+        {
+          headers: {
+            Accept: 'application/json',
+            Authorization: this.token,
+          },
+          params: {
+            ...params,
+            dataInicial: '2022-01-01',
+            dataFinal: '2022-05-01',
+            filtrarDataPor: 'VENCIMENTO',
+            itensPorPagina: '100',
+            paginaAtual: '0',
+            ordenarPor: 'PAGADOR',
+            tipoOrdenacao: 'ASC',
+          },
+        },
+      );
+      return response.data;
+    } catch (error: any) {
+      throw new AppError(
+        'An error occurred while trying to retrieve the list of bank slip',
+        error.response.status,
+      );
+    }
+  }
+  public async cancelBankSlip({
+    credentials,
+    cancellationReason,
+    ourNumber,
+  }: ICancelBankSlipData): Promise<boolean> {
+    const token = await this.getToken(credentials);
+    if (!token) {
+      throw new AppError('Credentials not valid', 401);
+    }
+    const cert = credentials.certificate_file;
+    const key = credentials.key_file;
+    const httpsAgent = new https.Agent({
+      rejectUnauthorized: false,
+      cert,
+      key,
+    });
+    const instance = axios.create({ httpsAgent });
+    try {
+      await instance.post(
+        `
+        https://cdpj.partners.bancointer.com.br/cobranca/v2/boletos/${ourNumber}/cancelar`,
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: this.token,
+          },
+          motivoCancelamento: cancellationReason,
+        },
+      );
+      return true;
+    } catch (error: any) {
+      throw new AppError(
+        'An error occurred while trying to cancel the bank slip',
+        error.response.status,
+      );
+    }
+  }
+  public async createBankSlip(
+    credentials: ICredentials,
+    createBankSlip: ICreateBankSlipData,
+  ): Promise<IResponseCreateBankSlip> {
+    const token = await this.getToken(credentials);
+    if (!token) {
+      throw new AppError('Credentials not valid', 401);
+    }
+    const cert = credentials.certificate_file;
+    const key = credentials.key_file;
+    const httpsAgent = new https.Agent({
+      rejectUnauthorized: false,
+      cert,
+      key,
+    });
+    const instance = axios.create({ httpsAgent });
+    try {
+      const response = await instance.post(
+        `https://cdpj.partners.bancointer.com.br/cobranca/v2/boletos`,
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: this.token,
+          },
+          ...createBankSlip,
+        },
+      );
+      return response.data;
+    } catch (error: any) {
+      throw new AppError(
+        'An error occurred while trying to create the bank slip',
+        error.response.status,
+      );
+    }
   }
 }

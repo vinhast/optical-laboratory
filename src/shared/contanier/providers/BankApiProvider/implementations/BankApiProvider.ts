@@ -3,13 +3,12 @@ import IBankApiProvider, {
   IBankApiResponse,
 } from '@shared/contanier/providers/BankApiProvider/models/IBankApiProvider';
 import { inject, injectable } from 'tsyringe';
-import IInterApiProvider from '../models/IInterApiProvider';
 
 @injectable()
 export default class BankApiProvider implements IBankApiProvider {
   constructor(
     @inject('InterApiProvider')
-    private interApiProvider: IInterApiProvider,
+    private interApiProvider: IBankApiProvider,
     @inject('PaymentModulesRepository')
     private paymentModulesRepository: IPaymentModulesRepository,
   ) {}
