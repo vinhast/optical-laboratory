@@ -5,11 +5,11 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export class CreateStocksMoviments1636463434006 implements MigrationInterface {
+export class CreateOrdersStatusLogs1653662775763 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'stocks_moviments',
+        name: 'orders_status_logs',
         columns: [
           {
             name: 'id',
@@ -24,34 +24,13 @@ export class CreateStocksMoviments1636463434006 implements MigrationInterface {
           {
             name: 'order_id',
             type: 'int',
-            isNullable: true,
-          },
-          {
-            name: 'product_id',
-            type: 'int',
           },
           {
             name: 'user_id',
             type: 'int',
           },
           {
-            name: 'financial_moviment_id',
-            type: 'int',
-          },
-          {
-            name: 'description',
-            type: 'text',
-          },
-          {
-            name: 'type',
-            type: 'char(1)',
-          },
-          {
-            name: 'origin',
-            type: 'varchar(2)',
-          },
-          {
-            name: 'quantity',
+            name: 'status',
             type: 'int',
           },
           {
@@ -73,9 +52,9 @@ export class CreateStocksMoviments1636463434006 implements MigrationInterface {
       }),
     );
     await queryRunner.createForeignKey(
-      'stocks_moviments',
+      'orders_status_logs',
       new TableForeignKey({
-        name: 'fk_stocks_moviments_clients_application',
+        name: 'fk_orders_status_logs_clients_application',
         columnNames: ['client_application_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'clients_application',
@@ -85,39 +64,27 @@ export class CreateStocksMoviments1636463434006 implements MigrationInterface {
     );
 
     await queryRunner.createForeignKey(
-      'stocks_moviments',
+      'orders_status_logs',
       new TableForeignKey({
-        name: 'fk_stocks_moviments_orders',
-        columnNames: ['order_id'],
+        name: 'fk_orders_status_logs_users',
+        columnNames: ['user_id'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'orders',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
-      }),
-    );
-
-    await queryRunner.createForeignKey(
-      'stocks_moviments',
-      new TableForeignKey({
-        name: 'fk_stocks_moviments_products',
-        columnNames: ['product_id'],
-        referencedColumnNames: ['id'],
-        referencedTableName: 'products',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
+        referencedTableName: 'users',
+        onDelete: 'NO ACTION',
+        onUpdate: 'NO ACTION',
       }),
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropForeignKey(
-      'stocks_moviments',
-      'fk_stocks_moviments_orders',
+      'orders_status_logs',
+      'fk_orders_status_logs_clients_application',
     );
     await queryRunner.dropForeignKey(
-      'stocks_moviments',
-      'fk_stocks_moviments_products',
+      'orders_status_logs',
+      'fk_orders_status_logs_users',
     );
-    await queryRunner.dropTable('stocks_moviments');
+    await queryRunner.dropTable('orders_status_logs');
   }
 }

@@ -113,8 +113,8 @@ export class CreateOrdersProducts1635461576490 implements MigrationInterface {
         columnNames: ['order_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'orders',
-        onDelete: 'NO ACTION',
-        onUpdate: 'NO ACTION',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       }),
     );
 

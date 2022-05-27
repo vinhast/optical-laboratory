@@ -1,35 +1,13 @@
 import { inject, injectable } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import AppError from '@shared/errors/AppError';
 import IOrdersRepository from '@modules/commercial/repositories/IOrdersRepository';
 import Order from '@modules/commercial/infra/typeorm/entities/Order';
 import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICacheProvider';
 
-interface IRequest {
-  id: number;
-  os?: string;
-  client_id: number;
-  products_value?: string;
-  service_value?: string;
-  lenses_value?: string;
-  charged_value?: string;
-  credit_value?: string;
-  shipping_method?: string;
-  shipping_value?: string;
-  shipping_time?: string;
-  payment_method?: string;
-  payment_date?: Date;
-  installments?: number;
-  status?: number;
-  type: string;
-  profit: string;
-  note?: string;
-  user_id?: number;
-  products: any[];
-}
-
 @injectable()
-class UpdateService {
+class StatusService {
   constructor(
     @inject('OrdersRepository')
     private ordersRepository: IOrdersRepository,
@@ -37,32 +15,23 @@ class UpdateService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute(orderUpdate: IRequest): Promise<Order> {
-    const id = orderUpdate.id;
+  public async execute(id: number, status: number): Promise<Order> {
     const cacheKey = `order-get-${id}`;
     let order = await this.cacheProvider.recover<Order | undefined>(cacheKey);
 
     if (!order) {
       order = await this.ordersRepository.findById(id);
+      this.cacheProvider.save(cacheKey, classToClass(order));
     }
-
     if (!order) {
-      throw new AppError('order not found.', 404);
+      throw new AppError('Order not found.', 404);
     }
-
-    order = {
-      ...order,
-      ...orderUpdate,
-    };
-
+    const orderStatus = await this.ordersRepository.updateStatus(order, status);
     await this.cacheProvider.invalidate(`orders-list`);
-
     await this.cacheProvider.invalidate(cacheKey);
 
-    await this.ordersRepository.save(order);
-
-    return order;
+    return orderStatus;
   }
 }
 
-export default UpdateService;
+export default StatusService;

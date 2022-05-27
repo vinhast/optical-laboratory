@@ -6,6 +6,7 @@ import ListService from '@modules/commercial/services/Order/ListService';
 import CreateService from '@modules/commercial/services/Order/CreateService';
 import UpdateService from '@modules/commercial/services/Order/UpdateService';
 import GetService from '@modules/commercial/services/Order/GetService';
+import StatusService from '@modules/commercial/services/Order/StatusService';
 import DeleteService from '@modules/commercial/services/Order/DeleteService';
 
 export default class OrdersController {
@@ -36,6 +37,7 @@ export default class OrdersController {
       profit,
       note,
       user_id,
+      products,
     } = request.body;
     const createOrder = container.resolve(CreateService);
 
@@ -58,6 +60,7 @@ export default class OrdersController {
       profit,
       note,
       user_id,
+      products,
     });
 
     return response.json(classToClass(order));
@@ -67,6 +70,18 @@ export default class OrdersController {
     const { id } = request.params;
     const getOrder = container.resolve(GetService);
     const order = await getOrder.execute(Number(id));
+
+    return response.json(classToClass(order));
+  }
+
+  public async finishOrder(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { id } = request.params;
+    const { status } = request.body;
+    const finishOrder = container.resolve(StatusService);
+    const order = await finishOrder.execute(Number(id), Number(status));
 
     return response.json(classToClass(order));
   }
@@ -92,6 +107,7 @@ export default class OrdersController {
       profit,
       note,
       user_id,
+      products,
     } = request.body;
 
     const updateOrder = container.resolve(UpdateService);
@@ -115,6 +131,7 @@ export default class OrdersController {
       profit,
       note,
       user_id,
+      products,
     });
 
     return response.json(classToClass(order));

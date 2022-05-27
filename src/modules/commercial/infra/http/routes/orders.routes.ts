@@ -7,10 +7,27 @@ const ordersRouter = Router();
 const ordersController = new OrdersController();
 
 ordersRouter.get('/', ordersController.list, () => {
-  /*  
+  /*
         #swagger.path = '/commercial/orders'
         #swagger.tags = ['Order']
         #swagger.description = "List orders"
+        #swagger.security = [{
+          "bearerAuth": []
+        }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+     */
+});
+
+ordersRouter.post('/finishOrder/:id', ordersController.finishOrder, () => {
+  /*
+        #swagger.path = '/commercial/orders/finishOrder/{id}'
+        #swagger.tags = ['Order']
+        #swagger.description = "Status orders"
         #swagger.security = [{
           "bearerAuth": []
         }]
@@ -32,7 +49,7 @@ ordersRouter.get(
   }),
   ordersController.get,
   () => {
-    /*  
+    /*
         #swagger.path = '/commercial/orders/view/{id}'
         #swagger.tags = ['Order']
         #swagger.description = "View order "
@@ -74,11 +91,12 @@ ordersRouter.post(
       profit: Joi.string().required(),
       note: Joi.string(),
       user_id: Joi.number(),
+      products: Joi.array(),
     },
   }),
   ordersController.create,
   () => {
-    /*  
+    /*
         #swagger.path = '/commercial/orders'
         #swagger.tags = ['Order']
         #swagger.description = "Create order "
@@ -98,7 +116,7 @@ ordersRouter.post(
         required: true,
         content: {
           "application/json": {
-            schema: { 
+            schema: {
               "$ref": "#/components/schemas/Order"
             }
           }
@@ -131,11 +149,12 @@ ordersRouter.put(
       profit: Joi.string().required(),
       note: Joi.string(),
       user_id: Joi.number(),
+      products: Joi.array(),
     },
   }),
   ordersController.update,
   () => {
-    /*  
+    /*
         #swagger.path = '/commercial/orders/update/{id}'
         #swagger.tags = ['Order']
         #swagger.description = "Update order"
@@ -155,7 +174,7 @@ ordersRouter.put(
         required: true,
         content: {
             "application/json": {
-                schema: { 
+                schema: {
                   "$ref": "#/components/schemas/Order"
                   }
             }
@@ -175,7 +194,7 @@ ordersRouter.delete(
   }),
   ordersController.delete,
   () => {
-    /*  
+    /*
         #swagger.path = '/commercial/orders/{id}'
         #swagger.tags = ['Order']
         #swagger.description = "Delete order"
@@ -191,7 +210,7 @@ ordersRouter.delete(
       #swagger.responses[200] = {
         description: "OK",
       }
-      
+
      */
   },
 );
