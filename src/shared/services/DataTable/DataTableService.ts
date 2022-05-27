@@ -67,9 +67,6 @@ class DataTableService {
       }
     }
 
-    if (entity === 'Order') {
-      query.innerJoinAndSelect(`${source}.client`, 'client');
-    }
     if (entity === 'ProductCategory') {
       query.leftJoinAndSelect(`${source}.parentProductCategory`, 'family');
     }
