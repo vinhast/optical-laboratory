@@ -1,6 +1,7 @@
 import { getManager } from 'typeorm';
 import '@shared/infra/typeorm';
 import Role from '@modules/users/infra/typeorm/entities/Role';
+import Client from '@modules/commercial/infra/typeorm/entities/Client';
 
 interface IRequest {
   source: string;
@@ -112,7 +113,7 @@ class DataTableService {
       query.orderBy(`${source}.${orderByField}`, orderBySort || 'ASC');
     }
     if (entity === 'Order') {
-      query.orderBy(`${source}id`, 'DESC');
+      query.orderBy(`${source}.id`, 'DESC');
     }
     if (entity === 'Download') {
       query.leftJoinAndSelect(
@@ -134,6 +135,21 @@ class DataTableService {
           userMutation.role_name = roles.find(
             r => r.id === userMutation.role_id,
           )?.name;
+          return userMutation;
+        });
+        items = itemsMutation;
+      }
+    }
+
+    if (entity === 'Order') {
+      const clients = await getManager().find(Client);
+
+      if (items) {
+        const itemsMutation = items.map((user: any) => {
+          const userMutation = user;
+          userMutation.client = clients.find(
+            r => r.id === userMutation.client_id,
+          );
           return userMutation;
         });
         items = itemsMutation;
