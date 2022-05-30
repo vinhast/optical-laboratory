@@ -2795,7 +2795,22 @@
           "Product"
         ],
         "description": "List products",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "product",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "client_id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -5568,7 +5583,7 @@
           },
           "date": {
             "type": "string",
-            "example": "24/05/2022"
+            "example": "30/05/2022"
           },
           "used": {
             "type": "string",
@@ -5576,7 +5591,7 @@
           },
           "used_at": {
             "type": "string",
-            "example": "24/05/2022"
+            "example": "30/05/2022"
           }
         }
       },
@@ -5613,7 +5628,7 @@
           },
           "due_date": {
             "type": "string",
-            "example": "24/05/2022"
+            "example": "30/05/2022"
           },
           "value": {
             "type": "string",
@@ -5645,11 +5660,11 @@
           },
           "nf_receipt_date": {
             "type": "string",
-            "example": "24/05/2022"
+            "example": "30/05/2022"
           },
           "nf_issue_date": {
             "type": "string",
-            "example": "24/05/2022"
+            "example": "30/05/2022"
           },
           "nf_cStat_receipt": {
             "type": "string",
@@ -5717,7 +5732,7 @@
           },
           "nfse_issue_date": {
             "type": "string",
-            "example": "24/05/2022"
+            "example": "30/05/2022"
           },
           "nfse_rps_number": {
             "type": "number",
@@ -5765,7 +5780,7 @@
           },
           "downloaded_at": {
             "type": "string",
-            "example": "24/05/2022"
+            "example": "30/05/2022"
           }
         }
       },
@@ -5849,7 +5864,7 @@
           },
           "certified_validate": {
             "type": "string",
-            "example": "24/05/2022"
+            "example": "30/05/2022"
           },
           "certified_password": {
             "type": "string",
@@ -5958,7 +5973,11 @@
             "type": "number",
             "example": 1
           },
-          "price": {
+          "unit_price": {
+            "type": "string",
+            "example": "string"
+          },
+          "wholesale_price": {
             "type": "string",
             "example": "string"
           },
@@ -6231,13 +6250,17 @@
       "Service": {
         "type": "object",
         "properties": {
+          "name": {
+            "type": "string",
+            "example": "limpeza"
+          },
+          "description": {
+            "type": "string",
+            "example": ""
+          },
           "price": {
             "type": "string",
             "example": "100"
-          },
-          "active": {
-            "type": "string",
-            "example": "S"
           }
         }
       },
@@ -6454,7 +6477,7 @@
                 },
                 "due_date": {
                   "type": "string",
-                  "example": "24/05/2022"
+                  "example": "30/05/2022"
                 },
                 "value": {
                   "type": "string",

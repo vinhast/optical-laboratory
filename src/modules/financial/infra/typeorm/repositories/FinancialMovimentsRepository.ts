@@ -33,20 +33,27 @@ class FinancialMovimentsRepository
   }
 
   public async findById(id: number): Promise<FinancialMoviment | undefined> {
-    const financialMoviment = await this.ormRepository.findOne({
-      where: {
-        id,
-        client_application_id: this.userData.client_application_id,
-      },
-      relations: [
-        'client',
-        'provider',
-        'financialCategory',
-        'financialSubCategory',
-        'downloadedUser',
-        'generatedUser',
-      ],
-    });
+    const financialMoviment = await this.ormRepository
+      .createQueryBuilder('financialMoviment')
+      .where(`financialMoviment.id = "${id}"`)
+      .leftJoinAndSelect(`financialMoviment.client`, `client`)
+      .leftJoinAndSelect(`financialMoviment.provider`, `provider`)
+      .leftJoinAndSelect(
+        `financialMoviment.financialCategory`,
+        `financialCategory`,
+      )
+      .leftJoinAndSelect(
+        `financialMoviment.financialSubCategory`,
+        `financialSubCategory`,
+      )
+      .leftJoinAndSelect(`financialMoviment.downloadedUser`, `downloadedUser`)
+      .leftJoinAndSelect(`financialMoviment.generatedUser`, `generatedUser`)
+      .leftJoinAndSelect(
+        `financialMoviment.financialMovimentsPayments`,
+        `financialMovimentsPayments`,
+      )
+      .orderBy(`financialMovimentsPayments.created_at`, `DESC`)
+      .getOne();
     return financialMoviment;
   }
 

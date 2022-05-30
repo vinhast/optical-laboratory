@@ -5,6 +5,7 @@ export interface ICredentials {
   certificate_file: string;
   key_file: string;
   scope?: string;
+  yourNumber?: string;
 }
 
 export interface IResponseToken {
@@ -32,15 +33,15 @@ interface IPayer {
   tipoPessoa: 'FISICA' | 'JURIDICA';
   nome: string;
   endereco: string;
-  numero: string;
-  complemento: string;
-  bairro: string;
+  numero?: string;
+  complemento?: string;
+  bairro?: string;
   cidade: string;
   uf: string;
   cep: string;
-  email: string;
-  ddd: string;
-  telefone: string;
+  email?: string;
+  ddd?: string;
+  telefone?: string;
 }
 
 interface IBankSlip {
@@ -102,9 +103,9 @@ export interface ICancelBankSlipData {
     | 'SUBSTITUICAO';
 }
 export interface ICreateBankSlipData {
-  ourNumber: string;
+  seuNumero: string;
   valorNominal: number;
-  valorAbatimento: number;
+  valorAbatimento?: number;
   dataVencimento: string;
   numDiasAgenda: number;
   pagador: IPayer;

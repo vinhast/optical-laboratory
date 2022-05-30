@@ -30,6 +30,9 @@ import PaymentGatewaysRepository from '@modules/financial/infra/typeorm/reposito
 import IPaymentModulesRepository from '@modules/financial/repositories/IPaymentModulesRepository';
 import PaymentModulesRepository from '@modules/financial/infra/typeorm/repositories/PaymentModulesRepository';
 
+import IFinancialMovimentsPaymentsRepository from '@modules/financial/repositories/IFinancialMovimentsPaymentsRepository';
+import FinancialMovimentsPaymentsRepository from '@modules/financial/infra/typeorm/repositories/FinancialMovimentsPaymentsRepository';
+
 container.registerSingleton<IBankAccountsRepository>(
   'BankAccountsRepository',
   BankAccountsRepository,
@@ -78,4 +81,9 @@ container.registerSingleton<IPaymentGatewaysRepository>(
 container.registerSingleton<IPaymentModulesRepository>(
   'PaymentModulesRepository',
   PaymentModulesRepository,
+);
+
+container.registerSingleton<IFinancialMovimentsPaymentsRepository>(
+  'FinancialMovimentsPaymentsRepository',
+  FinancialMovimentsPaymentsRepository,
 );

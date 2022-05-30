@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICacheProvider';
-import IFinancialMovimentsRepository from '@modules/financial/repositories/IFinancialMovimentsRepository';
+import IFinancialMovimentsPaymentsRepository from '@modules/financial/repositories/IFinancialMovimentsPaymentsRepository';
 
 interface IRequest {
   id: number;
@@ -11,25 +11,24 @@ interface IRequest {
 @injectable()
 class DeleteService {
   constructor(
-    @inject('FinancialMovimentsRepository')
-    private financialMovimentsRepository: IFinancialMovimentsRepository,
+    @inject('FinancialMovimentPaymentsRepository')
+    private financialMovimentPaymentsRepository: IFinancialMovimentsPaymentsRepository,
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute({ id }: IRequest): Promise<boolean> {
-    const financialMoviment = await this.financialMovimentsRepository.findById(
-      id,
-    );
+    const financialMovimentsPayments =
+      await this.financialMovimentPaymentsRepository.findById(id);
 
-    if (!financialMoviment) {
-      throw new AppError('financialMoviment not found.', 404);
+    if (!financialMovimentsPayments) {
+      throw new AppError('Financial moviment payment not found.', 404);
     }
 
     await this.cacheProvider.invalidate(`financial-moviments-list`);
     await this.cacheProvider.invalidate(`financial-moviment-get-${id}`);
 
-    await this.financialMovimentsRepository.delete(id);
+    await this.financialMovimentPaymentsRepository.delete(id);
 
     return true;
   }

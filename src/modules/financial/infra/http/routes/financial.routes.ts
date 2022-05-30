@@ -2,6 +2,7 @@ import { Router } from 'express';
 import bankAccountsRouter from './bankAccounts.routes';
 import creditsRouter from './credits.routes';
 import financialCategoriesRouter from './financialCategories.routes';
+import financialMovimentPaymentRouter from './financialMovimentPayments.routes';
 import financialMovimentsRouter from './financialMoviments.routes';
 import financialMovimentsOrdersRouter from './financialMovimentsOrders.routes';
 import financialMovimentsTypesRouter from './financialMovimentsTypes.routes';
@@ -28,4 +29,8 @@ financialRouter.use('/fiscalSettings', fiscalSettingsRouter);
 financialRouter.use('/categories', financialCategoriesRouter);
 financialRouter.use('/paymentGateways', paymentGatewaysRouter);
 financialRouter.use('/paymentModules', paymentModulesRouter);
+financialRouter.use(
+  '/financialMovimentsPayments',
+  financialMovimentPaymentRouter,
+);
 export default financialRouter;
