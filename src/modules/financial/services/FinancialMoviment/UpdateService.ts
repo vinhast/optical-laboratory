@@ -38,9 +38,7 @@ class UpdateService {
     const id = financialMovimentUpdate.id;
     let bankModule: IBankApiResponse | undefined;
     const cacheKey = `financial-moviment-get-${id}`;
-    let financialMoviment = await this.cacheProvider.recover<
-      FinancialMoviment | undefined
-    >(cacheKey);
+    let financialMoviment;
 
     if (!financialMoviment) {
       financialMoviment = await this.financialMovimentsRepository.findById(id);
@@ -69,6 +67,7 @@ class UpdateService {
     } else {
       dueDate = `${financialMovimentUpdate.due_date}`.split('T')[0];
     }
+
     if (
       financialMovimentUpdate.due_date &&
       !moment(dueDate).isSame(oldDueDate)
@@ -136,6 +135,30 @@ class UpdateService {
         });
       }
     }
+
+    if (financialMovimentUpdate.finished === 'S') {
+      let downloaded_at;
+      if (financialMovimentUpdate.downloaded_at) {
+        downloaded_at = new Date(
+          moment(financialMovimentUpdate.downloaded_at).format(
+            'YYYY-MM-DDTHH:mm:ss[Z]',
+          ),
+        );
+      }
+      const user = httpContext.get('user');
+      financialMoviment.downloaded_user_id = user?.client_application_id;
+      financialMoviment.downloaded_at =
+        downloaded_at || new Date(moment().format('YYYY-MM-DDTHH:mm:ss[Z]'));
+    }
+
+    await this.cacheProvider.invalidate(`financial-moviments-list`);
+    await this.cacheProvider.invalidate(cacheKey);
+
+    await this.financialMovimentsRepository.save({
+      ...financialMoviment,
+      ...financialMovimentUpdate,
+    });
+
     if (financialMovimentUpdate.downloaded_at) {
       const financialMovimentPayment =
         await this.financialMovimentsPaymentsRepository.findByFinancialMovimentId(
@@ -181,28 +204,6 @@ class UpdateService {
         ),
       });
     }
-
-    financialMoviment = {
-      ...financialMoviment,
-      ...financialMovimentUpdate,
-    };
-
-    if (financialMovimentUpdate.finished === 'S') {
-      const downloaded_at = new Date(
-        moment(financialMovimentUpdate.downloaded_at).format(
-          'YYYY-MM-DDTHH:mm:ss[Z]',
-        ),
-      );
-      const user = httpContext.get('user');
-      financialMoviment.downloaded_user_id = user?.client_application_id;
-      financialMoviment.downloaded_at =
-        downloaded_at || new Date(moment().format('YYYY-MM-DDTHH:mm:ss[Z]'));
-    }
-
-    await this.cacheProvider.invalidate(`financial-moviments-list`);
-    await this.cacheProvider.invalidate(cacheKey);
-
-    await this.financialMovimentsRepository.save(financialMoviment);
 
     return financialMoviment;
   }
