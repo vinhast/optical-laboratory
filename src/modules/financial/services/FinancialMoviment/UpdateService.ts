@@ -56,9 +56,19 @@ class UpdateService {
     if (!financialMoviment.due_date) {
       throw new AppError('Due date is invalid date');
     }
-    const [day, month, year] = `${financialMoviment.due_date}`.split('/');
-    const oldDueDate = `${year}-${month}-${day}`;
-    const [dueDate] = `${financialMovimentUpdate.due_date}`.split('T');
+    const [oldDay, oldMonth, oldYear] = `${financialMoviment.due_date}`.split(
+      '/',
+    );
+    const oldDueDate = `${oldYear}-${oldMonth}-${oldDay}`;
+    let dueDate;
+    if (`${financialMovimentUpdate.due_date}`.includes('/')) {
+      const [day, month, year] = `${financialMovimentUpdate.due_date}`.split(
+        '/',
+      );
+      dueDate = `${year}-${month}-${day}`;
+    } else {
+      dueDate = `${financialMovimentUpdate.due_date}`.split('T')[0];
+    }
     if (
       financialMovimentUpdate.due_date &&
       !moment(dueDate).isSame(oldDueDate)
@@ -154,23 +164,22 @@ class UpdateService {
             });
           }
         }
-        await this.financialMovimentsPaymentsRepository.create({
-          due_date: new Date(
-            moment(oldDueDate).format('YYYY-MM-DDTHH:mm:ss[Z]'),
-          ),
-          financial_moviment_id: id,
-          payment_method: `${financialMovimentUpdate.payment_method}`,
-          situation: 'Paid',
-          payment_date: new Date(
-            moment(financialMovimentUpdate.downloaded_at).format(
-              'YYYY-MM-DDTHH:mm:ss[Z]',
-            ),
-          ),
-        });
+
         await this.financialMovimentsPaymentsRepository.save(
           financialMovimentPayment,
         );
       }
+      await this.financialMovimentsPaymentsRepository.create({
+        due_date: new Date(moment(oldDueDate).format('YYYY-MM-DDTHH:mm:ss[Z]')),
+        financial_moviment_id: id,
+        payment_method: `${financialMovimentUpdate.payment_method}`,
+        situation: 'Paid',
+        payment_date: new Date(
+          moment(financialMovimentUpdate.downloaded_at).format(
+            'YYYY-MM-DDTHH:mm:ss[Z]',
+          ),
+        ),
+      });
     }
 
     financialMoviment = {
