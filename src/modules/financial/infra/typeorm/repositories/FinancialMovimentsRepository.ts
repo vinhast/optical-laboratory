@@ -52,6 +52,7 @@ class FinancialMovimentsRepository
         `financialMoviment.financialMovimentsPayments`,
         `financialMovimentsPayments`,
       )
+      .leftJoinAndSelect(`financialMoviment.paymentGateway`, `paymentGateway`)
       .orderBy(`financialMovimentsPayments.created_at`, `DESC`)
       .getOne();
     return financialMoviment;

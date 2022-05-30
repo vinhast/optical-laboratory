@@ -114,13 +114,6 @@ export default class InterApiProvider implements IBankApiResponse {
           },
           params: {
             ...params,
-            dataInicial: '2022-01-01',
-            dataFinal: '2022-05-01',
-            filtrarDataPor: 'VENCIMENTO',
-            itensPorPagina: '100',
-            paginaAtual: '0',
-            ordenarPor: 'PAGADOR',
-            tipoOrdenacao: 'ASC',
           },
         },
       );

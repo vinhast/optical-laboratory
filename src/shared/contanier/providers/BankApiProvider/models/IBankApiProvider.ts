@@ -85,11 +85,11 @@ export interface IResponseListBankSlip {
 export interface IParams {
   dataInicial: string;
   dataFinal: string;
-  filtrarDataPor: string;
-  itensPorPagina: string;
-  paginaAtual: string;
-  ordenarPor: string;
-  tipoOrdenacao: string;
+  filtrarDataPor?: string;
+  itensPorPagina?: string;
+  paginaAtual?: string;
+  ordenarPor?: string;
+  tipoOrdenacao?: string;
 }
 
 export interface ICancelBankSlipData {
