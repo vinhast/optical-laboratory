@@ -1,11 +1,12 @@
 import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
-import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 
 import Client from '@modules/commercial/infra/typeorm/entities/Client';
 import Provider from '@modules/commercial/infra/typeorm/entities/Provider';
 import ClientApplication from '@shared/infra/typeorm/entities/ClientApplication';
 import FinancialCategory from './FinancialCategory';
 import PaymentGateway from './PaymentGateway';
+import FinancialMovimentPayment from './FinancialMovimentPayment';
 
 @Entity('financial_moviments')
 class FinancialMoviment extends MainEntity {
@@ -124,7 +125,7 @@ class FinancialMoviment extends MainEntity {
   finished: string;
 
   @Column()
-  payment_method?: string;
+  payment_method: string;
 
   @Column()
   invoice_status?: string;
@@ -148,7 +149,7 @@ class FinancialMoviment extends MainEntity {
   downloaded_at?: Date;
 
   @Column()
-  payment_method_text?: string;
+  payment_method_text: string;
 
   @Column()
   payment_gateway_id?: number;
@@ -180,6 +181,13 @@ class FinancialMoviment extends MainEntity {
   @ManyToOne(() => PaymentGateway)
   @JoinColumn({ name: 'payment_gateway_id', referencedColumnName: 'id' })
   paymentGateway?: PaymentGateway;
+
+  @OneToMany(
+    () => FinancialMovimentPayment,
+    financialMovimentPayment => financialMovimentPayment.financialMoviment,
+  )
+  @JoinColumn({ name: 'id', referencedColumnName: 'financial_moviment_id' })
+  financialMovimentsPayments?: FinancialMovimentPayment[];
 }
 
 export default FinancialMoviment;

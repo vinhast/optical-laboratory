@@ -5,8 +5,13 @@ import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICa
 import IFinancialMovimentsRepository from '@modules/financial/repositories/IFinancialMovimentsRepository';
 import FinancialMoviment from '@modules/financial/infra/typeorm/entities/FinancialMoviment';
 import ICreateFinancialMovimentDTO from '@modules/financial/dtos/ICreateFinancialMovimentDTO';
+import IFinancialMovimentsPaymentsRepository from '@modules/financial/repositories/IFinancialMovimentsPaymentsRepository';
 import httpContext from 'express-http-context';
 import moment from 'moment';
+import IBankApiProvider, {
+  IBankApiResponse,
+} from '@shared/contanier/providers/BankApiProvider/models/IBankApiProvider';
+import IPaymentGatewaysRepository from '@modules/financial/repositories/IPaymentGatewaysRepository';
 
 interface IRequest extends ICreateFinancialMovimentDTO {
   id: number;
@@ -17,14 +22,21 @@ class UpdateService {
   constructor(
     @inject('FinancialMovimentsRepository')
     private financialMovimentsRepository: IFinancialMovimentsRepository,
+    @inject('FinancialMovimentsPaymentsRepository')
+    private financialMovimentsPaymentsRepository: IFinancialMovimentsPaymentsRepository,
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
+    @inject('BankApiProvider')
+    private bankApiProvider: IBankApiProvider,
+    @inject('PaymentGatewaysRepository')
+    private paymentGatewaysRepository: IPaymentGatewaysRepository,
   ) {}
 
   public async execute(
     financialMovimentUpdate: IRequest,
   ): Promise<FinancialMoviment> {
     const id = financialMovimentUpdate.id;
+    let bankModule: IBankApiResponse | undefined;
     const cacheKey = `financial-moviment-get-${id}`;
     let financialMoviment = await this.cacheProvider.recover<
       FinancialMoviment | undefined
@@ -41,17 +53,141 @@ class UpdateService {
     delete financialMoviment.financialCategory;
     delete financialMoviment.provider;
 
+    if (!financialMoviment.due_date) {
+      throw new AppError('Due date is invalid date');
+    }
+    const [day, month, year] = `${financialMoviment.due_date}`.split('/');
+    const oldDueDate = `${year}-${month}-${day}`;
+    const [dueDate] = `${financialMovimentUpdate.due_date}`.split('T');
+    if (
+      financialMovimentUpdate.due_date &&
+      !moment(dueDate).isSame(oldDueDate)
+    ) {
+      const financialMovimentPayment =
+        await this.financialMovimentsPaymentsRepository.findByFinancialMovimentId(
+          id,
+        );
+      if (!financialMovimentPayment) {
+        throw new AppError('Financial moviment payment not found');
+      }
+      financialMovimentPayment.situation = 'Cancelled';
+      await this.financialMovimentsPaymentsRepository.save(
+        financialMovimentPayment,
+      );
+      if (financialMoviment.paymentGateway) {
+        bankModule = await this.bankApiProvider.getBankModule(
+          financialMoviment.paymentGateway.payment_module_id,
+        );
+        if (!bankModule) {
+          throw new AppError('Bank module not found.', 404);
+        }
+        if (!financialMoviment.due_date) {
+          throw new AppError('Due date is invalid date');
+        }
+
+        await bankModule.cancelBankSlip({
+          cancellationReason: 'APEDIDODOCLIENTE',
+          credentials: financialMoviment.paymentGateway.credentials,
+          ourNumber: financialMovimentPayment.document_number,
+        });
+        const createBankSlip = await bankModule?.createBankSlip(
+          financialMoviment.paymentGateway.credentials,
+          {
+            seuNumero: financialMoviment.paymentGateway.credentials.your_number,
+            valorNominal: Number(financialMoviment.value),
+            dataVencimento: dueDate,
+            numDiasAgenda: Number(0),
+            pagador: {
+              cpfCnpj: `${financialMoviment.client?.cnpj}`,
+              tipoPessoa: 'JURIDICA',
+              nome: `${financialMoviment.client?.company_name}`,
+              endereco: `${financialMoviment.client?.street}`,
+              cidade: `${financialMoviment.client?.city}`,
+              uf: `${financialMoviment.client?.state}`,
+              cep: `${financialMoviment.client?.zip_code}`,
+            },
+          },
+        );
+        const copyPaymentGateway = {
+          ...financialMoviment.paymentGateway,
+        };
+        copyPaymentGateway.credentials.your_number =
+          Number(financialMoviment.paymentGateway.credentials.your_number) + 1;
+        await this.paymentGatewaysRepository.save(copyPaymentGateway);
+        await this.financialMovimentsPaymentsRepository.create({
+          bar_code: createBankSlip.codigoBarras,
+          digitable_line: createBankSlip.linhaDigitavel,
+          document_number: createBankSlip.nossoNumero,
+          due_date: new Date(moment(dueDate).format('YYYY-MM-DDTHH:mm:ss[Z]')),
+          financial_moviment_id: id,
+          payment_method: financialMoviment.payment_method,
+          situation: 'Awaiting payment',
+          payment_gateway_id: financialMoviment.payment_gateway_id,
+        });
+      }
+    }
+    if (financialMovimentUpdate.downloaded_at) {
+      const financialMovimentPayment =
+        await this.financialMovimentsPaymentsRepository.findByFinancialMovimentId(
+          id,
+        );
+      if (!financialMovimentPayment) {
+        throw new AppError('Financial moviment payment not found');
+      }
+      if (financialMovimentPayment.situation === 'Awaiting payment') {
+        financialMovimentPayment.situation = 'Cancelled';
+        if (financialMovimentPayment.payment_method === 'B') {
+          if (financialMoviment.paymentGateway) {
+            bankModule = await this.bankApiProvider.getBankModule(
+              financialMoviment.paymentGateway.payment_module_id,
+            );
+            if (!bankModule) {
+              throw new AppError('Bank module not found.', 404);
+            }
+            if (!financialMoviment.due_date) {
+              throw new AppError('Due date is invalid date');
+            }
+            await bankModule.cancelBankSlip({
+              cancellationReason: 'PAGODIRETOAOCLIENTE',
+              credentials: financialMoviment.paymentGateway.credentials,
+              ourNumber: financialMovimentPayment.document_number,
+            });
+          }
+        }
+        await this.financialMovimentsPaymentsRepository.create({
+          due_date: new Date(
+            moment(oldDueDate).format('YYYY-MM-DDTHH:mm:ss[Z]'),
+          ),
+          financial_moviment_id: id,
+          payment_method: `${financialMovimentUpdate.payment_method}`,
+          situation: 'Paid',
+          payment_date: new Date(
+            moment(financialMovimentUpdate.downloaded_at).format(
+              'YYYY-MM-DDTHH:mm:ss[Z]',
+            ),
+          ),
+        });
+        await this.financialMovimentsPaymentsRepository.save(
+          financialMovimentPayment,
+        );
+      }
+    }
+
     financialMoviment = {
       ...financialMoviment,
       ...financialMovimentUpdate,
     };
 
     if (financialMovimentUpdate.finished === 'S') {
+      const downloaded_at = new Date(
+        moment(financialMovimentUpdate.downloaded_at).format(
+          'YYYY-MM-DDTHH:mm:ss[Z]',
+        ),
+      );
       const user = httpContext.get('user');
       financialMoviment.downloaded_user_id = user?.client_application_id;
-      financialMoviment.downloaded_at = new Date(
-        moment().format('YYYY-MM-DDTHH:mm:ss[Z]'),
-      );
+      financialMoviment.downloaded_at =
+        downloaded_at || new Date(moment().format('YYYY-MM-DDTHH:mm:ss[Z]'));
     }
 
     await this.cacheProvider.invalidate(`financial-moviments-list`);

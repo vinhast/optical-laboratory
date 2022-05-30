@@ -18,9 +18,11 @@ class DeleteService {
   ) {}
 
   public async execute({ id }: IRequest): Promise<boolean> {
-    const client = await this.financialMovimentsRepository.findById(id);
+    const financialMoviment = await this.financialMovimentsRepository.findById(
+      id,
+    );
 
-    if (!client) {
+    if (!financialMoviment) {
       throw new AppError('financialMoviment not found.', 404);
     }
 

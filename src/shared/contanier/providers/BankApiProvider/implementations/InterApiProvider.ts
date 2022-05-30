@@ -44,44 +44,6 @@ export default class InterApiProvider implements IBankApiResponse {
           },
         },
       );
-      // const response = await instance.get(
-      //   'https://cdpj.partners.bancointer.com.br/cobranca/v2/boletos/00814584233/pdf',
-      //   {
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //       Authorization: 'Bearer 9a2c7388-53e1-4a30-8ce9-5279b2022d6e',
-      //     },
-      //   },
-      // );
-      // const response = await instance.post(
-      //   'https://cdpj.partners.bancointer.com.br/oauth/v2/token',
-      //   new URLSearchParams({
-      //     grant_type: 'client_credentials',
-      //     client_id: '6bd380c3-7c5c-4e3b-8493-7875cef2dda8',
-      //     client_secret: '20228739-7fe4-4914-b333-f843f2226b59',
-      //     scope: 'boleto-cobranca.read boleto-cobranca.write',
-      //   }),
-      //   {
-      //     headers: {
-      //       'Content-Type': 'application/x-www-form-urlencoded',
-      //       Accept: 'application/json',
-      //     },
-      //   },
-      // );
-      // const response = await sdk.Token(
-      //   {
-      //     // ...credentials,
-      //     grant_type: 'client_credentials',
-      //     client_id: '6bd380c3-7c5c-4e3b-8493-7875cef2dda8',
-      //     client_secret: '20228739-7fe4-4914-b333-f843f2226b59',
-      //     scope: 'boleto-cobranca.read boleto-cobranca.write',
-      //   },
-      //   { Accept: 'application/json' },
-      // );
-      // sdk.auth('1a9ec106-ed01-44bb-92ce-35b030a6af6a');
-      // const response = await sdk.descarregarPdfBoleto({
-      //   nossoNumero: '00814584233',
-      // });
 
       token = response.data;
       this.token = `Bearer ${token.access_token}`;
@@ -152,13 +114,6 @@ export default class InterApiProvider implements IBankApiResponse {
           },
           params: {
             ...params,
-            dataInicial: '2022-01-01',
-            dataFinal: '2022-05-01',
-            filtrarDataPor: 'VENCIMENTO',
-            itensPorPagina: '100',
-            paginaAtual: '0',
-            ordenarPor: 'PAGADOR',
-            tipoOrdenacao: 'ASC',
           },
         },
       );
@@ -192,12 +147,14 @@ export default class InterApiProvider implements IBankApiResponse {
         `
         https://cdpj.partners.bancointer.com.br/cobranca/v2/boletos/${ourNumber}/cancelar`,
         {
+          motivoCancelamento: cancellationReason,
+        },
+        {
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
             Authorization: this.token,
           },
-          motivoCancelamento: cancellationReason,
         },
       );
       return true;
@@ -228,12 +185,14 @@ export default class InterApiProvider implements IBankApiResponse {
       const response = await instance.post(
         `https://cdpj.partners.bancointer.com.br/cobranca/v2/boletos`,
         {
+          ...createBankSlip,
+        },
+        {
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
             Authorization: this.token,
           },
-          ...createBankSlip,
         },
       );
       return response.data;
