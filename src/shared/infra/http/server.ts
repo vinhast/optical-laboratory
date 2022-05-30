@@ -11,11 +11,14 @@ import uploadConfig from '@config/upload';
 import AppError from '@shared/errors/AppError';
 import rateLimit from '@shared/infra/http/middlewares/rateLimiter';
 import swaggerUI from 'swagger-ui-express';
+import schedule from 'node-schedule';
 import routes from './routes';
 import swaggerDocs from './swagger.json';
 
 import '@shared/infra/typeorm';
 import '@shared/contanier';
+import { container } from 'tsyringe';
+import GetListBankSlipService from '@modules/financial/services/FinancialMovimentPayment/GetListBankSlipService';
 
 const app = express();
 
@@ -26,6 +29,23 @@ app.use(httpContext.middleware);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 app.use('/files', express.static(uploadConfig.uploadsFolder));
 app.use(routes);
+
+schedule.scheduleJob('0 10,15 * * 1-5', async () => {
+  const today = new Date();
+
+  const date = `${today.getHours()}:${
+    today.getMinutes() < 10 ? `0${today.getMinutes()}` : today.getMinutes()
+  }`;
+  const getListBankSlipFinancialMovimentPayment = container.resolve(
+    GetListBankSlipService,
+  );
+  await getListBankSlipFinancialMovimentPayment.execute();
+
+  console.log(
+    'Cron de geração de registros de clientes bloqueados executada às',
+    date,
+  );
+});
 
 app.use(errors());
 
