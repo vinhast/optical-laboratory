@@ -3,6 +3,9 @@ import ICreatePaymentGatewayDTO from '@modules/financial/dtos/ICreatePaymentGate
 
 export default interface IPaymentGatewaysRepository {
   findAll(): Promise<PaymentGateway[]>;
+  findAllByClientApplication(
+    client_application_id: number,
+  ): Promise<PaymentGateway[]>;
   findById(id: number): Promise<PaymentGateway | undefined>;
   create(data: ICreatePaymentGatewayDTO): Promise<PaymentGateway>;
   save(role: PaymentGateway): Promise<PaymentGateway>;

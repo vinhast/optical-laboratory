@@ -165,7 +165,8 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
     if (event.entity) {
       const entity = event.metadata.name;
       const entityDataBase = event.databaseEntity;
-      const user = httpContext.get('user');
+      const userDataContext = asyncLocalStorage.getStore();
+      const user = httpContext.get('user') || userDataContext;
       const entity_id = entityDataBase.id;
       const changes: ILogChanges[] = [];
       let type = 'update';

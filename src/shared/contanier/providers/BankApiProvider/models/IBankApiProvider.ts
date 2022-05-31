@@ -90,6 +90,7 @@ export interface IParams {
   paginaAtual?: string;
   ordenarPor?: string;
   tipoOrdenacao?: string;
+  situacao?: 'EXPIRADO' | 'VENCIDO' | 'EMABERTO' | 'PAGO' | 'CANCELADO';
 }
 
 export interface ICancelBankSlipData {
@@ -128,7 +129,7 @@ export interface IBankApiResponse {
   getBankSlipPDF(credentials: ICredentials, ourNumber: string): Promise<string>;
   getListBankSlip(
     credentials: ICredentials,
-    params?: IParams,
+    params: IParams,
   ): Promise<IResponseListBankSlip>;
   cancelBankSlip({
     cancellationReason,

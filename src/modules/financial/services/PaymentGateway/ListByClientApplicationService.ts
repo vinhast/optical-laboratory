@@ -6,7 +6,7 @@ import IPaymentGatewaysRepository from '@modules/financial/repositories/IPayment
 import PaymentGateway from '@modules/financial/infra/typeorm/entities/PaymentGateway';
 
 @injectable()
-class ListService {
+class ListByClientApplicationService {
   constructor(
     @inject('PaymentGatewaysRepository')
     private paymentGatewaysRepository: IPaymentGatewaysRepository,
@@ -14,14 +14,19 @@ class ListService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute(): Promise<PaymentGateway[]> {
+  public async execute(
+    client_application_id: number,
+  ): Promise<PaymentGateway[]> {
     const cacheKey = `payment-gateways-list`;
-    let paymentGateways = await this.cacheProvider.recover<PaymentGateway[]>(
-      cacheKey,
-    );
+    let paymentGateways = await this.cacheProvider.recover<
+      PaymentGateway[] | undefined
+    >(cacheKey);
 
     if (!paymentGateways) {
-      paymentGateways = await this.paymentGatewaysRepository.findAll();
+      paymentGateways =
+        await this.paymentGatewaysRepository.findAllByClientApplication(
+          client_application_id,
+        );
       await this.cacheProvider.save(cacheKey, classToClass(paymentGateways));
     }
 
@@ -29,4 +34,4 @@ class ListService {
   }
 }
 
-export default ListService;
+export default ListByClientApplicationService;

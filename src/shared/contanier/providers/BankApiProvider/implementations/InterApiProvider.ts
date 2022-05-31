@@ -90,7 +90,7 @@ export default class InterApiProvider implements IBankApiResponse {
   }
   public async getListBankSlip(
     credentials: ICredentials,
-    params?: IParams,
+    params: IParams,
   ): Promise<IResponseListBankSlip> {
     const token = await this.getToken(credentials);
     if (!token) {

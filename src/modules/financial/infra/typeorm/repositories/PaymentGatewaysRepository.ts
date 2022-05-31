@@ -25,10 +25,22 @@ class PaymentGatewaysRepository
     this.userData = httpContext.get('user');
   }
 
-  public async findAll(): Promise<any[]> {
+  public async findAll(): Promise<PaymentGateway[]> {
     const paymentGateways = await this.ormRepository.find({
       where: {
         client_application_id: this.userData.client_application_id,
+      },
+      relations: ['paymentModule'],
+    });
+    return paymentGateways;
+  }
+
+  public async findAllByClientApplication(
+    client_application_id: number,
+  ): Promise<PaymentGateway[]> {
+    const paymentGateways = await this.ormRepository.find({
+      where: {
+        client_application_id,
       },
       relations: ['paymentModule'],
     });
