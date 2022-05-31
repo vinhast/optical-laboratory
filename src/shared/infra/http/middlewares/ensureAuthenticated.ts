@@ -28,11 +28,12 @@ export default async function ensureAuthenticated(
   try {
     const decoded = verify(token, authConfig.jwt.secret);
     const { sub } = decoded as ITokenPayload;
-    const [user_id, role_id, client_application_id] = sub.split('#');
+    const [user_id, role_id, client_application_id, type] = sub.split('#');
     request.user = {
       id: Number(user_id),
       role_id: Number(role_id),
       client_application_id: Number(client_application_id),
+      type,
     };
     httpContext.set('user', request.user);
   } catch {

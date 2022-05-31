@@ -12,7 +12,9 @@ import {
 
 import User from '@modules/users/infra/typeorm/entities/User';
 import { addHours } from 'date-fns';
+import ClientApplicationUser from '@modules/users/infra/typeorm/entities/ClientApplicationUser';
 import AuditLog from '../entities/AuditLog';
+import ClientApplication from '../entities/ClientApplication';
 
 interface ILogChanges {
   field: string;
@@ -115,21 +117,42 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
       if (event.entity) {
         const userData = httpContext.get('user');
         const client_application_id = userData.client_application_id;
-        const user = await event.manager.getRepository(User).findOne({
-          id: userData.id,
-          client_application_id,
-        });
+        let user;
+        let descriptions;
+        let auditLog: AuditLog;
         const entity_id = event.entity.id;
         const type = 'create';
         const ormRepository = event.manager.getRepository(AuditLog);
-        const descriptions = `Registro criado por ${user?.name}`;
-        const auditLog = ormRepository.create({
-          type,
-          descriptions,
-          entity,
-          entity_id,
-          user_id: userData.id,
-        });
+        if (userData.type === 'ClientApplicationUser') {
+          user = (await event.manager.getRepository(userData.type).findOne(
+            {
+              id: userData.id,
+              client_application_id,
+            },
+            { relations: ['clientApplication'] },
+          )) as ClientApplicationUser;
+          descriptions = `Registro criado por ${user?.clientApplication.name}`;
+          auditLog = ormRepository.create({
+            type,
+            descriptions,
+            entity,
+            entity_id,
+            client_application_user_id: userData.id,
+          });
+        } else {
+          user = (await event.manager.getRepository(User).findOne({
+            id: userData.id,
+            client_application_id,
+          })) as User;
+          descriptions = `Registro criado por ${user?.name}`;
+          auditLog = ormRepository.create({
+            type,
+            descriptions,
+            entity,
+            entity_id,
+            user_id: userData.id,
+          });
+        }
         await ormRepository.save(auditLog);
       }
     }
@@ -172,14 +195,25 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
         }
       }
       if (changes.length > 0 || type === 'delete') {
+        let auditLog: AuditLog;
         const ormRepository = event.manager.getRepository(AuditLog);
-        const auditLog = ormRepository.create({
-          type,
-          entity,
-          entity_id,
-          changes: JSON.stringify(changes),
-          user_id: user.id,
-        });
+        if (user.type === 'ClientApplicationUser') {
+          auditLog = ormRepository.create({
+            type,
+            entity,
+            entity_id,
+            changes: JSON.stringify(changes),
+            client_application_user_id: user.id,
+          });
+        } else {
+          auditLog = ormRepository.create({
+            type,
+            entity,
+            entity_id,
+            changes: JSON.stringify(changes),
+            user_id: user.id,
+          });
+        }
         await ormRepository.save(auditLog);
       }
     }

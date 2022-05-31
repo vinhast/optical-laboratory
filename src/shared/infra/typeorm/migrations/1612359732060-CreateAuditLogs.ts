@@ -47,6 +47,12 @@ export default class CreateAuditLogs1612359732060
             {
               name: 'user_id',
               type: 'int',
+              isNullable: true,
+            },
+            {
+              name: 'client_application_user_id',
+              type: 'int',
+              isNullable: true,
             },
             {
               name: 'created_at',
@@ -54,6 +60,17 @@ export default class CreateAuditLogs1612359732060
               default: 'now()',
             },
           ],
+        }),
+      );
+      await queryRunner.createForeignKey(
+        'audit_logs',
+        new TableForeignKey({
+          name: 'fk_audit_log_client_application_user',
+          columnNames: ['client_application_user_id'],
+          referencedColumnNames: ['id'],
+          referencedTableName: 'clients_applications_users',
+          onDelete: 'NO ACTION',
+          onUpdate: 'NO ACTION',
         }),
       );
       await queryRunner.createForeignKey(
@@ -74,6 +91,10 @@ export default class CreateAuditLogs1612359732060
     const checkIfTableExist = await queryRunner.hasTable('audit_logs');
     if (checkIfTableExist) {
       await queryRunner.dropForeignKey('audit_logs', 'fk_audit_log_user');
+      await queryRunner.dropForeignKey(
+        'audit_logs',
+        'fk_audit_log_client_application_user',
+      );
       await queryRunner.dropTable('audit_logs');
     }
   }

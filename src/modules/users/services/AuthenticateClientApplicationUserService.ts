@@ -56,7 +56,7 @@ class AuthenticateClientApplicationUserService {
     }
 
     const { secret, expiresIn } = authConfig.jwt;
-    const subject = `${clientApplicationUser.id}#${clientApplicationUser.role_id}#${clientApplicationUser.client_application_id}`;
+    const subject = `${clientApplicationUser.id}#${clientApplicationUser.role_id}#${clientApplicationUser.client_application_id}#ClientApplicationUser`;
     const token = sign({}, secret, {
       subject,
       expiresIn,

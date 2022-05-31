@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 
 import User from '@modules/users/infra/typeorm/entities/User';
+import ClientApplicationUser from '@modules/users/infra/typeorm/entities/ClientApplicationUser';
 
 @Entity('audit_logs')
 class AuditLog {
@@ -32,12 +33,22 @@ class AuditLog {
   @Column()
   user_id: number;
 
+  @Column()
+  client_application_user_id: number;
+
   @CreateDateColumn()
   created_at: Date;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   user: User;
+
+  @ManyToOne(() => ClientApplicationUser)
+  @JoinColumn({
+    name: 'client_application_user_id',
+    referencedColumnName: 'id',
+  })
+  clientApplicationUser: ClientApplicationUser;
 }
 
 export default AuditLog;
