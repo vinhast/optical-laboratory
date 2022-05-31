@@ -13,6 +13,7 @@ import {
 import User from '@modules/users/infra/typeorm/entities/User';
 import { addHours } from 'date-fns';
 import ClientApplicationUser from '@modules/users/infra/typeorm/entities/ClientApplicationUser';
+import { asyncLocalStorage } from '@shared/infra/http/server';
 import AuditLog from '../entities/AuditLog';
 import ClientApplication from '../entities/ClientApplication';
 
