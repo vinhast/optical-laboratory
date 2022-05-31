@@ -25,6 +25,6 @@ export class MainEntity {
   deleted_at: Date;
 
   @ManyToOne(() => ClientApplication)
-  @JoinColumn({ name: 'client_application_id' })
+  @JoinColumn({ name: 'client_application_id', referencedColumnName: 'id' })
   clientApplication: ClientApplication;
 }

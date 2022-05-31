@@ -5,6 +5,7 @@ import ICreateFinancialMovimentDTO from '@modules/financial/dtos/ICreateFinancia
 import IFinancialMovimentsRepository from '@modules/financial/repositories/IFinancialMovimentsRepository';
 import MainRepository from '@shared/infra/typeorm/repositories/MainRepository';
 import httpContext from 'express-http-context';
+import { asyncLocalStorage } from '@shared/infra/http/server';
 
 class FinancialMovimentsRepository
   extends MainRepository
@@ -35,7 +36,9 @@ class FinancialMovimentsRepository
   public async findById(id: number): Promise<FinancialMoviment | undefined> {
     const financialMoviment = await this.ormRepository
       .createQueryBuilder('financialMoviment')
-      .where(`financialMoviment.id = "${id}"`)
+      .where(
+        `financialMoviment.id = "${id}" AND financialMoviment.client_application_id = ${this.userData.client_application_id}`,
+      )
       .leftJoinAndSelect(`financialMoviment.client`, `client`)
       .leftJoinAndSelect(`financialMoviment.provider`, `provider`)
       .leftJoinAndSelect(

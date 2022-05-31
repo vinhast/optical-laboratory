@@ -5,8 +5,17 @@ import AppError from '@shared/errors/AppError';
 import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICacheProvider';
 import IPaymentGatewaysRepository from '@modules/financial/repositories/IPaymentGatewaysRepository';
 import IBankApiProvider, {
+  IParams,
   IResponseListBankSlip,
 } from '@shared/contanier/providers/BankApiProvider/models/IBankApiProvider';
+import PaymentGateway from '@modules/financial/infra/typeorm/entities/PaymentGateway';
+import moment from 'moment';
+
+interface IRequest {
+  payment_gateway_id?: number;
+  paymentGateway?: PaymentGateway;
+  params: IParams;
+}
 
 @injectable()
 class GetListBankSlipService {
@@ -20,13 +29,16 @@ class GetListBankSlipService {
   ) {}
 
   public async execute(
-    payment_gateway_id: number,
+    data: IRequest,
   ): Promise<IResponseListBankSlip | undefined> {
-    const id = payment_gateway_id;
+    const id = data.payment_gateway_id
+      ? data.payment_gateway_id
+      : data.paymentGateway?.id;
     const cacheKey = `payment-gateway-get-${id}`;
-    let paymentGateway;
-
-    if (!paymentGateway) {
+    let paymentGateway = data.payment_gateway_id
+      ? await this.cacheProvider.recover<PaymentGateway | undefined>(cacheKey)
+      : data.paymentGateway;
+    if (!paymentGateway && id) {
       paymentGateway = await this.paymentGatewaysRepository.findById(id);
       this.cacheProvider.save(cacheKey, classToClass(paymentGateway));
     }
@@ -41,6 +53,7 @@ class GetListBankSlipService {
     if (bankModule) {
       const bankSlipPDf = await bankModule.getListBankSlip(
         paymentGateway.credentials,
+        data.params,
       );
       return bankSlipPDf;
     }

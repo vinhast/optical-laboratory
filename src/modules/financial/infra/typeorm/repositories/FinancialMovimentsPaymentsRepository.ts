@@ -3,11 +3,19 @@ import { getRepository, Repository } from 'typeorm';
 import FinancialMovimentPayment from '@modules/financial/infra/typeorm/entities/FinancialMovimentPayment';
 import ICreateFinancialMovimentPaymentDTO from '@modules/financial/dtos/ICreateFinancialMovimentPaymentDTO';
 import IFinancialMovimentsPaymentsRepository from '@modules/financial/repositories/IFinancialMovimentsPaymentsRepository';
-import MainRepository from '@shared/infra/typeorm/repositories/MainRepository';
 import httpContext from 'express-http-context';
 
+interface IFindByDocumentNumber {
+  document_number: string;
+  client_application_id: number;
+}
+
+interface IFindById {
+  id: number;
+  client_application_id: number;
+}
+
 class FinancialMovimentPaymentsRepository
-  extends MainRepository
   implements IFinancialMovimentsPaymentsRepository
 {
   private ormRepository: Repository<FinancialMovimentPayment>;
@@ -19,7 +27,6 @@ class FinancialMovimentPaymentsRepository
 
   constructor() {
     const repository = getRepository(FinancialMovimentPayment);
-    super(repository);
     this.ormRepository = repository;
     this.userData = httpContext.get('user');
   }
@@ -36,7 +43,7 @@ class FinancialMovimentPaymentsRepository
 
   public async findByFinancialMovimentId(
     financial_moviment_id: number,
-  ): Promise<any | undefined> {
+  ): Promise<FinancialMovimentPayment | undefined> {
     const financialMovimentPayment = await this.ormRepository.findOne({
       where: {
         financial_moviment_id,
@@ -44,6 +51,31 @@ class FinancialMovimentPaymentsRepository
       },
       order: {
         created_at: 'DESC',
+      },
+    });
+    return financialMovimentPayment;
+  }
+  public async findByDocumentNumber({
+    client_application_id,
+    document_number,
+  }: IFindByDocumentNumber): Promise<FinancialMovimentPayment | undefined> {
+    const financialMovimentPayment = await this.ormRepository.findOne({
+      where: {
+        document_number,
+        client_application_id,
+      },
+    });
+    return financialMovimentPayment;
+  }
+
+  public async findById({
+    client_application_id,
+    id,
+  }: IFindById): Promise<FinancialMovimentPayment | undefined> {
+    const financialMovimentPayment = await this.ormRepository.findOne({
+      where: {
+        id,
+        client_application_id,
       },
     });
     return financialMovimentPayment;

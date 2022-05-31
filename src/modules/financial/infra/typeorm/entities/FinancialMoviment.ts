@@ -4,6 +4,7 @@ import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import Client from '@modules/commercial/infra/typeorm/entities/Client';
 import Provider from '@modules/commercial/infra/typeorm/entities/Provider';
 import ClientApplication from '@shared/infra/typeorm/entities/ClientApplication';
+import ClientApplicationUser from '@modules/users/infra/typeorm/entities/ClientApplicationUser';
 import FinancialCategory from './FinancialCategory';
 import PaymentGateway from './PaymentGateway';
 import FinancialMovimentPayment from './FinancialMovimentPayment';
@@ -188,6 +189,13 @@ class FinancialMoviment extends MainEntity {
   )
   @JoinColumn({ name: 'id', referencedColumnName: 'financial_moviment_id' })
   financialMovimentsPayments?: FinancialMovimentPayment[];
+
+  @ManyToOne(() => ClientApplicationUser)
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
+  clientApplicationUser: ClientApplicationUser;
 }
 
 export default FinancialMoviment;
