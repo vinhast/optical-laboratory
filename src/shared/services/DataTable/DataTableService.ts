@@ -4,6 +4,7 @@ import Role from '@modules/users/infra/typeorm/entities/Role';
 import moment from 'moment';
 import Client from '@modules/commercial/infra/typeorm/entities/Client';
 import httpContext from 'express-http-context';
+import { notAutoIncrementEntities } from '@shared/infra/typeorm/subscriber/EverythingSubscriber';
 
 interface IRequest {
   source: string;
@@ -75,9 +76,11 @@ class DataTableService {
       }
     }
 
-    query.andWhere(
-      `${source}.client_application_id = ${userData.client_application_id}`,
-    );
+    if (!notAutoIncrementEntities.includes(entity)) {
+      query.andWhere(
+        `${source}.client_application_id = ${userData.client_application_id}`,
+      );
+    }
 
     if (entity === 'ProductCategory') {
       query.leftJoinAndSelect(`${source}.parentProductCategory`, 'family');

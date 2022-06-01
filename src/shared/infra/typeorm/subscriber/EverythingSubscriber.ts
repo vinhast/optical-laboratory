@@ -40,7 +40,7 @@ interface IValueObject {
   [key: string]: string;
 }
 
-const notAutoIncrementEntities = [
+export const notAutoIncrementEntities = [
   'AuditLog',
   'Menu',
   'ClientApplication',
