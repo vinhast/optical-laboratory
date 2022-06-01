@@ -62,11 +62,19 @@ class Order extends MainEntity {
   user_id?: number;
 
   @ManyToOne(() => User)
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   user: User;
 
   @ManyToOne(() => Client)
-  @JoinColumn({ name: 'client_id' })
+  @JoinColumn({ name: 'client_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   client: Client;
 
   @OneToMany(() => OrderProduct, orderProduct => orderProduct.order)

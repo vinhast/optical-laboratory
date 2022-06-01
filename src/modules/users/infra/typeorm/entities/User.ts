@@ -45,6 +45,10 @@ class User extends MainEntity {
 
   @ManyToOne(() => Role)
   @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   user: User;
 
   @ManyToMany(() => Permission)
@@ -53,6 +57,10 @@ class User extends MainEntity {
     joinColumns: [{ name: 'user_id', referencedColumnName: 'id' }],
     inverseJoinColumns: [{ name: 'permission_id' }],
   })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   user_permissions: Permission[];
 
   @ManyToMany(() => Permission)
@@ -60,6 +68,10 @@ class User extends MainEntity {
     name: 'permissions_roles',
     joinColumns: [{ name: 'role_id', referencedColumnName: 'role_id' }],
     inverseJoinColumns: [{ name: 'permission_id' }],
+  })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
   })
   role_permissions: Permission[];
 

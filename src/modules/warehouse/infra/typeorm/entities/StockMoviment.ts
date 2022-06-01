@@ -32,15 +32,27 @@ class StockMoviment extends MainEntity {
   quantity: number;
 
   @ManyToOne(() => Order)
-  @JoinColumn({ name: 'order_id' })
+  @JoinColumn({ name: 'order_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   order: Order;
 
   @ManyToOne(() => Product)
-  @JoinColumn({ name: 'product_id' })
+  @JoinColumn({ name: 'product_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   product: Product;
 
   @ManyToOne(() => FinancialMoviment)
-  @JoinColumn({ name: 'financial_moviment_id' })
+  @JoinColumn({ name: 'financial_moviment_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   financialMoviment: FinancialMoviment;
 }
 

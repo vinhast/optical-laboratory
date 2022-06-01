@@ -59,7 +59,7 @@ class ClientApplicationUser {
   role_permissions: Permission[];
 
   @ManyToOne(() => ClientApplication)
-  @JoinColumn({ name: 'client_application_id' })
+  @JoinColumn({ name: 'client_application_id', referencedColumnName: 'id' })
   clientApplication: ClientApplication;
 }
 

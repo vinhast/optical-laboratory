@@ -157,30 +157,58 @@ class FinancialMoviment extends MainEntity {
 
   @ManyToOne(() => Provider)
   @JoinColumn({ name: 'provider_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   provider?: Provider;
 
   @ManyToOne(() => Client)
   @JoinColumn({ name: 'client_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   client?: Client;
 
   @ManyToOne(() => ClientApplication)
   @JoinColumn({ name: 'downloaded_user_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   downloadedUser?: ClientApplication;
 
   @ManyToOne(() => ClientApplication)
   @JoinColumn({ name: 'generated_user_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   generatedUser?: ClientApplication;
 
   @ManyToOne(() => FinancialCategory)
   @JoinColumn({ name: 'category_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   financialCategory?: FinancialCategory;
 
   @ManyToOne(() => FinancialCategory)
   @JoinColumn({ name: 'sub_category_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   financialSubCategory?: FinancialCategory;
 
   @ManyToOne(() => PaymentGateway)
   @JoinColumn({ name: 'payment_gateway_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   paymentGateway?: PaymentGateway;
 
   @OneToMany(
@@ -188,6 +216,10 @@ class FinancialMoviment extends MainEntity {
     financialMovimentPayment => financialMovimentPayment.financialMoviment,
   )
   @JoinColumn({ name: 'id', referencedColumnName: 'financial_moviment_id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   financialMovimentsPayments?: FinancialMovimentPayment[];
 
   @ManyToOne(() => ClientApplicationUser)

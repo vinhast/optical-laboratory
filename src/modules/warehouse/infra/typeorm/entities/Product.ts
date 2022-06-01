@@ -31,10 +31,18 @@ class Product extends MainEntity {
   active: string;
 
   @ManyToOne(() => ProductCateory)
-  @JoinColumn({ name: 'product_category_id' })
+  @JoinColumn({ name: 'product_category_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   group: ProductCateory;
 
   @OneToMany(() => OrderProduct, orderProduct => orderProduct.product)
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   orders_products: OrderProduct[];
 }
 

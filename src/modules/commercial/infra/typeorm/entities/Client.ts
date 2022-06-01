@@ -77,7 +77,11 @@ class Client extends MainEntity {
   cnpjSearch?: string;
 
   @OneToOne(() => SaleTable)
-  @JoinColumn({ name: 'table_id' })
+  @JoinColumn({ name: 'table_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   table: SaleTable;
 }
 

@@ -38,6 +38,10 @@ class FinancialMovimentPayment extends MainEntity {
 
   @ManyToOne(() => PaymentGateway)
   @JoinColumn({ name: 'payment_gateway_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   paymentGateway?: PaymentGateway;
 
   @ManyToOne(
@@ -45,6 +49,10 @@ class FinancialMovimentPayment extends MainEntity {
     financialMoviment => financialMoviment.financialMovimentsPayments,
   )
   @JoinColumn({ name: 'financial_moviment_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   financialMoviment?: FinancialMoviment;
 }
 

@@ -25,7 +25,11 @@ class Download extends MainEntity {
   user_id?: number;
 
   @OneToOne(() => User)
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   user: User;
 
   @Expose({ name: 'attachment_url' })

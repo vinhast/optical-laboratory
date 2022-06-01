@@ -43,11 +43,19 @@ class OrderProduct extends MainEntity {
   cfop?: number;
 
   @ManyToOne(() => Order)
-  @JoinColumn({ name: 'order_id' })
+  @JoinColumn({ name: 'order_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   order: Order;
 
   @ManyToOne(() => Product)
-  @JoinColumn({ name: 'product_id' })
+  @JoinColumn({ name: 'product_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   product: Product;
 }
 
