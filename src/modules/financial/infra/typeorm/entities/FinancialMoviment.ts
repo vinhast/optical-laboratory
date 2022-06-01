@@ -101,8 +101,8 @@ class FinancialMoviment extends MainEntity {
   @Column()
   nf_canceled_reason?: string;
 
-  @Column({ type: 'enum', enum: ['Wainting', 'Issued', 'Cancelada'] })
-  nf_status: 'Wainting' | 'Issued' | 'Cancelada';
+  @Column({ type: 'enum', enum: ['Wainting', 'Issued', 'Canceled'] })
+  nf_status: 'Wainting' | 'Issued' | 'Canceled';
 
   @Column()
   nfse_number?: string;
