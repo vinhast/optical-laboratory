@@ -1,5 +1,7 @@
+import SaleTablePrice from '@modules/users/infra/typeorm/entities/SaleTablePrice';
 import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
 import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
+import UnitType from './UnitType';
 
 @Entity('product_categories')
 class ProductCategory extends MainEntity {
@@ -79,6 +81,17 @@ class ProductCategory extends MainEntity {
   )
   @JoinColumn({ name: 'parent_id', referencedColumnName: 'id' })
   childProductCateories: ProductCategory[];
+
+  @ManyToOne(() => UnitType, type => type.categories)
+  @JoinColumn({ name: 'unit_type_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
+  unitType: UnitType;
+
+  @OneToMany(() => SaleTablePrice, table => table.productCategories)
+  tablesPrices: SaleTablePrice[];
 }
 
 export default ProductCategory;

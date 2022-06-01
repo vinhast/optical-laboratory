@@ -46,6 +46,7 @@ class ProductCategoriesRepository
       where: {
         client_application_id: this.myUser.client_application_id,
       },
+      relations: ['unitType', 'tablesPrices', 'tablesPrices.table'],
     });
     if (parent_id === 'null') {
       items = await this.ormRepository.find({
@@ -64,6 +65,7 @@ class ProductCategoriesRepository
         id,
         client_application_id: this.myUser.client_application_id,
       },
+      relations: ['unitType'],
     });
     const tables = await this.ormSalesTablesPricesRepository.find({
       where: {
@@ -162,6 +164,7 @@ class ProductCategoriesRepository
   public async save(
     productCategoryData: ICreateProductCategoryDTO,
   ): Promise<ProductCategory> {
+    console.log(productCategoryData);
     const productCategory = await this.ormRepository.save(productCategoryData);
     if (productCategoryData.tables) {
       const tables = await this.ormSalesTablesPricesRepository.find({
