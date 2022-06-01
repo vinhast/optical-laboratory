@@ -30,6 +30,6 @@ routes.use('/warehouse', warehouseRouter);
 routes.use('/dataTable', dataTableRouter);
 routes.use('/menus', menusRouter);
 
-routes.use('/clientApplications', clientApplicationsRouter);
+routes.use('/clientsApplication', clientApplicationsRouter);
 
 export default routes;
