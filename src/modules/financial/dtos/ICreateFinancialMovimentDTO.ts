@@ -29,7 +29,7 @@ export default interface ICreateFinancialMovimentDTO {
   nf_canceled_protocoll?: string;
   nf_canceled_date?: string;
   nf_canceled_reason?: string;
-  nf_status: string;
+  nf_status: 'Wainting' | 'Issued' | 'Cancelada';
   nfse_number?: string;
   nfse_verification_code?: string;
   nfse_issue_date?: Date;

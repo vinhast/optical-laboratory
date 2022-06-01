@@ -179,8 +179,8 @@ export class CreateFiancialMoviments1635780751957
 
           {
             name: 'nf_status',
-            type: 'char(1)',
-            default: '"N"',
+            type: 'enum("Wainting", "Issued", "Cancelada")',
+            default: '"Wainting"',
           },
 
           {
