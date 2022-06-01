@@ -173,18 +173,10 @@ class FinancialMoviment extends MainEntity {
 
   @ManyToOne(() => ClientApplication)
   @JoinColumn({ name: 'downloaded_user_id', referencedColumnName: 'id' })
-  @JoinColumn({
-    name: 'client_application_id',
-    referencedColumnName: 'client_application_id',
-  })
   downloadedUser?: ClientApplication;
 
   @ManyToOne(() => ClientApplication)
   @JoinColumn({ name: 'generated_user_id', referencedColumnName: 'id' })
-  @JoinColumn({
-    name: 'client_application_id',
-    referencedColumnName: 'client_application_id',
-  })
   generatedUser?: ClientApplication;
 
   @ManyToOne(() => FinancialCategory)

@@ -15,10 +15,6 @@ class PaymentGateway extends MainEntity {
 
   @ManyToOne(() => PaymentModule)
   @JoinColumn({ name: 'payment_module_id', referencedColumnName: 'id' })
-  @JoinColumn({
-    name: 'client_application_id',
-    referencedColumnName: 'client_application_id',
-  })
   paymentModule: PaymentModule;
 }
 
