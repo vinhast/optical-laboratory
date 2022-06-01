@@ -3,6 +3,7 @@ import '@shared/infra/typeorm';
 import Role from '@modules/users/infra/typeorm/entities/Role';
 import moment from 'moment';
 import Client from '@modules/commercial/infra/typeorm/entities/Client';
+import httpContext from 'express-http-context';
 
 interface IRequest {
   source: string;
@@ -45,6 +46,12 @@ class DataTableService {
     parentId,
     entityId,
   }: IRequest): Promise<IResponse> {
+    const userData: {
+      id: number;
+      client_application_id: number;
+      role_id: number;
+    } = httpContext.get('user');
+
     const query = getManager()
       .createQueryBuilder(entity, source)
       .take(perPage)
@@ -68,6 +75,10 @@ class DataTableService {
       }
     }
 
+    query.andWhere(
+      `${source}.client_application_id = ${userData.client_application_id}`,
+    );
+
     if (entity === 'ProductCategory') {
       query.leftJoinAndSelect(`${source}.parentProductCategory`, 'family');
     }
@@ -87,6 +98,10 @@ class DataTableService {
     if (entity === 'PaymentGateway') {
       query.leftJoinAndSelect(`${source}.paymentModule`, 'paymentModule');
       query.orderBy(`${source}.created_at`, 'DESC');
+    }
+
+    if (entity === 'Order') {
+      query.innerJoinAndSelect(`${source}.client`, 'client');
     }
 
     if (onlyParent) {
@@ -184,21 +199,6 @@ class DataTableService {
           userMutation.role_name = roles.find(
             r => r.id === userMutation.role_id,
           )?.name;
-          return userMutation;
-        });
-        items = itemsMutation;
-      }
-    }
-
-    if (entity === 'Order') {
-      const clients = await getManager().find(Client);
-
-      if (items) {
-        const itemsMutation = items.map((user: any) => {
-          const userMutation = user;
-          userMutation.client = clients.find(
-            r => r.id === userMutation.client_id,
-          );
           return userMutation;
         });
         items = itemsMutation;
