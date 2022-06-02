@@ -4,36 +4,40 @@ import IClientsApplicationsUsersRepository from '@modules/users/repositories/ICl
 import ICreateClientApplicationUserDTO from '@modules/users/dtos/ICreateClientApplicationUserDTO';
 
 import ClientApplicationUser from '@modules/users/infra/typeorm/entities/ClientApplicationUser';
+import httpContext from 'express-http-context';
 
 class ClientsApplicationsUsersRepository
   implements IClientsApplicationsUsersRepository
 {
   private ormRepository: Repository<ClientApplicationUser>;
+  private user: {
+    id: number;
+    client_application_id: number;
+    role_id: number;
+  };
 
   constructor() {
     this.ormRepository = getRepository(ClientApplicationUser);
+    this.user = httpContext.get('user');
   }
 
   public async findAll(): Promise<ClientApplicationUser[]> {
-    const clientsApplicationsUsers = await this.ormRepository.find();
-    return clientsApplicationsUsers;
-  }
-
-  public async findByEmail(
-    email: string,
-  ): Promise<ClientApplicationUser | undefined> {
-    const clientApplicationUser = await this.ormRepository.findOne({
-      where: { email },
-      relations: ['clientApplication'],
+    const clientsApplicationsUsers = await this.ormRepository.find({
+      where: {
+        client_application_id: this.user.client_application_id,
+      },
     });
-    return clientApplicationUser;
+    return clientsApplicationsUsers;
   }
 
   public async findByUsername(
     username: string,
   ): Promise<ClientApplicationUser | undefined> {
     const clientApplicationUser = await this.ormRepository.findOne({
-      where: { username },
+      where: {
+        username,
+        client_application_id: this.user.client_application_id,
+      },
       relations: ['clientApplication'],
     });
     return clientApplicationUser;
@@ -41,9 +45,15 @@ class ClientsApplicationsUsersRepository
 
   public async findById(
     id: number,
+    client_application_id?: number,
   ): Promise<ClientApplicationUser | undefined> {
     const clientApplicationUser = await this.ormRepository.findOne(id, {
-      relations: ['clientApplication'],
+      where: {
+        id,
+        client_application_id:
+          this.user?.client_application_id || client_application_id,
+      },
+      relations: ['clientApplication', 'clientApplicationUserPermissions'],
     });
     return clientApplicationUser;
   }
@@ -54,6 +64,7 @@ class ClientsApplicationsUsersRepository
     const clientApplicationUser = await this.ormRepository.findOne({
       where: {
         token,
+        client_application_id: this.user.client_application_id,
       },
     });
     return clientApplicationUser;
@@ -78,7 +89,10 @@ class ClientsApplicationsUsersRepository
   }
 
   public async delete(id: number): Promise<void> {
-    await this.ormRepository.delete(id);
+    await this.ormRepository.delete({
+      id,
+      client_application_id: this.user.client_application_id,
+    });
   }
 }
 

@@ -24,7 +24,7 @@ class ClientApplicationUser {
   client_application_id: number;
 
   @Column()
-  role_id?: number;
+  client_application_role_id: number;
 
   @Column()
   username: string;
@@ -52,7 +52,10 @@ class ClientApplicationUser {
   deleted_at: Date;
 
   @ManyToOne(() => ClientApplicationRole)
-  @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_role_id',
+    referencedColumnName: 'id',
+  })
   @JoinColumn({
     name: 'client_application_id',
     referencedColumnName: 'client_application_id',
@@ -73,7 +76,10 @@ class ClientApplicationUser {
   @JoinTable({
     name: 'permissions_clients_application_roles',
     joinColumns: [
-      { name: 'client_application_role_id', referencedColumnName: 'role_id' },
+      {
+        name: 'client_application_role_id',
+        referencedColumnName: 'client_application_role_id',
+      },
     ],
     inverseJoinColumns: [{ name: 'client_application_permission_id' }],
   })

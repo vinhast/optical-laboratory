@@ -9,6 +9,8 @@ import CheckPermissionService from '@modules/users/services/CheckPermissionServi
 interface IRequest {
   role_id: number;
   user_id: number;
+  userType?: string;
+  client_application_id?: number;
 }
 
 interface IMenu {
@@ -30,7 +32,12 @@ class MountMenuUserService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute({ user_id, role_id }: IRequest): Promise<IMenu[]> {
+  public async execute({
+    user_id,
+    role_id,
+    userType,
+    client_application_id,
+  }: IRequest): Promise<IMenu[]> {
     const cacheKey = `menu-list`;
     let allMenus = await this.cacheProvider.recover<Menu[]>(cacheKey);
 
@@ -79,6 +86,8 @@ class MountMenuUserService {
                   originalUrl,
                   role_id,
                   user_id,
+                  userType,
+                  client_application_id,
                 })
                 .then(response => response.approved)
             : false;

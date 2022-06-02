@@ -43,7 +43,7 @@ export class CreateClientsApplicationsUsers1612359672000
               default: true,
             },
             {
-              name: 'role_id',
+              name: 'client_application_role_id',
               type: 'int',
               isNullable: true,
             },
@@ -91,9 +91,9 @@ export class CreateClientsApplicationsUsers1612359672000
         'clients_applications_users',
         new TableForeignKey({
           name: 'fk_clients_applications_users_roles',
-          columnNames: ['role_id'],
+          columnNames: ['client_application_role_id'],
           referencedColumnNames: ['id'],
-          referencedTableName: 'roles',
+          referencedTableName: 'clients_application_roles',
           onDelete: 'NO ACTION',
           onUpdate: 'NO ACTION',
         }),

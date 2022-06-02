@@ -5,7 +5,7 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export class CreateClientApplicationRoles1654172261412
+export class CreateClientApplicationRoles1612359612000
   implements MigrationInterface
 {
   public async up(queryRunner: QueryRunner): Promise<void> {

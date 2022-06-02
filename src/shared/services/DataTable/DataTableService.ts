@@ -2,7 +2,6 @@ import { getManager } from 'typeorm';
 import '@shared/infra/typeorm';
 import Role from '@modules/users/infra/typeorm/entities/Role';
 import moment from 'moment';
-import Client from '@modules/commercial/infra/typeorm/entities/Client';
 import httpContext from 'express-http-context';
 import { notAutoIncrementEntities } from '@shared/infra/typeorm/subscriber/EverythingSubscriber';
 

@@ -9,13 +9,22 @@ export default class CheckPermissionController {
     request: Request,
     response: Response,
   ): Promise<Response> {
-    const { method, originalUrl, role_id, user_id } = request.body;
+    const {
+      method,
+      originalUrl,
+      role_id,
+      user_id,
+      userType,
+      client_application_id,
+    } = request.body;
     const checkPermission = container.resolve(CheckPermissionService);
     const permission = await checkPermission.execute({
       method,
       originalUrl,
       role_id,
       user_id,
+      userType,
+      client_application_id,
     });
 
     return response.json(classToClass(permission));

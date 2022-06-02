@@ -80,7 +80,7 @@ schedule.scheduleJob('0 7 * * 1-5', async () => {
         {
           id: clientApplicationUser.id,
           client_application_id: clientApplicationUser.client_application_id,
-          role: clientApplicationUser.role_id,
+          role: clientApplicationUser.client_application_role_id,
           type: 'ClientApplicationUser',
         },
         async () => {

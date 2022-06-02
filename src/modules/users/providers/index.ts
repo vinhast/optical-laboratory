@@ -23,10 +23,18 @@ import SalesTablesRepository from '@modules/users/infra/typeorm/repositories/Sal
 
 import ISalesTablesPriceRepository from '@modules/users/repositories/ISalesTablesPricesRepository';
 import SalesTablesPriceRepository from '@modules/users/infra/typeorm/repositories/SalesTablesPricesRepository';
+
 import ISalesTablesPricesServicesRepository from '@modules/users/repositories/ISalesTablesPricesServicesRepository';
 import SalesTablesPricesServiceRepository from '@modules/users/infra/typeorm/repositories/SalesTablesPricesServicesRepository';
+
 import IClientsApplicationsUsersRepository from '@modules/users/repositories/IClientsApplicationsUsersRepository';
 import ClientsApplicationsUsersRepository from '@modules/users/infra/typeorm/repositories/ClientsApplicationsUsersRepository';
+
+import IClientsApplicationPermissionsRepository from '@modules/users/repositories/IClientsApplicationPermissionsRepository';
+import ClientsApplicationPermissionsRepository from '@modules/users/infra/typeorm/repositories/ClientsApplicationPermissionsRepository';
+
+import IClientsApplicationRolesRepository from '@modules/users/repositories/IClientsApplicationRolesRepository';
+import ClientsApplicationRolesRepository from '@modules/users/infra/typeorm/repositories/ClientsApplicationRolesRepository';
 
 container.registerSingleton<IHashProvider>('HashProvider', BCriptyHashProvider);
 
@@ -64,11 +72,23 @@ container.registerSingleton<ISalesTablesPriceRepository>(
   'SalesTablesPricesRepository',
   SalesTablesPriceRepository,
 );
+
 container.registerSingleton<ISalesTablesPricesServicesRepository>(
   'SalesTablesPricesServicesRepository',
   SalesTablesPricesServiceRepository,
 );
+
 container.registerSingleton<IClientsApplicationsUsersRepository>(
   'ClientsApplicationsUsersRepository',
   ClientsApplicationsUsersRepository,
+);
+
+container.registerSingleton<IClientsApplicationPermissionsRepository>(
+  'ClientsApplicationPermissionsRepository',
+  ClientsApplicationPermissionsRepository,
+);
+
+container.registerSingleton<IClientsApplicationRolesRepository>(
+  'ClientsApplicationRolesRepository',
+  ClientsApplicationRolesRepository,
 );

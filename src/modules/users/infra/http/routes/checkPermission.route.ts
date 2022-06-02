@@ -14,6 +14,8 @@ checkPermissionRouter.post(
       originalUrl: Joi.string().required(),
       role_id: Joi.number().required(),
       user_id: Joi.number().required(),
+      userType: Joi.string(),
+      client_application_id: Joi.number(),
     },
   }),
   checkPermissionController.execute,

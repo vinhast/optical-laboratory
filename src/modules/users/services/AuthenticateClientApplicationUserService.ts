@@ -56,7 +56,7 @@ class AuthenticateClientApplicationUserService {
     }
 
     const { secret, expiresIn } = authConfig.jwt;
-    const subject = `${clientApplicationUser.id}#${clientApplicationUser.role_id}#${clientApplicationUser.client_application_id}#ClientApplicationUser`;
+    const subject = `${clientApplicationUser.id}#${clientApplicationUser.client_application_role_id}#${clientApplicationUser.client_application_id}#ClientApplicationUser`;
     const token = sign({}, secret, {
       subject,
       expiresIn,
@@ -65,7 +65,9 @@ class AuthenticateClientApplicationUserService {
     const mountMenuUser = container.resolve(MountMenuUserService);
     const menuUser = await mountMenuUser.execute({
       user_id: clientApplicationUser.id,
-      role_id: clientApplicationUser.role_id || 1,
+      role_id: clientApplicationUser.client_application_role_id,
+      userType: 'ClientApplicationUser',
+      client_application_id: clientApplicationUser.client_application_id,
     });
 
     return {
