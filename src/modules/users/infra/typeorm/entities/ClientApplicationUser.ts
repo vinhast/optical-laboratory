@@ -12,7 +12,8 @@ import {
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import ClientApplication from '@shared/infra/typeorm/entities/ClientApplication';
-import Permission from './Permission';
+import ClientApplicationRole from './ClientApplicationRole';
+import ClientApplicationPermission from './ClientApplicationPermission';
 
 @Entity('clients_applications_users')
 class ClientApplicationUser {
@@ -50,13 +51,33 @@ class ClientApplicationUser {
   @DeleteDateColumn({ nullable: true })
   deleted_at: Date;
 
-  @ManyToMany(() => Permission)
-  @JoinTable({
-    name: 'permissions_roles',
-    joinColumns: [{ name: 'role_id', referencedColumnName: 'role_id' }],
-    inverseJoinColumns: [{ name: 'permission_id' }],
+  @ManyToOne(() => ClientApplicationRole)
+  @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
   })
-  role_permissions: Permission[];
+  clientApplicationRole: ClientApplicationRole;
+
+  @ManyToMany(() => ClientApplicationPermission)
+  @JoinTable({
+    name: 'permissions_clients_application_users',
+    joinColumns: [
+      { name: 'client_application_user_id', referencedColumnName: 'id' },
+    ],
+    inverseJoinColumns: [{ name: 'client_application_permission_id' }],
+  })
+  clientApplicationUserPermissions: ClientApplicationPermission[];
+
+  @ManyToMany(() => ClientApplicationPermission)
+  @JoinTable({
+    name: 'permissions_clients_application_roles',
+    joinColumns: [
+      { name: 'client_application_role_id', referencedColumnName: 'role_id' },
+    ],
+    inverseJoinColumns: [{ name: 'client_application_permission_id' }],
+  })
+  clientApplicationRolePermissions: ClientApplicationPermission[];
 
   @ManyToOne(() => ClientApplication)
   @JoinColumn({ name: 'client_application_id', referencedColumnName: 'id' })

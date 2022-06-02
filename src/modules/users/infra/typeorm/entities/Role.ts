@@ -15,6 +15,7 @@ import Permission from './Permission';
 class Role {
   @PrimaryGeneratedColumn('increment')
   id: number;
+
   @Column()
   name: string;
 
