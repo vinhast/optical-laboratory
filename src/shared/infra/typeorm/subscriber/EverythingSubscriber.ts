@@ -42,6 +42,7 @@ interface IValueObject {
 
 export const notAutoIncrementEntities = [
   'AuditLog',
+  'User',
   'Menu',
   'ClientApplication',
   'ClientApplicationUser',
@@ -143,7 +144,6 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
         } else {
           user = (await event.manager.getRepository(User).findOne({
             id: userData.id,
-            client_application_id,
           })) as User;
           descriptions = `Registro criado por ${user?.name}`;
           auditLog = ormRepository.create({

@@ -20,7 +20,6 @@ export default class ClientApplicationsController {
     const {
       name,
       email,
-      avatar,
       cnpj,
       street,
       number,
@@ -37,7 +36,6 @@ export default class ClientApplicationsController {
     const clientApplication = await createClientApplication.execute({
       name,
       email,
-      avatar,
       cnpj,
       street,
       number,
@@ -48,6 +46,7 @@ export default class ClientApplicationsController {
       zip_code,
       phone,
       mobile,
+      avatar: request.file?.filename,
     });
 
     return response.json(classToClass(clientApplication));
@@ -68,7 +67,6 @@ export default class ClientApplicationsController {
       name,
       email,
       cnpj,
-      avatar,
       street,
       number,
       complement,
@@ -84,7 +82,6 @@ export default class ClientApplicationsController {
       id: Number(id),
       name,
       email,
-      avatar,
       cnpj,
       street,
       number,
@@ -95,6 +92,7 @@ export default class ClientApplicationsController {
       zip_code,
       phone,
       mobile,
+      avatar: request.file?.filename,
     });
 
     return response.json(classToClass(clientApplication));

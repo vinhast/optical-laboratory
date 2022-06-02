@@ -4,7 +4,7 @@ import AppError from '@shared/errors/AppError';
 import IClientApplicationsRepository from '@shared/repositories/IClientApplicationsRepository';
 import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICacheProvider';
 import ClientApplication from '@shared/infra/typeorm/entities/ClientApplication';
-import IHashProvider from '@modules/users/providers/HashProvider/moldes/IHashProvider';
+import IStorageProvider from '@shared/contanier/providers/StorageProvider/models/IStorageProvider';
 
 interface IRequest {
   id: number;
@@ -30,8 +30,8 @@ class UpdateService {
     private clientApplicationsRepository: IClientApplicationsRepository,
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
-    @inject('HashProvider')
-    private hashProvider: IHashProvider,
+    @inject('StorageProvider')
+    private storageProvider: IStorageProvider,
   ) {}
 
   public async execute(
@@ -55,6 +55,17 @@ class UpdateService {
       ...clientApplication,
       ...clientApplicationUpdate,
     };
+
+    let filename;
+    if (clientApplicationUpdate.avatar) {
+      filename = await this.storageProvider.saveFile(
+        clientApplicationUpdate.avatar,
+      );
+      clientApplication = {
+        ...clientApplication,
+        avatar: filename,
+      };
+    }
 
     await this.cacheProvider.invalidate(`client-applications-list`);
 

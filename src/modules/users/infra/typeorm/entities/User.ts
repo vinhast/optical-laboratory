@@ -5,16 +5,22 @@ import {
   ManyToOne,
   JoinTable,
   JoinColumn,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
 } from 'typeorm';
 
-import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
 import uploadConfig from '@config/upload';
 import { Exclude, Expose } from 'class-transformer';
 import Permission from './Permission';
 import Role from './Role';
 
 @Entity('users')
-class User extends MainEntity {
+class User {
+  @PrimaryGeneratedColumn('increment')
+  id: number;
+
   @Column()
   role_id: number;
 
@@ -45,21 +51,13 @@ class User extends MainEntity {
 
   @ManyToOne(() => Role)
   @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
-  @JoinColumn({
-    name: 'client_application_id',
-    referencedColumnName: 'client_application_id',
-  })
-  user: User;
+  role: Role;
 
   @ManyToMany(() => Permission)
   @JoinTable({
     name: 'permissions_users',
     joinColumns: [{ name: 'user_id', referencedColumnName: 'id' }],
     inverseJoinColumns: [{ name: 'permission_id' }],
-  })
-  @JoinColumn({
-    name: 'client_application_id',
-    referencedColumnName: 'client_application_id',
   })
   user_permissions: Permission[];
 
@@ -69,11 +67,16 @@ class User extends MainEntity {
     joinColumns: [{ name: 'role_id', referencedColumnName: 'role_id' }],
     inverseJoinColumns: [{ name: 'permission_id' }],
   })
-  @JoinColumn({
-    name: 'client_application_id',
-    referencedColumnName: 'client_application_id',
-  })
   role_permissions: Permission[];
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
+
+  @DeleteDateColumn({ nullable: true })
+  deleted_at: Date;
 
   @Expose({ name: 'avatar_url' })
   getavatar_url(): string | null {

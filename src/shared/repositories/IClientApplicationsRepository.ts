@@ -5,6 +5,7 @@ export default interface IClientApplicationsRepository {
   findAll(): Promise<ClientApplication[]>;
   findById(id: number): Promise<ClientApplication | undefined>;
   findByEmail(email: string): Promise<ClientApplication | undefined>;
+  findByCnpj(cnpj: string): Promise<ClientApplication | undefined>;
   findByUsername(username: string): Promise<ClientApplication | undefined>;
   create(data: ICreateClientApplicationDTO): Promise<ClientApplication>;
   save(clientApplication: ClientApplication): Promise<ClientApplication>;

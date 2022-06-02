@@ -24,6 +24,14 @@ class ClientApplicationsRepository implements IClientApplicationsRepository {
     });
     return clientApplication;
   }
+  public async findByCnpj(
+    cnpj: string,
+  ): Promise<ClientApplication | undefined> {
+    const clientApplication = await this.ormRepository.findOne({
+      where: { cnpj },
+    });
+    return clientApplication;
+  }
 
   public async findByUsername(
     username: string,

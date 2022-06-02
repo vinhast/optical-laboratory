@@ -16,10 +16,6 @@ class OrderSatatusLog extends MainEntity {
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
-  @JoinColumn({
-    name: 'client_application_id',
-    referencedColumnName: 'client_application_id',
-  })
   user: User;
 }
 

@@ -4,7 +4,7 @@ import IClientApplicationsRepository from '@shared/repositories/IClientApplicati
 import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICacheProvider';
 import ClientApplication from '@shared/infra/typeorm/entities/ClientApplication';
 import AppError from '@shared/errors/AppError';
-import IHashProvider from '@modules/users/providers/HashProvider/moldes/IHashProvider';
+import IStorageProvider from '@shared/contanier/providers/StorageProvider/models/IStorageProvider';
 
 interface IRequest {
   name: string;
@@ -29,8 +29,8 @@ class CreateService {
     private clientApplicationsRepository: IClientApplicationsRepository,
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
-    @inject('HashProvider')
-    private hashProvider: IHashProvider,
+    @inject('StorageProvider')
+    private storageProvider: IStorageProvider,
   ) {}
 
   public async execute({
@@ -48,16 +48,20 @@ class CreateService {
     phone,
     mobile,
   }: IRequest): Promise<ClientApplication> {
-    let clientApplication = await this.clientApplicationsRepository.findByEmail(
-      email,
+    let clientApplication = await this.clientApplicationsRepository.findByCnpj(
+      cnpj,
     );
     if (clientApplication) {
-      throw new AppError('Email address already used.');
+      throw new AppError('Cnpj already used.');
+    }
+    let filename;
+    if (avatar) {
+      filename = await this.storageProvider.saveFile(avatar);
     }
     clientApplication = await this.clientApplicationsRepository.create({
       name,
       email,
-      avatar,
+      avatar: filename,
       cnpj,
       street,
       number,

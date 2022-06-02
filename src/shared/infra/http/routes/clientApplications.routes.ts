@@ -36,23 +36,7 @@ clientApplicationsRouter.get('/', clientApplicationsController.list, () => {
 
 clientApplicationsRouter.post(
   '/',
-  celebrate({
-    [Segments.BODY]: {
-      name: Joi.string().required(),
-      email: Joi.string().required(),
-      avatar: Joi.string(),
-      cnpj: Joi.string().required(),
-      street: Joi.string(),
-      number: Joi.string(),
-      complement: Joi.string(),
-      district: Joi.string(),
-      city: Joi.string(),
-      state: Joi.string(),
-      zip_code: Joi.string(),
-      phone: Joi.string(),
-      mobile: Joi.string(),
-    },
-  }),
+  upload.single('avatar'),
   clientApplicationsController.create,
   () => {
     /*
@@ -117,23 +101,7 @@ clientApplicationsRouter.get(
 
 clientApplicationsRouter.put(
   '/update/:id',
-  celebrate({
-    [Segments.BODY]: {
-      name: Joi.string().required(),
-      email: Joi.string().required(),
-      avatar: Joi.string(),
-      cnpj: Joi.string().required(),
-      street: Joi.string(),
-      number: Joi.string(),
-      complement: Joi.string(),
-      district: Joi.string(),
-      city: Joi.string(),
-      state: Joi.string(),
-      zip_code: Joi.string(),
-      phone: Joi.string(),
-      mobile: Joi.string(),
-    },
-  }),
+  upload.single('avatar'),
   clientApplicationsController.update,
   () => {
     /*
