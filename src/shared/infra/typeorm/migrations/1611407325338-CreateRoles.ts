@@ -1,9 +1,4 @@
-import {
-  MigrationInterface,
-  QueryRunner,
-  Table,
-  TableForeignKey,
-} from 'typeorm';
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export default class CreateRoles1611407325338 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -17,11 +12,8 @@ export default class CreateRoles1611407325338 implements MigrationInterface {
               name: 'id',
               type: 'int',
               isPrimary: true,
-            },
-            {
-              name: 'client_application_id',
-              type: 'int',
-              isPrimary: true,
+              isGenerated: true,
+              generationStrategy: 'increment',
             },
             {
               name: 'name',
@@ -47,17 +39,6 @@ export default class CreateRoles1611407325338 implements MigrationInterface {
               isNullable: true,
             },
           ],
-        }),
-      );
-      await queryRunner.createForeignKey(
-        'roles',
-        new TableForeignKey({
-          name: 'fk_roles_clients_application',
-          columnNames: ['client_application_id'],
-          referencedColumnNames: ['id'],
-          referencedTableName: 'clients_application',
-          onDelete: 'NO ACTION',
-          onUpdate: 'CASCADE',
         }),
       );
     }
