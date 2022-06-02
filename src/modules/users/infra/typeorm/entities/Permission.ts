@@ -1,8 +1,17 @@
-import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
-import { Entity, Column } from 'typeorm';
+import {
+  Entity,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('permissions')
-class Permission extends MainEntity {
+class Permission {
+  @PrimaryGeneratedColumn('increment')
+  id: number;
+
   @Column()
   name: string;
 
@@ -17,6 +26,15 @@ class Permission extends MainEntity {
 
   @Column()
   description: string;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
+
+  @DeleteDateColumn({ nullable: true })
+  deleted_at: Date;
 }
 
 export default Permission;

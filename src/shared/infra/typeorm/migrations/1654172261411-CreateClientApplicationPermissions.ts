@@ -1,22 +1,33 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from 'typeorm';
 
-export default class CreatePermissions1611407586945
+export class CreateClientApplicationPermissions1654172261411
   implements MigrationInterface
 {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    const checkIfTableExist = await queryRunner.hasTable('permissions');
+    const checkIfTableExist = await queryRunner.hasTable(
+      'clients_application_permissions',
+    );
     if (!checkIfTableExist) {
       await queryRunner.createTable(
         new Table({
-          name: 'permissions',
+          name: 'clients_application_permissions',
           columns: [
             {
               name: 'id',
               type: 'int',
               isPrimary: true,
-              isGenerated: true,
-              generationStrategy: 'increment',
             },
+            {
+              name: 'client_application_id',
+              type: 'int',
+              isPrimary: true,
+            },
+
             {
               name: 'name',
               type: 'varchar',
@@ -56,13 +67,26 @@ export default class CreatePermissions1611407586945
           ],
         }),
       );
+      await queryRunner.createForeignKey(
+        'clients_application_permissions',
+        new TableForeignKey({
+          name: 'fk_clients_application_permissions_clients_application',
+          columnNames: ['client_application_id'],
+          referencedColumnNames: ['id'],
+          referencedTableName: 'clients_application',
+          onDelete: 'NO ACTION',
+          onUpdate: 'CASCADE',
+        }),
+      );
     }
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    const checkIfTableExist = await queryRunner.hasTable('permissions');
+    const checkIfTableExist = await queryRunner.hasTable(
+      'clients_application_permissions',
+    );
     if (checkIfTableExist) {
-      await queryRunner.dropTable('permissions');
+      await queryRunner.dropTable('clients_application_permissions');
     }
   }
 }

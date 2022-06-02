@@ -49,6 +49,15 @@ class User {
   @Column()
   token_validate?: Date;
 
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
+
+  @DeleteDateColumn({ nullable: true })
+  deleted_at: Date;
+
   @ManyToOne(() => Role)
   @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
   role: Role;
@@ -68,15 +77,6 @@ class User {
     inverseJoinColumns: [{ name: 'permission_id' }],
   })
   role_permissions: Permission[];
-
-  @CreateDateColumn()
-  created_at: Date;
-
-  @UpdateDateColumn()
-  updated_at: Date;
-
-  @DeleteDateColumn({ nullable: true })
-  deleted_at: Date;
 
   @Expose({ name: 'avatar_url' })
   getavatar_url(): string | null {
