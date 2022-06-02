@@ -69,7 +69,7 @@ export class CreatePermissionsClientsApplicationRoles1654173604522
       await queryRunner.createForeignKey(
         'permissions_clients_application_roles',
         new TableForeignKey({
-          name: 'fk_permissions_clients_application_roles_clients_application_permissions',
+          name: 'fk_permissions_clients_application_roles_permissions',
           columnNames: ['client_application_permission_id'],
           referencedColumnNames: ['id'],
           referencedTableName: 'clients_application_permissions',
@@ -81,7 +81,7 @@ export class CreatePermissionsClientsApplicationRoles1654173604522
       await queryRunner.createForeignKey(
         'permissions_clients_application_roles',
         new TableForeignKey({
-          name: 'fk_permissions_clients_application_roles_clients_application_roles',
+          name: 'fk_permissions_clients_application_roles_roles',
           columnNames: ['client_application_role_id'],
           referencedColumnNames: ['id'],
           referencedTableName: 'clients_application_roles',
@@ -99,11 +99,11 @@ export class CreatePermissionsClientsApplicationRoles1654173604522
     if (checkIfTableExist) {
       await queryRunner.dropForeignKey(
         'permissions_clients_application_roles',
-        'fk_permissions_clients_application_roles_clients_application_roles',
+        'fk_permissions_clients_application_roles_roles',
       );
       await queryRunner.dropForeignKey(
         'permissions_clients_application_roles',
-        'fk_permissions_clients_application_roles_clients_application_permissions',
+        'fk_permissions_clients_application_roles_permissions',
       );
       await queryRunner.dropForeignKey(
         'permissions_clients_application_roles',
