@@ -52,7 +52,6 @@ class OrdersRepository extends MainRepository implements IOrdersRepository {
   public async updateStatus(order: Order, status: number): Promise<Order> {
     const updatedOrder = await this.ormRepository.save({
       ...order,
-      orders_products: [],
       status,
     });
     await this.ormOrdersStatusLogsRepository.save({
@@ -65,7 +64,6 @@ class OrdersRepository extends MainRepository implements IOrdersRepository {
         order_id: order.id,
         client_application_id: this.userData.client_application_id,
       });
-      console.log(ordersProducts);
       for (const orderP of ordersProducts) {
         await this.ormStocksMovimentsRepository.save({
           order_id: order.id,
@@ -73,7 +71,7 @@ class OrdersRepository extends MainRepository implements IOrdersRepository {
           user_id: this.userData.id,
           financial_moviment_id: 0,
           description: 'D',
-          type: 'P',
+          type: 'D',
           origin: 'P',
           quantity: orderP.quantity,
         });
