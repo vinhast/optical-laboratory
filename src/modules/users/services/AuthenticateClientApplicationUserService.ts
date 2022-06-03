@@ -9,7 +9,7 @@ import IClientsApplicationsUsersRepository from '../repositories/IClientsApplica
 import ClientApplicationUser from '../infra/typeorm/entities/ClientApplicationUser';
 
 interface IRequest {
-  username: string;
+  email: string;
   password: string;
 }
 
@@ -38,11 +38,11 @@ class AuthenticateClientApplicationUserService {
     private hashProvider: IHashProvider,
   ) {}
 
-  public async execute({ username, password }: IRequest): Promise<IResponse> {
+  public async execute({ email, password }: IRequest): Promise<IResponse> {
     const clientApplicationUser =
-      await this.clientsApplicationsUsersRepository.findByUsername(username);
+      await this.clientsApplicationsUsersRepository.findByEmail(email);
     if (!clientApplicationUser) {
-      throw new AppError('Incorret username/password combination.', 401);
+      throw new AppError('Incorret email/password combination.', 401);
     }
 
     const passwordMatched = await this.hashProvider.compareHash(
@@ -51,7 +51,7 @@ class AuthenticateClientApplicationUserService {
     );
 
     if (!passwordMatched) {
-      throw new AppError('Incorret username/password combination.', 401);
+      throw new AppError('Incorret email/password combination.', 401);
     }
 
     const { secret, expiresIn } = authConfig.jwt;

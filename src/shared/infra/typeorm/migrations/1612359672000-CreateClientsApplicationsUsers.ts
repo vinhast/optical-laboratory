@@ -29,6 +29,11 @@ export class CreateClientsApplicationsUsers1612359672000
               type: 'int',
             },
             {
+              name: 'email',
+              type: 'varchar',
+              isUnique: true,
+            },
+            {
               name: 'username',
               type: 'varchar',
             },

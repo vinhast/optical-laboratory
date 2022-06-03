@@ -1,4 +1,4 @@
-import { getRepository, IsNull, Not, Repository } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 
 import IClientsApplicationsUsersRepository from '@modules/users/repositories/IClientsApplicationsUsersRepository';
 import ICreateClientApplicationUserDTO from '@modules/users/dtos/ICreateClientApplicationUserDTO';
@@ -49,9 +49,18 @@ class ClientsApplicationsUsersRepository
       where: {
         username,
         client_application_id:
-          this.user?.client_application_id ||
-          client_application_id ||
-          Not(IsNull()),
+          this.user?.client_application_id || client_application_id,
+      },
+      relations: ['clientApplication'],
+    });
+    return clientApplicationUser;
+  }
+  public async findByEmail(
+    email: string,
+  ): Promise<ClientApplicationUser | undefined> {
+    const clientApplicationUser = await this.ormRepository.findOne({
+      where: {
+        email,
       },
       relations: ['clientApplication'],
     });

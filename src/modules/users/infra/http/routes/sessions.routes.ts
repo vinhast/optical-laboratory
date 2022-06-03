@@ -60,7 +60,7 @@ sessionsRouter.post(
   '/clientApplicationUser',
   celebrate({
     [Segments.BODY]: {
-      username: Joi.string().required(),
+      email: Joi.string().required(),
       password: Joi.string().required(),
     },
   }),
@@ -89,7 +89,7 @@ sessionsRouter.post(
                   schema: {
                     type: 'object',
                     properties: {
-                      username: {
+                      email: {
                         type: 'string',
                         example: 'test'
                       },

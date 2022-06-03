@@ -27,6 +27,9 @@ class ClientApplicationUser {
   client_application_role_id: number;
 
   @Column()
+  email: string;
+
+  @Column()
   username: string;
 
   @Column()

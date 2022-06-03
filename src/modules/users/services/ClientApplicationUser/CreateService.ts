@@ -9,6 +9,7 @@ import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICa
 interface IRequest {
   client_application_role_id?: number;
   client_application_id: number;
+  email: string;
   username: string;
   password: string;
   active: boolean;
@@ -35,6 +36,7 @@ class CreateService {
     client_application_id,
     token_validate,
     token,
+    email,
   }: IRequest): Promise<ClientApplicationUser> {
     let clientApplicationUser =
       await this.clientsApplicationsUsersRepository.findByUsername(
@@ -56,6 +58,7 @@ class CreateService {
         client_application_id,
         token_validate,
         token,
+        email,
       });
 
     await this.cacheProvider.invalidate('clients-applications-users-list');

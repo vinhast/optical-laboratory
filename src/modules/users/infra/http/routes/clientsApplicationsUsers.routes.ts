@@ -61,6 +61,7 @@ clientsApplicationsUsersRouter.post(
     [Segments.BODY]: {
       client_application_role_id: Joi.number().allow(null),
       client_application_id: Joi.number().required(),
+      email: Joi.string().required(),
       username: Joi.string().required(),
       password: Joi.string().required(),
       active: Joi.boolean(),
@@ -135,6 +136,7 @@ clientsApplicationsUsersRouter.put(
     [Segments.BODY]: {
       client_application_role_id: Joi.number().allow(null),
       client_application_id: Joi.number().required(),
+      email: Joi.string().required(),
       username: Joi.string().required(),
       password: Joi.string().allow('', null),
       active: Joi.boolean(),

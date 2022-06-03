@@ -34,6 +34,7 @@ export default class ClientsApplicationsUsersController {
   public async create(request: Request, response: Response): Promise<Response> {
     const {
       client_application_role_id,
+      email,
       username,
       password,
       active,
@@ -45,6 +46,7 @@ export default class ClientsApplicationsUsersController {
 
     const clientApplicationUser = await createClientApplicationUser.execute({
       client_application_role_id,
+      email,
       username,
       password,
       active,
@@ -71,6 +73,7 @@ export default class ClientsApplicationsUsersController {
     const { id } = request.params;
     const {
       client_application_role_id,
+      email,
       username,
       password,
       active,
@@ -82,6 +85,7 @@ export default class ClientsApplicationsUsersController {
     const clientApplicationUser = await updateClientApplicationUser.execute({
       id: Number(id),
       client_application_role_id,
+      email,
       username,
       password,
       active,

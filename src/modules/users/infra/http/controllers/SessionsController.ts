@@ -25,14 +25,14 @@ export default class SessionController {
     request: Request,
     response: Response,
   ): Promise<Response> {
-    const { username, password } = request.body;
+    const { email, password } = request.body;
     const authenticateClientApplicationUser = container.resolve(
       AuthenticateClientApplicationUserService,
     );
 
     const { clientApplicationUser, token, menus } =
       await authenticateClientApplicationUser.execute({
-        username,
+        email,
         password,
       });
 
