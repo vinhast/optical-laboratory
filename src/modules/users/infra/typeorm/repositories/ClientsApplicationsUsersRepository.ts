@@ -1,4 +1,4 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, IsNull, Not, Repository } from 'typeorm';
 
 import IClientsApplicationsUsersRepository from '@modules/users/repositories/IClientsApplicationsUsersRepository';
 import ICreateClientApplicationUserDTO from '@modules/users/dtos/ICreateClientApplicationUserDTO';
@@ -49,7 +49,9 @@ class ClientsApplicationsUsersRepository
       where: {
         username,
         client_application_id:
-          this.user.client_application_id || client_application_id,
+          this.user?.client_application_id ||
+          client_application_id ||
+          Not(IsNull()),
       },
       relations: ['clientApplication'],
     });

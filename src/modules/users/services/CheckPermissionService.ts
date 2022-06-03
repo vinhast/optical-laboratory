@@ -132,6 +132,7 @@ class CheckPermissionService {
             method,
             baseUrl: tempBaseUrl,
             path,
+            client_application_id,
           });
 
         if (!clientApplicationPermission) {
@@ -140,6 +141,7 @@ class CheckPermissionService {
               method,
               baseUrl,
               path,
+              client_application_id,
             });
         }
 
