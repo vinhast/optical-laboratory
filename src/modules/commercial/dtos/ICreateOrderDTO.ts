@@ -18,4 +18,5 @@ export default interface ICreateOrderDTO {
   note?: string;
   user_id?: number;
   products: any[];
+  revenue: string;
 }

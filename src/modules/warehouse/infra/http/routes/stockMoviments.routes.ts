@@ -7,7 +7,7 @@ const stockMovimentsRouter = Router();
 const stockMovimentsController = new StockMovimentsController();
 
 stockMovimentsRouter.get('/', stockMovimentsController.list, () => {
-  /* 
+  /*
      #swagger.tags = ['StockMoviment']
      #swagger.path = '/warehouse/stockMoviments'
      #swagger.description = "List stock moviments"
@@ -32,7 +32,7 @@ stockMovimentsRouter.get(
   }),
   stockMovimentsController.get,
   () => {
-    /* 
+    /*
      #swagger.tags = ['StockMoviment']
      #swagger.path = '/warehouse/stockMoviments/view/{id}'
      #swagger.description = "View stock moviment"
@@ -67,7 +67,7 @@ stockMovimentsRouter.post(
   }),
   stockMovimentsController.create,
   () => {
-    /* 
+    /*
      #swagger.tags = ['StockMoviment']
      #swagger.path = '/warehouse/stockMoviments'
      #swagger.description = "Create stock moviment"
@@ -87,10 +87,10 @@ stockMovimentsRouter.post(
         required: true,
         content: {
           "application/json": {
-            schema: { 
+            schema: {
               "$ref": "#/components/schemas/StockMoviment"
             }
-            
+
           }
         }
       }
@@ -98,6 +98,31 @@ stockMovimentsRouter.post(
     */
   },
 );
+stockMovimentsRouter.post(
+  '/addStocks',
+  stockMovimentsController.addStock,
+  () => {
+    /*
+     #swagger.tags = ['StockMoviment']
+     #swagger.path = '/warehouse/stockMoviments/addStocks'
+     #swagger.description = "Create stock moviments"
+         #swagger.security = [{
+        "bearerAuth": []
+    }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[404] = {
+        description: "Bad request"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+      }
+    */
+  },
+);
+
 stockMovimentsRouter.put(
   '/update/:id',
   celebrate({
@@ -114,7 +139,7 @@ stockMovimentsRouter.put(
   }),
   stockMovimentsController.update,
   () => {
-    /* 
+    /*
      #swagger.tags = ['StockMoviment']
      #swagger.path = '/warehouse/stockMoviments/update/{id}'
      #swagger.description = "Update stock moviment"
@@ -126,7 +151,7 @@ stockMovimentsRouter.put(
       }
       #swagger.responses[404] = {
         description: "Bad request"
-      }      
+      }
       #swagger.responses[200] = {
         description: "OK",
       }
@@ -134,10 +159,10 @@ stockMovimentsRouter.put(
         required: true,
         content: {
           "application/json": {
-            schema: { 
+            schema: {
               "$ref": "#/components/schemas/StockMoviment"
             }
-            
+
           }
         }
       }
@@ -155,7 +180,7 @@ stockMovimentsRouter.delete(
   }),
   stockMovimentsController.delete,
   () => {
-    /* 
+    /*
      #swagger.tags = ['StockMoviment']
      #swagger.path = '/warehouse/stockMoviments/{id}'
      #swagger.description = "Delete stock moviment"

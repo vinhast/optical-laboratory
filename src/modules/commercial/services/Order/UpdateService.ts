@@ -26,6 +26,7 @@ interface IRequest {
   note?: string;
   user_id?: number;
   products: any[];
+  revenue?: string;
 }
 
 @injectable()

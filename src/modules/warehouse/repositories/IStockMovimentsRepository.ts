@@ -6,6 +6,7 @@ export default interface IStockMovimentsRepository {
   findById(id: number): Promise<StockMoviment | undefined>;
   findByName(name: string): Promise<StockMoviment | undefined>;
   create(stockMoviment: ICreateStockMovimentDTO): Promise<StockMoviment>;
+  createMany(stock: any[]): Promise<StockMoviment[]>;
   save(stockMoviment: StockMoviment): Promise<StockMoviment>;
   delete(id: number): Promise<void>;
 }
