@@ -58,6 +58,7 @@ class UpdateService {
       ...clientUpdate,
     };
 
+    delete client.table;
     await this.cacheProvider.invalidate(`client-list`);
     await this.cacheProvider.invalidate(cacheKey);
 

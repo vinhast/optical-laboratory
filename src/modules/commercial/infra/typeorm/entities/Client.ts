@@ -82,7 +82,7 @@ class Client extends MainEntity {
     name: 'client_application_id',
     referencedColumnName: 'client_application_id',
   })
-  table: SaleTable;
+  table?: SaleTable;
 }
 
 export default Client;
