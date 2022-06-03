@@ -22,6 +22,10 @@ class FinancialCategory extends MainEntity {
     financialCategory => financialCategory.childCategories,
   )
   @JoinColumn({ name: 'parent_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   parentCategory: FinancialCategory;
 
   @OneToMany(
@@ -29,6 +33,10 @@ class FinancialCategory extends MainEntity {
     financialCategory => financialCategory.parentCategory,
   )
   @JoinColumn({ name: 'parent_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   childCategories: FinancialCategory[];
 }
 

@@ -73,6 +73,10 @@ class ProductCategory extends MainEntity {
     productCategory => productCategory.childProductCateories,
   )
   @JoinColumn({ name: 'parent_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   parentProductCategory: ProductCategory;
 
   @OneToMany(
@@ -80,6 +84,10 @@ class ProductCategory extends MainEntity {
     productCategory => productCategory.parentProductCategory,
   )
   @JoinColumn({ name: 'parent_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   childProductCateories: ProductCategory[];
 
   @ManyToOne(() => UnitType, type => type.categories)

@@ -12,7 +12,7 @@ class RoleMenu extends MainEntity {
   menu_id: number;
 
   @ManyToOne(() => Menu)
-  @JoinColumn({ name: 'menu_id' })
+  @JoinColumn({ name: 'menu_id', referencedColumnName: 'id' })
   menu: Menu;
 }
 

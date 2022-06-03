@@ -13,11 +13,19 @@ class FinancialMovimentOrder extends MainEntity {
   order_id: number;
 
   @ManyToOne(() => FinancialMoviment)
-  @JoinColumn({ name: 'financial_moviment_id' })
+  @JoinColumn({ name: 'financial_moviment_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   financialMoviment: FinancialMoviment;
 
   @ManyToOne(() => Order)
-  @JoinColumn({ name: 'order_id' })
+  @JoinColumn({ name: 'order_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   order: Order;
 }
 

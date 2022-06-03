@@ -101,8 +101,8 @@ class FinancialMoviment extends MainEntity {
   @Column()
   nf_canceled_reason?: string;
 
-  @Column()
-  nf_status: string;
+  @Column({ type: 'enum', enum: ['Wainting', 'Issued', 'Canceled'] })
+  nf_status: 'Wainting' | 'Issued' | 'Canceled';
 
   @Column()
   nfse_number?: string;
@@ -157,10 +157,18 @@ class FinancialMoviment extends MainEntity {
 
   @ManyToOne(() => Provider)
   @JoinColumn({ name: 'provider_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   provider?: Provider;
 
   @ManyToOne(() => Client)
   @JoinColumn({ name: 'client_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   client?: Client;
 
   @ManyToOne(() => ClientApplication)
@@ -173,14 +181,26 @@ class FinancialMoviment extends MainEntity {
 
   @ManyToOne(() => FinancialCategory)
   @JoinColumn({ name: 'category_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   financialCategory?: FinancialCategory;
 
   @ManyToOne(() => FinancialCategory)
   @JoinColumn({ name: 'sub_category_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   financialSubCategory?: FinancialCategory;
 
   @ManyToOne(() => PaymentGateway)
   @JoinColumn({ name: 'payment_gateway_id', referencedColumnName: 'id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   paymentGateway?: PaymentGateway;
 
   @OneToMany(
@@ -188,6 +208,10 @@ class FinancialMoviment extends MainEntity {
     financialMovimentPayment => financialMovimentPayment.financialMoviment,
   )
   @JoinColumn({ name: 'id', referencedColumnName: 'financial_moviment_id' })
+  @JoinColumn({
+    name: 'client_application_id',
+    referencedColumnName: 'client_application_id',
+  })
   financialMovimentsPayments?: FinancialMovimentPayment[];
 
   @ManyToOne(() => ClientApplicationUser)
