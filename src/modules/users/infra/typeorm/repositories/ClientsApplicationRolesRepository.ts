@@ -28,6 +28,17 @@ class ClientsApplicationRolesRepository
     return clientsApplicationRoles;
   }
 
+  public async findByClientApplication(
+    client_application_id: number,
+  ): Promise<ClientApplicationRole[]> {
+    const clientsApplicationRoles = await this.ormRepository.find({
+      where: {
+        client_application_id,
+      },
+    });
+    return clientsApplicationRoles;
+  }
+
   public async findByName(
     name: string,
   ): Promise<ClientApplicationRole | undefined> {

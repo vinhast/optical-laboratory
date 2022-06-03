@@ -60,7 +60,7 @@ class ClientApplicationUser {
     name: 'client_application_id',
     referencedColumnName: 'client_application_id',
   })
-  clientApplicationRole: ClientApplicationRole;
+  clientApplicationRole?: ClientApplicationRole;
 
   @ManyToMany(() => ClientApplicationPermission)
   @JoinTable({
@@ -70,7 +70,7 @@ class ClientApplicationUser {
     ],
     inverseJoinColumns: [{ name: 'client_application_permission_id' }],
   })
-  clientApplicationUserPermissions: ClientApplicationPermission[];
+  clientApplicationUserPermissions?: ClientApplicationPermission[];
 
   @ManyToMany(() => ClientApplicationPermission)
   @JoinTable({
@@ -83,11 +83,11 @@ class ClientApplicationUser {
     ],
     inverseJoinColumns: [{ name: 'client_application_permission_id' }],
   })
-  clientApplicationRolePermissions: ClientApplicationPermission[];
+  clientApplicationRolePermissions?: ClientApplicationPermission[];
 
   @ManyToOne(() => ClientApplication)
   @JoinColumn({ name: 'client_application_id', referencedColumnName: 'id' })
-  clientApplication: ClientApplication;
+  clientApplication?: ClientApplication;
 }
 
 export default ClientApplicationUser;

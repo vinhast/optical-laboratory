@@ -29,14 +29,27 @@ class ClientsApplicationsUsersRepository
     });
     return clientsApplicationsUsers;
   }
+  public async findByClientApplication(
+    client_application_id: number,
+  ): Promise<ClientApplicationUser[]> {
+    const clientsApplicationsUsers = await this.ormRepository.find({
+      where: {
+        client_application_id,
+      },
+      relations: ['clientApplicationRole'],
+    });
+    return clientsApplicationsUsers;
+  }
 
   public async findByUsername(
     username: string,
+    client_application_id?: number,
   ): Promise<ClientApplicationUser | undefined> {
     const clientApplicationUser = await this.ormRepository.findOne({
       where: {
         username,
-        client_application_id: this.user.client_application_id,
+        client_application_id:
+          this.user.client_application_id || client_application_id,
       },
       relations: ['clientApplication'],
     });
@@ -47,7 +60,7 @@ class ClientsApplicationsUsersRepository
     id: number,
     client_application_id?: number,
   ): Promise<ClientApplicationUser | undefined> {
-    const clientApplicationUser = await this.ormRepository.findOne(id, {
+    const clientApplicationUser = await this.ormRepository.findOne({
       where: {
         id,
         client_application_id:
@@ -88,10 +101,14 @@ class ClientsApplicationsUsersRepository
     return this.ormRepository.save(clientApplicationUser);
   }
 
-  public async delete(id: number): Promise<void> {
+  public async delete(
+    id: number,
+    client_application_id: number,
+  ): Promise<void> {
     await this.ormRepository.delete({
       id,
-      client_application_id: this.user.client_application_id,
+      client_application_id:
+        this.user.client_application_id || client_application_id,
     });
   }
 }

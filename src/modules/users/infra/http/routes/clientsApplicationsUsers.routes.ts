@@ -31,11 +31,35 @@ clientsApplicationsUsersRouter.get(
   },
 );
 
+clientsApplicationsUsersRouter.get(
+  '/listByClientApplication/:client_application_id',
+  clientsApplicationsUsersController.listByClientApplication,
+  () => {
+    /*
+      #swagger.tags = ['ClientsApplicationsUsers']
+      #swagger.path = '/users/clientsApplicationsUsers/listByClientApplication/{client_application_id}'
+      #swagger.description = "List clients applications users by client application"
+          #swagger.security = [{
+        "bearerAuth": []
+    }]
+      #swagger.responses[401] = {
+        description: "Unauthorized"
+      }
+      #swagger.responses[404] = {
+        description: "Not found"
+      }
+      #swagger.responses[200] = {
+        description: "OK",
+      }
+    */
+  },
+);
+
 clientsApplicationsUsersRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
-      role_id: Joi.number().allow(null),
+      client_application_role_id: Joi.number().allow(null),
       client_application_id: Joi.number().required(),
       username: Joi.string().required(),
       password: Joi.string().required(),
@@ -109,10 +133,10 @@ clientsApplicationsUsersRouter.put(
   '/update/:id',
   celebrate({
     [Segments.BODY]: {
-      role_id: Joi.number().allow(null),
+      client_application_role_id: Joi.number().allow(null),
       client_application_id: Joi.number().required(),
       username: Joi.string().required(),
-      password: Joi.string().required(),
+      password: Joi.string().allow('', null),
       active: Joi.boolean(),
       token: Joi.string(),
       token_validate: Joi.number(),
@@ -151,10 +175,11 @@ clientsApplicationsUsersRouter.put(
 );
 
 clientsApplicationsUsersRouter.delete(
-  '/:id',
+  '/:id/:client_application_id',
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.number().integer().required(),
+      client_application_id: Joi.number().integer().required(),
     },
   }),
   clientsApplicationsUsersController.delete,

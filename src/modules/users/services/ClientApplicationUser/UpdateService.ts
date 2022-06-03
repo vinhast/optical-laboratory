@@ -8,7 +8,7 @@ import ClientApplicationUser from '@modules/users/infra/typeorm/entities/ClientA
 
 interface IRequest {
   id: number;
-  role_id?: number;
+  client_application_role_id?: number;
   client_application_id: number;
   username: string;
   password: string;
@@ -40,7 +40,10 @@ class UpdateUserService {
 
     if (!clientApplicationUser) {
       clientApplicationUser =
-        await this.clientsApplicationsUsersRepository.findById(id);
+        await this.clientsApplicationsUsersRepository.findById(
+          id,
+          clientApplicationUserUpdate.client_application_id,
+        );
     }
 
     if (!clientApplicationUser) {
@@ -58,7 +61,13 @@ class UpdateUserService {
       password: hashedPassword || clientApplicationUser.password,
     };
 
+    delete clientApplicationUser.clientApplication;
+    delete clientApplicationUser.clientApplicationUserPermissions;
+
     await this.cacheProvider.invalidate(`clients-applications-users-list`);
+    await this.cacheProvider.invalidate(
+      `clients-applications-users-list-${clientApplicationUserUpdate.client_application_id}`,
+    );
 
     await this.cacheProvider.invalidate(cacheKey);
 

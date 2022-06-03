@@ -7,7 +7,7 @@ import IHashProvider from '@modules/users/providers/HashProvider/moldes/IHashPro
 import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICacheProvider';
 
 interface IRequest {
-  role_id?: number;
+  client_application_role_id?: number;
   client_application_id: number;
   username: string;
   password: string;
@@ -28,7 +28,7 @@ class CreateService {
   ) {}
 
   public async execute({
-    role_id,
+    client_application_role_id,
     username,
     password,
     active,
@@ -37,7 +37,10 @@ class CreateService {
     token,
   }: IRequest): Promise<ClientApplicationUser> {
     let clientApplicationUser =
-      await this.clientsApplicationsUsersRepository.findByUsername(username);
+      await this.clientsApplicationsUsersRepository.findByUsername(
+        username,
+        client_application_id,
+      );
     if (clientApplicationUser) {
       throw new AppError('Username already used.');
     }
@@ -46,7 +49,7 @@ class CreateService {
 
     clientApplicationUser =
       await this.clientsApplicationsUsersRepository.create({
-        role_id,
+        client_application_role_id,
         username,
         password: hashedPassword,
         active,
@@ -55,7 +58,10 @@ class CreateService {
         token,
       });
 
-    await this.cacheProvider.invalidatePrefix('clients-applications-user-list');
+    await this.cacheProvider.invalidate('clients-applications-users-list');
+    await this.cacheProvider.invalidate(
+      `clients-applications-users-list-${client_application_id}`,
+    );
 
     return clientApplicationUser;
   }
