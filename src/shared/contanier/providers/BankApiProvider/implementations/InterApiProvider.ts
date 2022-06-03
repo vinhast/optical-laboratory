@@ -195,6 +195,7 @@ export default class InterApiProvider implements IBankApiResponse {
           },
         },
       );
+
       return response.data;
     } catch (error: any) {
       throw new AppError(

@@ -79,13 +79,12 @@ class UpdateService {
         await this.financialMovimentsPaymentsRepository.findByFinancialMovimentId(
           id,
         );
-      if (!financialMovimentPayment) {
-        throw new AppError('Financial moviment payment not found');
+      if (financialMovimentPayment) {
+        financialMovimentPayment.situation = 'Cancelled';
+        await this.financialMovimentsPaymentsRepository.save(
+          financialMovimentPayment,
+        );
       }
-      financialMovimentPayment.situation = 'Cancelled';
-      await this.financialMovimentsPaymentsRepository.save(
-        financialMovimentPayment,
-      );
       if (financialMoviment.paymentGateway) {
         bankModule = await this.bankApiProvider.getBankModule(
           financialMoviment.paymentGateway.payment_module_id,
@@ -96,12 +95,13 @@ class UpdateService {
         if (!financialMoviment.due_date) {
           throw new AppError('Due date is invalid date');
         }
-
-        await bankModule.cancelBankSlip({
-          cancellationReason: 'APEDIDODOCLIENTE',
-          credentials: financialMoviment.paymentGateway.credentials,
-          ourNumber: financialMovimentPayment.document_number,
-        });
+        if (financialMovimentPayment) {
+          await bankModule.cancelBankSlip({
+            cancellationReason: 'APEDIDODOCLIENTE',
+            credentials: financialMoviment.paymentGateway.credentials,
+            ourNumber: financialMovimentPayment.document_number,
+          });
+        }
         const createBankSlip = await bankModule?.createBankSlip(
           financialMoviment.paymentGateway.credentials,
           {
@@ -120,12 +120,17 @@ class UpdateService {
             },
           },
         );
+
+        if (!createBankSlip) {
+          throw new AppError('Bank slip was not created');
+        }
         const copyPaymentGateway = {
           ...financialMoviment.paymentGateway,
         };
         copyPaymentGateway.credentials.your_number =
           Number(financialMoviment.paymentGateway.credentials.your_number) + 1;
         await this.paymentGatewaysRepository.save(copyPaymentGateway);
+
         await this.financialMovimentsPaymentsRepository.create({
           bar_code: createBankSlip.codigoBarras,
           digitable_line: createBankSlip.linhaDigitavel,
@@ -168,10 +173,7 @@ class UpdateService {
         await this.financialMovimentsPaymentsRepository.findByFinancialMovimentId(
           id,
         );
-      if (!financialMovimentPayment) {
-        throw new AppError('Financial moviment payment not found');
-      }
-      if (financialMovimentPayment.situation === 'Awaiting payment') {
+      if (financialMovimentPayment?.situation === 'Awaiting payment') {
         financialMovimentPayment.situation = 'Cancelled';
         if (financialMovimentPayment.payment_method === 'B') {
           if (financialMoviment.paymentGateway) {
