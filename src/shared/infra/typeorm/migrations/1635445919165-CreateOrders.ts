@@ -113,6 +113,11 @@ export class CreateOrders1635445919165 implements MigrationInterface {
             isNullable: true,
           },
           {
+            name: 'revenue',
+            type: 'json',
+            isNullable: true,
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',

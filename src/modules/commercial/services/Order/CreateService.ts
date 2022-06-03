@@ -24,6 +24,7 @@ interface IRequest {
   note?: string;
   user_id?: number;
   products: any[];
+  revenue: any;
 }
 
 @injectable()
@@ -55,6 +56,7 @@ class CreateService {
     note,
     user_id,
     products,
+    revenue,
   }: IRequest): Promise<Order> {
     const order = await this.ordersRepository.create({
       os,
@@ -76,6 +78,7 @@ class CreateService {
       note,
       user_id,
       products,
+      revenue,
     });
 
     await this.cacheProvider.invalidatePrefix('orders-list');

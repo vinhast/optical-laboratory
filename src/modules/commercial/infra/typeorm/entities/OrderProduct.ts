@@ -42,7 +42,7 @@ class OrderProduct extends MainEntity {
   @Column()
   cfop?: number;
 
-  @ManyToOne(() => Order)
+  @ManyToOne(() => Order, order => order.ordersProducts)
   @JoinColumn({ name: 'order_id' })
   order: Order;
 
