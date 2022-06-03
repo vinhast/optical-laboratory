@@ -305,6 +305,28 @@ export class CreateFiancialMoviments1635780751957
         onUpdate: 'CASCADE',
       }),
     );
+    await queryRunner.createForeignKey(
+      'financial_moviments',
+      new TableForeignKey({
+        name: 'fk_financial_moviments_generated_user',
+        columnNames: ['generated_user_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'clients_applications_users',
+        onDelete: 'NO ACTION',
+        onUpdate: 'CASCADE',
+      }),
+    );
+    await queryRunner.createForeignKey(
+      'financial_moviments',
+      new TableForeignKey({
+        name: 'fk_financial_moviments_downloaded_user_id',
+        columnNames: ['downloaded_user_id'],
+        referencedColumnNames: ['id'],
+        referencedTableName: 'clients_applications_users',
+        onDelete: 'NO ACTION',
+        onUpdate: 'CASCADE',
+      }),
+    );
 
     await queryRunner.createForeignKey(
       'financial_moviments',

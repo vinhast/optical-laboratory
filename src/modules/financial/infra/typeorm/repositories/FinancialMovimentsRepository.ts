@@ -5,7 +5,6 @@ import ICreateFinancialMovimentDTO from '@modules/financial/dtos/ICreateFinancia
 import IFinancialMovimentsRepository from '@modules/financial/repositories/IFinancialMovimentsRepository';
 import MainRepository from '@shared/infra/typeorm/repositories/MainRepository';
 import httpContext from 'express-http-context';
-import { asyncLocalStorage } from '@shared/infra/http/server';
 
 class FinancialMovimentsRepository
   extends MainRepository
@@ -64,7 +63,14 @@ class FinancialMovimentsRepository
   public save(
     financialMoviment: FinancialMoviment,
   ): Promise<FinancialMoviment> {
-    return this.ormRepository.save(financialMoviment);
+    const financialMovimentData = { ...financialMoviment };
+    delete financialMovimentData.client;
+    delete financialMovimentData.provider;
+    delete financialMovimentData.financialCategory;
+    delete financialMovimentData.financialSubCategory;
+    delete financialMovimentData.generatedUser;
+    delete financialMovimentData.paymentGateway;
+    return this.ormRepository.save(financialMovimentData);
   }
 }
 

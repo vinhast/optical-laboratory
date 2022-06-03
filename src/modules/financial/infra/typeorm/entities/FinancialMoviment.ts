@@ -3,7 +3,6 @@ import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 
 import Client from '@modules/commercial/infra/typeorm/entities/Client';
 import Provider from '@modules/commercial/infra/typeorm/entities/Provider';
-import ClientApplication from '@shared/infra/typeorm/entities/ClientApplication';
 import ClientApplicationUser from '@modules/users/infra/typeorm/entities/ClientApplicationUser';
 import FinancialCategory from './FinancialCategory';
 import PaymentGateway from './PaymentGateway';
@@ -171,13 +170,13 @@ class FinancialMoviment extends MainEntity {
   })
   client?: Client;
 
-  @ManyToOne(() => ClientApplication)
+  @ManyToOne(() => ClientApplicationUser)
   @JoinColumn({ name: 'downloaded_user_id', referencedColumnName: 'id' })
-  downloadedUser?: ClientApplication;
+  downloadedUser?: ClientApplicationUser;
 
-  @ManyToOne(() => ClientApplication)
+  @ManyToOne(() => ClientApplicationUser)
   @JoinColumn({ name: 'generated_user_id', referencedColumnName: 'id' })
-  generatedUser?: ClientApplication;
+  generatedUser?: ClientApplicationUser;
 
   @ManyToOne(() => FinancialCategory)
   @JoinColumn({ name: 'category_id', referencedColumnName: 'id' })

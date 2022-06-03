@@ -37,8 +37,11 @@ class UpdateService {
   ): Promise<FinancialMoviment> {
     const id = financialMovimentUpdate.id;
     let bankModule: IBankApiResponse | undefined;
+    const copyFinancialMovimentUpdate = { ...financialMovimentUpdate };
     const cacheKey = `financial-moviment-get-${id}`;
-    let financialMoviment;
+    let financialMoviment = await this.cacheProvider.recover<
+      FinancialMoviment | undefined
+    >(cacheKey);
 
     if (!financialMoviment) {
       financialMoviment = await this.financialMovimentsRepository.findById(id);
@@ -145,18 +148,19 @@ class UpdateService {
           ),
         );
       }
-      const user = httpContext.get('user');
-      financialMoviment.downloaded_user_id = user?.client_application_id;
-      financialMoviment.downloaded_at =
+      const user: {
+        id: number;
+      } = httpContext.get('user');
+      copyFinancialMovimentUpdate.downloaded_user_id = user?.id;
+      copyFinancialMovimentUpdate.downloaded_at =
         downloaded_at || new Date(moment().format('YYYY-MM-DDTHH:mm:ss[Z]'));
     }
 
     await this.cacheProvider.invalidate(`financial-moviments-list`);
     await this.cacheProvider.invalidate(cacheKey);
-
     await this.financialMovimentsRepository.save({
       ...financialMoviment,
-      ...financialMovimentUpdate,
+      ...copyFinancialMovimentUpdate,
     });
 
     if (financialMovimentUpdate.downloaded_at) {

@@ -235,12 +235,12 @@ class DataTableService {
           if (itemMutation.operation_type === 'C') {
             balance += Number(itemMutation.value);
             itemMutation.balance = balance;
-            itemMutation.description = `${item.client.company_name} - ${item.financialCategory.name} - ${item.financialSubCategory.name}  `;
+            itemMutation.extractDescription = `${item.client.company_name} - ${item.financialCategory.name} - ${item.financialSubCategory.name}  `;
           }
           if (itemMutation.operation_type === 'D') {
             balance -= Number(itemMutation.value);
             itemMutation.balance = balance;
-            itemMutation.description = `${item.provider.company_name} - ${item.financialCategory.name} - ${item.financialSubCategory.name}`;
+            itemMutation.extractDescription = `${item.provider.company_name} - ${item.financialCategory.name} - ${item.financialSubCategory.name}`;
           }
           return itemMutation;
         });
