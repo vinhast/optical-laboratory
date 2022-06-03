@@ -4,17 +4,12 @@ import IFinancialCategoriesRepository from '@modules/users/repositories/IMenusRe
 import ICreateMenuDTO from '@modules/users/dtos/ICreateMenuDTO';
 
 import Menu from '@modules/users/infra/typeorm/entities/Menu';
-import MainRepository from '@shared/infra/typeorm/repositories/MainRepository';
 
-class MenusRepository
-  extends MainRepository
-  implements IFinancialCategoriesRepository
-{
+class MenusRepository implements IFinancialCategoriesRepository {
   private ormRepository: Repository<Menu>;
 
   constructor() {
     const repository = getRepository(Menu);
-    super(repository);
     this.ormRepository = repository;
   }
 
@@ -50,6 +45,12 @@ class MenusRepository
 
   public save(menu: Menu): Promise<Menu> {
     return this.ormRepository.save(menu);
+  }
+
+  public async delete(id: number): Promise<void> {
+    await this.ormRepository.delete({
+      id,
+    });
   }
 }
 
