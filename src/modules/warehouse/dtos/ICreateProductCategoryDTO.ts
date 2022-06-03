@@ -23,4 +23,8 @@ export default interface ICreateProductCategoryDTO {
   dir?: number;
   cover?: string;
   tables?: SaleTablePrice[];
+  unitType?: any;
+  parentProductCategory?: any;
+  childProductCateories?: any;
+  tablesPrices?: any;
 }

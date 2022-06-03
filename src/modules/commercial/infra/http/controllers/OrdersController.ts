@@ -38,6 +38,7 @@ export default class OrdersController {
       note,
       user_id,
       products,
+      revenue,
     } = request.body;
     const createOrder = container.resolve(CreateService);
 
@@ -61,6 +62,7 @@ export default class OrdersController {
       note,
       user_id,
       products,
+      revenue: JSON.stringify(revenue),
     });
 
     return response.json(classToClass(order));
@@ -108,6 +110,7 @@ export default class OrdersController {
       note,
       user_id,
       products,
+      revenue,
     } = request.body;
 
     const updateOrder = container.resolve(UpdateService);
@@ -132,6 +135,7 @@ export default class OrdersController {
       note,
       user_id,
       products,
+      revenue: JSON.stringify(revenue),
     });
 
     return response.json(classToClass(order));

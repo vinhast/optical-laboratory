@@ -10,6 +10,7 @@ import MainRepository from '@shared/infra/typeorm/repositories/MainRepository';
 import SaleTablePrice from '@modules/users/infra/typeorm/entities/SaleTablePrice';
 import httpContext from 'express-http-context';
 import Product from '../entities/Product';
+import StockMoviment from '../entities/StockMoviment';
 
 class ProductCategoriesRepository
   extends MainRepository
@@ -23,6 +24,7 @@ class ProductCategoriesRepository
   private ormRepository: Repository<ProductCategory>;
   private ormSalesTablesPricesRepository: Repository<SaleTablePrice>;
   private ormProductsRepository: Repository<Product>;
+  private ormStocksRepository: Repository<StockMoviment>;
 
   constructor() {
     const repository = getRepository(ProductCategory);
@@ -30,12 +32,13 @@ class ProductCategoriesRepository
     this.ormRepository = repository;
     this.ormSalesTablesPricesRepository = getRepository(SaleTablePrice);
     this.ormProductsRepository = getRepository(Product);
+    this.ormStocksRepository = getRepository(StockMoviment);
     this.myUser = httpContext.get('user');
   }
 
   private buildRange(start = 0, end = 1): string[] {
     const result: string[] = [];
-    for (let index = start; index <= end; index += 0.25) {
+    for (let index = Number(start); index <= Number(end); index += 0.25) {
       result.push(index.toFixed(2));
     }
     return result;
@@ -46,8 +49,8 @@ class ProductCategoriesRepository
       where: {
         client_application_id: this.myUser.client_application_id,
       },
-      relations: ['unitType', 'tablesPrices', 'tablesPrices.table'],
     });
+
     if (parent_id === 'null') {
       items = await this.ormRepository.find({
         where: {
@@ -56,6 +59,7 @@ class ProductCategoriesRepository
         },
       });
     }
+
     return items;
   }
 
@@ -65,22 +69,72 @@ class ProductCategoriesRepository
         id,
         client_application_id: this.myUser.client_application_id,
       },
-      relations: ['unitType'],
+      relations: [
+        'unitType',
+        'tablesPrices',
+        'tablesPrices.table',
+        'parentProductCategory',
+      ],
     });
-    const tables = await this.ormSalesTablesPricesRepository.find({
-      where: {
-        client_application_id: this.myUser.client_application_id,
-        product_category_id: productCategory?.id,
-      },
-    });
+
+    const stocks: any[] = [];
+
+    if (productCategory) {
+      const cylindricalRange = this.buildRange(
+        productCategory.cylindrical_start,
+        productCategory.cylindrical_end,
+      );
+      const sphericalRange = this.buildRange(
+        productCategory.spherical_start,
+        productCategory.spherical_end,
+      );
+      for (const sphe of sphericalRange) {
+        for (const cyli of cylindricalRange) {
+          const product = await this.ormProductsRepository.findOne({
+            where: {
+              client_application_id: this.myUser.client_application_id,
+              product_category_id: id,
+              spherical: Number(sphe),
+              cylindrical: Number(cyli),
+            },
+          });
+          if (product) {
+            const stocksMoviments = await this.ormStocksRepository.find({
+              where: {
+                client_application_id: this.myUser.client_application_id,
+                product_id: product?.id,
+              },
+            });
+            if (stocksMoviments.length) {
+              const sum = stocksMoviments.reduce(
+                (prev, current) => {
+                  const a = {
+                    quantity:
+                      current.origin === 'P'
+                        ? prev.quantity - current.quantity
+                        : prev.quantity + current.quantity,
+                  };
+                  return a;
+                },
+                { quantity: 0 },
+              );
+              stocks.push({
+                spherical: sphe,
+                cylindrical: cyli,
+                sum: sum.quantity,
+              });
+            }
+          }
+        }
+      }
+    }
     return {
       ...productCategory,
-      tables,
+      stocks,
     };
   }
 
   private async saveProducts(productCategory: ProductCategory) {
-    // save products
     if (productCategory.lense_type === 'S') {
       const cylindricalRange = this.buildRange(
         productCategory.cylindrical_start,
@@ -164,8 +218,13 @@ class ProductCategoriesRepository
   public async save(
     productCategoryData: ICreateProductCategoryDTO,
   ): Promise<ProductCategory> {
-    console.log(productCategoryData);
-    const productCategory = await this.ormRepository.save(productCategoryData);
+    const productCategoryDataSave = { ...productCategoryData };
+    productCategoryDataSave.unitType = undefined;
+    productCategoryDataSave.parentProductCategory = undefined;
+    productCategoryDataSave.tablesPrices = undefined;
+    const productCategory = await this.ormRepository.save(
+      productCategoryDataSave,
+    );
     if (productCategoryData.tables) {
       const tables = await this.ormSalesTablesPricesRepository.find({
         where: {

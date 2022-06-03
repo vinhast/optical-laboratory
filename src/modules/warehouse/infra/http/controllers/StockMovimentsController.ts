@@ -4,6 +4,7 @@ import { classToClass } from 'class-transformer';
 
 import ListService from '@modules/warehouse/services/StockMoviment/ListService';
 import CreateService from '@modules/warehouse/services/StockMoviment/CreateService';
+import CreateManyService from '@modules/warehouse/services/StockMoviment/CreateManyService';
 import UpdateService from '@modules/warehouse/services/StockMoviment/UpdateService';
 import GetService from '@modules/warehouse/services/StockMoviment/GetService';
 import DeleteService from '@modules/warehouse/services/StockMoviment/DeleteService';
@@ -40,6 +41,16 @@ export default class stockMovimentsController {
       order_id,
     });
 
+    return response.json(classToClass(stockMoviment));
+  }
+
+  public async addStock(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { stocks } = request.body;
+    const getStockMoviment = container.resolve(CreateManyService);
+    const stockMoviment = await getStockMoviment.execute({ stocks });
     return response.json(classToClass(stockMoviment));
   }
 
