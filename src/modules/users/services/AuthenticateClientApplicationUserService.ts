@@ -41,7 +41,6 @@ class AuthenticateClientApplicationUserService {
   public async execute({ username, password }: IRequest): Promise<IResponse> {
     const clientApplicationUser =
       await this.clientsApplicationsUsersRepository.findByUsername(username);
-
     if (!clientApplicationUser) {
       throw new AppError('Incorret username/password combination.', 401);
     }

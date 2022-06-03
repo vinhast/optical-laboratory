@@ -75,12 +75,6 @@ class DataTableService {
       }
     }
 
-    if (!notAutoIncrementEntities.includes(entity)) {
-      query.andWhere(
-        `${source}.client_application_id = ${userData.client_application_id}`,
-      );
-    }
-
     if (entity === 'ProductCategory') {
       query.leftJoinAndSelect(`${source}.parentProductCategory`, 'family');
     }
@@ -187,6 +181,12 @@ class DataTableService {
         'clients_application',
       );
       query.leftJoinAndSelect(`${source}.user`, 'users');
+    }
+
+    if (!notAutoIncrementEntities.includes(entity)) {
+      query.andWhere(
+        `${source}.client_application_id = ${userData.client_application_id}`,
+      );
     }
 
     let [items] = await query.getManyAndCount();
