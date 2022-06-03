@@ -186,7 +186,7 @@ clientsApplicationsUsersRouter.delete(
   () => {
     /*
      #swagger.tags = ['ClientsApplicationsUsers']
-     #swagger.path = '/users/clientsApplicationsUsers/{id}'
+     #swagger.path = '/users/clientsApplicationsUsers/{id}/${client_application_id}'
      #swagger.description = "Delete client application user"
          #swagger.security = [{
         "bearerAuth": []
