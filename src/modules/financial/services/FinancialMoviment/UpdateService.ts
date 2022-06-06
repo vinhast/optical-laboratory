@@ -145,20 +145,13 @@ class UpdateService {
     }
 
     if (financialMovimentUpdate.finished === 'S') {
-      let downloaded_at;
-      if (financialMovimentUpdate.downloaded_at) {
-        downloaded_at = new Date(
-          moment(financialMovimentUpdate.downloaded_at).format(
-            'YYYY-MM-DDTHH:mm:ss[Z]',
-          ),
-        );
-      }
       const user: {
         id: number;
       } = httpContext.get('user');
       copyFinancialMovimentUpdate.downloaded_user_id = user?.id;
-      copyFinancialMovimentUpdate.downloaded_at =
-        downloaded_at || new Date(moment().format('YYYY-MM-DDTHH:mm:ss[Z]'));
+      copyFinancialMovimentUpdate.downloaded_at = new Date(
+        moment().format('YYYY-MM-DDTHH:mm:ss[Z]'),
+      );
     }
 
     await this.cacheProvider.invalidate(`financial-moviments-list`);

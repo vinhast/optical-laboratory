@@ -108,7 +108,7 @@ export class CreateFinancialMovimentsPayments1653658529483
         columnNames: ['financial_moviment_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'financial_moviments',
-        onDelete: 'NO ACTION',
+        onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       }),
     );
