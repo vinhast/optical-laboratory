@@ -17,11 +17,14 @@ class GetService {
 
   public async execute(id: number): Promise<Menu> {
     const cacheKey = `menu-get-${id}`;
-    let menu = await this.cacheProvider.recover<Menu | undefined>(cacheKey);
+    let menu = await this.cacheProvider.recover<Menu | undefined>(
+      cacheKey,
+      true,
+    );
 
     if (!menu) {
       menu = await this.menusRepository.findById(id);
-      this.cacheProvider.save(cacheKey, classToClass(menu));
+      this.cacheProvider.save(cacheKey, classToClass(menu), true);
     }
 
     if (!menu) {

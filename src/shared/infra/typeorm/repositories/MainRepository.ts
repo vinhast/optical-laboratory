@@ -15,10 +15,10 @@ class MainRepository {
 
   constructor(repository: Repository<any>) {
     this.ormMainRepository = repository;
-    this.user = httpContext.get('user');
   }
 
   public async findById(id: number): Promise<any | undefined> {
+    this.user = httpContext.get('user');
     const item = await this.ormMainRepository.findOne({
       where: {
         id,
@@ -29,6 +29,7 @@ class MainRepository {
   }
 
   public async findAll(): Promise<any[]> {
+    this.user = httpContext.get('user');
     const items = await this.ormMainRepository.find({
       where: {
         client_application_id: this.user.client_application_id,
@@ -38,6 +39,7 @@ class MainRepository {
   }
 
   public async findByName(name: string): Promise<any | undefined> {
+    this.user = httpContext.get('user');
     const item = await this.ormMainRepository.findOne({
       where: {
         name,
@@ -48,6 +50,7 @@ class MainRepository {
   }
 
   public async delete(id: number): Promise<void> {
+    this.user = httpContext.get('user');
     await this.ormMainRepository.delete({
       id,
       client_application_id: this.user.client_application_id,

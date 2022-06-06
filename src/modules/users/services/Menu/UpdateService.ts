@@ -35,7 +35,10 @@ class UpdateService {
     icon,
   }: IRequest): Promise<Menu> {
     const cacheKey = `menu-get-${id}`;
-    let menu = await this.cacheProvider.recover<Menu | undefined>(cacheKey);
+    let menu = await this.cacheProvider.recover<Menu | undefined>(
+      cacheKey,
+      true,
+    );
 
     if (!menu) {
       menu = await this.menusRepository.findById(id);
@@ -52,9 +55,9 @@ class UpdateService {
     menu.action = action;
     menu.icon = icon;
 
-    await this.cacheProvider.invalidate(`menus-list`);
+    await this.cacheProvider.invalidate(`menus-list`, true);
 
-    await this.cacheProvider.invalidate(cacheKey);
+    await this.cacheProvider.invalidate(cacheKey, true);
 
     await this.menusRepository.save(menu);
 

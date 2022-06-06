@@ -18,10 +18,14 @@ class ListService {
     const cacheKey = `client-applications-list`;
     let clientApplication = await this.cacheProvider.recover<
       ClientApplication[]
-    >(cacheKey);
+    >(cacheKey, true);
     if (!clientApplication) {
       clientApplication = await this.clientApplicationsRepository.findAll();
-      await this.cacheProvider.save(cacheKey, classToClass(clientApplication));
+      await this.cacheProvider.save(
+        cacheKey,
+        classToClass(clientApplication),
+        true,
+      );
     }
 
     return clientApplication;

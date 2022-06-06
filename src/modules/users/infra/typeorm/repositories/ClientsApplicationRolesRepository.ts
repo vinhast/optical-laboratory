@@ -18,10 +18,10 @@ class ClientsApplicationRolesRepository
   constructor() {
     const repository = getRepository(ClientApplicationRole);
     this.ormRepository = repository;
-    this.user = httpContext.get('user');
   }
 
   public async findAll(): Promise<ClientApplicationRole[]> {
+    this.user = httpContext.get('user');
     const clientsApplicationRoles = await this.ormRepository.find({
       client_application_id: this.user.client_application_id,
     });
@@ -42,6 +42,7 @@ class ClientsApplicationRolesRepository
   public async findByName(
     name: string,
   ): Promise<ClientApplicationRole | undefined> {
+    this.user = httpContext.get('user');
     const clientApplicationRole = await this.ormRepository.findOne({
       name,
       client_application_id: this.user.client_application_id,
@@ -80,6 +81,7 @@ class ClientsApplicationRolesRepository
   }
 
   public async delete(id: number): Promise<void> {
+    this.user = httpContext.get('user');
     await this.ormRepository.delete({
       id,
       client_application_id: this.user.client_application_id,

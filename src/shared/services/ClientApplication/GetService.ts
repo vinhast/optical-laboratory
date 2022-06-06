@@ -19,11 +19,11 @@ class GetService {
     const cacheKey = `client-application-get-${id}`;
     let clientApplication = await this.cacheProvider.recover<
       ClientApplication | undefined
-    >(cacheKey);
+    >(cacheKey, true);
 
     if (!clientApplication) {
       clientApplication = await this.clientApplicationsRepository.findById(id);
-      this.cacheProvider.save(cacheKey, classToClass(clientApplication));
+      this.cacheProvider.save(cacheKey, classToClass(clientApplication), true);
     }
 
     if (!clientApplication) {

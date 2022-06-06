@@ -18,10 +18,10 @@ class ClientsRepository extends MainRepository implements IClientsRepository {
     const repository = getRepository(Client);
     super(repository);
     this.ormRepository = repository;
-    this.userData = httpContext.get('user');
   }
 
   public async findById(id: number): Promise<any | undefined> {
+    this.userData = httpContext.get('user');
     const client = await this.ormRepository.findOne({
       where: {
         id,

@@ -26,7 +26,7 @@ class DeleteService {
       throw new AppError('Client application not found.', 404);
     }
 
-    await this.cacheProvider.invalidate(`client-applications-list`);
+    await this.cacheProvider.invalidate(`client-applications-list`, true);
 
     await this.clientApplicationsRepository.delete(id);
 

@@ -74,7 +74,7 @@ class CreateService {
       mobile,
     });
 
-    await this.cacheProvider.invalidatePrefix(`client-applications-list`);
+    await this.cacheProvider.invalidate(`client-applications-list`, true);
 
     return clientApplication;
   }

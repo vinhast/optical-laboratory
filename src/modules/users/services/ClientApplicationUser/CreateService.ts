@@ -65,7 +65,6 @@ class CreateService {
     await this.cacheProvider.invalidate(
       `clients-applications-users-list-${client_application_id}`,
     );
-
     return clientApplicationUser;
   }
 }

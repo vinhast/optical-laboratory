@@ -24,8 +24,8 @@ class DeleteService {
       throw new AppError('Payment Module not found.', 404);
     }
 
-    await this.cacheProvider.invalidate(`payment-modules-list`);
-    await this.cacheProvider.invalidate(`payment-module-get-${id}`);
+    await this.cacheProvider.invalidate(`payment-modules-list`, true);
+    await this.cacheProvider.invalidate(`payment-module-get-${id}`, true);
 
     await this.paymentModulesRepository.delete(id);
 

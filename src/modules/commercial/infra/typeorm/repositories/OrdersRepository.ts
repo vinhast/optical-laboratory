@@ -29,7 +29,6 @@ class OrdersRepository extends MainRepository implements IOrdersRepository {
     this.ormOrdersProductsRepository = getRepository(OrderProduct);
     this.ormStocksMovimentsRepository = getRepository(StockMoviment);
     this.ormOrdersStatusLogsRepository = getRepository(OrderSatatusLog);
-    this.userData = httpContext.get('user');
   }
 
   public async setEmailSituation(id: number, value: number): Promise<void> {
@@ -40,6 +39,7 @@ class OrdersRepository extends MainRepository implements IOrdersRepository {
   }
 
   public async findByParentId(parent_id: number): Promise<Order[]> {
+    this.userData = httpContext.get('user');
     const order = await this.ormRepository.find({
       where: {
         parent_id,
@@ -50,6 +50,7 @@ class OrdersRepository extends MainRepository implements IOrdersRepository {
   }
 
   public async updateStatus(order: Order, status: number): Promise<Order> {
+    this.userData = httpContext.get('user');
     const updatedOrder = await this.ormRepository.save({
       ...order,
       status,
@@ -81,6 +82,7 @@ class OrdersRepository extends MainRepository implements IOrdersRepository {
   }
 
   public async findById(id: number): Promise<Order | undefined> {
+    this.userData = httpContext.get('user');
     const order = await this.ormRepository.findOne({
       where: {
         id,
@@ -96,6 +98,7 @@ class OrdersRepository extends MainRepository implements IOrdersRepository {
   }
 
   public async create(orderData: ICreateOrderDTO): Promise<Order> {
+    this.userData = httpContext.get('user');
     const order = this.ormRepository.create({
       ...orderData,
       status: 1, // em aberto

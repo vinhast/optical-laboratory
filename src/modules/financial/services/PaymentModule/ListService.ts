@@ -20,7 +20,11 @@ class ListService {
 
     if (!paymentModules) {
       paymentModules = await this.paymentModulesRepository.findAll();
-      await this.cacheProvider.save(cacheKey, classToClass(paymentModules));
+      await this.cacheProvider.save(
+        cacheKey,
+        classToClass(paymentModules),
+        true,
+      );
     }
 
     return paymentModules;

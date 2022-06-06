@@ -10,7 +10,7 @@ class DeleteService {
   ) {}
 
   public async execute(key: string): Promise<boolean> {
-    const findCacheKey = await this.cacheProvider.recover(key);
+    const findCacheKey = await this.cacheProvider.recover(key, true);
     if (!findCacheKey) {
       throw new AppError('This key not found', 404);
     }

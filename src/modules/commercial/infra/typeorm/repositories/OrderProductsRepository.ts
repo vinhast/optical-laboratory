@@ -21,12 +21,12 @@ class OrderProductsRepository
     const repository = getRepository(OrderProducts);
     super(repository);
     this.ormRepository = repository;
-    this.userData = httpContext.get('user');
   }
 
   public async findByOrder(
     order_id: number,
   ): Promise<OrderProducts[] | undefined> {
+    this.userData = httpContext.get('user');
     const orderProducts = await this.ormRepository.find({
       where: {
         order_id,

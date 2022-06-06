@@ -33,7 +33,7 @@ class CreateService {
       name,
     });
 
-    await this.cacheProvider.invalidate('payment-modules-list');
+    await this.cacheProvider.invalidate('payment-modules-list', true);
 
     return paymentModule;
   }

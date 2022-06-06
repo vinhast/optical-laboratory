@@ -41,7 +41,7 @@ class UpdateService {
     const cacheKey = `client-application-get-${id}`;
     let clientApplication = await this.cacheProvider.recover<
       ClientApplication | undefined
-    >(cacheKey);
+    >(cacheKey, true);
 
     if (!clientApplication) {
       clientApplication = await this.clientApplicationsRepository.findById(id);
@@ -67,9 +67,9 @@ class UpdateService {
       };
     }
 
-    await this.cacheProvider.invalidate(`client-applications-list`);
+    await this.cacheProvider.invalidate(`client-applications-list`, true);
 
-    await this.cacheProvider.invalidate(cacheKey);
+    await this.cacheProvider.invalidate(cacheKey, true);
 
     await this.clientApplicationsRepository.save(clientApplication);
 

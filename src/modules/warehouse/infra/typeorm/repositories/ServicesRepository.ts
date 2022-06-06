@@ -24,10 +24,10 @@ class ServicesRepository extends MainRepository implements IServicesRepository {
     this.ormSalesTablesServicesRepository = getRepository(
       SaleTablePriceService,
     );
-    this.myUser = httpContext.get('user');
   }
 
   public async findById(id: number): Promise<any | undefined> {
+    this.myUser = httpContext.get('user');
     const service = await this.ormRepository.findOne({
       where: {
         id,
@@ -61,6 +61,7 @@ class ServicesRepository extends MainRepository implements IServicesRepository {
   }
 
   public async save(service: ICreateServiceDTO): Promise<Service> {
+    this.myUser = httpContext.get('user');
     const serviceSave = await this.ormRepository.save(service);
     if (service.tables) {
       const tables = await this.ormSalesTablesServicesRepository.find({

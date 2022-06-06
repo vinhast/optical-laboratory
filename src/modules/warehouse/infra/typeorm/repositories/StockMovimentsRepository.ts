@@ -25,7 +25,6 @@ class StockMovimentsRepository
     super(repository);
     this.ormRepository = repository;
     this.ormProductCategorieRepository = getRepository(Product);
-    this.myUser = httpContext.get('user');
   }
 
   async create(
@@ -37,6 +36,7 @@ class StockMovimentsRepository
   }
 
   async createMany(stocks: any[]): Promise<StockMoviment[]> {
+    this.myUser = httpContext.get('user');
     const products = await this.ormProductCategorieRepository.find({
       where: {
         client_application_id: this.myUser.client_application_id,
