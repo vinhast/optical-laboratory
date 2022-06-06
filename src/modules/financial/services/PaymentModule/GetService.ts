@@ -19,11 +19,11 @@ class GetService {
     const cacheKey = `payment-module-get-${id}`;
     let paymentModule = await this.cacheProvider.recover<
       PaymentModule | undefined
-    >(cacheKey);
+    >(cacheKey, true);
 
     if (!paymentModule) {
       paymentModule = await this.paymentModulesRepository.findById(id);
-      this.cacheProvider.save(cacheKey, classToClass(paymentModule));
+      this.cacheProvider.save(cacheKey, classToClass(paymentModule), true);
     }
 
     if (!paymentModule) {

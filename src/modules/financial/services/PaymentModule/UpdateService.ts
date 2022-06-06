@@ -27,7 +27,7 @@ class UpdateService {
     const cacheKey = `payment-module-get-${id}`;
     let paymentModule = await this.cacheProvider.recover<
       PaymentModule | undefined
-    >(cacheKey);
+    >(cacheKey, true);
 
     if (!paymentModule) {
       paymentModule = await this.paymentModulesRepository.findById(id);
@@ -42,9 +42,9 @@ class UpdateService {
       ...paymentModuleUpdate,
     };
 
-    await this.cacheProvider.invalidate(`payment-Modules-list`);
+    await this.cacheProvider.invalidate(`payment-Modules-list`, true);
 
-    await this.cacheProvider.invalidate(cacheKey);
+    await this.cacheProvider.invalidate(cacheKey, true);
 
     await this.paymentModulesRepository.save(paymentModule);
 

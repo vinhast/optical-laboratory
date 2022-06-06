@@ -21,10 +21,10 @@ class DownloadsRepository
     const repository = getRepository(Download);
     super(repository);
     this.ormRepository = repository;
-    this.userData = httpContext.get('user');
   }
 
   public async findById(id: number): Promise<any | undefined> {
+    this.userData = httpContext.get('user');
     const download = await this.ormRepository.findOne({
       where: {
         id,

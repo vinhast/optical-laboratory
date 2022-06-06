@@ -20,12 +20,12 @@ class ClientsApplicationPermissionsRepository
   constructor() {
     const repository = getRepository(ClientsApplicationPermission);
     this.ormRepository = repository;
-    this.user = httpContext.get('user');
   }
 
   public async findById(
     id: number,
   ): Promise<ClientsApplicationPermission | undefined> {
+    this.user = httpContext.get('user');
     const clientApplicationPermission = await this.ormRepository.findOne({
       where: {
         id,
@@ -38,6 +38,7 @@ class ClientsApplicationPermissionsRepository
   public async findByName(
     name: string,
   ): Promise<ClientsApplicationPermission | undefined> {
+    this.user = httpContext.get('user');
     const clientApplicationPermission = await this.ormRepository.findOne({
       where: {
         name,
@@ -69,6 +70,7 @@ class ClientsApplicationPermissionsRepository
   public async findByIds(
     ids: number[],
   ): Promise<ClientsApplicationPermission[]> {
+    this.user = httpContext.get('user');
     const clientsApplicationPermissions = await this.ormRepository.findByIds(
       ids,
       {
@@ -83,6 +85,7 @@ class ClientsApplicationPermissionsRepository
   public async findAllClientsApplicationPermissions(): Promise<
     ClientsApplicationPermission[]
   > {
+    this.user = httpContext.get('user');
     const clientsApplicationPermissions = await this.ormRepository.find({
       where: {
         client_application_id: this.user.client_application_id,
@@ -110,6 +113,7 @@ class ClientsApplicationPermissionsRepository
   }
 
   public async delete(id: number): Promise<void> {
+    this.user = httpContext.get('user');
     await this.ormRepository.delete({
       id,
       client_application_id: this.user.client_application_id,

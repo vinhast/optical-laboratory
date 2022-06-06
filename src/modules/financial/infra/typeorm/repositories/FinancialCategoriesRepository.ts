@@ -22,10 +22,10 @@ class FinancialCategoriesRepository
     const repository = getRepository(FinancialCategory);
     super(repository);
     this.ormRepository = repository;
-    this.userData = httpContext.get('user');
   }
 
   public async findCategoriesAndSubCategories(): Promise<FinancialCategory[]> {
+    this.userData = httpContext.get('user');
     const financialCategories = await this.ormRepository.find({
       where: {
         parent_id: null,
@@ -38,6 +38,7 @@ class FinancialCategoriesRepository
   }
 
   public async findByParentId(parent_id: number): Promise<FinancialCategory[]> {
+    this.userData = httpContext.get('user');
     const financialCategories = await this.ormRepository.find({
       where: {
         parent_id,

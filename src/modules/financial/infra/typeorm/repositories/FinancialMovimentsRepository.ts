@@ -21,7 +21,6 @@ class FinancialMovimentsRepository
     const repository = getRepository(FinancialMoviment);
     super(repository);
     this.ormRepository = repository;
-    this.userData = httpContext.get('user');
   }
 
   public async create(
@@ -33,6 +32,7 @@ class FinancialMovimentsRepository
   }
 
   public async findById(id: number): Promise<FinancialMoviment | undefined> {
+    this.userData = httpContext.get('user');
     const financialMoviment = await this.ormRepository
       .createQueryBuilder('financialMoviment')
       .where(

@@ -16,11 +16,11 @@ class ListService {
 
   public async execute(): Promise<Menu[]> {
     const cacheKey = `menus-list`;
-    let menus = await this.cacheProvider.recover<Menu[]>(cacheKey);
+    let menus = await this.cacheProvider.recover<Menu[]>(cacheKey, true);
 
     if (!menus) {
       menus = await this.menusRepository.findAll();
-      await this.cacheProvider.save(cacheKey, classToClass(menus));
+      await this.cacheProvider.save(cacheKey, classToClass(menus), true);
     }
 
     return menus;

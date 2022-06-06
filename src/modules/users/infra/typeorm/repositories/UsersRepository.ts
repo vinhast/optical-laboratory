@@ -4,15 +4,18 @@ import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
 
 import User from '@modules/users/infra/typeorm/entities/User';
-import MainRepository from '@shared/infra/typeorm/repositories/MainRepository';
 
-class UsersRepository extends MainRepository implements IUsersRepository {
+class UsersRepository implements IUsersRepository {
   private ormRepository: Repository<User>;
 
   constructor() {
     const repository = getRepository(User);
-    super(repository);
     this.ormRepository = repository;
+  }
+
+  public async findById(id: number): Promise<any | undefined> {
+    const user = await this.ormRepository.findOne(id);
+    return user;
   }
 
   public async findByEmail(email: string): Promise<User | undefined> {
@@ -48,6 +51,10 @@ class UsersRepository extends MainRepository implements IUsersRepository {
 
   public save(user: User): Promise<User> {
     return this.ormRepository.save(user);
+  }
+
+  public async delete(id: number): Promise<void> {
+    await this.ormRepository.delete(id);
   }
 }
 

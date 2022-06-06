@@ -29,10 +29,10 @@ class ProductsRepository extends MainRepository implements IProductsRepository {
     this.ormSalesTablesPricesRepository = getRepository(SaleTablePrice);
     this.ormClientsRepository = getRepository(Client);
     this.ormStocksRepository = getRepository(StockMoviment);
-    this.userData = httpContext.get('user');
   }
 
   public async findByCategoryId(category_id: number): Promise<Product[]> {
+    this.userData = httpContext.get('user');
     const products = await this.ormRepository.find({
       where: {
         category_id,
@@ -46,6 +46,7 @@ class ProductsRepository extends MainRepository implements IProductsRepository {
     product: Partial<Product>,
     client_id: number,
   ): Promise<{ products: Product[]; table: SaleTablePrice }> {
+    this.userData = httpContext.get('user');
     const client = await this.ormClientsRepository.findOne({
       where: {
         client_application_id: this.userData.client_application_id,

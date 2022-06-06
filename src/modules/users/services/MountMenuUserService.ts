@@ -39,10 +39,10 @@ class MountMenuUserService {
     client_application_id,
   }: IRequest): Promise<IMenu[]> {
     const cacheKey = `menu-list`;
-    let allMenus = await this.cacheProvider.recover<Menu[]>(cacheKey);
+    let allMenus = await this.cacheProvider.recover<Menu[]>(cacheKey, true);
 
     allMenus = await this.menusRepository.findAll();
-    await this.cacheProvider.save(cacheKey, classToClass(allMenus));
+    await this.cacheProvider.save(cacheKey, classToClass(allMenus), true);
 
     const nestMenus = (menus: IMenu[], id: number | null = null): IMenu[] => {
       return menus

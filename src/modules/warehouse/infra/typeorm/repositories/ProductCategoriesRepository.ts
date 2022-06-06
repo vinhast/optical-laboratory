@@ -33,7 +33,6 @@ class ProductCategoriesRepository
     this.ormSalesTablesPricesRepository = getRepository(SaleTablePrice);
     this.ormProductsRepository = getRepository(Product);
     this.ormStocksRepository = getRepository(StockMoviment);
-    this.myUser = httpContext.get('user');
   }
 
   private buildRange(start = 0, end = 1): string[] {
@@ -45,6 +44,7 @@ class ProductCategoriesRepository
   }
 
   public async findAll(parent_id?: string): Promise<any[]> {
+    this.myUser = httpContext.get('user');
     let items = await this.ormRepository.find({
       where: {
         client_application_id: this.myUser.client_application_id,
@@ -64,6 +64,7 @@ class ProductCategoriesRepository
   }
 
   public async findById(id: number): Promise<any | undefined> {
+    this.myUser = httpContext.get('user');
     const productCategory = await this.ormRepository.findOne({
       where: {
         id,
@@ -135,6 +136,7 @@ class ProductCategoriesRepository
   }
 
   private async saveProducts(productCategory: ProductCategory) {
+    this.myUser = httpContext.get('user');
     if (productCategory.lense_type === 'S') {
       const cylindricalRange = this.buildRange(
         productCategory.cylindrical_start,
@@ -199,6 +201,7 @@ class ProductCategoriesRepository
   public async create(
     productCategoryData: ICreateProductCategoryDTO,
   ): Promise<ProductCategory> {
+    this.myUser = httpContext.get('user');
     const productCategory = this.ormRepository.create(productCategoryData);
 
     await this.ormRepository.save(productCategory);
@@ -218,6 +221,7 @@ class ProductCategoriesRepository
   public async save(
     productCategoryData: ICreateProductCategoryDTO,
   ): Promise<ProductCategory> {
+    this.myUser = httpContext.get('user');
     const productCategoryDataSave = { ...productCategoryData };
     productCategoryDataSave.unitType = undefined;
     productCategoryDataSave.parentProductCategory = undefined;

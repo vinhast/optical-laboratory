@@ -44,6 +44,7 @@ class FinancialMovimentPaymentsRepository
   public async findByFinancialMovimentId(
     financial_moviment_id: number,
   ): Promise<FinancialMovimentPayment | undefined> {
+    this.userData = httpContext.get('user');
     const financialMovimentPayment = await this.ormRepository.findOne({
       where: {
         financial_moviment_id,

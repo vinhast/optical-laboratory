@@ -18,10 +18,10 @@ class ClientsApplicationsUsersRepository
 
   constructor() {
     this.ormRepository = getRepository(ClientApplicationUser);
-    this.user = httpContext.get('user');
   }
 
   public async findAll(): Promise<ClientApplicationUser[]> {
+    this.user = httpContext.get('user');
     const clientsApplicationsUsers = await this.ormRepository.find({
       where: {
         client_application_id: this.user.client_application_id,
@@ -45,6 +45,7 @@ class ClientsApplicationsUsersRepository
     username: string,
     client_application_id?: number,
   ): Promise<ClientApplicationUser | undefined> {
+    this.user = httpContext.get('user');
     const clientApplicationUser = await this.ormRepository.findOne({
       where: {
         username,
@@ -71,6 +72,7 @@ class ClientsApplicationsUsersRepository
     id: number,
     client_application_id?: number,
   ): Promise<ClientApplicationUser | undefined> {
+    this.user = httpContext.get('user');
     const clientApplicationUser = await this.ormRepository.findOne({
       where: {
         id,
@@ -85,6 +87,7 @@ class ClientsApplicationsUsersRepository
   public async findByToken(
     token: string,
   ): Promise<ClientApplicationUser | undefined> {
+    this.user = httpContext.get('user');
     const clientApplicationUser = await this.ormRepository.findOne({
       where: {
         token,
@@ -116,6 +119,7 @@ class ClientsApplicationsUsersRepository
     id: number,
     client_application_id: number,
   ): Promise<void> {
+    this.user = httpContext.get('user');
     await this.ormRepository.delete({
       id,
       client_application_id:

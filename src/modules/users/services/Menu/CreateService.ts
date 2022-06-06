@@ -45,7 +45,7 @@ class CreateService {
       action,
     });
 
-    await this.cacheProvider.invalidate('menus-list');
+    await this.cacheProvider.invalidate('menus-list', true);
 
     return menu;
   }
