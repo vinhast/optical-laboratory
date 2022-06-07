@@ -22,6 +22,7 @@ class CreateService {
       stocks,
     );
     await this.cacheProvider.invalidate(`stock-moviments-list`);
+    await this.cacheProvider.invalidatePrefix(`product-category-get`);
 
     return stockMoviment;
   }

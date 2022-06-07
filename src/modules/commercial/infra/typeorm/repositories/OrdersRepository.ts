@@ -87,12 +87,12 @@ class OrdersRepository extends MainRepository implements IOrdersRepository {
         client_application_id: this.userData.client_application_id,
       },
     });
-    const orders_products = await this.ormOrdersProductsRepository.find({
+    const ordersProducts = await this.ormOrdersProductsRepository.find({
       order_id: order?.id,
       client_application_id: this.userData.client_application_id,
     });
 
-    return order ? { ...order, orders_products } : undefined;
+    return order ? { ...order, ordersProducts } : undefined;
   }
 
   public async create(orderData: ICreateOrderDTO): Promise<Order> {

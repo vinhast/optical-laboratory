@@ -29,6 +29,7 @@ class StatusService {
     const orderStatus = await this.ordersRepository.updateStatus(order, status);
     await this.cacheProvider.invalidate(`orders-list`);
     await this.cacheProvider.invalidate(cacheKey);
+    await this.cacheProvider.invalidatePrefix(`product-category-get`);
 
     return orderStatus;
   }
