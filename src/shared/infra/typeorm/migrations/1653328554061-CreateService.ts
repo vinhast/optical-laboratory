@@ -32,7 +32,7 @@ export class CreateService1653328554061 implements MigrationInterface {
           },
           {
             name: 'price',
-            type: 'varchar(5)',
+            type: 'varchar(20)',
             isNullable: true,
           },
           {
