@@ -149,6 +149,49 @@ class DataTableService {
             }"`,
           );
         }
+      } else if (entity === 'Order') {
+        if (parameters.client_id) {
+          query.andWhere(
+            `${source}.${parameters.fieldDate || 'client_id'} = "${
+              parameters.client_id
+            }"`,
+          );
+        }
+        if (parameters.start_date) {
+          parameters.start_date = moment(parameters.start_date)
+            .startOf('day')
+            .format('YYYY-MM-DDTHH:mm:ss[Z]');
+          query.andWhere(
+            `${source}.${parameters.fieldDate || 'created_at'} >= "${
+              parameters.start_date
+            }"`,
+          );
+        }
+        if (parameters.end_date) {
+          parameters.end_date = moment(parameters.end_date)
+            .endOf('day')
+            .format('YYYY-MM-DDTHH:mm:ss[Z]');
+
+          query.andWhere(
+            `${source}.${parameters.fieldDate || 'created_at'} <= "${
+              parameters.end_date
+            }"`,
+          );
+        }
+        if (parameters.type) {
+          query.andWhere(
+            `${source}.${parameters.fieldDate || 'type'} = "${
+              parameters.type
+            }"`,
+          );
+        }
+        if (parameters.status) {
+          query.andWhere(
+            `${source}.${parameters.fieldDate || 'status'} = "${
+              parameters.status
+            }"`,
+          );
+        }
       } else {
         query.where(parameters);
       }

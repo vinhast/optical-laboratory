@@ -23,7 +23,6 @@ class ResetPasswordClientApplicationUserService {
   public async execute({ token, password }: IReaquest): Promise<void> {
     const clientApplicationUser =
       await this.clientsApplicationsUsersRepository.findByToken(token);
-
     if (!clientApplicationUser) {
       throw new AppError('Client application user token does not exists');
     }

@@ -1,52 +1,27 @@
-// import Redis, { Redis as RedisClient } from 'ioredis';
+import Redis, { Redis as RedisClient } from 'ioredis';
 
 import cacheConfig from '@config/cache';
 import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICacheProvider';
-import httpContext from 'express-http-context';
 
 const redisPrefix = process.env.REDIS_PREFIX;
 
 export default class RedisCacheProvider implements ICacheProvider {
-  private client: any;
-  // private client: RedisClient;
-  private userData: {
-    id: number;
-    client_application_id: number;
-    role_id: number;
-  };
+  private client: RedisClient;
 
   constructor() {
-    // this.client? = new Redis(cacheConfig.config.redis);
+    this.client = new Redis(cacheConfig.config.redis);
   }
 
-  public async save(
-    key: string,
-    value: any,
-    notClientAppId?: boolean,
-  ): Promise<void> {
-    this.userData = httpContext.get('user');
-    await this.client?.set(
-      notClientAppId
-        ? redisPrefix + key
-        : `${redisPrefix + key}-${this.userData?.client_application_id}`,
-      JSON.stringify(value),
-    );
+  public async save(key: string, value: any): Promise<void> {
+    await this.client.set(redisPrefix + key, JSON.stringify(value));
   }
   public async getAllKeys(): Promise<string[]> {
-    const keys = await this.client?.keys('*');
+    const keys = await this.client.keys('*');
     return keys;
   }
 
-  public async recover<T>(
-    key: string,
-    notClientAppId?: boolean,
-  ): Promise<T | null> {
-    this.userData = httpContext.get('user');
-    const data = await this.client?.get(
-      notClientAppId
-        ? redisPrefix + key
-        : `${redisPrefix + key}-${this.userData?.client_application_id}`,
-    );
+  public async recover<T>(key: string): Promise<T | null> {
+    const data = await this.client.get(redisPrefix + key);
     if (!data) {
       return null;
     }
@@ -55,24 +30,16 @@ export default class RedisCacheProvider implements ICacheProvider {
     return parseData;
   }
 
-  public async invalidate(
-    key: string,
-    notClientAppId?: boolean,
-  ): Promise<void> {
-    this.userData = httpContext.get('user');
-    this.client?.del(
-      notClientAppId
-        ? redisPrefix + key
-        : `${redisPrefix + key}-${this.userData?.client_application_id}`,
-    );
+  public async invalidate(key: string): Promise<void> {
+    this.client.del(redisPrefix + key);
   }
 
   public async invalidatePrefix(prefix: string): Promise<void> {
-    const keys = await this.client?.keys(`${redisPrefix + prefix}*`);
+    const keys = await this.client.keys(`${redisPrefix + prefix}:*`);
 
-    const pipeline = this.client?.pipeline();
+    const pipeline = this.client.pipeline();
 
-    keys.forEach((key: any) => {
+    keys.forEach(key => {
       pipeline.del(key);
     });
 

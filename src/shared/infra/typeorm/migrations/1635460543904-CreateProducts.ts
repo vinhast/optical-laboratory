@@ -47,7 +47,7 @@ export class CreateProducts1635460543904 implements MigrationInterface {
           },
           {
             name: 'price',
-            type: 'varchar(6)',
+            type: 'varchar(20)',
             isNullable: true,
           },
           {

@@ -40,7 +40,9 @@
     "swagger-autogen": "^2.21.1",
     "swagger-ui-express": "^4.3.0",
     "tsyringe": "^4.4.0",
-    "typeorm": "^0.2.37"
+    "typeorm": "^0.2.37",
+    "redis": "^3.0.2",
+    "ioredis": "^4.19.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.14",
@@ -71,8 +73,10 @@
     "jest": "^26.6.3",
     "prettier": "^2.1.1",
     "ts-jest": "^26.4.4",
-    "ts-node-dev": "^1.1.8",
+    "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^3.9.0",
-    "typescript": "^4.0.5"
+    "typescript": "^4.0.5",
+    "@types/redis": "^2.8.28",
+    "@types/ioredis": "^4.19.1"
   }
 }
