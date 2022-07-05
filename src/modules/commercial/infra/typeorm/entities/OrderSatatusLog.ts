@@ -11,8 +11,24 @@ class OrderSatatusLog extends MainEntity {
   @Column()
   client_application_user_id: number;
 
-  @Column()
-  status: number;
+  @Column({
+    type: 'enum',
+    enum: ['Open', 'Accomplished', 'Separated', 'Sent', 'Finished'],
+    transformer: {
+      from: value => {
+        const statusTransform: any = {
+          Accomplished: 'Realizado',
+          Separated: 'Separado',
+          Sent: 'Enviado',
+          Open: 'Em Aberto',
+          Finished: 'Finalizado',
+        };
+        return statusTransform[value];
+      },
+      to: value => value,
+    },
+  })
+  status?: 'Open' | 'Accomplished' | 'Separated' | 'Sent' | 'Finished';
 
   @ManyToOne(() => ClientApplicationUser)
   @JoinColumn({

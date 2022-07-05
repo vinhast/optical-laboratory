@@ -2,6 +2,7 @@ import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 
 import { MainEntity } from '@shared/infra/typeorm/entities/MainEntity';
 import User from '@modules/users/infra/typeorm/entities/User';
+import moment from 'moment';
 import Client from './Client';
 import OrderProduct from './OrderProduct';
 
@@ -34,7 +35,14 @@ class Order extends MainEntity {
   @Column()
   shipping_value?: string;
 
-  @Column()
+  @Column({
+    transformer: {
+      from: value => {
+        return moment(value).format('DD/MM/YYYY');
+      },
+      to: value => value,
+    },
+  })
   shipping_time?: string;
 
   @Column()
@@ -46,13 +54,52 @@ class Order extends MainEntity {
   @Column()
   installments?: number;
 
-  @Column()
-  status?: number;
+  @Column({
+    type: 'enum',
+    enum: ['Open', 'Accomplished', 'Separated', 'Sent', 'Finished'],
+    transformer: {
+      from: value => {
+        const statusTransform: any = {
+          Accomplished: 'Realizado',
+          Separated: 'Separado',
+          Sent: 'Enviado',
+          Open: 'Em Aberto',
+          Finished: 'Finalizado',
+        };
+        return statusTransform[value];
+      },
+      to: value => value,
+    },
+  })
+  status?: 'Open' | 'Accomplished' | 'Separated' | 'Sent' | 'Finished';
 
-  @Column()
+  @Column({
+    transformer: {
+      from: value => {
+        const typesTransform: any = {
+          V: 'Venda',
+          B: 'Venda para Beneficiação',
+          S: 'Venda para Saldo',
+        };
+        return typesTransform[value];
+      },
+      to: value => value,
+    },
+  })
   type: string;
 
-  @Column()
+  @Column({
+    transformer: {
+      from: value => {
+        const profitTransform: any = {
+          S: 'Sim',
+          N: 'Não',
+        };
+        return profitTransform[value];
+      },
+      to: value => value,
+    },
+  })
   profit: string;
 
   @Column()

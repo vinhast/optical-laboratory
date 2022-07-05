@@ -93,8 +93,7 @@ export class CreateOrders1635445919165 implements MigrationInterface {
           },
           {
             name: 'status',
-            type: 'int',
-            unsigned: true,
+            type: 'enum("Open","Accomplished","Separated","Sent","Finished")',
             isNullable: true,
           },
           {

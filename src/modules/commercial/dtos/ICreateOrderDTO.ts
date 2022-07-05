@@ -12,7 +12,7 @@ export default interface ICreateOrderDTO {
   payment_method?: string;
   payment_date?: Date;
   installments?: number;
-  status?: number;
+  status?: 'Open' | 'Accomplished' | 'Separated' | 'Sent' | 'Finished';
   type: string;
   profit: string;
   note?: string;

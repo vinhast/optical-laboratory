@@ -4,7 +4,10 @@ import ICreateOrderDTO from '../dtos/ICreateOrderDTO';
 export default interface IOrderRsepository {
   findAll(): Promise<Order[]>;
   findById(id: number): Promise<Order | undefined>;
-  updateStatus(order: Order, status: number): Promise<Order>;
+  updateStatus(
+    order: Order,
+    status: 'Open' | 'Accomplished' | 'Separated' | 'Sent' | 'Finished',
+  ): Promise<Order>;
   findByName(name: string): Promise<Order | undefined>;
   create(data: ICreateOrderDTO): Promise<Order>;
   save(order: Order): Promise<Order>;

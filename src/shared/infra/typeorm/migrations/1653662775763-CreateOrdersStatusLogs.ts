@@ -31,7 +31,7 @@ export class CreateOrdersStatusLogs1653662775763 implements MigrationInterface {
           },
           {
             name: 'status',
-            type: 'int',
+            type: 'enum("Open","Accomplished","Separated","Sent","Finished")',
           },
           {
             name: 'created_at',

@@ -49,7 +49,10 @@ class OrdersRepository extends MainRepository implements IOrdersRepository {
     return order;
   }
 
-  public async updateStatus(order: Order, status: number): Promise<Order> {
+  public async updateStatus(
+    order: Order,
+    status: 'Open' | 'Accomplished' | 'Separated' | 'Sent' | 'Finished',
+  ): Promise<Order> {
     this.userData = httpContext.get('user');
     const updatedOrder = await this.ormRepository.save({
       ...order,
@@ -60,7 +63,7 @@ class OrdersRepository extends MainRepository implements IOrdersRepository {
       client_application_user_id: this.userData.id,
       status,
     });
-    if ([2, 3, 4].includes(status)) {
+    if (['Finished'].includes(status)) {
       const ordersProducts = await this.ormOrdersProductsRepository.find({
         order_id: order.id,
         client_application_id: this.userData.client_application_id,
@@ -101,13 +104,13 @@ class OrdersRepository extends MainRepository implements IOrdersRepository {
     this.userData = httpContext.get('user');
     const order = this.ormRepository.create({
       ...orderData,
-      status: 1, // em aberto
+      status: 'Open', // em aberto
     });
     await this.ormRepository.save(order);
     await this.ormOrdersStatusLogsRepository.save({
       order_id: order.id,
       client_application_user_id: this.userData.id,
-      status: 1,
+      status: 'Open',
     });
     if (orderData.products.length) {
       for (const orderP of orderData.products) {

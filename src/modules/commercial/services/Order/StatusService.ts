@@ -15,7 +15,10 @@ class StatusService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute(id: number, status: number): Promise<Order> {
+  public async execute(
+    id: number,
+    status: 'Open' | 'Accomplished' | 'Separated' | 'Sent' | 'Finished',
+  ): Promise<Order> {
     const cacheKey = `order-get-${id}`;
     let order = await this.cacheProvider.recover<Order | undefined>(cacheKey);
 

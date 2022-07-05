@@ -83,7 +83,7 @@ export default class OrdersController {
     const { id } = request.params;
     const { status } = request.body;
     const finishOrder = container.resolve(StatusService);
-    const order = await finishOrder.execute(Number(id), Number(status));
+    const order = await finishOrder.execute(Number(id), status);
 
     return response.json(classToClass(order));
   }
