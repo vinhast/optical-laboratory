@@ -7,6 +7,7 @@ import GetService from '@shared/services/ClientApplication/GetService';
 import ListService from '@shared/services/ClientApplication/ListService';
 import UpdateService from '@shared/services/ClientApplication/UpdateService';
 import DeleteService from '@shared/services/ClientApplication/DeleteService';
+import httpContext from 'express-http-context';
 
 export default class ClientApplicationsController {
   public async list(request: Request, response: Response): Promise<Response> {

@@ -117,22 +117,22 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
     if (entity !== 'AuditLog' && entity !== 'UserToken') {
       if (event.entity) {
         const userData = httpContext.get('user');
-        const client_application_id = userData.client_application_id;
         let user;
         let descriptions;
         let auditLog: AuditLog;
         const entity_id = event.entity.id;
         const type = 'create';
         const ormRepository = event.manager.getRepository(AuditLog);
-        if (userData.type === 'ClientApplicationUser') {
+
+        if (userData.type && userData.type === 'ClientApplicationUser') {
           user = (await event.manager.getRepository(userData.type).findOne(
             {
               id: userData.id,
-              client_application_id,
+              client_application_id: userData.client_application_id,
             },
             { relations: ['clientApplication'] },
           )) as ClientApplicationUser;
-          descriptions = `Registro criado por ${user?.clientApplication.name}`;
+          descriptions = `Registro criado por ${user?.clientApplication?.name}`;
           auditLog = ormRepository.create({
             type,
             descriptions,
@@ -198,7 +198,7 @@ export default class EverythingSubscriber implements EntitySubscriberInterface {
       if (changes.length > 0 || type === 'delete') {
         let auditLog: AuditLog;
         const ormRepository = event.manager.getRepository(AuditLog);
-        if (user.type === 'ClientApplicationUser') {
+        if (user.type && user.type === 'ClientApplicationUser') {
           auditLog = ormRepository.create({
             type,
             entity,

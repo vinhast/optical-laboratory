@@ -1,4 +1,4 @@
-import Redis, { Redis as RedisClient } from 'ioredis';
+// import Redis, { Redis as RedisClient } from 'ioredis';
 
 import cacheConfig from '@config/cache';
 import ICacheProvider from '@shared/contanier/providers/CacheProvider/models/ICacheProvider';
@@ -7,7 +7,8 @@ import httpContext from 'express-http-context';
 const redisPrefix = process.env.REDIS_PREFIX;
 
 export default class RedisCacheProvider implements ICacheProvider {
-  private client: RedisClient;
+  private client: any;
+  // private client: RedisClient;
   private userData: {
     id: number;
     client_application_id: number;
@@ -15,7 +16,7 @@ export default class RedisCacheProvider implements ICacheProvider {
   };
 
   constructor() {
-    this.client = new Redis(cacheConfig.config.redis);
+    // this.client? = new Redis(cacheConfig.config.redis);
   }
 
   public async save(
@@ -24,7 +25,7 @@ export default class RedisCacheProvider implements ICacheProvider {
     notClientAppId?: boolean,
   ): Promise<void> {
     this.userData = httpContext.get('user');
-    await this.client.set(
+    await this.client?.set(
       notClientAppId
         ? redisPrefix + key
         : `${redisPrefix + key}-${this.userData?.client_application_id}`,
@@ -32,7 +33,7 @@ export default class RedisCacheProvider implements ICacheProvider {
     );
   }
   public async getAllKeys(): Promise<string[]> {
-    const keys = await this.client.keys('*');
+    const keys = await this.client?.keys('*');
     return keys;
   }
 
@@ -41,7 +42,7 @@ export default class RedisCacheProvider implements ICacheProvider {
     notClientAppId?: boolean,
   ): Promise<T | null> {
     this.userData = httpContext.get('user');
-    const data = await this.client.get(
+    const data = await this.client?.get(
       notClientAppId
         ? redisPrefix + key
         : `${redisPrefix + key}-${this.userData?.client_application_id}`,
@@ -59,7 +60,7 @@ export default class RedisCacheProvider implements ICacheProvider {
     notClientAppId?: boolean,
   ): Promise<void> {
     this.userData = httpContext.get('user');
-    this.client.del(
+    this.client?.del(
       notClientAppId
         ? redisPrefix + key
         : `${redisPrefix + key}-${this.userData?.client_application_id}`,
@@ -67,11 +68,11 @@ export default class RedisCacheProvider implements ICacheProvider {
   }
 
   public async invalidatePrefix(prefix: string): Promise<void> {
-    const keys = await this.client.keys(`${redisPrefix + prefix}*`);
+    const keys = await this.client?.keys(`${redisPrefix + prefix}*`);
 
-    const pipeline = this.client.pipeline();
+    const pipeline = this.client?.pipeline();
 
-    keys.forEach(key => {
+    keys.forEach((key: any) => {
       pipeline.del(key);
     });
 

@@ -25,12 +25,13 @@ class SendForgotPasswordClientApplicationUserService {
   public async execute({ username }: IRequest): Promise<void> {
     const clientApplicationUser =
       await this.clientsApplicationsUsersRepository.findByUsername(username);
+    console.log(username, clientApplicationUser);
     if (!clientApplicationUser) {
       throw new AppError('Username not exists.');
     }
 
     const { secret, expiresIn, expiresInForgotToken } = authConfig.jwt;
-    const subject = `${clientApplicationUser.id}#${clientApplicationUser.role_id}#${clientApplicationUser.client_application_id}`;
+    const subject = `${clientApplicationUser.id}#${clientApplicationUser.client_application_role_id}#${clientApplicationUser.client_application_id}`;
     const token = sign({}, secret, {
       subject,
       expiresIn,
@@ -52,16 +53,19 @@ class SendForgotPasswordClientApplicationUserService {
       'views',
       'forgot_password.hbs',
     );
+    if (!clientApplicationUser.clientApplication) {
+      throw new AppError('Client Application invalid');
+    }
     await this.mailProvider.sendMail({
       to: {
-        name: clientApplicationUser.clientApplication.name,
-        email: clientApplicationUser.clientApplication.email,
+        name: clientApplicationUser.clientApplication?.name,
+        email: clientApplicationUser.clientApplication?.email,
       },
       subject: '[opticalLaboratory] Recuperação de senha',
       templateData: {
         file: forgotPawwordTemplate,
         variables: {
-          name: clientApplicationUser.clientApplication.name,
+          name: clientApplicationUser.clientApplication?.name,
           link: `${process.env.APP_WEB_URL}/forgot?token=${token}`,
         },
       },

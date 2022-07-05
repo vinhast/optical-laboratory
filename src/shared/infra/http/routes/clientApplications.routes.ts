@@ -101,6 +101,7 @@ clientApplicationsRouter.get(
 
 clientApplicationsRouter.put(
   '/update/:id',
+  ensureAuthenticated,
   upload.single('avatar'),
   clientApplicationsController.update,
   () => {

@@ -29,7 +29,6 @@ routes.use('/commercial', commercialRouter);
 routes.use('/warehouse', warehouseRouter);
 routes.use('/dataTable', dataTableRouter);
 routes.use('/menus', menusRouter);
-
 routes.use('/clientsApplication', clientApplicationsRouter);
 
 export default routes;

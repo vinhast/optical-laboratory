@@ -28,7 +28,7 @@ class SendForgotPasswordUserService {
     }
 
     const { secret, expiresIn, expiresInForgotToken } = authConfig.jwt;
-    const subject = `${user.id}#${user.role_id}#${user.client_application_id}`;
+    const subject = `${user.id}#${user.role_id}`;
     const token = sign({}, secret, {
       subject,
       expiresIn,
@@ -60,7 +60,7 @@ class SendForgotPasswordUserService {
         file: forgotPawwordTemplate,
         variables: {
           name: user.name,
-          link: `${process.env.APP_WEB_URL}/forgot?token=${token}`,
+          link: `${process.env.APP_WEB_MANAGER_URL}/forgot?token=${token}`,
         },
       },
     });
