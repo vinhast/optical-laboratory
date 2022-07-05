@@ -18,7 +18,7 @@ passwordRouter.post(
   '/forgot/clientApplicationUser',
   celebrate({
     [Segments.BODY]: {
-      username: Joi.string().required(),
+      email: Joi.string().required(),
     },
   }),
   forgotPasswordClientApplicationUserController.create,
@@ -46,9 +46,9 @@ passwordRouter.post(
                   schema: { 
                     type: 'object',
                     properties: {
-                      username: {
+                      email: {
                         type: 'string',
-                        example: 'test'
+                        example: 'test@test.com'
                       },
 
                     },

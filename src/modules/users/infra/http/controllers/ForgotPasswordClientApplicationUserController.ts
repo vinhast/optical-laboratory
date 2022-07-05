@@ -5,14 +5,14 @@ import SendForgotPasswordClientApplicationUserService from '@modules/users/servi
 
 export default class ForgotPasswordClientApplicationUserController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const { username } = request.body;
+    const { email } = request.body;
 
     const sendForgotPasswordClientApplicationUserService = container.resolve(
       SendForgotPasswordClientApplicationUserService,
     );
 
     await sendForgotPasswordClientApplicationUserService.execute({
-      username,
+      email,
     });
 
     return response.status(204).json();

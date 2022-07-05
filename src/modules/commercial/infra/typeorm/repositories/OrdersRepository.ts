@@ -57,7 +57,7 @@ class OrdersRepository extends MainRepository implements IOrdersRepository {
     });
     await this.ormOrdersStatusLogsRepository.save({
       order_id: order.id,
-      user_id: this.userData.id,
+      client_application_user_id: this.userData.id,
       status,
     });
     if ([2, 3, 4].includes(status)) {
@@ -106,7 +106,7 @@ class OrdersRepository extends MainRepository implements IOrdersRepository {
     await this.ormRepository.save(order);
     await this.ormOrdersStatusLogsRepository.save({
       order_id: order.id,
-      user_id: this.userData.id,
+      client_application_user_id: this.userData.id,
       status: 1,
     });
     if (orderData.products.length) {

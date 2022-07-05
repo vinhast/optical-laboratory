@@ -26,7 +26,7 @@ export class CreateOrdersStatusLogs1653662775763 implements MigrationInterface {
             type: 'int',
           },
           {
-            name: 'user_id',
+            name: 'client_application_user_id',
             type: 'int',
           },
           {
@@ -66,10 +66,10 @@ export class CreateOrdersStatusLogs1653662775763 implements MigrationInterface {
     await queryRunner.createForeignKey(
       'orders_status_logs',
       new TableForeignKey({
-        name: 'fk_orders_status_logs_users',
-        columnNames: ['user_id'],
+        name: 'fk_orders_status_logs_clients_applications_users_id',
+        columnNames: ['client_application_user_id'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'users',
+        referencedTableName: 'clients_applications_users',
         onDelete: 'NO ACTION',
         onUpdate: 'NO ACTION',
       }),
@@ -83,7 +83,7 @@ export class CreateOrdersStatusLogs1653662775763 implements MigrationInterface {
     );
     await queryRunner.dropForeignKey(
       'orders_status_logs',
-      'fk_orders_status_logs_users',
+      'fk_orders_status_logs_clients_applications_users_id',
     );
     await queryRunner.dropTable('orders_status_logs');
   }

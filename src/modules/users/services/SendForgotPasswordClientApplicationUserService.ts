@@ -10,7 +10,7 @@ import moment from 'moment';
 import IClientsApplicationsUsersRepository from '../repositories/IClientsApplicationsUsersRepository';
 
 interface IRequest {
-  username: string;
+  email: string;
 }
 
 @injectable()
@@ -22,10 +22,9 @@ class SendForgotPasswordClientApplicationUserService {
     private mailProvider: IMailProvider,
   ) {}
 
-  public async execute({ username }: IRequest): Promise<void> {
+  public async execute({ email }: IRequest): Promise<void> {
     const clientApplicationUser =
-      await this.clientsApplicationsUsersRepository.findByUsername(username);
-    console.log(username, clientApplicationUser);
+      await this.clientsApplicationsUsersRepository.findByEmail(email);
     if (!clientApplicationUser) {
       throw new AppError('Username not exists.');
     }

@@ -87,11 +87,9 @@ class ClientsApplicationsUsersRepository
   public async findByToken(
     token: string,
   ): Promise<ClientApplicationUser | undefined> {
-    this.user = httpContext.get('user');
     const clientApplicationUser = await this.ormRepository.findOne({
       where: {
         token,
-        client_application_id: this.user.client_application_id,
       },
     });
     return clientApplicationUser;
